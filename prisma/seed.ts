@@ -1,0 +1,59 @@
+import { PrismaClient, Condition } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+async function main() {
+  await prisma.building.createMany({
+    skipDuplicates: true,
+    data: [
+      {
+        id: "seed-ar-rahman",
+        name: "Masjid Ar-Rahman",
+        address: "Batununggal, Bandung Kidul, Kota Bandung",
+        provinceId: "32",
+        provinceName: "Jawa Barat",
+        regencyId: "3273",
+        regencyName: "Kota Bandung",
+        districtId: "3273080",
+        districtName: "Bandung Kidul",
+        villageName: "Batununggal",
+        latitude: -6.9469,
+        longitude: 107.6328,
+        condition: Condition.RUSAK_BERAT,
+        capacity: 100,
+        establishedYear: 2000,
+        currentArea: "10 x 10 meter",
+        mainMaterial: "Bata merah, kayu",
+        landStatus: "Milik wakaf"
+      },
+      {
+        id: "seed-nurul-huda",
+        name: "Masjid Nurul Huda",
+        address: "Cipinang, Cimaung, Kab. Bandung",
+        provinceId: "32",
+        provinceName: "Jawa Barat",
+        regencyId: "3204",
+        regencyName: "Kabupaten Bandung",
+        districtName: "Cimaung",
+        villageName: "Cipinang",
+        latitude: -7.1035,
+        longitude: 107.5867,
+        condition: Condition.RUSAK_SEDANG,
+        capacity: 180,
+        establishedYear: 1998,
+        currentArea: "12 x 15 meter",
+        mainMaterial: "Bata ringan, kayu"
+      }
+    ]
+  });
+}
+
+main()
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
+

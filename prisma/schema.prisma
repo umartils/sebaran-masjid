@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Building {
+  id                  String   @id @default(cuid())
+  name                String
+  address             String
+  provinceId          String
+  provinceName        String
+  regencyId           String
+  regencyName         String
+  districtId          String?
+  districtName        String?
+  villageId           String?
+  villageName         String?
+  latitude            Float
+  longitude           Float
+  condition           Condition @default(RUSAK_SEDANG)
+  capacity            Int?
+  establishedYear     Int?
+  initialBudget       Decimal? @db.Decimal(14, 2)
+  currentArea         String?
+  mainMaterial        String?
+  expansionStatus     String?
+  renovationHistory   String?
+  expansionTarget     String?
+  landStatus          String?
+  notes               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@index([name])
+  @@index([provinceId, regencyId])
+}
+
+enum Condition {
+  RUSAK_BERAT
+  RUSAK_SEDANG
+  RUSAK_RINGAN
+  LAYAK
+}
+
