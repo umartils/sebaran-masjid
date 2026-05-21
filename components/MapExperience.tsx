@@ -8,7 +8,7 @@ import type { Building, BuildingCondition } from "@/lib/types";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), {
   ssr: false,
-  loading: () => <div className="leaflet-container" />
+  loading: () => <div className="h-screen min-h-[620px] w-full max-md:min-h-screen" />
 });
 
 const conditions: Array<{ value: "ALL" | BuildingCondition; label: string }> = [
@@ -18,6 +18,13 @@ const conditions: Array<{ value: "ALL" | BuildingCondition; label: string }> = [
   { value: "RUSAK_RINGAN", label: "Rusak Ringan" },
   { value: "LAYAK", label: "Layak" }
 ];
+
+const fieldClass = "mb-3 grid gap-[3px]";
+const labelClass = "text-[15px] font-semibold text-slate-700";
+const controlClass =
+  "min-h-[54px] w-full rounded-lg border border-line bg-white px-[18px] text-slate-700 outline-0";
+const badgeClass =
+  "inline-flex min-h-5 items-center rounded-full px-[15px] py-1.5 text-[10px] font-medium";
 
 export function MapExperience({ buildings }: { buildings: Building[] }) {
   const [query, setQuery] = useState("");
@@ -60,18 +67,21 @@ export function MapExperience({ buildings }: { buildings: Building[] }) {
     filteredBuildings.find((building) => building.id === selectedId) ?? filteredBuildings[0] ?? buildings[0];
 
   return (
-    <section className="map-page">
+    <section className="relative min-h-screen overflow-hidden">
       <LeafletMap buildings={filteredBuildings} selected={selectedBuilding} onSelect={setSelectedId} />
 
-      <aside className="map-panel" aria-label="Panel pencarian bangunan">
-        <h1>Cari Masjid</h1>
-        <p className="subtitle">Temukan masjid yang membutuhkan bantuan</p>
+      <aside
+        className="absolute bottom-[25px] left-2.5 top-[25px] z-[450] w-[min(430px,calc(100vw-132px))] overflow-auto rounded-[18px] bg-white/[0.96] p-[30px] shadow-[0_24px_60px_rgba(15,23,42,0.12)] max-md:bottom-3.5 max-md:left-5 max-md:right-5 max-md:top-auto max-md:max-h-[48vh] max-md:w-auto max-md:rounded-[14px]"
+        aria-label="Panel pencarian bangunan"
+      >
+        <h1 className="m-0 text-[23px] leading-[1.15] max-md:text-[28px]">Cari Masjid</h1>
+        <p className="mb-7 mt-1 text-base text-muted max-md:mb-[22px] max-md:text-lg">Temukan masjid yang membutuhkan bantuan</p>
 
-        <label className="field">
-          <span className="search-control">
-            <Search size={22} />
+        <label className={fieldClass}>
+          <span className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" size={22} />
             <input
-              className="control"
+              className={`${controlClass} pl-[50px]`}
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Cari nama atau desa..."
@@ -80,9 +90,9 @@ export function MapExperience({ buildings }: { buildings: Building[] }) {
           </span>
         </label>
 
-        <label className="field">
-          <span className="label">Filter Kondisi</span>
-          <select className="control" value={condition} onChange={(event) => setCondition(event.target.value as typeof condition)}>
+        <label className={fieldClass}>
+          <span className={labelClass}>Filter Kondisi</span>
+          <select className={controlClass} value={condition} onChange={(event) => setCondition(event.target.value as typeof condition)}>
             {conditions.map((item) => (
               <option key={item.value} value={item.value}>
                 {item.label}
@@ -91,9 +101,9 @@ export function MapExperience({ buildings }: { buildings: Building[] }) {
           </select>
         </label>
 
-        <label className="field">
-          <span className="label">Provinsi</span>
-          <select className="control" value={province} onChange={(event) => setProvince(event.target.value)}>
+        <label className={fieldClass}>
+          <span className={labelClass}>Provinsi</span>
+          <select className={controlClass} value={province} onChange={(event) => setProvince(event.target.value)}>
             <option value="ALL">Seluruh Indonesia</option>
             {provinces.map(([id, name]) => (
               <option key={id} value={id}>
@@ -103,20 +113,22 @@ export function MapExperience({ buildings }: { buildings: Building[] }) {
           </select>
         </label>
 
-        <div className="divider" />
-        <div className="result-count">Hasil Pencarian ({filteredBuildings.length})</div>
+        <div className="my-0 mb-5 mt-[34px] h-px bg-line" />
+        <div className="text-base font-bold text-muted">Hasil Pencarian ({filteredBuildings.length})</div>
 
-        <div className="result-list">
+        <div className="mt-3.5 grid gap-2.5">
           {filteredBuildings.map((building) => (
             <button
-              className={`result-card ${building.id === selectedBuilding?.id ? "active" : ""}`}
+              className={`w-full rounded-lg border bg-white p-5 text-left ${
+                building.id === selectedBuilding?.id ? "border-brand" : "border-line"
+              }`}
               key={building.id}
               type="button"
               onClick={() => setSelectedId(building.id)}
             >
-              <h2>{building.name}</h2>
-              <p>{building.address}</p>
-              <span className={`badge ${conditionTone(building.condition)}`}>{conditionLabel(building.condition)}</span>
+              <h2 className="mb-1.5 mt-0 text-lg leading-[1.2]">{building.name}</h2>
+              <p className="mb-3 mt-0 text-sm text-muted">{building.address}</p>
+              <span className={`${badgeClass} ${conditionTone(building.condition)}`}>{conditionLabel(building.condition)}</span>
             </button>
           ))}
         </div>

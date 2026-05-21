@@ -12,8 +12,8 @@ export function conditionLabel(condition: BuildingCondition) {
 }
 
 export function conditionTone(condition: BuildingCondition) {
-  if (condition === "RUSAK_BERAT") return "danger";
-  if (condition === "LAYAK") return "success";
-  return "warning";
+  if (condition === "RUSAK_BERAT") return "bg-red-100 text-danger";
+  if (condition === "LAYAK") return "bg-green-100 text-success";
+  return "bg-amber-100 text-warning";
 }
 
