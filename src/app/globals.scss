@@ -218,7 +218,7 @@ button {
   top: 25px;
   bottom: 25px;
   left: 10px;
-  width: min(430px, calc(100vw - 132px));
+  width: min(410px, calc(100vw - 132px));
   padding: 30px;
   overflow: auto;
   border-radius: 18px;
@@ -259,13 +259,14 @@ button {
 
 .field {
   display: grid;
-  gap: 3px;
-  margin-bottom: 12px;
+  gap: 1px;
+  margin-bottom: 8px;
 }
 
 .label {
+  margin-top: 2px;
   color: #334155;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -316,8 +317,8 @@ textarea.control {
 
 .result-list {
   display: grid;
-  gap: 10px;
-  margin-top: 14px;
+  gap: 8px;
+  margin-top: 15px;
 }
 
 .result-card {
@@ -334,14 +335,14 @@ textarea.control {
 
   h2 {
     margin: 0 0 6px;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.2;
   }
 
   p {
     margin: 0 0 12px;
     color: $muted;
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
@@ -350,7 +351,7 @@ textarea.control {
   display: inline-flex;
   align-items: center;
   padding: 6px 15px;
-  border-radius: 999px;
+  border-radius: 25px;
   font-size: 10px;
   font-weight: 500;
 
@@ -428,23 +429,23 @@ textarea.control {
 }
 
 .popup-head {
-  padding: 20px 18px 5px;
+  padding: 18px 18px 3px;
   color: #ffffff;
   background: $brand;
 
   h3 {
-    margin: 0 0 3px;
-    font-size: 21px;
-    line-height: 1.18;
+    margin: 1px 0 3px;
+    font-size: 20px;
+    line-height: 1;
 
     @include mobile {
-      font-size: 18px;
+      font-size: 15px;
     }
   }
 
   p {
     margin: 0;
-    font-size: 12px;
+    font-size: 11px;
   }
 
   @include mobile {
@@ -465,8 +466,7 @@ textarea.control {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 4px 0;
+  gap: 5px;
   border-bottom: 1px dashed $line;
   font-size: 12px;
 

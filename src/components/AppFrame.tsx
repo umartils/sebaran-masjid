@@ -7,6 +7,7 @@ import {
   ChevronLeft,
   ChevronRight,
   LayoutDashboard,
+  LogIn,
   Map,
   PlusCircle,
 } from "lucide-react";
@@ -40,10 +41,7 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
           {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
         </button>
 
-        <Link
-          className="brand"
-          href="/"
-        >
+        <Link className="brand" href="/">
           <Image
             src="/assets/cropped-logo-masjid-nusantara.png"
             alt="Logo"
@@ -76,10 +74,7 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
 
         <div className="sidebar-footer">
           {pathname === "/" ? (
-            <Link
-              className="login-button"
-              href="/input"
-            >
+            <Link className="login-button" href="/input">
               Login Relawan
             </Link>
           ) : (

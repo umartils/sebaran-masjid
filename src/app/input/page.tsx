@@ -1,5 +1,5 @@
 import { AppFrame } from "@/components/AppFrame";
-import { BuildingForm } from "@/components/BuildingForm";
+import { BuildingForm } from "@/components/form/BuildingForm";
 
 export default function InputPage() {
   return (
