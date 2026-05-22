@@ -17,3 +17,11 @@ export const Condition = {
 } as const
 
 export type Condition = (typeof Condition)[keyof typeof Condition]
+
+
+export const Role = {
+  Relawan: 'Relawan',
+  Admin: 'Admin'
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]

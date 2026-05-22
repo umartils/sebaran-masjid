@@ -835,10 +835,6 @@ export type BuildingSumOrderByAggregateInput = {
   initialBudget?: Prisma.SortOrder
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -849,14 +845,6 @@ export type FloatFieldUpdateOperationsInput = {
 
 export type EnumConditionFieldUpdateOperationsInput = {
   set?: $Enums.Condition
-}
-
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 export type NullableDecimalFieldUpdateOperationsInput = {

@@ -1,5 +1,6 @@
 $brand: #f6a313;
 $brand-dark: #d88906;
+$brand-light: #fff8ec;
 $ink: #14213d;
 $muted: #64748b;
 $line: #dbe3ed;
@@ -48,11 +49,15 @@ button {
   cursor: pointer;
 }
 
+// ─── App Shell ────────────────────────────────────────────────────────────────
+
 .app-shell {
   min-height: 100vh;
   display: flex;
   background: $soft;
 }
+
+// ─── Sidebar ──────────────────────────────────────────────────────────────────
 
 .sidebar {
   position: fixed;
@@ -66,9 +71,10 @@ button {
   background: rgba(255, 255, 255, 0.97);
   border-right: 1px solid $line;
   transition: width 180ms ease, transform 180ms ease;
+  box-shadow: 2px 0 20px rgba(14, 30, 60, 0.06);
 
   @include mobile {
-    width: 286px;
+    width: 250px;
     transform: translateX(0);
   }
 
@@ -77,7 +83,7 @@ button {
     padding-inline: 20px;
 
     @include mobile {
-      width: 286px;
+      width: 250px;
       transform: translateX(-100%);
     }
 
@@ -92,12 +98,27 @@ button {
       padding: 0;
     }
 
+    .nav-lock-badge {
+      display: none;
+    }
+
     .sidebar-toggle {
       @include mobile {
         left: calc(100% + 12px);
         right: auto;
       }
     }
+  }
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
+
+  @include mobile {
+    padding: 4px 0;
   }
 }
 
@@ -114,7 +135,13 @@ button {
   border-radius: 999px;
   color: #ffffff;
   background: $brand;
-  box-shadow: 0 10px 24px rgba(246, 163, 19, 0.3);
+  box-shadow: 0 10px 24px rgba(246, 163, 19, 0.35);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+
+  &:hover {
+    transform: scale(1.08);
+    box-shadow: 0 14px 28px rgba(246, 163, 19, 0.45);
+  }
 
   @include mobile {
     right: -20px;
@@ -127,13 +154,37 @@ button {
   align-items: center;
   gap: 14px;
   color: #3d424a;
+  text-decoration: none;
+
+  @include mobile {
+    gap: 10px;
+  }
+}
+
+.brand-logo-wrapper {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  object-fit: contain;
+}
+
+.brand-text {
   font-size: 30px;
   font-weight: 800;
+  line-height: 1;
+
+  @include mobile {
+    font-size: 26px;
+  }
 }
 
 .nav {
   display: grid;
-  gap: 10px;
+  gap: 6px;
 }
 
 .nav-item {
@@ -141,23 +192,102 @@ button {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 0 28px;
-  border-radius: 8px;
+  padding: 0 20px;
+  border-radius: 10px;
   color: #65748a;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 600;
+  transition: background 150ms ease, color 150ms ease;
+  position: relative;
 
   svg {
     flex: 0 0 auto;
   }
 
+  &:hover:not(.active) {
+    background: $soft;
+    color: $ink;
+  }
+
   &.active {
-    border-radius: 15px;
+    border-radius: 12px;
     color: #ffffff;
     background: $brand;
-    box-shadow: 0 10px 20px rgba(246, 163, 19, 0.24);
+    box-shadow: 0 8px 20px rgba(246, 163, 19, 0.28);
+  }
+
+  &--locked {
+    opacity: 0.7;
+
+    &:hover {
+      background: #fff3e0 !important;
+      color: $warning !important;
+    }
   }
 }
+
+.nav-lock-badge {
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: #fef3c7;
+  color: $warning;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-parent {
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.nav-expand {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.nav-children {
+  display: flex;
+  flex-direction: column;
+  margin-left: 18px;
+  gap: 4px;
+}
+
+.nav-child {
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 14px;
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
+.nav-child:hover {
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 1;
+}
+
+.nav-child.active {
+  background: rgba(255, 255, 255, 0.12);
+  font-weight: 600;
+  opacity: 1;
+}
+
+// ─── User Info / Sidebar Footer ───────────────────────────────────────────────
 
 .sidebar-footer {
   margin-top: auto;
@@ -165,17 +295,94 @@ button {
   border-top: 1px dashed $line;
 }
 
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: $soft;
+  border: 1px solid $line;
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: $brand;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: $ink;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-role {
+  font-size: 11px;
+  color: $muted;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: $muted;
+  flex-shrink: 0;
+  transition: background 150ms, color 150ms;
+
+  &:hover {
+    background: #fee2e2;
+    color: $danger;
+  }
+}
+
 .login-button {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   width: 100%;
   padding: 14px 10px;
-  border-radius: 10px;
+  border-radius: 12px;
   color: #ffffff;
   background: $brand;
   text-align: center;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
+  border: 0;
+  transition: background 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+  box-shadow: 0 4px 14px rgba(246, 163, 19, 0.3);
+
+  &:hover {
+    background: $brand-dark;
+    box-shadow: 0 8px 20px rgba(246, 163, 19, 0.4);
+    transform: translateY(-1px);
+  }
 }
+
+// ─── Content Area ─────────────────────────────────────────────────────────────
 
 .content {
   width: 100%;
@@ -195,6 +402,8 @@ button {
     }
   }
 }
+
+// ─── Map Page ─────────────────────────────────────────────────────────────────
 
 .map-page {
   position: relative;
@@ -218,16 +427,18 @@ button {
   top: 25px;
   bottom: 25px;
   left: 10px;
-  width: min(410px, calc(100vw - 132px));
+  width: min(420px, calc(100vw - 132px));
   padding: 30px;
   overflow: auto;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+  backdrop-filter: blur(8px);
 
   h1 {
     margin: 0;
-    font-size: 23px;
+    font-size: 24px;
+    font-weight: 700;
     line-height: 1.15;
 
     @include mobile {
@@ -242,14 +453,14 @@ button {
     left: 20px;
     width: auto;
     max-height: 48vh;
-    border-radius: 14px;
+    border-radius: 16px;
   }
 }
 
 .subtitle {
   margin: 4px 0 28px;
   color: $muted;
-  font-size: 16px;
+  font-size: 15px;
 
   @include mobile {
     margin-bottom: 22px;
@@ -257,10 +468,12 @@ button {
   }
 }
 
+// ─── Form Controls ────────────────────────────────────────────────────────────
+
 .field {
   display: grid;
-  gap: 1px;
-  margin-bottom: 8px;
+  gap: 4px;
+  margin-bottom: 10px;
 }
 
 .label {
@@ -272,13 +485,19 @@ button {
 
 .control {
   width: 100%;
-  min-height: 54px;
+  min-height: 52px;
   padding: 0 18px;
-  border: 1px solid $line;
-  border-radius: 8px;
+  border: 1.5px solid $line;
+  border-radius: 10px;
   color: #334155;
   background: #ffffff;
   outline: 0;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+
+  &:focus {
+    border-color: $brand;
+    box-shadow: 0 0 0 3px rgba(246, 163, 19, 0.12);
+  }
 }
 
 textarea.control {
@@ -296,6 +515,7 @@ textarea.control {
     top: 50%;
     color: $muted;
     transform: translateY(-50%);
+    pointer-events: none;
   }
 
   input {
@@ -305,55 +525,73 @@ textarea.control {
 
 .divider {
   height: 1px;
-  margin: 34px 0 20px;
+  margin: 28px 0 18px;
   background: $line;
 }
 
 .result-count {
   color: $muted;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .result-list {
   display: grid;
   gap: 8px;
-  margin-top: 15px;
+  margin-top: 12px;
 }
 
 .result-card {
   width: 100%;
-  padding: 20px;
-  border: 1px solid $line;
-  border-radius: 8px;
+  padding: 16px 18px;
+  border: 1.5px solid $line;
+  border-radius: 12px;
   background: #ffffff;
   text-align: left;
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+
+  &:hover {
+    border-color: #c0ccda;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+    transform: translateY(-1px);
+  }
 
   &.active {
     border-color: $brand;
+    background: $brand-light;
+    box-shadow: 0 4px 16px rgba(246, 163, 19, 0.15);
   }
 
   h2 {
-    margin: 0 0 6px;
-    font-size: 16px;
-    line-height: 1.2;
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: $ink;
   }
 
   p {
-    margin: 0 0 12px;
+    margin: 0 0 10px;
     color: $muted;
-    font-size: 13px;
+    font-size: 12px;
+    line-height: 1.4;
   }
 }
+
+// ─── Badges ───────────────────────────────────────────────────────────────────
 
 .badge {
   min-height: 20px;
   display: inline-flex;
   align-items: center;
-  padding: 6px 15px;
+  padding: 4px 12px;
   border-radius: 25px;
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 
   &--danger {
     color: $danger;
@@ -371,20 +609,28 @@ textarea.control {
   }
 }
 
+// ─── Map Marker & Popup ───────────────────────────────────────────────────────
+
 .marker-dot {
   width: 18px;
   height: 18px;
   border: 4px solid #ffffff;
   border-radius: 50%;
   background: $brand;
-  box-shadow: 0 6px 16px rgba(17, 24, 39, 0.3);
+  box-shadow: 0 4px 14px rgba(17, 24, 39, 0.28);
+  transition: transform 150ms ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
 }
 
 .building-popup {
   .leaflet-popup-content-wrapper {
     padding: 0;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
 
     @include mobile {
       box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
@@ -418,9 +664,9 @@ textarea.control {
 }
 
 .popup-card {
-  width: 250px;
+  width: 260px;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 12px;
   background: #ffffff;
 
   @include mobile {
@@ -429,14 +675,15 @@ textarea.control {
 }
 
 .popup-head {
-  padding: 18px 18px 3px;
+  padding: 18px 18px 10px;
   color: #ffffff;
-  background: $brand;
+  background: linear-gradient(135deg, $brand, $brand-dark);
 
   h3 {
-    margin: 1px 0 3px;
+    margin: 1px 0 4px;
     font-size: 20px;
-    line-height: 1;
+    font-weight: 700;
+    // line-height: 1.1;
 
     @include mobile {
       font-size: 15px;
@@ -446,28 +693,30 @@ textarea.control {
   p {
     margin: 0;
     font-size: 11px;
+    opacity: 0.85;
+    line-height: 1.4;
   }
 
   @include mobile {
-    padding: 18px 14px 5px;
+    padding: 16px 14px 8px;
   }
 }
 
 .popup-body {
-  padding: 12px 15px 16px;
+  padding: 8px 15px 10px;
 
   @include mobile {
-    padding: 8px 18px 5px;
+    padding: 6px 14px 8px;
   }
 }
 
 .popup-row {
-  min-height: 30px;
+  min-height: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 5px;
-  border-bottom: 1px dashed $line;
+  border-bottom: 1px solid #f1f5f9;
   font-size: 12px;
 
   &:last-child {
@@ -476,11 +725,14 @@ textarea.control {
 
   p {
     margin: 0;
+    color: $muted;
   }
 
   strong {
     max-width: 150px;
     text-align: right;
+    color: $ink;
+    font-weight: 600;
   }
 
   @include mobile {
@@ -509,10 +761,78 @@ textarea.control {
   }
 }
 
+/* ── Floating Mode Toggle ── */
+.map-mode-toggle {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  gap: 0.5rem;
+  background: white;
+  border-radius: 999px;
+  padding: 0.35rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+}
+
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  background: transparent;
+  color: #555;
+  transition: background 0.2s, color 0.2s;
+  @include mobile {
+    padding: 7px 20px;
+    font-size: 12px;
+  }
+}
+
+.toggle-btn.active {
+  background: $brand;
+  color: white;
+}
+
+.toggle-btn:not(.active):hover {
+  background: #f1f5f9;
+}
+
+/* ── Mode Badge di Panel ── */
+.mode-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+  width: fit-content;
+}
+
+.badge-renovasi {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge-dibangun {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+// ─── Form Page ────────────────────────────────────────────────────────────────
+
 .form-page {
   min-height: 100vh;
   padding: 50px 24px;
-  background: linear-gradient(90deg, #f6f9fc, #ffffff 18%, #ffffff 82%, #f6f9fc);
+  background: linear-gradient(135deg, #f6f9fc 0%, #ffffff 40%, #fff8ec 100%);
 
   @include mobile {
     padding: 86px 14px 24px;
@@ -523,9 +843,9 @@ textarea.control {
   width: min(1000px, 100%);
   margin: 0 auto;
   padding: 52px 50px;
-  border-radius: 18px;
+  border-radius: 20px;
   background: #ffffff;
-  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
 
   @include mobile {
     padding: 28px 20px;
@@ -535,13 +855,14 @@ textarea.control {
 .form-header {
   margin-bottom: 36px;
   padding-bottom: 28px;
-  border-bottom: 1px solid $line;
+  border-bottom: 2px solid $brand-light;
   text-align: center;
 
   h1 {
     margin: 0 0 8px;
-    color: $brand;
-    font-size: 36px;
+    color: $brand-dark;
+    font-size: 34px;
+    font-weight: 800;
 
     @include mobile {
       font-size: 27px;
@@ -551,7 +872,7 @@ textarea.control {
   p {
     margin: 0;
     color: #53647c;
-    font-size: 21px;
+    font-size: 18px;
 
     @include mobile {
       font-size: 17px;
@@ -563,13 +884,17 @@ textarea.control {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 34px 0 22px;
-  font-size: 26px;
+  margin: 36px 0 22px;
+  font-size: 22px;
+  font-weight: 800;
+  color: $ink;
+  padding-left: 4px;
+  border-left: 4px solid $brand;
 
   @include mobile {
     gap: 10px;
     margin: 28px 0 20px;
-    font-size: 23px;
+    font-size: 20px;
   }
 }
 
@@ -603,26 +928,39 @@ textarea.control {
 
 .secondary-button,
 .primary-button {
-  min-height: 54px;
+  min-height: 52px;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 18px;
-  border-radius: 8px;
+  padding: 0 22px;
+  border-radius: 10px;
   font-weight: 700;
+  transition: all 150ms ease;
 }
 
 .secondary-button {
   justify-content: center;
-  border: 1px solid #cbd5e1;
+  border: 1.5px solid #cbd5e1;
   color: #1f334f;
   background: #f8fafc;
+
+  &:hover {
+    border-color: #94a3b8;
+    background: #f1f5f9;
+  }
 }
 
 .primary-button {
   border: 0;
   color: #ffffff;
   background: $brand;
+  box-shadow: 0 4px 14px rgba(246, 163, 19, 0.3);
+
+  &:hover {
+    background: $brand-dark;
+    box-shadow: 0 8px 20px rgba(246, 163, 19, 0.4);
+    transform: translateY(-1px);
+  }
 }
 
 .button-icon {
@@ -632,41 +970,494 @@ textarea.control {
 .form-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 34px;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px dashed $line;
 }
 
 .help {
-  margin: 2px 0 0;
-  color: #53647c;
-  font-size: 14px;
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .status-message {
-  margin-top: 18px;
+  margin-top: 16px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: $soft;
+  border: 1px solid $line;
   color: #334155;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
 }
+
+// ─── Admin Page ───────────────────────────────────────────────────────────────
 
 .admin-page {
   min-height: 100vh;
   padding: 40px;
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: 28px;
+    font-weight: 800;
+  }
+
+  @include mobile {
+    padding: 24px 16px;
+  }
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.stat-card {
+  padding: 20px 24px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1.5px solid $line;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: box-shadow 150ms ease, transform 150ms ease;
+
+  &:hover {
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    transform: translateY(-2px);
+  }
+
+  &--danger {
+    border-color: #fecaca;
+    background: #fff5f5;
+
+    .stat-number {
+      color: $danger;
+    }
+  }
+
+  &--warning {
+    border-color: #fed7aa;
+    background: #fffbf0;
+
+    .stat-number {
+      color: $warning;
+    }
+  }
+
+  &--success {
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+
+    .stat-number {
+      color: $success;
+    }
+  }
+}
+
+.stat-number {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  color: $ink;
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: $muted;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1.5px solid $line;
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
 }
 
 .admin-page .subtitle {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .admin-table {
   width: 100%;
-  overflow: hidden;
   border-collapse: collapse;
-  border-radius: 8px;
-  background: #ffffff;
 
-  th,
-  td {
-    padding: 16px;
-    border-bottom: 1px solid $line;
+  th {
+    padding: 14px 18px;
+    border-bottom: 2px solid $line;
     text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    color: $muted;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: #f8fafc;
   }
+
+  td {
+    padding: 16px 18px;
+    border-bottom: 1px solid $line;
+    font-size: 14px;
+    vertical-align: top;
+
+    &:last-child {
+      font-size: 12px;
+      color: $muted;
+      font-family: monospace;
+    }
+  }
+
+  tr:last-child td {
+    border-bottom: 0;
+  }
+
+  tr:hover td {
+    background: #fafbfc;
+  }
+}
+
+.table-address {
+  font-size: 12px;
+  color: $muted;
+}
+
+.table-province {
+  font-size: 12px;
+  color: $muted;
+}
+
+.table-coords {
+  white-space: nowrap;
+}
+
+// ─── Protected Loading ────────────────────────────────────────────────────────
+
+.protected-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: $muted;
+  font-size: 15px;
+}
+
+.protected-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid $line;
+  border-top-color: $brand;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+// ─── Login Page ───────────────────────────────────────────────────────────────
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #fff8ed 0%, #ffffff 50%, #fef3c7 100%);
+}
+
+.login-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.login-bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.12;
+
+  &--1 {
+    width: 600px;
+    height: 600px;
+    background: $brand;
+    top: -200px;
+    right: -150px;
+  }
+
+  &--2 {
+    width: 400px;
+    height: 400px;
+    background: $brand-dark;
+    bottom: -100px;
+    left: -120px;
+  }
+
+  &--3 {
+    width: 200px;
+    height: 200px;
+    background: $brand;
+    top: 40%;
+    left: 10%;
+    opacity: 0.06;
+  }
+}
+
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: min(440px, 100%);
+  padding: 48px 44px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 32px 80px rgba(15, 23, 42, 0.12),
+    0 0 0 1px rgba(246, 163, 19, 0.1);
+  backdrop-filter: blur(12px);
+
+  @include mobile {
+    padding: 36px 28px;
+  }
+}
+
+.login-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 32px;
+  color: $muted;
+  font-size: 13px;
+  font-weight: 600;
+  transition: color 150ms ease;
+
+  &:hover {
+    color: $ink;
+  }
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.login-logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $brand-light;
+  border-radius: 20px;
+  border: 2px solid rgba(246, 163, 19, 0.2);
+  box-shadow: 0 8px 20px rgba(246, 163, 19, 0.15);
+
+  img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+  }
+}
+
+.login-title {
+  margin: 0 0 4px;
+  font-size: 30px;
+  font-weight: 900;
+  color: $ink;
+  letter-spacing: -0.02em;
+}
+
+.login-subtitle {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: $brand-dark;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.login-desc {
+  margin: 0;
+  font-size: 14px;
+  color: $muted;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.login-input-wrap {
+  position: relative;
+}
+
+.login-input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.login-input {
+  width: 100%;
+  height: 52px;
+  padding: 0 44px;
+  border: 1.5px solid $line;
+  border-radius: 12px;
+  background: #ffffff;
+  color: $ink;
+  font-size: 15px;
+  outline: 0;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+
+  &::placeholder {
+    color: #c0ccda;
+  }
+
+  &:focus {
+    border-color: $brand;
+    box-shadow: 0 0 0 4px rgba(246, 163, 19, 0.1);
+  }
+
+  &--password {
+    padding-right: 50px;
+  }
+}
+
+.login-eye {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #94a3b8;
+  transition: color 150ms, background 150ms;
+
+  &:hover {
+    color: $ink;
+    background: $soft;
+  }
+}
+
+.login-error {
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: $danger;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.login-submit {
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  border: 0;
+  border-radius: 12px;
+  background: $brand;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(246, 163, 19, 0.35);
+  transition: background 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+
+  &:hover:not(:disabled) {
+    background: $brand-dark;
+    box-shadow: 0 8px 24px rgba(246, 163, 19, 0.45);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.login-spinner {
+  width: 22px;
+  height: 22px;
+  border: 2.5px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.login-hint {
+  margin: 20px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: $muted;
+}
+
+.login-link {
+  color: $brand-dark;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover {
+    color: $brand;
+  }
+}
+
+// ─── Animations ───────────────────────────────────────────────────────────────
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-card {
+  animation: fadeIn 0.4s ease both;
 }

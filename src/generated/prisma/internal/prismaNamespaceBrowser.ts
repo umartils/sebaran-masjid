@@ -52,7 +52,11 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Building: 'Building'
+  Account: 'Account',
+  Session: 'Session',
+  VerificationToken: 'VerificationToken',
+  Building: 'Building',
+  MasjidMN: 'MasjidMN'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -73,14 +77,52 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
+  name: 'name',
   email: 'email',
-  username: 'username',
-  password: 'password',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  emailVerified: 'emailVerified',
+  role: 'role',
+  image: 'image',
+  password: 'password'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const AccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  provider: 'provider',
+  providerAccountId: 'providerAccountId',
+  refresh_token: 'refresh_token',
+  access_token: 'access_token',
+  expires_at: 'expires_at',
+  token_type: 'token_type',
+  scope: 'scope',
+  id_token: 'id_token',
+  session_state: 'session_state'
+} as const
+
+export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  sessionToken: 'sessionToken',
+  userId: 'userId',
+  expires: 'expires'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const VerificationTokenScalarFieldEnum = {
+  identifier: 'identifier',
+  token: 'token',
+  expires: 'expires'
+} as const
+
+export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
 
 
 export const BuildingScalarFieldEnum = {
@@ -113,6 +155,31 @@ export const BuildingScalarFieldEnum = {
 } as const
 
 export type BuildingScalarFieldEnum = (typeof BuildingScalarFieldEnum)[keyof typeof BuildingScalarFieldEnum]
+
+
+export const MasjidMNScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  address: 'address',
+  provinceId: 'provinceId',
+  provinceName: 'provinceName',
+  regencyId: 'regencyId',
+  regencyName: 'regencyName',
+  districtId: 'districtId',
+  districtName: 'districtName',
+  villageId: 'villageId',
+  villageName: 'villageName',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  capacity: 'capacity',
+  establishedYear: 'establishedYear',
+  landStatus: 'landStatus',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MasjidMNScalarFieldEnum = (typeof MasjidMNScalarFieldEnum)[keyof typeof MasjidMNScalarFieldEnum]
 
 
 export const SortOrder = {
