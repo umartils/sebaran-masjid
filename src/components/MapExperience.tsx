@@ -37,7 +37,7 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   const activeBuildings =
     mapMode === "renovasi" ? buildingsRenovasi : buildingsDibangun;
 
-  const [selectedId, setSelectedId] = useState(activeBuildings[0]?.id ?? "");
+  // const [selectedId, setSelectedId] = useState(activeBuildings[0]?.id ?? "");
 
   const provinces = useMemo(() => {
     return Array.from(
@@ -73,10 +73,36 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
     });
   }, [activeBuildings, condition, province, query]);
 
+  const [selectedId, setSelectedId] = useState<string>("");
   const selectedBuilding =
     filteredBuildings.find((b) => b.id === selectedId) ??
     filteredBuildings[0] ??
     activeBuildings[0];
+
+  const [userSelected, setUserSelected] = useState(false); // ← tambah
+
+  // Handler khusus saat user klik kartu hasil pencarian
+  function handleSelectFromList(id: string) {
+    setSelectedId(id);
+    setUserSelected(true); // ← aktifkan focus
+  }
+
+  // Handler saat marker di peta diklik (tidak perlu fly, marker sudah kelihatan)
+  function handleSelectFromMap(id: string) {
+    setSelectedId(id);
+    setUserSelected(false); // ← tidak perlu fly
+  }
+
+  // function switchMode(mode: MapMode) {
+  //   setMapMode(mode);
+  //   setQuery("");
+  //   setCondition("ALL");
+  //   setProvince("ALL");
+  //   setUserSelected(false); // ← reset focus saat ganti mode
+  //   const nextBuildings =
+  //     mode === "renovasi" ? buildingsRenovasi : buildingsDibangun;
+  //   setSelectedId(nextBuildings[0]?.id ?? "");
+  // }
 
   // Reset filter & selected saat ganti mode
   function switchMode(mode: MapMode) {
@@ -94,7 +120,9 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
       <LeafletMap
         buildings={filteredBuildings}
         selected={selectedBuilding}
-        onSelect={setSelectedId}
+        onSelect={handleSelectFromMap} // ← klik marker: tidak fly
+        mapMode={mapMode}
+        shouldFocus={userSelected} // ← hanya fly jika user klik kartu
       />
 
       {/* ── Floating Toggle Button ── */}
@@ -197,13 +225,15 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
               }`}
               key={building.id}
               type="button"
-              onClick={() => setSelectedId(building.id)}
+              onClick={() => handleSelectFromList(building.id)}
             >
               <h2>{building.name}</h2>
               <p>{building.address}</p>
-              <span className={`badge ${conditionTone(building.condition)}`}>
-                {conditionLabel(building.condition)}
-              </span>
+              {mapMode === "renovasi" && (
+                <span className={`badge ${conditionTone(building.condition)}`}>
+                  {conditionLabel(building.condition)}
+                </span>
+              )}
             </button>
           ))}
         </div>

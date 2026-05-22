@@ -30,11 +30,11 @@ const navItems = [
     protected: true,
     children: [
       {
-        href: "/input",
+        href: "/input/pengajuan",
         label: "Data Dalam Pembangunan",
       },
       {
-        href: "/input/sudah-dibangun",
+        href: "/input/masjidmn",
         label: "Data Sudah Dibangun",
       },
     ],

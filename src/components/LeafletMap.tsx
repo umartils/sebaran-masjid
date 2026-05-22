@@ -1,7 +1,14 @@
 "use client";
 
-import L from "leaflet";
-import { MapContainer, Marker, Popup, TileLayer, useMap, ZoomControl } from "react-leaflet";
+import L, { map } from "leaflet";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMap,
+  ZoomControl,
+} from "react-leaflet";
 import { useEffect, useMemo, useRef } from "react";
 import { conditionLabel, conditionTone } from "@/lib/format";
 import type { Building } from "@/lib/types";
@@ -11,14 +18,22 @@ const markerIcon = L.divIcon({
   html: '<div class="marker-dot"></div>',
   iconSize: [20, 20],
   iconAnchor: [10, 10],
-  popupAnchor: [0, -10]
+  popupAnchor: [0, -10],
 });
 
-function MapFocus({ building }: { building?: Building }) {
+type MapMode = "renovasi" | "dibangun";
+
+function MapFocus({
+  building,
+  shouldFocus,
+}: {
+  building?: Building;
+  shouldFocus: boolean;
+}) {
   const map = useMap();
 
   useEffect(() => {
-    if (building) {
+    if (building && shouldFocus) {
       const desktopOffset = window.innerWidth > 900 ? 0.045 : 0;
       map.flyTo(
         [building.latitude, building.longitude - desktopOffset],
@@ -26,7 +41,7 @@ function MapFocus({ building }: { building?: Building }) {
         { duration: 0.8 }
       );
     }
-  }, [building, map]);
+  }, [building, shouldFocus, map]);
 
   return null;
 }
@@ -34,7 +49,8 @@ function MapFocus({ building }: { building?: Building }) {
 function BuildingMarker({
   building,
   selected,
-  onSelect
+  onSelect,
+  mapMode,
 }: {
   building: Building;
   selected: boolean;
@@ -62,13 +78,19 @@ function BuildingMarker({
             <p>{building.address}</p>
           </div>
           <div className="popup-body">
-            <div className="popup-row">
-              <p>Status</p>
-              <span className={`badge ${conditionTone(building.condition)}`}>{conditionLabel(building.condition)}</span>
-            </div>
+            {mapMode === "renovasi" && (
+              <div className="popup-row">
+                <p>Status</p>
+                <span className={`badge ${conditionTone(building.condition)}`}>
+                  {conditionLabel(building.condition)}
+                </span>
+              </div>
+            )}
             <div className="popup-row">
               <p>Kapasitas</p>
-              <strong>{building.capacity ? `${building.capacity} Jamaah` : "-"}</strong>
+              <strong>
+                {building.capacity ? `${building.capacity} Jamaah` : "-"}
+              </strong>
             </div>
             <div className="popup-row">
               <p>Berdiri</p>
@@ -88,31 +110,38 @@ function BuildingMarker({
 export default function LeafletMap({
   buildings,
   selected,
-  onSelect
+  onSelect,
+  mapMode,
+  shouldFocus, // ← tambah
 }: {
   buildings: Building[];
   selected?: Building;
   onSelect: (id: string) => void;
+  mapMode?: "renovasi" | "dibangun";
+  shouldFocus?: boolean; // ← tambah
 }) {
-  const center = useMemo<[number, number]>(() => {
-    if (selected) return [selected.latitude, selected.longitude - 0.045];
-    return [-2.5489, 118.0149];
-  }, [selected]);
-
   return (
-    <MapContainer center={center} zoom={selected ? 12 : 5} scrollWheelZoom zoomControl={false} className="leaflet-container">
+    <MapContainer
+      center={[-2.5489, 118.0149]} // ← selalu Indonesia, hapus logika selected
+      zoom={5} // ← selalu zoom-out
+      scrollWheelZoom
+      zoomControl={false}
+      className="leaflet-container"
+    >
       <ZoomControl position="bottomright" />
       <TileLayer
-        attribution='Tiles &copy; Esri'
+        attribution="Tiles &copy; Esri"
         url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
       />
-      <MapFocus building={selected} />
+      <MapFocus building={selected} shouldFocus={shouldFocus ?? false} />{" "}
+      {/* ← teruskan */}
       {buildings.map((building) => (
         <BuildingMarker
           key={building.id}
           building={building}
           selected={building.id === selected?.id}
           onSelect={onSelect}
+          mapMode={mapMode}
         />
       ))}
     </MapContainer>

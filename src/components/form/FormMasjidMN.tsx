@@ -38,13 +38,13 @@ function parseCoordinates(value: string) {
   return { latitude: "", longitude: "" };
 }
 
-export function BuildingForm() {
+export function FormMasjidMN() { 
   const [regions, setRegions] = useState({
     provinces: emptyRegions,
     regencies: emptyRegions,
     districts: emptyRegions,
     villages: emptyRegions,
-  });
+  }); 
   const [form, setForm] = useState({
     name: "",
     address: "",
@@ -54,15 +54,8 @@ export function BuildingForm() {
     regencyId: "",
     districtId: "",
     villageId: "",
-    condition: "RUSAK_SEDANG",
     establishedYear: "",
-    initialBudget: "",
-    currentArea: "",
     capacity: "",
-    mainMaterial: "",
-    expansionStatus: "",
-    renovationHistory: "",
-    expansionTarget: "",
     landStatus: "",
     notes: "",
   });
@@ -197,7 +190,7 @@ export function BuildingForm() {
       longitude: form.longitude,
     };
 
-    const response = await fetch("/api/pengajuan", {
+    const response = await fetch("/api/masjidmn", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -222,14 +215,9 @@ export function BuildingForm() {
       <header className="form-header">
         <h1>Formulir Pendataan Masjid</h1>
         <p>
-          Masukkan data masjid yang membutuhkan bantuan renovasi atau
-          pembangunan.
+          Masukkan data masjid yang telah dibangun oleh Masjid Nusantara.
         </p>
       </header>
-
-      <h2 className="section-title">
-        <Info size={26} /> 1. Info Umum
-      </h2>
       <div className="form-grid">
         <label className="field span-2">
           <span className="label">1. Nama Masjid / Musholla*</span>
@@ -321,35 +309,7 @@ export function BuildingForm() {
           />
         </label>
         <label className="field">
-          <span className="label">4. Biaya Pembangunan Awal*</span>
-          <input
-            className="control"
-            inputMode="numeric"
-            value={form.initialBudget}
-            onChange={(event) =>
-              updateField("initialBudget", event.target.value)
-            }
-            placeholder="Contoh: 50000000"
-          />
-        </label>
-      </div>
-
-      <h2 className="section-title">
-        <Landmark size={26} /> 2. Detail Fisik & Bangunan
-      </h2>
-      <div className="form-grid">
-        <label className="field">
-          <span className="label">5. Luas Masjid Saat Ini*</span>
-          <input
-            className="control"
-            required
-            value={form.currentArea}
-            onChange={(event) => updateField("currentArea", event.target.value)}
-            placeholder="Contoh: 10 x 10 meter"
-          />
-        </label>
-        <label className="field">
-          <span className="label">6. Kapasitas Jamaah*</span>
+          <span className="label">4. Kapasitas Jamaah*</span>
           <input
             className="control"
             required
@@ -359,57 +319,6 @@ export function BuildingForm() {
             placeholder="Contoh: 100"
           />
         </label>
-        <label className="field span-2">
-          <span className="label">7. Material Bangunan Utama*</span>
-          <input
-            className="control"
-            required
-            value={form.mainMaterial}
-            onChange={(event) =>
-              updateField("mainMaterial", event.target.value)
-            }
-            placeholder="Contoh: Bata merah, Kayu, Bambu, dll"
-          />
-        </label>
-        <label className="field span-2">
-          <span className="label">8. Status Perluasan (Opsional)</span>
-          <textarea
-            className="control"
-            value={form.expansionStatus}
-            onChange={(event) =>
-              updateField("expansionStatus", event.target.value)
-            }
-            placeholder="Contoh: Ya, diperluas menjadi 15x10 meter"
-          />
-        </label>
-        <label className="field span-2">
-          <span className="label">9. Riwayat Singkat Renovasi</span>
-          <textarea
-            className="control"
-            value={form.renovationHistory}
-            onChange={(event) =>
-              updateField("renovationHistory", event.target.value)
-            }
-            placeholder="Contoh: 2 kali (Perbaikan atap dan penambahan tempat wudhu)"
-          />
-        </label>
-        <label className="field span-2">
-          <span className="label">10. Target Ekstensi/Perluasan Baru</span>
-          <input
-            className="control"
-            value={form.expansionTarget}
-            onChange={(event) =>
-              updateField("expansionTarget", event.target.value)
-            }
-            placeholder="Contoh: Rencana menjadi 20x15 meter"
-          />
-        </label>
-      </div>
-
-      <h2 className="section-title">
-        <MapPinned size={26} /> 3. Legalitas Tanah & Infrastruktur
-      </h2>
-      <div className="form-grid">
         <label className="field">
           <span className="label">11. Status Lahan Berdiri*</span>
           <input
@@ -418,28 +327,6 @@ export function BuildingForm() {
             value={form.landStatus}
             onChange={(event) => updateField("landStatus", event.target.value)}
             placeholder="Milik, Wakaf, Sewa, dll"
-          />
-        </label>
-        <label className="field">
-          <span className="label">Kondisi Bangunan*</span>
-          <select
-            className="control"
-            value={form.condition}
-            onChange={(event) => updateField("condition", event.target.value)}
-          >
-            <option value="RUSAK_BERAT">Rusak Berat</option>
-            <option value="RUSAK_SEDANG">Rusak Sedang</option>
-            <option value="RUSAK_RINGAN">Rusak Ringan</option>
-            <option value="LAYAK">Layak</option>
-          </select>
-        </label>
-        <label className="field span-2">
-          <span className="label">Catatan Tambahan</span>
-          <textarea
-            className="control"
-            value={form.notes}
-            onChange={(event) => updateField("notes", event.target.value)}
-            placeholder="Kebutuhan utama, kontak relawan, atau catatan verifikasi"
           />
         </label>
       </div>
