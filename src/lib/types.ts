@@ -32,3 +32,22 @@ export type Region = {
   name: string;
 };
 
+export type MasjidMN = {
+  id: string;
+  name: string;
+  address: string;
+  provinceId: string;
+  provinceName: string;
+  regencyId: string;
+  regencyName: string;
+  districtId?: string | null;
+  districtName?: string | null;
+  villageId?: string | null;
+  villageName?: string | null;
+  latitude: number;
+  longitude: number;
+  capacity?: number | null;
+  establishedYear?: number | null;
+  landStatus?: string | null;
+  notes?: string | null;
+};
