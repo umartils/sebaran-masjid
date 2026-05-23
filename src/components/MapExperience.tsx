@@ -127,44 +127,44 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
-  function handleFindNearest() {
-    if (!navigator.geolocation) {
-      setGeoStatus("error");
-      return;
-    }
+  // function handleFindNearest() {
+  //   if (!navigator.geolocation) {
+  //     setGeoStatus("error");
+  //     return;
+  //   }
 
-    setGeoStatus("loading");
+  //   setGeoStatus("loading");
 
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const { latitude, longitude } = pos.coords;
+  //   navigator.geolocation.getCurrentPosition(
+  //     (pos) => {
+  //       const { latitude, longitude } = pos.coords;
 
-        // Cari dari activeBuildings (semua, bukan hanya yang terfilter)
-        const nearest = activeBuildings.reduce<Building | null>((best, b) => {
-          if (!best) return b;
-          return haversineKm(latitude, longitude, b.latitude, b.longitude);
-          haversineKm(latitude, longitude, best.latitude, best.longitude)
-            ? b
-            : best;
-        }, null);
+  //       // Cari dari activeBuildings (semua, bukan hanya yang terfilter)
+  //       const nearest = activeBuildings.reduce<Building | null>((best, b) => {
+  //         if (!best) return b;
+  //         return haversineKm(latitude, longitude, b.latitude, b.longitude);
+  //         haversineKm(latitude, longitude, best.latitude, best.longitude)
+  //           ? b
+  //           : best;
+  //       }, null);
 
-        if (nearest) {
-          // Reset filter agar kartu hasil muncul
-          setQuery("");
-          setCondition("ALL");
-          setProvince("ALL");
-          setSelectedId(nearest.id);
-          setUserSelected(true); // fly ke lokasi
-        }
+  //       if (nearest) {
+  //         // Reset filter agar kartu hasil muncul
+  //         setQuery("");
+  //         setCondition("ALL");
+  //         setProvince("ALL");
+  //         setSelectedId(nearest.id);
+  //         setUserSelected(true); // fly ke lokasi
+  //       }
 
-        setGeoStatus("idle");
-      },
-      () => {
-        setGeoStatus("error");
-      },
-      { timeout: 10_000 }
-    );
-  }
+  //       setGeoStatus("idle");
+  //     },
+  //     () => {
+  //       setGeoStatus("error");
+  //     },
+  //     { timeout: 10_000 }
+  //   );
+  // }
 
   // Reset filter & selected saat ganti mode
   function switchMode(mode: MapMode) {
@@ -263,7 +263,7 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
         </label>
         <div className="panel-actions">
           {/* Cari Terdekat */}
-          <button
+          {/* <button
             className={`action-btn nearest-btn ${
               geoStatus === "loading" ? "loading" : ""
             } ${geoStatus === "error" ? "error" : ""}`}
@@ -279,7 +279,7 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
                 ? "Izin ditolak"
                 : "Masjid Terdekat"}
             </span>
-          </button>
+          </button> */}
 
           {/* Reset — hanya tampil jika ada filter aktif */}
           {isDirty && (
