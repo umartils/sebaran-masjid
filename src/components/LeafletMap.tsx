@@ -9,7 +9,7 @@ import {
   useMap,
   ZoomControl,
 } from "react-leaflet";
-import { useEffect, useMemo, useRef } from "react";
+import { use, useEffect, useMemo, useRef } from "react";
 import { conditionLabel, conditionTone } from "@/lib/format";
 import type { Building } from "@/lib/types";
 
@@ -34,14 +34,33 @@ function MapFocus({
 
   useEffect(() => {
     if (building && shouldFocus) {
-      const desktopOffset = window.innerWidth > 900 ? 0.045 : 0;
-      map.flyTo(
-        [building.latitude, building.longitude - desktopOffset],
-        Math.max(map.getZoom(), 10),
-        { duration: 0.8 }
-      );
+      const panelWidth = window.innerWidth > 900 ? 380 : 0;
+      map.flyTo([building.latitude, building.longitude], 17, {
+        duration: 0.8,
+      });
+
+      // map.once("moveend", () => {
+      //   map.panBy([-panelWidth / 2, 0], { animate: true, duration: 0.3 });
+      // });
     }
   }, [building, shouldFocus, map]);
+
+  return null;
+}
+
+function MapReset({ trigger }: { trigger: number }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (trigger > 0) {
+      const panelWidth = window.innerWidth > 900 ? 380 : 0;
+      map.flyTo([-2.5489, 118.0149], 5, { duration: 0.8 });
+
+      map.once("moveend", () => {
+        map.panBy([-panelWidth / 2, 0], { animate: true, duration: 0.3 });
+      });
+    }
+  }, [trigger, map]);
 
   return null;
 }
@@ -55,6 +74,7 @@ function BuildingMarker({
   building: Building;
   selected: boolean;
   onSelect: (id: string) => void;
+  mapMode?: MapMode;
 }) {
   const markerRef = useRef<L.Marker>(null);
 
@@ -112,13 +132,15 @@ export default function LeafletMap({
   selected,
   onSelect,
   mapMode,
-  shouldFocus, // ← tambah
+  shouldFocus,
+  resetView,
 }: {
   buildings: Building[];
   selected?: Building;
   onSelect: (id: string) => void;
   mapMode?: "renovasi" | "dibangun";
   shouldFocus?: boolean; // ← tambah
+  resetView?: number;
 }) {
   return (
     <MapContainer
@@ -133,8 +155,8 @@ export default function LeafletMap({
         attribution="Tiles &copy; Esri"
         url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
       />
-      <MapFocus building={selected} shouldFocus={shouldFocus ?? false} />{" "}
-      {/* ← teruskan */}
+      <MapFocus building={selected} shouldFocus={shouldFocus ?? false} /> ;
+      <MapReset trigger={resetView ?? 0} />;{/* ← teruskan */}
       {buildings.map((building) => (
         <BuildingMarker
           key={building.id}

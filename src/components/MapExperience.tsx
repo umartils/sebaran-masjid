@@ -1,11 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Search, Hammer, CheckCircle } from "lucide-react";
+import { Search, Hammer, CheckCircle, LocateFixed } from "lucide-react";
 import { useMemo, useState } from "react";
 import { conditionLabel, conditionTone } from "@/lib/format";
 import type { Building, BuildingCondition } from "@/lib/types";
-import { map } from "leaflet";
+import { RotateCcw } from "lucide-react";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), {
   ssr: false,
@@ -37,7 +37,9 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   const activeBuildings =
     mapMode === "renovasi" ? buildingsRenovasi : buildingsDibangun;
 
-  // const [selectedId, setSelectedId] = useState(activeBuildings[0]?.id ?? "");
+  const [geoStatus, setGeoStatus] = useState<"idle" | "loading" | "error">(
+    "idle"
+  );
 
   const provinces = useMemo(() => {
     return Array.from(
@@ -75,34 +77,94 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
 
   const [selectedId, setSelectedId] = useState<string>("");
   const selectedBuilding =
-    filteredBuildings.find((b) => b.id === selectedId) ??
-    filteredBuildings[0] ??
-    activeBuildings[0];
+    filteredBuildings.find((b) => b.id === selectedId) ?? undefined;
 
-  const [userSelected, setUserSelected] = useState(false); // ← tambah
+  const [userSelected, setUserSelected] = useState(false);
 
-  // Handler khusus saat user klik kartu hasil pencarian
+  const isDirty =
+    query !== "" ||
+    condition !== "ALL" ||
+    province !== "ALL" ||
+    selectedId !== "";
+
   function handleSelectFromList(id: string) {
     setSelectedId(id);
-    setUserSelected(true); // ← aktifkan focus
+    setUserSelected(true);
   }
 
-  // Handler saat marker di peta diklik (tidak perlu fly, marker sudah kelihatan)
   function handleSelectFromMap(id: string) {
     setSelectedId(id);
     setUserSelected(false); // ← tidak perlu fly
   }
 
-  // function switchMode(mode: MapMode) {
-  //   setMapMode(mode);
-  //   setQuery("");
-  //   setCondition("ALL");
-  //   setProvince("ALL");
-  //   setUserSelected(false); // ← reset focus saat ganti mode
-  //   const nextBuildings =
-  //     mode === "renovasi" ? buildingsRenovasi : buildingsDibangun;
-  //   setSelectedId(nextBuildings[0]?.id ?? "");
-  // }
+  const [resetViewTrigger, setResetViewTrigger] = useState(0);
+  function handleReset() {
+    setQuery("");
+    setCondition("ALL");
+    setProvince("ALL");
+    setSelectedId("");
+    setUserSelected(false);
+    setGeoStatus("idle");
+    setResetViewTrigger((n) => n + 1);
+    selectedBuilding == null;
+  }
+
+  /** Haversine — jarak dua koordinat dalam km */
+  function haversineKm(
+    lat1: number,
+    lng1: number,
+    lat2: number,
+    lng2: number
+  ): number {
+    const R = 6371;
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLng = ((lng2 - lng1) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLng / 2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+
+  function handleFindNearest() {
+    if (!navigator.geolocation) {
+      setGeoStatus("error");
+      return;
+    }
+
+    setGeoStatus("loading");
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+
+        // Cari dari activeBuildings (semua, bukan hanya yang terfilter)
+        const nearest = activeBuildings.reduce<Building | null>((best, b) => {
+          if (!best) return b;
+          return haversineKm(latitude, longitude, b.latitude, b.longitude);
+          haversineKm(latitude, longitude, best.latitude, best.longitude)
+            ? b
+            : best;
+        }, null);
+
+        if (nearest) {
+          // Reset filter agar kartu hasil muncul
+          setQuery("");
+          setCondition("ALL");
+          setProvince("ALL");
+          setSelectedId(nearest.id);
+          setUserSelected(true); // fly ke lokasi
+        }
+
+        setGeoStatus("idle");
+      },
+      () => {
+        setGeoStatus("error");
+      },
+      { timeout: 10_000 }
+    );
+  }
 
   // Reset filter & selected saat ganti mode
   function switchMode(mode: MapMode) {
@@ -110,21 +172,30 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
     setQuery("");
     setCondition("ALL");
     setProvince("ALL");
-    const nextBuildings =
-      mode === "renovasi" ? buildingsRenovasi : buildingsDibangun;
-    setSelectedId(nextBuildings[0]?.id ?? "");
+    setSelectedId("");
+    setUserSelected(false);
+    setGeoStatus("idle");
+    setResetViewTrigger((n) => n + 1); // zoom out saat ganti mode
   }
 
   return (
+    // console.log(
+    //   "User selected:",
+    //   userSelected,
+    //   "Selected ID:",
+    //   selectedId,
+    //   "Selected Building:",
+    //   selectedBuilding
+    // ),
     <section className="map-page">
       <LeafletMap
         buildings={filteredBuildings}
         selected={selectedBuilding}
-        onSelect={handleSelectFromMap} // ← klik marker: tidak fly
+        onSelect={handleSelectFromMap}
         mapMode={mapMode}
-        shouldFocus={userSelected} // ← hanya fly jika user klik kartu
+        shouldFocus={userSelected}
+        resetView={resetViewTrigger}
       />
-
       {/* ── Floating Toggle Button ── */}
       <div className="map-mode-toggle">
         <button
@@ -144,28 +215,9 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
           <span>Sudah Dibangun</span>
         </button>
       </div>
-
       <aside className="map-panel" aria-label="Panel pencarian bangunan">
-        {/* Label mode aktif */}
-        {/* <div
-          className={`mode-badge ${
-            mapMode === "renovasi" ? "badge-renovasi" : "badge-dibangun"
-          }`}
-        >
-          {mapMode === "renovasi" ? (
-            <>
-              <Hammer size={14} /> Masjid Butuh Renovasi
-            </>
-          ) : (
-            <>
-              <CheckCircle size={14} /> Masjid Sudah Dibangun
-            </>
-          )}
-        </div> */}
-
         <h1>Cari Masjid</h1>
         <p className="subtitle">Temukan masjid yang membutuhkan bantuan</p>
-
         <label className="field">
           <span className="search-control">
             <Search size={22} />
@@ -178,7 +230,6 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
             />
           </span>
         </label>
-
         {mapMode === "renovasi" && (
           <label className="field hidden">
             <span className="label">Filter Kondisi</span>
@@ -195,7 +246,6 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
             </select>
           </label>
         )}
-
         <label className="field">
           <span className="label">Provinsi</span>
           <select
@@ -211,12 +261,43 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
             ))}
           </select>
         </label>
+        <div className="panel-actions">
+          {/* Cari Terdekat */}
+          <button
+            className={`action-btn nearest-btn ${
+              geoStatus === "loading" ? "loading" : ""
+            } ${geoStatus === "error" ? "error" : ""}`}
+            onClick={handleFindNearest}
+            disabled={geoStatus === "loading"}
+            title="Cari masjid terdekat dari lokasi Anda"
+          >
+            <LocateFixed size={15} />
+            <span>
+              {geoStatus === "loading"
+                ? "Mencari..."
+                : geoStatus === "error"
+                ? "Izin ditolak"
+                : "Masjid Terdekat"}
+            </span>
+          </button>
+
+          {/* Reset — hanya tampil jika ada filter aktif */}
+          {isDirty && (
+            <button
+              className="action-btn reset-btn"
+              onClick={handleReset}
+              title="Reset pencarian"
+            >
+              <RotateCcw size={15} />
+              <span>Reset</span>
+            </button>
+          )}
+        </div>
 
         <div className="divider" />
         <div className="result-count">
           Hasil Pencarian ({filteredBuildings.length})
         </div>
-
         <div className="result-list">
           {filteredBuildings.map((building) => (
             <button

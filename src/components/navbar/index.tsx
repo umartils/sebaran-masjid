@@ -25,7 +25,7 @@ const navItems = [
   },
 
   {
-    label: "Input Data",
+    label: "Input",
     icon: PlusCircle,
     protected: true,
     children: [
