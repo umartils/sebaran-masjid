@@ -6,5 +6,8 @@ export async function getMasjidMN(): Promise<MasjidMN[]> {
     orderBy: { createdAt: "desc" },
   });
 
-  return records;
+  return records.map((record) => ({
+    ...record,
+    condition: record.condition as MasjidMN["condition"],
+  }));
 }

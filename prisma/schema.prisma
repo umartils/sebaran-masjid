@@ -103,6 +103,7 @@ model MasjidMN {
   villageName         String?
   latitude            Float
   longitude           Float
+  condition           Condition @default(LAYAK)
   capacity            Int?
   establishedYear     Int?
   landStatus          String?

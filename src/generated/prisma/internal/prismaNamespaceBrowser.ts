@@ -171,6 +171,7 @@ export const MasjidMNScalarFieldEnum = {
   villageName: 'villageName',
   latitude: 'latitude',
   longitude: 'longitude',
+  condition: 'condition',
   capacity: 'capacity',
   establishedYear: 'establishedYear',
   landStatus: 'landStatus',

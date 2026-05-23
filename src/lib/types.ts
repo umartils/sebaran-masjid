@@ -46,6 +46,7 @@ export type MasjidMN = {
   villageName?: string | null;
   latitude: number;
   longitude: number;
+  condition: BuildingCondition;
   capacity?: number | null;
   establishedYear?: number | null;
   landStatus?: string | null;
