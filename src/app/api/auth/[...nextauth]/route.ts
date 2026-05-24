@@ -8,7 +8,7 @@ const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
 
   session: {
-    strategy: "jwt",
+    strategy: "database",
   },
 
   providers: [
@@ -21,36 +21,27 @@ const handler = NextAuth({
       },
 
       async authorize(credentials) {
-        if (
-          !credentials?.email ||
-          !credentials?.password
-        ) {
-          return null
+        if (!credentials?.email || !credentials?.password) {
+          return null;
         }
 
-        const user =
-          await prisma.user.findUnique({
-            where: {
-              email:
-                credentials.email,
-            },
-          })
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
 
-        if (
-          !user ||
-          !user.password
-        ) {
-          return null
+        if (!user || !user.password) {
+          return null;
         }
 
-        const passwordMatch =
-          await bcrypt.compare(
-            credentials.password,
-            user.password
-          )
+        const passwordMatch = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
 
         if (!passwordMatch) {
-          return null
+          return null;
         }
 
         return {
@@ -58,33 +49,26 @@ const handler = NextAuth({
           email: user.email,
           name: user.name,
           role: user.role,
-        }
+        };
       },
     }),
   ],
 
   callbacks: {
-    async jwt({
-      token,
-      user,
-    }) {
+    async jwt({ token, user }) {
       if (user) {
-        token.role = user.role
+        token.role = user.role;
       }
 
-      return token
+      return token;
     },
 
-    async session({
-      session,
-      token,
-    }) {
+    async session({ session, token }) {
       if (session.user) {
-        session.user.role =
-          token.role as string
+        session.user.role = token.role as string;
       }
 
-      return session
+      return session;
     },
   },
 
@@ -92,9 +76,8 @@ const handler = NextAuth({
     signIn: "/login",
   },
 
-  secret:
-    process.env.NEXTAUTH_SECRET,
-})
+  secret: process.env.NEXTAUTH_SECRET,
+});
 
 export {
   handler as GET,
