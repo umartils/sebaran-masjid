@@ -32,33 +32,34 @@ export default function LoginPageClient() {
   const [loading, setLoading] =
     useState(false);
 
-  async function handleSubmit(
-    e: FormEvent
-  ) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-
     setError("");
     setLoading(true);
 
-    const result = await signIn(
-      "credentials",
-      {
+    try {
+      const result = await signIn("credentials", {
         email,
         password,
-        redirect: false,
+        redirect: false, // Pastikan ini selalu false
+      });
+
+      if (result?.ok) {
+        router.push(redirectTo);
+        return;
       }
-    );
 
-    setLoading(false);
-
-    if (result?.ok) {
-      router.push(redirectTo);
-      return;
+      // Tangani berbagai error dari NextAuth
+      if (result?.error) {
+        setError("Email atau password salah");
+      } else {
+        setError("Terjadi kesalahan, coba lagi");
+      }
+    } catch (err) {
+      setError("Terjadi kesalahan jaringan");
+    } finally {
+      setLoading(false);
     }
-
-    setError(
-      "Email atau password salah"
-    );
   }
 
   return (
