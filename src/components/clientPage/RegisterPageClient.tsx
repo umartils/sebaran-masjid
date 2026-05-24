@@ -83,7 +83,7 @@ export default function RegisterPageClient() {
 
     router.push("/login");
   } catch (error) {
-    console.error(error);
+    console.error("Error:", error);
 
     setError(
       "Tidak dapat terhubung ke server"
