@@ -217,7 +217,12 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
       </div>
       <aside className="map-panel" aria-label="Panel pencarian bangunan">
         <h1>Cari Masjid</h1>
-        <p className="subtitle">Temukan masjid yang membutuhkan bantuan</p>
+        <p className="subtitle">
+          Temukan masjid{" "}
+          {mapMode == "renovasi"
+            ? "yang membutuhkan bantuan"
+            : "yang sudah dibangun"}{" "}
+        </p>
         <label className="field">
           <span className="search-control">
             <Search size={22} />
