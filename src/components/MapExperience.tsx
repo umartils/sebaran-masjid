@@ -1,11 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Search, Hammer, CheckCircle, LocateFixed } from "lucide-react";
+import { Search, Hammer, RotateCcw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { conditionLabel, conditionTone } from "@/lib/format";
 import type { Building, BuildingCondition, MasjidMN } from "@/lib/types";
-import { RotateCcw } from "lucide-react";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), {
   ssr: false,

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { AppFrame } from "@/components/AppFrame";
 import { getBuildings } from "@/lib/buildings";
 import { ProtectedPage } from "@/components/ProtectedPage";
