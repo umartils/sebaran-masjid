@@ -75,6 +75,7 @@ export function BuildingTable({ buildings }: Props) {
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim();
+
     return buildings.filter((b) => {
       const matchesQuery =
         !q ||
@@ -85,9 +86,13 @@ export function BuildingTable({ buildings }: Props) {
         conditionLabel(b.condition).toLowerCase().includes(q);
 
       const matchesCondition =
-        conditionFilter == "ALL" || b.condition === conditionFilter;
-      
-      const excludedData = b.buildingStatus === "DELETED" || b.buildingStatus === "REJECTED";
+        conditionFilter === "ALL" || b.condition === conditionFilter;
+
+      const status = (
+        "buildingStatus" in b ? b.buildingStatus : ""
+      )?.toUpperCase();
+
+      const excludedData = status === "DELETED" || status === "REJECTED";
 
       return matchesQuery && matchesCondition && !excludedData;
     });
