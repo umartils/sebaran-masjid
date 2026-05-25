@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { Search, Hammer, CheckCircle, LocateFixed } from "lucide-react";
 import { useMemo, useState } from "react";
 import { conditionLabel, conditionTone } from "@/lib/format";
-import type { Building, BuildingCondition } from "@/lib/types";
+import type { Building, BuildingCondition, BuildingStatus } from "@/lib/types";
 import { RotateCcw } from "lucide-react";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), {
@@ -67,7 +67,11 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
         .join(" ")
         .toLowerCase();
 
+      const matchStatus =
+        mapMode !== "renovasi" || building.buildingStatus === "APPROVED";
+
       return (
+        matchStatus &&
         (!keyword || haystack.includes(keyword)) &&
         (condition === "ALL" || building.condition === condition) &&
         (province === "ALL" || building.provinceId === province)
@@ -127,45 +131,6 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
-  // function handleFindNearest() {
-  //   if (!navigator.geolocation) {
-  //     setGeoStatus("error");
-  //     return;
-  //   }
-
-  //   setGeoStatus("loading");
-
-  //   navigator.geolocation.getCurrentPosition(
-  //     (pos) => {
-  //       const { latitude, longitude } = pos.coords;
-
-  //       // Cari dari activeBuildings (semua, bukan hanya yang terfilter)
-  //       const nearest = activeBuildings.reduce<Building | null>((best, b) => {
-  //         if (!best) return b;
-  //         return haversineKm(latitude, longitude, b.latitude, b.longitude);
-  //         haversineKm(latitude, longitude, best.latitude, best.longitude)
-  //           ? b
-  //           : best;
-  //       }, null);
-
-  //       if (nearest) {
-  //         // Reset filter agar kartu hasil muncul
-  //         setQuery("");
-  //         setCondition("ALL");
-  //         setProvince("ALL");
-  //         setSelectedId(nearest.id);
-  //         setUserSelected(true); // fly ke lokasi
-  //       }
-
-  //       setGeoStatus("idle");
-  //     },
-  //     () => {
-  //       setGeoStatus("error");
-  //     },
-  //     { timeout: 10_000 }
-  //   );
-  // }
-
   // Reset filter & selected saat ganti mode
   function switchMode(mode: MapMode) {
     setMapMode(mode);
@@ -179,14 +144,6 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   }
 
   return (
-    // console.log(
-    //   "User selected:",
-    //   userSelected,
-    //   "Selected ID:",
-    //   selectedId,
-    //   "Selected Building:",
-    //   selectedBuilding
-    // ),
     <section className="map-page">
       <LeafletMap
         buildings={filteredBuildings}
@@ -267,25 +224,6 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
           </select>
         </label>
         <div className="panel-actions">
-          {/* Cari Terdekat */}
-          {/* <button
-            className={`action-btn nearest-btn ${
-              geoStatus === "loading" ? "loading" : ""
-            } ${geoStatus === "error" ? "error" : ""}`}
-            onClick={handleFindNearest}
-            disabled={geoStatus === "loading"}
-            title="Cari masjid terdekat dari lokasi Anda"
-          >
-            <LocateFixed size={15} />
-            <span>
-              {geoStatus === "loading"
-                ? "Mencari..."
-                : geoStatus === "error"
-                ? "Izin ditolak"
-                : "Masjid Terdekat"}
-            </span>
-          </button> */}
-
           {/* Reset — hanya tampil jika ada filter aktif */}
           {isDirty && (
             <button

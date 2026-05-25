@@ -1,5 +1,7 @@
 export type BuildingCondition = "RUSAK_BERAT" | "RUSAK_SEDANG" | "RUSAK_RINGAN" | "LAYAK";
 
+export type BuildingStatus = "APPROVED" | "PENDING" | "REJECTED" | "DELETED";
+
 export type Building = {
   id: string;
   name: string;
@@ -25,6 +27,7 @@ export type Building = {
   expansionTarget?: string | null;
   landStatus?: string | null;
   notes?: string | null;
+  buildingStatus: BuildingStatus;
 };
 
 export type Region = {

@@ -150,6 +150,7 @@ export const BuildingScalarFieldEnum = {
   expansionTarget: 'expansionTarget',
   landStatus: 'landStatus',
   notes: 'notes',
+  buildingStatus: 'buildingStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

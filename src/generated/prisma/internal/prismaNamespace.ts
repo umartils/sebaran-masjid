@@ -967,6 +967,7 @@ export const BuildingScalarFieldEnum = {
   expansionTarget: 'expansionTarget',
   landStatus: 'landStatus',
   notes: 'notes',
+  buildingStatus: 'buildingStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1111,6 +1112,20 @@ export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Decimal[]'
  */
 export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BuildingStatus'
+ */
+export type EnumBuildingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BuildingStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'BuildingStatus[]'
+ */
+export type ListEnumBuildingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BuildingStatus[]'>
     
 
 /**
