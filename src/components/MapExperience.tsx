@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { Search, Hammer, CheckCircle, LocateFixed } from "lucide-react";
 import { useMemo, useState } from "react";
 import { conditionLabel, conditionTone } from "@/lib/format";
-import type { Building, BuildingCondition, BuildingStatus } from "@/lib/types";
+import type { Building, BuildingCondition, MasjidMN } from "@/lib/types";
 import { RotateCcw } from "lucide-react";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), {
@@ -24,7 +24,7 @@ type MapMode = "renovasi" | "dibangun";
 
 interface Props {
   buildingsRenovasi: Building[];
-  buildingsDibangun: Building[];
+  buildingsDibangun: MasjidMN[];
 }
 
 export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
