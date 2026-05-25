@@ -19,6 +19,7 @@ type Props = {
 };
 
 export function BuildingTable({ buildings }: Props) {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [conditionFilter, setConditionFilter] = useState<
     "ALL" | BuildingCondition
@@ -48,7 +49,6 @@ export function BuildingTable({ buildings }: Props) {
   };
 
   const handleUpdateStatus = async () => {
-    const router = useRouter();
     if (!selectedBuilding || !actionType) return;
 
     try {
