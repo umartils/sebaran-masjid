@@ -18,18 +18,18 @@ type Props = {
   buildings: Building[];
 };
 
-const [toast, setToast] = useState<{
-  show: boolean;
-  type: "success" | "error";
-  message: string;
-}>({
-  show: false,
-  type: "success",
-  message: "",
-});
-
 export function BuildingTable({ buildings }: Props) {
   const router = useRouter();
+
+  const [toast, setToast] = useState<{
+    show: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({
+    show: false,
+    type: "success",
+    message: "",
+  });
   const [query, setQuery] = useState("");
   const [conditionFilter, setConditionFilter] = useState<
     "ALL" | BuildingCondition
