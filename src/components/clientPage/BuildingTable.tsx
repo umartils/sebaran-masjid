@@ -56,6 +56,7 @@ export function BuildingTable({ buildings }: Props) {
           body: JSON.stringify({
             status: actionType,
           }),
+          cache: "no-store",
         }
       );
 
@@ -75,7 +76,6 @@ export function BuildingTable({ buildings }: Props) {
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim();
-
     return buildings.filter((b) => {
       const matchesQuery =
         !q ||
@@ -86,13 +86,10 @@ export function BuildingTable({ buildings }: Props) {
         conditionLabel(b.condition).toLowerCase().includes(q);
 
       const matchesCondition =
-        conditionFilter === "ALL" || b.condition === conditionFilter;
+        conditionFilter == "ALL" || b.condition === conditionFilter;
 
-      const status = (
-        "buildingStatus" in b ? b.buildingStatus : ""
-      )?.toUpperCase();
-
-      const excludedData = status === "DELETED" || status === "REJECTED";
+      const excludedData =
+        b.buildingStatus === "DELETED" || b.buildingStatus === "REJECTED";
 
       return matchesQuery && matchesCondition && !excludedData;
     });
