@@ -18,6 +18,16 @@ type Props = {
   buildings: Building[];
 };
 
+const [toast, setToast] = useState<{
+  show: boolean;
+  type: "success" | "error";
+  message: string;
+}>({
+  show: false,
+  type: "success",
+  message: "",
+});
+
 export function BuildingTable({ buildings }: Props) {
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -48,6 +58,21 @@ export function BuildingTable({ buildings }: Props) {
     setActionType(null);
   };
 
+  function showToast(message: string, type: "success" | "error" = "success") {
+    setToast({
+      show: true,
+      type,
+      message,
+    });
+
+    setTimeout(() => {
+      setToast((prev) => ({
+        ...prev,
+        show: false,
+      }));
+    }, 3000);
+  }
+
   const handleUpdateStatus = async () => {
     if (!selectedBuilding || !actionType) return;
 
@@ -72,10 +97,21 @@ export function BuildingTable({ buildings }: Props) {
         throw new Error("Gagal mengubah status");
       }
 
-      router.refresh();
+      const successMessage =
+        actionType === "APPROVED"
+          ? "Masjid berhasil disetujui"
+          : actionType === "REJECTED"
+          ? "Masjid berhasil ditolak"
+          : "Masjid berhasil dihapus";
+
+      showToast(successMessage, "success");
+
+      setTimeout(() => {
+        router.refresh();
+      }, 1000);
     } catch (error) {
       console.error(error);
-      alert("Terjadi kesalahan");
+      showToast("Terjadi kesalahan saat memperbarui data", "error");
     } finally {
       setLoading(false);
       closeConfirmation();
@@ -327,6 +363,18 @@ export function BuildingTable({ buildings }: Props) {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {toast.show && (
+        <div
+          className={`custom-toast ${
+            toast.type === "success"
+              ? "custom-toast--success"
+              : "custom-toast--error"
+          }`}
+        >
+          {toast.message}
         </div>
       )}
     </>
