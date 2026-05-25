@@ -19,7 +19,8 @@ export const sampleBuildings: Building[] = [
     establishedYear: 2000,
     currentArea: "10 x 10 meter",
     mainMaterial: "Bata merah, kayu",
-    landStatus: "Milik wakaf"
+    landStatus: "Milik wakaf",
+    buildingStatus: "APPROVED",
   },
   {
     id: "seed-nurul-huda",
@@ -37,7 +38,9 @@ export const sampleBuildings: Building[] = [
     capacity: 180,
     establishedYear: 1998,
     currentArea: "12 x 15 meter",
-    mainMaterial: "Bata ringan, kayu"
-  }
+    mainMaterial: "Bata ringan, kayu",
+    landStatus: "Milik wakaf",
+    buildingStatus: "APPROVED",
+  },
 ];
 
