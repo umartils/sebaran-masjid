@@ -11,7 +11,7 @@ import {
 } from "react-leaflet";
 import { use, useEffect, useMemo, useRef } from "react";
 import { conditionLabel, conditionTone } from "@/lib/format";
-import type { Building } from "@/lib/types";
+import type { Building, MasjidMN } from "@/lib/types";
 
 const markerIcon = L.divIcon({
   className: "",
@@ -23,11 +23,13 @@ const markerIcon = L.divIcon({
 
 type MapMode = "renovasi" | "dibangun";
 
+type DataMasjid = Building | MasjidMN;
+
 function MapFocus({
   building,
   shouldFocus,
 }: {
-  building?: Building;
+  building?: DataMasjid;
   shouldFocus: boolean;
 }) {
   const map = useMap();
@@ -71,7 +73,7 @@ function BuildingMarker({
   onSelect,
   mapMode,
 }: {
-  building: Building;
+  building: DataMasjid;
   selected: boolean;
   onSelect: (id: string) => void;
   mapMode?: MapMode;
@@ -135,8 +137,8 @@ export default function LeafletMap({
   shouldFocus,
   resetView,
 }: {
-  buildings: Building[];
-  selected?: Building;
+  buildings: DataMasjid[];
+  selected?: DataMasjid;
   onSelect: (id: string) => void;
   mapMode?: "renovasi" | "dibangun";
   shouldFocus?: boolean; // ← tambah

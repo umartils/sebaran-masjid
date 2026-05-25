@@ -24,7 +24,7 @@ type MapMode = "renovasi" | "dibangun";
 
 interface Props {
   buildingsRenovasi: Building[];
-  buildingsDibangun: Building[];
+  buildingsDibangun: MasjidMN[];
 }
 
 export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
@@ -34,7 +34,7 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   const [province, setProvince] = useState("ALL");
 
   // Pilih dataset aktif berdasarkan mode
-  const activeBuildings =
+  const activeBuildings: (Building | MasjidMN)[] =
     mapMode === "renovasi" ? buildingsRenovasi : buildingsDibangun;
 
   const [geoStatus, setGeoStatus] = useState<"idle" | "loading" | "error">(
