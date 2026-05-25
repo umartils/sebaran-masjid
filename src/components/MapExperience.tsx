@@ -24,7 +24,7 @@ type MapMode = "renovasi" | "dibangun";
 
 interface Props {
   buildingsRenovasi: Building[];
-  buildingsDibangun: MasjidMN[];
+  buildingsDibangun: Building[];
 }
 
 export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
@@ -60,7 +60,6 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
         building.districtName,
         building.villageName,
         building.condition,
-        building.mainMaterial,
         building.landStatus,
       ]
         .filter(Boolean)
@@ -68,7 +67,9 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
         .toLowerCase();
 
       const matchStatus =
-        mapMode !== "renovasi" || building.buildingStatus === "APPROVED";
+        mapMode !== "renovasi" ||
+        ("buildingStatus" in building &&
+          building.buildingStatus === "APPROVED");
 
       return (
         matchStatus &&
