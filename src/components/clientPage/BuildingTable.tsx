@@ -4,6 +4,7 @@ import { conditionLabel, conditionTone, statusTone, statusLabel } from "@/lib/fo
 import { Search, SlidersHorizontal, Eye, Pencil, MapPin, Check, X, Trash } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { Building, BuildingCondition, BuildingStatus } from "@/lib/types";
+import { useRouter } from "next/navigation";
 // import { BuildingStatus } from "@/generated/prisma/enums";
 
 const conditions: Array<{ value: "ALL" | BuildingCondition; label: string }> = [
@@ -19,11 +20,17 @@ type Props = {
 
 export function BuildingTable({ buildings }: Props) {
   const [query, setQuery] = useState("");
-  const [conditionFilter, setConditionFilter] = useState<"ALL" | BuildingCondition>("ALL");
+  const [conditionFilter, setConditionFilter] = useState<
+    "ALL" | BuildingCondition
+  >("ALL");
 
   // Approval state
-  const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(null);
-  const [actionType, setActionType] = useState<"APPROVED" | "REJECTED" | "DELETED" | null>(null);
+  const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(
+    null
+  );
+  const [actionType, setActionType] = useState<
+    "APPROVED" | "REJECTED" | "DELETED" | null
+  >(null);
   const [loading, setLoading] = useState(false);
 
   // Approval function
@@ -41,6 +48,7 @@ export function BuildingTable({ buildings }: Props) {
   };
 
   const handleUpdateStatus = async () => {
+    const router = useRouter();
     if (!selectedBuilding || !actionType) return;
 
     try {
@@ -64,7 +72,7 @@ export function BuildingTable({ buildings }: Props) {
         throw new Error("Gagal mengubah status");
       }
 
-      window.location.reload();
+      router.refresh();
     } catch (error) {
       console.error(error);
       alert("Terjadi kesalahan");
@@ -115,7 +123,9 @@ export function BuildingTable({ buildings }: Props) {
           <select
             className="filter-select"
             value={conditionFilter}
-            onChange={(e) => setConditionFilter(e.target.value as typeof conditionFilter)}
+            onChange={(e) =>
+              setConditionFilter(e.target.value as typeof conditionFilter)
+            }
           >
             {conditions.map((item) => (
               <option key={item.value} value={item.value}>
@@ -173,11 +183,15 @@ export function BuildingTable({ buildings }: Props) {
                     </span>
                   </td>
                   <td>
-                    {building.capacity
-                      ? `${building.capacity} Jamaah`
-                      : "-"}
+                    {building.capacity ? `${building.capacity} Jamaah` : "-"}
                   </td>
-                  <td><span className={`badge ${statusTone(building.buildingStatus)}`}>{building.buildingStatus}</span></td>
+                  <td>
+                    <span
+                      className={`badge ${statusTone(building.buildingStatus)}`}
+                    >
+                      {building.buildingStatus}
+                    </span>
+                  </td>
                   <td>
                     <div className="table-actions">
                       {building.buildingStatus === "PENDING" && (
@@ -279,9 +293,7 @@ export function BuildingTable({ buildings }: Props) {
               masjid:
             </p>
 
-            <div className="modal-building-name">
-              {selectedBuilding.name}
-            </div>
+            <div className="modal-building-name">{selectedBuilding.name}</div>
 
             <div className="modal-actions">
               <button
