@@ -283,18 +283,18 @@ export type MasjidMNBaruGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 
 export type MasjidMNBaruGroupByOutputType = {
   id: string
-  nama: string | null
-  alamat: string | null
-  idProvinsi: string | null
-  namaProvinsi: string | null
-  idKota: string | null
-  namaKota: string | null
-  idKecamatan: string | null
-  namaKecamatan: string | null
-  idDesa: string | null
-  namaDesa: string | null
-  latitude: number | null
-  longitude: number | null
+  nama: string
+  alamat: string
+  idProvinsi: string
+  namaProvinsi: string
+  idKota: string
+  namaKota: string
+  idKecamatan: string
+  namaKecamatan: string
+  idDesa: string
+  namaDesa: string
+  latitude: number
+  longitude: number
   kapasitas: number | null
   tahunDibangun: number | null
   statusTanah: string | null
@@ -329,18 +329,18 @@ export type MasjidMNBaruWhereInput = {
   OR?: Prisma.MasjidMNBaruWhereInput[]
   NOT?: Prisma.MasjidMNBaruWhereInput | Prisma.MasjidMNBaruWhereInput[]
   id?: Prisma.StringFilter<"MasjidMNBaru"> | string
-  nama?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  alamat?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  idProvinsi?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  namaProvinsi?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  idKota?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  namaKota?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  idKecamatan?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  namaKecamatan?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  idDesa?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  namaDesa?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  latitude?: Prisma.FloatNullableFilter<"MasjidMNBaru"> | number | null
-  longitude?: Prisma.FloatNullableFilter<"MasjidMNBaru"> | number | null
+  nama?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  alamat?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  idProvinsi?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  namaProvinsi?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  idKota?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  namaKota?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  idKecamatan?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  namaKecamatan?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  idDesa?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  namaDesa?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  latitude?: Prisma.FloatFilter<"MasjidMNBaru"> | number
+  longitude?: Prisma.FloatFilter<"MasjidMNBaru"> | number
   kapasitas?: Prisma.IntNullableFilter<"MasjidMNBaru"> | number | null
   tahunDibangun?: Prisma.IntNullableFilter<"MasjidMNBaru"> | number | null
   statusTanah?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
@@ -352,18 +352,18 @@ export type MasjidMNBaruWhereInput = {
 
 export type MasjidMNBaruOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  nama?: Prisma.SortOrderInput | Prisma.SortOrder
-  alamat?: Prisma.SortOrderInput | Prisma.SortOrder
-  idProvinsi?: Prisma.SortOrderInput | Prisma.SortOrder
-  namaProvinsi?: Prisma.SortOrderInput | Prisma.SortOrder
-  idKota?: Prisma.SortOrderInput | Prisma.SortOrder
-  namaKota?: Prisma.SortOrderInput | Prisma.SortOrder
-  idKecamatan?: Prisma.SortOrderInput | Prisma.SortOrder
-  namaKecamatan?: Prisma.SortOrderInput | Prisma.SortOrder
-  idDesa?: Prisma.SortOrderInput | Prisma.SortOrder
-  namaDesa?: Prisma.SortOrderInput | Prisma.SortOrder
-  latitude?: Prisma.SortOrderInput | Prisma.SortOrder
-  longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  nama?: Prisma.SortOrder
+  alamat?: Prisma.SortOrder
+  idProvinsi?: Prisma.SortOrder
+  namaProvinsi?: Prisma.SortOrder
+  idKota?: Prisma.SortOrder
+  namaKota?: Prisma.SortOrder
+  idKecamatan?: Prisma.SortOrder
+  namaKecamatan?: Prisma.SortOrder
+  idDesa?: Prisma.SortOrder
+  namaDesa?: Prisma.SortOrder
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
   kapasitas?: Prisma.SortOrderInput | Prisma.SortOrder
   tahunDibangun?: Prisma.SortOrderInput | Prisma.SortOrder
   statusTanah?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -378,18 +378,18 @@ export type MasjidMNBaruWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.MasjidMNBaruWhereInput | Prisma.MasjidMNBaruWhereInput[]
   OR?: Prisma.MasjidMNBaruWhereInput[]
   NOT?: Prisma.MasjidMNBaruWhereInput | Prisma.MasjidMNBaruWhereInput[]
-  nama?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  alamat?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  idProvinsi?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  namaProvinsi?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  idKota?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  namaKota?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  idKecamatan?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  namaKecamatan?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  idDesa?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  namaDesa?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
-  latitude?: Prisma.FloatNullableFilter<"MasjidMNBaru"> | number | null
-  longitude?: Prisma.FloatNullableFilter<"MasjidMNBaru"> | number | null
+  nama?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  alamat?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  idProvinsi?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  namaProvinsi?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  idKota?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  namaKota?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  idKecamatan?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  namaKecamatan?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  idDesa?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  namaDesa?: Prisma.StringFilter<"MasjidMNBaru"> | string
+  latitude?: Prisma.FloatFilter<"MasjidMNBaru"> | number
+  longitude?: Prisma.FloatFilter<"MasjidMNBaru"> | number
   kapasitas?: Prisma.IntNullableFilter<"MasjidMNBaru"> | number | null
   tahunDibangun?: Prisma.IntNullableFilter<"MasjidMNBaru"> | number | null
   statusTanah?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
@@ -401,18 +401,18 @@ export type MasjidMNBaruWhereUniqueInput = Prisma.AtLeast<{
 
 export type MasjidMNBaruOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  nama?: Prisma.SortOrderInput | Prisma.SortOrder
-  alamat?: Prisma.SortOrderInput | Prisma.SortOrder
-  idProvinsi?: Prisma.SortOrderInput | Prisma.SortOrder
-  namaProvinsi?: Prisma.SortOrderInput | Prisma.SortOrder
-  idKota?: Prisma.SortOrderInput | Prisma.SortOrder
-  namaKota?: Prisma.SortOrderInput | Prisma.SortOrder
-  idKecamatan?: Prisma.SortOrderInput | Prisma.SortOrder
-  namaKecamatan?: Prisma.SortOrderInput | Prisma.SortOrder
-  idDesa?: Prisma.SortOrderInput | Prisma.SortOrder
-  namaDesa?: Prisma.SortOrderInput | Prisma.SortOrder
-  latitude?: Prisma.SortOrderInput | Prisma.SortOrder
-  longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  nama?: Prisma.SortOrder
+  alamat?: Prisma.SortOrder
+  idProvinsi?: Prisma.SortOrder
+  namaProvinsi?: Prisma.SortOrder
+  idKota?: Prisma.SortOrder
+  namaKota?: Prisma.SortOrder
+  idKecamatan?: Prisma.SortOrder
+  namaKecamatan?: Prisma.SortOrder
+  idDesa?: Prisma.SortOrder
+  namaDesa?: Prisma.SortOrder
+  latitude?: Prisma.SortOrder
+  longitude?: Prisma.SortOrder
   kapasitas?: Prisma.SortOrderInput | Prisma.SortOrder
   tahunDibangun?: Prisma.SortOrderInput | Prisma.SortOrder
   statusTanah?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -432,18 +432,18 @@ export type MasjidMNBaruScalarWhereWithAggregatesInput = {
   OR?: Prisma.MasjidMNBaruScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MasjidMNBaruScalarWhereWithAggregatesInput | Prisma.MasjidMNBaruScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"MasjidMNBaru"> | string
-  nama?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
-  alamat?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
-  idProvinsi?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
-  namaProvinsi?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
-  idKota?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
-  namaKota?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
-  idKecamatan?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
-  namaKecamatan?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
-  idDesa?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
-  namaDesa?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
-  latitude?: Prisma.FloatNullableWithAggregatesFilter<"MasjidMNBaru"> | number | null
-  longitude?: Prisma.FloatNullableWithAggregatesFilter<"MasjidMNBaru"> | number | null
+  nama?: Prisma.StringWithAggregatesFilter<"MasjidMNBaru"> | string
+  alamat?: Prisma.StringWithAggregatesFilter<"MasjidMNBaru"> | string
+  idProvinsi?: Prisma.StringWithAggregatesFilter<"MasjidMNBaru"> | string
+  namaProvinsi?: Prisma.StringWithAggregatesFilter<"MasjidMNBaru"> | string
+  idKota?: Prisma.StringWithAggregatesFilter<"MasjidMNBaru"> | string
+  namaKota?: Prisma.StringWithAggregatesFilter<"MasjidMNBaru"> | string
+  idKecamatan?: Prisma.StringWithAggregatesFilter<"MasjidMNBaru"> | string
+  namaKecamatan?: Prisma.StringWithAggregatesFilter<"MasjidMNBaru"> | string
+  idDesa?: Prisma.StringWithAggregatesFilter<"MasjidMNBaru"> | string
+  namaDesa?: Prisma.StringWithAggregatesFilter<"MasjidMNBaru"> | string
+  latitude?: Prisma.FloatWithAggregatesFilter<"MasjidMNBaru"> | number
+  longitude?: Prisma.FloatWithAggregatesFilter<"MasjidMNBaru"> | number
   kapasitas?: Prisma.IntNullableWithAggregatesFilter<"MasjidMNBaru"> | number | null
   tahunDibangun?: Prisma.IntNullableWithAggregatesFilter<"MasjidMNBaru"> | number | null
   statusTanah?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
@@ -455,18 +455,18 @@ export type MasjidMNBaruScalarWhereWithAggregatesInput = {
 
 export type MasjidMNBaruCreateInput = {
   id?: string
-  nama?: string | null
-  alamat?: string | null
-  idProvinsi?: string | null
-  namaProvinsi?: string | null
-  idKota?: string | null
-  namaKota?: string | null
-  idKecamatan?: string | null
-  namaKecamatan?: string | null
-  idDesa?: string | null
-  namaDesa?: string | null
-  latitude?: number | null
-  longitude?: number | null
+  nama: string
+  alamat: string
+  idProvinsi: string
+  namaProvinsi: string
+  idKota: string
+  namaKota: string
+  idKecamatan: string
+  namaKecamatan: string
+  idDesa: string
+  namaDesa: string
+  latitude: number
+  longitude: number
   kapasitas?: number | null
   tahunDibangun?: number | null
   statusTanah?: string | null
@@ -478,18 +478,18 @@ export type MasjidMNBaruCreateInput = {
 
 export type MasjidMNBaruUncheckedCreateInput = {
   id?: string
-  nama?: string | null
-  alamat?: string | null
-  idProvinsi?: string | null
-  namaProvinsi?: string | null
-  idKota?: string | null
-  namaKota?: string | null
-  idKecamatan?: string | null
-  namaKecamatan?: string | null
-  idDesa?: string | null
-  namaDesa?: string | null
-  latitude?: number | null
-  longitude?: number | null
+  nama: string
+  alamat: string
+  idProvinsi: string
+  namaProvinsi: string
+  idKota: string
+  namaKota: string
+  idKecamatan: string
+  namaKecamatan: string
+  idDesa: string
+  namaDesa: string
+  latitude: number
+  longitude: number
   kapasitas?: number | null
   tahunDibangun?: number | null
   statusTanah?: string | null
@@ -501,18 +501,18 @@ export type MasjidMNBaruUncheckedCreateInput = {
 
 export type MasjidMNBaruUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  nama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  alamat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idProvinsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaProvinsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idKecamatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaKecamatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  nama?: Prisma.StringFieldUpdateOperationsInput | string
+  alamat?: Prisma.StringFieldUpdateOperationsInput | string
+  idProvinsi?: Prisma.StringFieldUpdateOperationsInput | string
+  namaProvinsi?: Prisma.StringFieldUpdateOperationsInput | string
+  idKota?: Prisma.StringFieldUpdateOperationsInput | string
+  namaKota?: Prisma.StringFieldUpdateOperationsInput | string
+  idKecamatan?: Prisma.StringFieldUpdateOperationsInput | string
+  namaKecamatan?: Prisma.StringFieldUpdateOperationsInput | string
+  idDesa?: Prisma.StringFieldUpdateOperationsInput | string
+  namaDesa?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   statusTanah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -524,18 +524,18 @@ export type MasjidMNBaruUpdateInput = {
 
 export type MasjidMNBaruUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  nama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  alamat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idProvinsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaProvinsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idKecamatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaKecamatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  nama?: Prisma.StringFieldUpdateOperationsInput | string
+  alamat?: Prisma.StringFieldUpdateOperationsInput | string
+  idProvinsi?: Prisma.StringFieldUpdateOperationsInput | string
+  namaProvinsi?: Prisma.StringFieldUpdateOperationsInput | string
+  idKota?: Prisma.StringFieldUpdateOperationsInput | string
+  namaKota?: Prisma.StringFieldUpdateOperationsInput | string
+  idKecamatan?: Prisma.StringFieldUpdateOperationsInput | string
+  namaKecamatan?: Prisma.StringFieldUpdateOperationsInput | string
+  idDesa?: Prisma.StringFieldUpdateOperationsInput | string
+  namaDesa?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   statusTanah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -547,18 +547,18 @@ export type MasjidMNBaruUncheckedUpdateInput = {
 
 export type MasjidMNBaruCreateManyInput = {
   id?: string
-  nama?: string | null
-  alamat?: string | null
-  idProvinsi?: string | null
-  namaProvinsi?: string | null
-  idKota?: string | null
-  namaKota?: string | null
-  idKecamatan?: string | null
-  namaKecamatan?: string | null
-  idDesa?: string | null
-  namaDesa?: string | null
-  latitude?: number | null
-  longitude?: number | null
+  nama: string
+  alamat: string
+  idProvinsi: string
+  namaProvinsi: string
+  idKota: string
+  namaKota: string
+  idKecamatan: string
+  namaKecamatan: string
+  idDesa: string
+  namaDesa: string
+  latitude: number
+  longitude: number
   kapasitas?: number | null
   tahunDibangun?: number | null
   statusTanah?: string | null
@@ -570,18 +570,18 @@ export type MasjidMNBaruCreateManyInput = {
 
 export type MasjidMNBaruUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  nama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  alamat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idProvinsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaProvinsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idKecamatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaKecamatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  nama?: Prisma.StringFieldUpdateOperationsInput | string
+  alamat?: Prisma.StringFieldUpdateOperationsInput | string
+  idProvinsi?: Prisma.StringFieldUpdateOperationsInput | string
+  namaProvinsi?: Prisma.StringFieldUpdateOperationsInput | string
+  idKota?: Prisma.StringFieldUpdateOperationsInput | string
+  namaKota?: Prisma.StringFieldUpdateOperationsInput | string
+  idKecamatan?: Prisma.StringFieldUpdateOperationsInput | string
+  namaKecamatan?: Prisma.StringFieldUpdateOperationsInput | string
+  idDesa?: Prisma.StringFieldUpdateOperationsInput | string
+  namaDesa?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   statusTanah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -593,18 +593,18 @@ export type MasjidMNBaruUpdateManyMutationInput = {
 
 export type MasjidMNBaruUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  nama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  alamat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idProvinsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaProvinsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idKecamatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaKecamatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  namaDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  nama?: Prisma.StringFieldUpdateOperationsInput | string
+  alamat?: Prisma.StringFieldUpdateOperationsInput | string
+  idProvinsi?: Prisma.StringFieldUpdateOperationsInput | string
+  namaProvinsi?: Prisma.StringFieldUpdateOperationsInput | string
+  idKota?: Prisma.StringFieldUpdateOperationsInput | string
+  namaKota?: Prisma.StringFieldUpdateOperationsInput | string
+  idKecamatan?: Prisma.StringFieldUpdateOperationsInput | string
+  namaKecamatan?: Prisma.StringFieldUpdateOperationsInput | string
+  idDesa?: Prisma.StringFieldUpdateOperationsInput | string
+  namaDesa?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   statusTanah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -798,18 +798,18 @@ export type $MasjidMNBaruPayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    nama: string | null
-    alamat: string | null
-    idProvinsi: string | null
-    namaProvinsi: string | null
-    idKota: string | null
-    namaKota: string | null
-    idKecamatan: string | null
-    namaKecamatan: string | null
-    idDesa: string | null
-    namaDesa: string | null
-    latitude: number | null
-    longitude: number | null
+    nama: string
+    alamat: string
+    idProvinsi: string
+    namaProvinsi: string
+    idKota: string
+    namaKota: string
+    idKecamatan: string
+    namaKecamatan: string
+    idDesa: string
+    namaDesa: string
+    latitude: number
+    longitude: number
     kapasitas: number | null
     tahunDibangun: number | null
     statusTanah: string | null

@@ -37,7 +37,7 @@ function MapFocus({
   useEffect(() => {
     if (building && shouldFocus) {
       const panelWidth = window.innerWidth > 900 ? 380 : 0;
-      map.flyTo([building.latitude, building.longitude], 17, {
+      map.flyTo([building.latitude ?? 0, building.longitude ?? 0], 17, {
         duration: 0.8,
       });
 
@@ -89,7 +89,7 @@ function BuildingMarker({
   return (
     <Marker
       ref={markerRef}
-      position={[building.latitude, building.longitude]}
+      position={[building.latitude ?? 0, building.longitude ?? 0]}
       icon={markerIcon}
       eventHandlers={{ click: () => onSelect(building.id) }}
     >

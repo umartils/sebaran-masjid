@@ -142,10 +142,10 @@ export type MasjidMNBaru = {
   namaProvinsi: string;
   idKota: string;
   namaKota: string;
-  idKecamatan?: string | null;
-  namaKecamatan?: string | null;
-  idDesa?: string | null;
-  namaDesa?: string | null;
+  idKecamatan?: string;
+  namaKecamatan?: string;
+  idDesa?: string;
+  namaDesa?: string;
 
   // Lokasi
   latitude: number;

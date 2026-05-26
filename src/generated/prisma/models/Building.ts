@@ -897,14 +897,6 @@ export type BuildingCreateimageUrlInput = {
   set: string[]
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type BuildingUpdatedocumentImgUrlInput = {
   set?: string[]
   push?: string | string[]

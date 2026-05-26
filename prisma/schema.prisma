@@ -62,18 +62,18 @@ model VerificationToken {
 
 model Masjid {
   id                          String   @id @default(cuid())
-  nama                        String?
-  alamat                      String?
-  idProvinsi                  String?
-  namaProvinsi                String?
-  idKota                      String?
-  namaKota                    String?
+  nama                        String
+  alamat                      String
+  idProvinsi                  String
+  namaProvinsi                String
+  idKota                      String
+  namaKota                    String
   idKecamatan                 String?
   namaKecamatan               String?
   idDesa                      String?
   namaDesa                    String?
-  latitude                    Float?
-  longitude                   Float?
+  latitude                    Float
+  longitude                   Float
   kondisi                     Condition @default(RUSAK_SEDANG)
   kapasitas                   Int?
   tahunDibangun               Int?
@@ -194,18 +194,18 @@ model MasjidMN {
 
 model MasjidMNBaru {
   id                  String   @id @default(cuid())
-  nama                String?
-  alamat              String?
-  idProvinsi          String?
-  namaProvinsi        String?
-  idKota              String?
-  namaKota            String?
-  idKecamatan         String?
-  namaKecamatan       String?
-  idDesa              String?
-  namaDesa            String?
-  latitude            Float?
-  longitude           Float?
+  nama                String
+  alamat              String
+  idProvinsi          String
+  namaProvinsi        String
+  idKota              String
+  namaKota            String
+  idKecamatan         String
+  namaKecamatan       String
+  idDesa              String
+  namaDesa            String
+  latitude            Float
+  longitude           Float
   kapasitas           Int?
   tahunDibangun       Int?
   statusTanah         String?

@@ -1,7 +1,7 @@
-import type { BuildingCondition, BuildingStatus } from "@/lib/types";
+import type { KondisiMasjid, StatusMasjid } from "@/lib/types";
 
-export function conditionLabel(condition: BuildingCondition) {
-  const labels: Record<BuildingCondition, string> = {
+export function conditionLabel(condition: KondisiMasjid) {
+  const labels: Record<KondisiMasjid, string> = {
     RUSAK_BERAT: "Rusak Berat",
     RUSAK_SEDANG: "Rusak Sedang",
     RUSAK_RINGAN: "Rusak Ringan",
@@ -11,8 +11,8 @@ export function conditionLabel(condition: BuildingCondition) {
   return labels[condition];
 }
 
-export function statusLabel(status: BuildingStatus) {
-  const labels: Record<BuildingStatus, string> = {
+export function statusLabel(status: StatusMasjid) {
+  const labels: Record<StatusMasjid, string> = {
     APPROVED: "Disetujui",
     PENDING: "Menunggu",
     REJECTED: "Ditolak",
@@ -22,13 +22,13 @@ export function statusLabel(status: BuildingStatus) {
   return labels[status];
 }
 
-export function conditionTone(condition: BuildingCondition) {
+export function conditionTone(condition: KondisiMasjid) {
   if (condition === "RUSAK_BERAT") return "badge--danger";
   if (condition === "LAYAK") return "badge--success";
   return "badge--warning";
 }
 
-export function statusTone(status: BuildingStatus) {
+export function statusTone(status: StatusMasjid) {
   if (status === "APPROVED") return "badge--success";
   if (status === "REJECTED") return "badge--danger";
   return "badge--warning";

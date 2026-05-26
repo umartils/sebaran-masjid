@@ -26,7 +26,7 @@ export function AddUserForm() {
     if (session?.user?.name) {
       setForm((current) => ({
         ...current,
-        userInput: session.user.name,
+        userInput: session.user.name ?? "",
       }));
     }
   }, [session]);

@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "MasjidMNBaru" ALTER COLUMN "idKecamatan" DROP NOT NULL,
+ALTER COLUMN "namaKecamatan" DROP NOT NULL,
+ALTER COLUMN "idDesa" DROP NOT NULL,
+ALTER COLUMN "namaDesa" DROP NOT NULL;
