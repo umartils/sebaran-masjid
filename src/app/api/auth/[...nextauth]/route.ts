@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+// import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
@@ -49,6 +49,7 @@ const handler = NextAuth({
           email: user.email,
           name: user.name,
           role: user.role,
+          nomorTelepon: user.nomorTelepon,
         };
       },
     }),
@@ -58,6 +59,7 @@ const handler = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.role = user.role;
+        token.nomorTelepon = user.nomorTelepon;
       }
 
       return token;
@@ -66,6 +68,7 @@ const handler = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.role = token.role as string;
+        session.user.nomorTelepon = token.nomorTelepon as string;
       }
 
       return session;

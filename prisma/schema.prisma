@@ -14,9 +14,11 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
+  nomorTelepon  String?
   role          String    @default("Relawan")
   image         String?
   password      String?
+  userInput     String?
 
   accounts Account[]
   sessions Session[]
@@ -58,13 +60,84 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Masjid {
+  id                          String   @id @default(cuid())
+  nama                        String?
+  alamat                      String?
+  idProvinsi                  String?
+  namaProvinsi                String?
+  idKota                      String?
+  namaKota                    String?
+  idKecamatan                 String?
+  namaKecamatan               String?
+  idDesa                      String?
+  namaDesa                    String?
+  latitude                    Float?
+  longitude                   Float?
+  kondisi                     Condition @default(RUSAK_SEDANG)
+  kapasitas                   Int?
+  tahunDibangun               Int?
+  budgetAwal                  Decimal? @db.Decimal(14, 2)
+  luasSekarang                String?
+  materialUtama               String?
+  statusPerluasan             String?
+  riwayatRenovasi             String?
+  targetPerluasan             String?
+  statusTanah                 String?
+  statusListrik               String?
+  waktuKerusakan              String?
+  alasan                      String?
+  detail                      String?
+  dampakKerusakan             String?
+  hambatanAktivitas           String?
+  kondisiHujan                String?
+  riwayatRoboh                String?
+  usahaPerbaikan              String?
+  riwayatMenerimaBantuan      String?
+  kkMuslim                    Int?
+  jumlahJamaah                String?
+  avgProfesiJamaah            String?
+  avgGajiJamaah               String?
+  usahaJamaah                 String?
+  // akses dan kondisi
+  jarakKeKota                 String?
+  waktuTempuhKeKota           String?
+  kondisiAksesKota            String?
+  kondisiAksesDesa            String?
+  jenisKendaraan              String?
+  hambatanAkses               String?
+  gantiNama                   String?
+  masjidTerdekat              String?
+  aksesMasjidTerdekat         String?
+  jarakKeMasjidTerdekat       String?
+  alasanTidakPilihTerdekat    String?
+  kelayakan                   String?
+  aktivitasMasjid             String?
+  jamaahSubuh                 String?
+  jumlahSantri                String?
+  namaPic                     String?
+  jabatanPic                  String?
+  kontakPic                   String?
+  catatan                     String?
+  statusPengajuan             BuildingStatus @default(PENDING)
+  documentImgUrl              String[]
+  imageUrl                    String[]
+  namaRelawan         String?
+  noTelpRelawan       String?
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+
+  @@index([nama])
+  @@index([idProvinsi, idKota])
+}
+
 model Building {
   id                  String   @id @default(cuid())
-  name                String
   address             String
   provinceId          String
   provinceName        String
   regencyId           String
+  name                String
   regencyName         String
   districtId          String?
   districtName        String?
@@ -84,6 +157,8 @@ model Building {
   landStatus          String?
   notes               String?
   buildingStatus      BuildingStatus @default(PENDING)
+  documentImgUrl      String[]
+  imageUrl            String[]
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
@@ -115,6 +190,32 @@ model MasjidMN {
 
   @@index([name])
   @@index([provinceId, regencyId])
+}
+
+model MasjidMNBaru {
+  id                  String   @id @default(cuid())
+  nama                String?
+  alamat              String?
+  idProvinsi          String?
+  namaProvinsi        String?
+  idKota              String?
+  namaKota            String?
+  idKecamatan         String?
+  namaKecamatan       String?
+  idDesa              String?
+  namaDesa            String?
+  latitude            Float?
+  longitude           Float?
+  kapasitas           Int?
+  tahunDibangun       Int?
+  statusTanah         String?
+  catatan             String?
+  kondisi             Condition @default(RUSAK_SEDANG)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@index([nama])
+  @@index([idProvinsi, idKota])
 }
 
 enum Condition {

@@ -11,8 +11,8 @@ import {
 } from "react-leaflet";
 import { use, useEffect, useMemo, useRef } from "react";
 import { conditionLabel, conditionTone } from "@/lib/format";
-import type { Building, MasjidMN } from "@/lib/types";
-
+import type { Masjid, MasjidMNBaru } from "@/lib/types";
+import { ExternalLink } from "lucide-react";
 const markerIcon = L.divIcon({
   className: "",
   html: '<div class="marker-dot"></div>',
@@ -23,7 +23,7 @@ const markerIcon = L.divIcon({
 
 type MapMode = "renovasi" | "dibangun";
 
-type DataMasjid = Building | MasjidMN;
+type DataMasjid = Masjid | MasjidMNBaru;
 
 function MapFocus({
   building,
@@ -96,32 +96,42 @@ function BuildingMarker({
       <Popup className="building-popup" closeButton maxWidth={300} minWidth={0}>
         <div className="popup-card">
           <div className="popup-head">
-            <h3>{building.name}</h3>
-            <p>{building.address}</p>
+            <h3>{building.nama}</h3>
+            <p>{building.alamat}</p>
           </div>
           <div className="popup-body">
             {mapMode === "renovasi" && (
               <div className="popup-row">
                 <p>Status</p>
-                <span className={`badge ${conditionTone(building.condition)}`}>
-                  {conditionLabel(building.condition)}
+                <span className={`badge ${conditionTone(building.kondisi)}`}>
+                  {conditionLabel(building.kondisi)}
                 </span>
               </div>
             )}
             <div className="popup-row">
               <p>Kapasitas</p>
               <strong>
-                {building.capacity ? `${building.capacity} Jamaah` : "-"}
+                {building.kapasitas ? `${building.kapasitas} Jamaah` : "-"}
               </strong>
             </div>
             <div className="popup-row">
               <p>Berdiri</p>
-              <strong>{building.establishedYear ?? "-"}</strong>
+              <strong>{building.tahunDibangun ?? "-"}</strong>
             </div>
             <div className="popup-row">
               <p>Wilayah</p>
-              <strong>{building.regencyName}</strong>
+              <strong>{building.namaKota}</strong>
             </div>
+          </div>
+          <div className="popup-footer">
+            <a
+              href={`/masjid/${building.id}`}
+              className="popup-detail-btn"
+              rel="noopener noreferrer"
+            >
+              <ExternalLink size={14} />
+              Lihat Detail
+            </a>
           </div>
         </div>
       </Popup>

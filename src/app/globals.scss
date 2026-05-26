@@ -763,6 +763,32 @@ textarea.control {
   }
 }
 
+.popup-footer {
+  padding: 10px 14px 12px;
+  border-top: 1px solid #F1F5F9;
+}
+
+.popup-detail-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 7px 0;
+  background-color: #F59E0B;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+
+.popup-detail-btn:hover {
+  background-color: #D97706;
+  color: #fff;
+}
+
 /* ── Floating Mode Toggle ── */
 .map-mode-toggle {
   position: absolute;
@@ -1784,5 +1810,16 @@ textarea.control {
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+.uploadGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+
+  // Responsive: stack ke 1 kolom di layar kecil
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
   }
 }

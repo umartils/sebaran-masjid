@@ -28,16 +28,16 @@ export async function PATCH(
       );
     }
 
-    const updated = await prisma.building.update({
+    const updated = await prisma.masjid.update({
       where: {
         id,
       },
       data: {
-        buildingStatus: status,
+        statusPengajuan: status,
       },
     });
 
-    revalidatePath("/admin/buildings");
+    revalidatePath("/admin/masjid");
     revalidatePath("/admin");
     return NextResponse.json(updated);
   } catch (error) {

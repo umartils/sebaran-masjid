@@ -3,11 +3,11 @@
 import { conditionLabel, conditionTone, statusTone, statusLabel } from "@/lib/format";
 import { Search, SlidersHorizontal, Eye, Pencil, MapPin, Check, X, Trash } from "lucide-react";
 import { useMemo, useState } from "react";
-import type { Building, BuildingCondition, BuildingStatus } from "@/lib/types";
+import type { Masjid, KondisiMasjid, StatusMasjid } from "@/lib/types";
 import { useRouter } from "next/navigation";
-// import { BuildingStatus } from "@/generated/prisma/enums";
+// import { MasjidStatus } from "@/generated/prisma/enums";
 
-const conditions: Array<{ value: "ALL" | BuildingCondition; label: string }> = [
+const conditions: Array<{ value: "ALL" | KondisiMasjid; label: string }> = [
   { value: "ALL", label: "Semua Kondisi" },
   { value: "RUSAK_BERAT", label: "Rusak Berat" },
   { value: "RUSAK_SEDANG", label: "Rusak Sedang" },
@@ -15,7 +15,7 @@ const conditions: Array<{ value: "ALL" | BuildingCondition; label: string }> = [
   { value: "LAYAK", label: "Layak" },
 ];
 type Props = {
-  buildings: Building[];
+  buildings: Masjid[];
 };
 
 export function BuildingTable({ buildings }: Props) {
@@ -31,14 +31,12 @@ export function BuildingTable({ buildings }: Props) {
     message: "",
   });
   const [query, setQuery] = useState("");
-  const [conditionFilter, setConditionFilter] = useState<
-    "ALL" | BuildingCondition
-  >("ALL");
+  const [conditionFilter, setConditionFilter] = useState<"ALL" | KondisiMasjid>(
+    "ALL"
+  );
 
   // Approval state
-  const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(
-    null
-  );
+  const [selectedMasjid, setSelectedMasjid] = useState<Masjid | null>(null);
   const [actionType, setActionType] = useState<
     "APPROVED" | "REJECTED" | "DELETED" | null
   >(null);
@@ -46,15 +44,15 @@ export function BuildingTable({ buildings }: Props) {
 
   // Approval function
   const openConfirmation = (
-    building: Building,
+    building: Masjid,
     action: "APPROVED" | "REJECTED" | "DELETED"
   ) => {
-    setSelectedBuilding(building);
+    setSelectedMasjid(building);
     setActionType(action);
   };
 
   const closeConfirmation = () => {
-    setSelectedBuilding(null);
+    setSelectedMasjid(null);
     setActionType(null);
   };
 
@@ -74,13 +72,13 @@ export function BuildingTable({ buildings }: Props) {
   }
 
   const handleUpdateStatus = async () => {
-    if (!selectedBuilding || !actionType) return;
+    if (!selectedMasjid || !actionType) return;
 
     try {
       setLoading(true);
 
       const response = await fetch(
-        `/api/buildings/${selectedBuilding.id}/status`,
+        `/api/buildings/${selectedMasjid.id}/status`,
         {
           method: "PATCH",
           headers: {
@@ -123,17 +121,17 @@ export function BuildingTable({ buildings }: Props) {
     return buildings.filter((b) => {
       const matchesQuery =
         !q ||
-        b.name.toLowerCase().includes(q) ||
-        b.address.toLowerCase().includes(q) ||
-        b.regencyName.toLowerCase().includes(q) ||
-        b.provinceName.toLowerCase().includes(q) ||
-        conditionLabel(b.condition).toLowerCase().includes(q);
+        b.nama.toLowerCase().includes(q) ||
+        b.alamat.toLowerCase().includes(q) ||
+        b.namaKota.toLowerCase().includes(q) ||
+        b.namaProvinsi.toLowerCase().includes(q) ||
+        conditionLabel(b.kondisi).toLowerCase().includes(q);
 
       const matchesCondition =
-        conditionFilter == "ALL" || b.condition === conditionFilter;
+        conditionFilter == "ALL" || b.kondisi === conditionFilter;
 
       const excludedData =
-        b.buildingStatus === "DELETED" || b.buildingStatus === "REJECTED";
+        b.statusPengajuan === "DELETED" || b.statusPengajuan === "REJECTED";
 
       return matchesQuery && matchesCondition && !excludedData;
     });
@@ -201,36 +199,47 @@ export function BuildingTable({ buildings }: Props) {
               filtered.map((building) => (
                 <tr key={building.id}>
                   <td>
-                    <strong>{building.name}</strong>
+                    <strong>{building.nama}</strong>
                     <br />
-                    <span className="table-address">{building.address}</span>
+                    <span className="table-address">{building.alamat}</span>
                   </td>
                   <td>
-                    {building.regencyName},<br />
+                    {building.namaKota},<br />
                     <span className="table-province">
-                      {building.provinceName}
+                      {building.namaProvinsi}
                     </span>
                   </td>
                   <td>
                     <span
-                      className={`badge ${conditionTone(building.condition)}`}
+                      className={`badge ${conditionTone(building.kondisi)}`}
                     >
-                      {conditionLabel(building.condition)}
+                      {conditionLabel(building.kondisi)}
                     </span>
                   </td>
                   <td>
-                    {building.capacity ? `${building.capacity} Jamaah` : "-"}
+                    {building.kapasitas ? `${building.kapasitas} Jamaah` : "-"}
                   </td>
                   <td>
                     <span
-                      className={`badge ${statusTone(building.buildingStatus)}`}
+                      className={`badge ${statusTone(
+                        building.statusPengajuan
+                      )}`}
                     >
-                      {building.buildingStatus}
+                      {building.statusPengajuan}
                     </span>
                   </td>
                   <td>
                     <div className="table-actions">
-                      {building.buildingStatus === "PENDING" && (
+                      {/* View */}
+                      <a
+                        href={`/masjid/${building.id}`}
+                        className="action-btn action-btn--view"
+                        title="Lihat detail"
+                      >
+                        <Eye size={15} />
+                        <span>View</span>
+                      </a>
+                      {building.statusPengajuan === "PENDING" && (
                         <button
                           type="button"
                           onClick={() => openConfirmation(building, "APPROVED")}
@@ -241,7 +250,7 @@ export function BuildingTable({ buildings }: Props) {
                           <span>Approve</span>
                         </button>
                       )}
-                      {building.buildingStatus === "PENDING" && (
+                      {building.statusPengajuan === "PENDING" && (
                         <button
                           type="button"
                           onClick={() => openConfirmation(building, "REJECTED")}
@@ -252,18 +261,8 @@ export function BuildingTable({ buildings }: Props) {
                           <span>Reject</span>
                         </button>
                       )}
-                      {/* View */}
-                      {building.buildingStatus === "APPROVED" && (
-                        <a
-                          href={`/admin/buildings/${building.id}`}
-                          className="action-btn action-btn--view"
-                          title="Lihat detail"
-                        >
-                          <Eye size={15} />
-                          <span>View</span>
-                        </a>
-                      )}
-                      {building.buildingStatus === "APPROVED" && (
+
+                      {building.statusPengajuan === "APPROVED" && (
                         <a
                           href={`/admin/buildings/${building.id}/edit`}
                           className="action-btn action-btn--edit"
@@ -273,7 +272,7 @@ export function BuildingTable({ buildings }: Props) {
                           <span>Edit</span>
                         </a>
                       )}
-                      {building.buildingStatus === "APPROVED" && (
+                      {building.statusPengajuan === "APPROVED" && (
                         <a
                           href={`https://www.google.com/maps/search/?api=1&query=${building.latitude},${building.longitude}`}
                           target="_blank"
@@ -285,7 +284,7 @@ export function BuildingTable({ buildings }: Props) {
                           <span>Maps</span>
                         </a>
                       )}
-                      {building.buildingStatus === "APPROVED" && (
+                      {building.statusPengajuan === "APPROVED" && (
                         <button
                           type="button"
                           onClick={() => openConfirmation(building, "DELETED")}
@@ -306,7 +305,7 @@ export function BuildingTable({ buildings }: Props) {
       </div>
 
       {/* Confirmation Modal */}
-      {selectedBuilding && actionType && (
+      {selectedMasjid && actionType && (
         <div className="modal-overlay">
           <div className="modal-card">
             <h3>
@@ -329,7 +328,7 @@ export function BuildingTable({ buildings }: Props) {
               masjid:
             </p>
 
-            <div className="modal-building-name">{selectedBuilding.name}</div>
+            <div className="modal-building-name">{selectedMasjid.nama}</div>
 
             <div className="modal-actions">
               <button

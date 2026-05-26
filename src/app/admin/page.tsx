@@ -1,19 +1,19 @@
 export const dynamic = "force-dynamic";
 import { AppFrame } from "@/components/AppFrame";
-import { getBuildings } from "@/lib/buildings";
+import { getMasjid } from "@/lib/masjid";
 import { ProtectedPage } from "@/components/ProtectedPage";
-import { BuildingTable } from "@/components/clientPage/BuildingTable";
+import { BuildingTable } from "@/components/ListMasjid/BuildingTable";
 
 export default async function AdminPage() {
-  const buildings = await getBuildings();
+  const masjid = await getMasjid();
 
-  const totalRusakBerat = buildings.filter(
-    (b) => b.condition === "RUSAK_BERAT"
+  const totalRusakBerat = masjid.filter(
+    (b) => b.kondisi === "RUSAK_BERAT"
   ).length;
-  const totalPerluPerhatian = buildings.filter(
-    (b) => b.condition === "RUSAK_SEDANG" || b.condition === "RUSAK_RINGAN"
+  const totalPerluPerhatian = masjid.filter(
+    (b) => b.kondisi === "RUSAK_SEDANG" || b.kondisi === "RUSAK_RINGAN"
   ).length;
-  const totalLayak = buildings.filter((b) => b.condition === "LAYAK").length;
+  const totalLayak = masjid.filter((b) => b.kondisi === "LAYAK").length;
 
   return (
     <AppFrame>
@@ -26,7 +26,7 @@ export default async function AdminPage() {
 
           <div className="admin-stats">
             <div className="stat-card">
-              <span className="stat-number">{buildings.length}</span>
+              <span className="stat-number">{masjid.length}</span>
               <span className="stat-label">Total Masjid</span>
             </div>
             <div className="stat-card stat-card--danger">
@@ -44,7 +44,7 @@ export default async function AdminPage() {
           </div>
 
           {/* Search, Filter, dan Tabel — semua dihandle di client component */}
-          <BuildingTable buildings={buildings} />
+          <BuildingTable buildings={masjid} />
         </section>
       </ProtectedPage>
     </AppFrame>

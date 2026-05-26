@@ -388,8 +388,10 @@ export const ModelName = {
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',
+  Masjid: 'Masjid',
   Building: 'Building',
-  MasjidMN: 'MasjidMN'
+  MasjidMN: 'MasjidMN',
+  MasjidMNBaru: 'MasjidMNBaru'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -405,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "building" | "masjidMN"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "masjid" | "building" | "masjidMN" | "masjidMNBaru"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -705,6 +707,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Masjid: {
+      payload: Prisma.$MasjidPayload<ExtArgs>
+      fields: Prisma.MasjidFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MasjidFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MasjidFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidPayload>
+        }
+        findFirst: {
+          args: Prisma.MasjidFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MasjidFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidPayload>
+        }
+        findMany: {
+          args: Prisma.MasjidFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidPayload>[]
+        }
+        create: {
+          args: Prisma.MasjidCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidPayload>
+        }
+        createMany: {
+          args: Prisma.MasjidCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MasjidCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidPayload>[]
+        }
+        delete: {
+          args: Prisma.MasjidDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidPayload>
+        }
+        update: {
+          args: Prisma.MasjidUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidPayload>
+        }
+        deleteMany: {
+          args: Prisma.MasjidDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MasjidUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MasjidUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidPayload>[]
+        }
+        upsert: {
+          args: Prisma.MasjidUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidPayload>
+        }
+        aggregate: {
+          args: Prisma.MasjidAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMasjid>
+        }
+        groupBy: {
+          args: Prisma.MasjidGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MasjidGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MasjidCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MasjidCountAggregateOutputType> | number
+        }
+      }
+    }
     Building: {
       payload: Prisma.$BuildingPayload<ExtArgs>
       fields: Prisma.BuildingFieldRefs
@@ -853,6 +929,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MasjidMNBaru: {
+      payload: Prisma.$MasjidMNBaruPayload<ExtArgs>
+      fields: Prisma.MasjidMNBaruFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MasjidMNBaruFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidMNBaruPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MasjidMNBaruFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidMNBaruPayload>
+        }
+        findFirst: {
+          args: Prisma.MasjidMNBaruFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidMNBaruPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MasjidMNBaruFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidMNBaruPayload>
+        }
+        findMany: {
+          args: Prisma.MasjidMNBaruFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidMNBaruPayload>[]
+        }
+        create: {
+          args: Prisma.MasjidMNBaruCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidMNBaruPayload>
+        }
+        createMany: {
+          args: Prisma.MasjidMNBaruCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MasjidMNBaruCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidMNBaruPayload>[]
+        }
+        delete: {
+          args: Prisma.MasjidMNBaruDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidMNBaruPayload>
+        }
+        update: {
+          args: Prisma.MasjidMNBaruUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidMNBaruPayload>
+        }
+        deleteMany: {
+          args: Prisma.MasjidMNBaruDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MasjidMNBaruUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MasjidMNBaruUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidMNBaruPayload>[]
+        }
+        upsert: {
+          args: Prisma.MasjidMNBaruUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MasjidMNBaruPayload>
+        }
+        aggregate: {
+          args: Prisma.MasjidMNBaruAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMasjidMNBaru>
+        }
+        groupBy: {
+          args: Prisma.MasjidMNBaruGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MasjidMNBaruGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MasjidMNBaruCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MasjidMNBaruCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -897,9 +1047,11 @@ export const UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   emailVerified: 'emailVerified',
+  nomorTelepon: 'nomorTelepon',
   role: 'role',
   image: 'image',
-  password: 'password'
+  password: 'password',
+  userInput: 'userInput'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -942,13 +1094,83 @@ export const VerificationTokenScalarFieldEnum = {
 export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
 
 
+export const MasjidScalarFieldEnum = {
+  id: 'id',
+  nama: 'nama',
+  alamat: 'alamat',
+  idProvinsi: 'idProvinsi',
+  namaProvinsi: 'namaProvinsi',
+  idKota: 'idKota',
+  namaKota: 'namaKota',
+  idKecamatan: 'idKecamatan',
+  namaKecamatan: 'namaKecamatan',
+  idDesa: 'idDesa',
+  namaDesa: 'namaDesa',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  kondisi: 'kondisi',
+  kapasitas: 'kapasitas',
+  tahunDibangun: 'tahunDibangun',
+  budgetAwal: 'budgetAwal',
+  luasSekarang: 'luasSekarang',
+  materialUtama: 'materialUtama',
+  statusPerluasan: 'statusPerluasan',
+  riwayatRenovasi: 'riwayatRenovasi',
+  targetPerluasan: 'targetPerluasan',
+  statusTanah: 'statusTanah',
+  statusListrik: 'statusListrik',
+  waktuKerusakan: 'waktuKerusakan',
+  alasan: 'alasan',
+  detail: 'detail',
+  dampakKerusakan: 'dampakKerusakan',
+  hambatanAktivitas: 'hambatanAktivitas',
+  kondisiHujan: 'kondisiHujan',
+  riwayatRoboh: 'riwayatRoboh',
+  usahaPerbaikan: 'usahaPerbaikan',
+  riwayatMenerimaBantuan: 'riwayatMenerimaBantuan',
+  kkMuslim: 'kkMuslim',
+  jumlahJamaah: 'jumlahJamaah',
+  avgProfesiJamaah: 'avgProfesiJamaah',
+  avgGajiJamaah: 'avgGajiJamaah',
+  usahaJamaah: 'usahaJamaah',
+  jarakKeKota: 'jarakKeKota',
+  waktuTempuhKeKota: 'waktuTempuhKeKota',
+  kondisiAksesKota: 'kondisiAksesKota',
+  kondisiAksesDesa: 'kondisiAksesDesa',
+  jenisKendaraan: 'jenisKendaraan',
+  hambatanAkses: 'hambatanAkses',
+  gantiNama: 'gantiNama',
+  masjidTerdekat: 'masjidTerdekat',
+  aksesMasjidTerdekat: 'aksesMasjidTerdekat',
+  jarakKeMasjidTerdekat: 'jarakKeMasjidTerdekat',
+  alasanTidakPilihTerdekat: 'alasanTidakPilihTerdekat',
+  kelayakan: 'kelayakan',
+  aktivitasMasjid: 'aktivitasMasjid',
+  jamaahSubuh: 'jamaahSubuh',
+  jumlahSantri: 'jumlahSantri',
+  namaPic: 'namaPic',
+  jabatanPic: 'jabatanPic',
+  kontakPic: 'kontakPic',
+  catatan: 'catatan',
+  statusPengajuan: 'statusPengajuan',
+  documentImgUrl: 'documentImgUrl',
+  imageUrl: 'imageUrl',
+  namaRelawan: 'namaRelawan',
+  noTelpRelawan: 'noTelpRelawan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MasjidScalarFieldEnum = (typeof MasjidScalarFieldEnum)[keyof typeof MasjidScalarFieldEnum]
+
+
 export const BuildingScalarFieldEnum = {
   id: 'id',
-  name: 'name',
   address: 'address',
   provinceId: 'provinceId',
   provinceName: 'provinceName',
   regencyId: 'regencyId',
+  name: 'name',
   regencyName: 'regencyName',
   districtId: 'districtId',
   districtName: 'districtName',
@@ -968,6 +1190,8 @@ export const BuildingScalarFieldEnum = {
   landStatus: 'landStatus',
   notes: 'notes',
   buildingStatus: 'buildingStatus',
+  documentImgUrl: 'documentImgUrl',
+  imageUrl: 'imageUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -999,6 +1223,32 @@ export const MasjidMNScalarFieldEnum = {
 } as const
 
 export type MasjidMNScalarFieldEnum = (typeof MasjidMNScalarFieldEnum)[keyof typeof MasjidMNScalarFieldEnum]
+
+
+export const MasjidMNBaruScalarFieldEnum = {
+  id: 'id',
+  nama: 'nama',
+  alamat: 'alamat',
+  idProvinsi: 'idProvinsi',
+  namaProvinsi: 'namaProvinsi',
+  idKota: 'idKota',
+  namaKota: 'namaKota',
+  idKecamatan: 'idKecamatan',
+  namaKecamatan: 'namaKecamatan',
+  idDesa: 'idDesa',
+  namaDesa: 'namaDesa',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  kapasitas: 'kapasitas',
+  tahunDibangun: 'tahunDibangun',
+  statusTanah: 'statusTanah',
+  catatan: 'catatan',
+  kondisi: 'kondisi',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MasjidMNBaruScalarFieldEnum = (typeof MasjidMNBaruScalarFieldEnum)[keyof typeof MasjidMNBaruScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1242,8 +1492,10 @@ export type GlobalOmitConfig = {
   account?: Prisma.AccountOmit
   session?: Prisma.SessionOmit
   verificationToken?: Prisma.VerificationTokenOmit
+  masjid?: Prisma.MasjidOmit
   building?: Prisma.BuildingOmit
   masjidMN?: Prisma.MasjidMNOmit
+  masjidMNBaru?: Prisma.MasjidMNBaruOmit
 }
 
 /* Types for Logging */

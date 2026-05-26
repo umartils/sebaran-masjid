@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Map,
   PlusCircle,
+  UserRoundCog
 } from "lucide-react";
 
 import { usePathname, useRouter } from "next/navigation";
@@ -31,7 +32,7 @@ const navItems = [
     children: [
       {
         href: "/input/pengajuan",
-        label: "Data Dalam Pembangunan",
+        label: "Data Pengajuan",
       },
       {
         href: "/input/masjidmn",
@@ -39,13 +40,27 @@ const navItems = [
       },
     ],
   },
-
   {
-    href: "/admin",
+    href: "/admin/dashboard/masjid",
     label: "Dashboard Admin",
     icon: LayoutDashboard,
     protected: true,
     adminOnly: true,
+  },
+  {
+    label: "User",
+    icon: UserRoundCog,
+    protected: true,
+    children: [
+      {
+        href: "/admin/user/list",
+        label: "List User",
+      },
+      {
+        href: "/admin/user/form",
+        label: "Add User",
+      },
+    ],
   },
 ];
 

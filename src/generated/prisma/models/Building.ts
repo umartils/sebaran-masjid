@@ -44,11 +44,11 @@ export type BuildingSumAggregateOutputType = {
 
 export type BuildingMinAggregateOutputType = {
   id: string | null
-  name: string | null
   address: string | null
   provinceId: string | null
   provinceName: string | null
   regencyId: string | null
+  name: string | null
   regencyName: string | null
   districtId: string | null
   districtName: string | null
@@ -74,11 +74,11 @@ export type BuildingMinAggregateOutputType = {
 
 export type BuildingMaxAggregateOutputType = {
   id: string | null
-  name: string | null
   address: string | null
   provinceId: string | null
   provinceName: string | null
   regencyId: string | null
+  name: string | null
   regencyName: string | null
   districtId: string | null
   districtName: string | null
@@ -104,11 +104,11 @@ export type BuildingMaxAggregateOutputType = {
 
 export type BuildingCountAggregateOutputType = {
   id: number
-  name: number
   address: number
   provinceId: number
   provinceName: number
   regencyId: number
+  name: number
   regencyName: number
   districtId: number
   districtName: number
@@ -128,6 +128,8 @@ export type BuildingCountAggregateOutputType = {
   landStatus: number
   notes: number
   buildingStatus: number
+  documentImgUrl: number
+  imageUrl: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -152,11 +154,11 @@ export type BuildingSumAggregateInputType = {
 
 export type BuildingMinAggregateInputType = {
   id?: true
-  name?: true
   address?: true
   provinceId?: true
   provinceName?: true
   regencyId?: true
+  name?: true
   regencyName?: true
   districtId?: true
   districtName?: true
@@ -182,11 +184,11 @@ export type BuildingMinAggregateInputType = {
 
 export type BuildingMaxAggregateInputType = {
   id?: true
-  name?: true
   address?: true
   provinceId?: true
   provinceName?: true
   regencyId?: true
+  name?: true
   regencyName?: true
   districtId?: true
   districtName?: true
@@ -212,11 +214,11 @@ export type BuildingMaxAggregateInputType = {
 
 export type BuildingCountAggregateInputType = {
   id?: true
-  name?: true
   address?: true
   provinceId?: true
   provinceName?: true
   regencyId?: true
+  name?: true
   regencyName?: true
   districtId?: true
   districtName?: true
@@ -236,6 +238,8 @@ export type BuildingCountAggregateInputType = {
   landStatus?: true
   notes?: true
   buildingStatus?: true
+  documentImgUrl?: true
+  imageUrl?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -329,11 +333,11 @@ export type BuildingGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type BuildingGroupByOutputType = {
   id: string
-  name: string
   address: string
   provinceId: string
   provinceName: string
   regencyId: string
+  name: string
   regencyName: string
   districtId: string | null
   districtName: string | null
@@ -353,6 +357,8 @@ export type BuildingGroupByOutputType = {
   landStatus: string | null
   notes: string | null
   buildingStatus: $Enums.BuildingStatus
+  documentImgUrl: string[]
+  imageUrl: string[]
   createdAt: Date
   updatedAt: Date
   _count: BuildingCountAggregateOutputType | null
@@ -382,11 +388,11 @@ export type BuildingWhereInput = {
   OR?: Prisma.BuildingWhereInput[]
   NOT?: Prisma.BuildingWhereInput | Prisma.BuildingWhereInput[]
   id?: Prisma.StringFilter<"Building"> | string
-  name?: Prisma.StringFilter<"Building"> | string
   address?: Prisma.StringFilter<"Building"> | string
   provinceId?: Prisma.StringFilter<"Building"> | string
   provinceName?: Prisma.StringFilter<"Building"> | string
   regencyId?: Prisma.StringFilter<"Building"> | string
+  name?: Prisma.StringFilter<"Building"> | string
   regencyName?: Prisma.StringFilter<"Building"> | string
   districtId?: Prisma.StringNullableFilter<"Building"> | string | null
   districtName?: Prisma.StringNullableFilter<"Building"> | string | null
@@ -406,17 +412,19 @@ export type BuildingWhereInput = {
   landStatus?: Prisma.StringNullableFilter<"Building"> | string | null
   notes?: Prisma.StringNullableFilter<"Building"> | string | null
   buildingStatus?: Prisma.EnumBuildingStatusFilter<"Building"> | $Enums.BuildingStatus
+  documentImgUrl?: Prisma.StringNullableListFilter<"Building">
+  imageUrl?: Prisma.StringNullableListFilter<"Building">
   createdAt?: Prisma.DateTimeFilter<"Building"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Building"> | Date | string
 }
 
 export type BuildingOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   provinceId?: Prisma.SortOrder
   provinceName?: Prisma.SortOrder
   regencyId?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   regencyName?: Prisma.SortOrder
   districtId?: Prisma.SortOrderInput | Prisma.SortOrder
   districtName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -436,6 +444,8 @@ export type BuildingOrderByWithRelationInput = {
   landStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   buildingStatus?: Prisma.SortOrder
+  documentImgUrl?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -445,11 +455,11 @@ export type BuildingWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.BuildingWhereInput | Prisma.BuildingWhereInput[]
   OR?: Prisma.BuildingWhereInput[]
   NOT?: Prisma.BuildingWhereInput | Prisma.BuildingWhereInput[]
-  name?: Prisma.StringFilter<"Building"> | string
   address?: Prisma.StringFilter<"Building"> | string
   provinceId?: Prisma.StringFilter<"Building"> | string
   provinceName?: Prisma.StringFilter<"Building"> | string
   regencyId?: Prisma.StringFilter<"Building"> | string
+  name?: Prisma.StringFilter<"Building"> | string
   regencyName?: Prisma.StringFilter<"Building"> | string
   districtId?: Prisma.StringNullableFilter<"Building"> | string | null
   districtName?: Prisma.StringNullableFilter<"Building"> | string | null
@@ -469,17 +479,19 @@ export type BuildingWhereUniqueInput = Prisma.AtLeast<{
   landStatus?: Prisma.StringNullableFilter<"Building"> | string | null
   notes?: Prisma.StringNullableFilter<"Building"> | string | null
   buildingStatus?: Prisma.EnumBuildingStatusFilter<"Building"> | $Enums.BuildingStatus
+  documentImgUrl?: Prisma.StringNullableListFilter<"Building">
+  imageUrl?: Prisma.StringNullableListFilter<"Building">
   createdAt?: Prisma.DateTimeFilter<"Building"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Building"> | Date | string
 }, "id">
 
 export type BuildingOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   provinceId?: Prisma.SortOrder
   provinceName?: Prisma.SortOrder
   regencyId?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   regencyName?: Prisma.SortOrder
   districtId?: Prisma.SortOrderInput | Prisma.SortOrder
   districtName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -499,6 +511,8 @@ export type BuildingOrderByWithAggregationInput = {
   landStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   buildingStatus?: Prisma.SortOrder
+  documentImgUrl?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.BuildingCountOrderByAggregateInput
@@ -513,11 +527,11 @@ export type BuildingScalarWhereWithAggregatesInput = {
   OR?: Prisma.BuildingScalarWhereWithAggregatesInput[]
   NOT?: Prisma.BuildingScalarWhereWithAggregatesInput | Prisma.BuildingScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Building"> | string
-  name?: Prisma.StringWithAggregatesFilter<"Building"> | string
   address?: Prisma.StringWithAggregatesFilter<"Building"> | string
   provinceId?: Prisma.StringWithAggregatesFilter<"Building"> | string
   provinceName?: Prisma.StringWithAggregatesFilter<"Building"> | string
   regencyId?: Prisma.StringWithAggregatesFilter<"Building"> | string
+  name?: Prisma.StringWithAggregatesFilter<"Building"> | string
   regencyName?: Prisma.StringWithAggregatesFilter<"Building"> | string
   districtId?: Prisma.StringNullableWithAggregatesFilter<"Building"> | string | null
   districtName?: Prisma.StringNullableWithAggregatesFilter<"Building"> | string | null
@@ -537,17 +551,19 @@ export type BuildingScalarWhereWithAggregatesInput = {
   landStatus?: Prisma.StringNullableWithAggregatesFilter<"Building"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Building"> | string | null
   buildingStatus?: Prisma.EnumBuildingStatusWithAggregatesFilter<"Building"> | $Enums.BuildingStatus
+  documentImgUrl?: Prisma.StringNullableListFilter<"Building">
+  imageUrl?: Prisma.StringNullableListFilter<"Building">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Building"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Building"> | Date | string
 }
 
 export type BuildingCreateInput = {
   id?: string
-  name: string
   address: string
   provinceId: string
   provinceName: string
   regencyId: string
+  name: string
   regencyName: string
   districtId?: string | null
   districtName?: string | null
@@ -567,17 +583,19 @@ export type BuildingCreateInput = {
   landStatus?: string | null
   notes?: string | null
   buildingStatus?: $Enums.BuildingStatus
+  documentImgUrl?: Prisma.BuildingCreatedocumentImgUrlInput | string[]
+  imageUrl?: Prisma.BuildingCreateimageUrlInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type BuildingUncheckedCreateInput = {
   id?: string
-  name: string
   address: string
   provinceId: string
   provinceName: string
   regencyId: string
+  name: string
   regencyName: string
   districtId?: string | null
   districtName?: string | null
@@ -597,17 +615,19 @@ export type BuildingUncheckedCreateInput = {
   landStatus?: string | null
   notes?: string | null
   buildingStatus?: $Enums.BuildingStatus
+  documentImgUrl?: Prisma.BuildingCreatedocumentImgUrlInput | string[]
+  imageUrl?: Prisma.BuildingCreateimageUrlInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type BuildingUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   provinceId?: Prisma.StringFieldUpdateOperationsInput | string
   provinceName?: Prisma.StringFieldUpdateOperationsInput | string
   regencyId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   regencyName?: Prisma.StringFieldUpdateOperationsInput | string
   districtId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   districtName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -627,17 +647,19 @@ export type BuildingUpdateInput = {
   landStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buildingStatus?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
+  documentImgUrl?: Prisma.BuildingUpdatedocumentImgUrlInput | string[]
+  imageUrl?: Prisma.BuildingUpdateimageUrlInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BuildingUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   provinceId?: Prisma.StringFieldUpdateOperationsInput | string
   provinceName?: Prisma.StringFieldUpdateOperationsInput | string
   regencyId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   regencyName?: Prisma.StringFieldUpdateOperationsInput | string
   districtId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   districtName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -657,17 +679,19 @@ export type BuildingUncheckedUpdateInput = {
   landStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buildingStatus?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
+  documentImgUrl?: Prisma.BuildingUpdatedocumentImgUrlInput | string[]
+  imageUrl?: Prisma.BuildingUpdateimageUrlInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BuildingCreateManyInput = {
   id?: string
-  name: string
   address: string
   provinceId: string
   provinceName: string
   regencyId: string
+  name: string
   regencyName: string
   districtId?: string | null
   districtName?: string | null
@@ -687,17 +711,19 @@ export type BuildingCreateManyInput = {
   landStatus?: string | null
   notes?: string | null
   buildingStatus?: $Enums.BuildingStatus
+  documentImgUrl?: Prisma.BuildingCreatedocumentImgUrlInput | string[]
+  imageUrl?: Prisma.BuildingCreateimageUrlInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type BuildingUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   provinceId?: Prisma.StringFieldUpdateOperationsInput | string
   provinceName?: Prisma.StringFieldUpdateOperationsInput | string
   regencyId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   regencyName?: Prisma.StringFieldUpdateOperationsInput | string
   districtId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   districtName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -717,17 +743,19 @@ export type BuildingUpdateManyMutationInput = {
   landStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buildingStatus?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
+  documentImgUrl?: Prisma.BuildingUpdatedocumentImgUrlInput | string[]
+  imageUrl?: Prisma.BuildingUpdateimageUrlInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BuildingUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   provinceId?: Prisma.StringFieldUpdateOperationsInput | string
   provinceName?: Prisma.StringFieldUpdateOperationsInput | string
   regencyId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   regencyName?: Prisma.StringFieldUpdateOperationsInput | string
   districtId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   districtName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -747,17 +775,19 @@ export type BuildingUncheckedUpdateManyInput = {
   landStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buildingStatus?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
+  documentImgUrl?: Prisma.BuildingUpdatedocumentImgUrlInput | string[]
+  imageUrl?: Prisma.BuildingUpdateimageUrlInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BuildingCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   provinceId?: Prisma.SortOrder
   provinceName?: Prisma.SortOrder
   regencyId?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   regencyName?: Prisma.SortOrder
   districtId?: Prisma.SortOrder
   districtName?: Prisma.SortOrder
@@ -777,6 +807,8 @@ export type BuildingCountOrderByAggregateInput = {
   landStatus?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   buildingStatus?: Prisma.SortOrder
+  documentImgUrl?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -791,11 +823,11 @@ export type BuildingAvgOrderByAggregateInput = {
 
 export type BuildingMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   provinceId?: Prisma.SortOrder
   provinceName?: Prisma.SortOrder
   regencyId?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   regencyName?: Prisma.SortOrder
   districtId?: Prisma.SortOrder
   districtName?: Prisma.SortOrder
@@ -821,11 +853,11 @@ export type BuildingMaxOrderByAggregateInput = {
 
 export type BuildingMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   provinceId?: Prisma.SortOrder
   provinceName?: Prisma.SortOrder
   regencyId?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   regencyName?: Prisma.SortOrder
   districtId?: Prisma.SortOrder
   districtName?: Prisma.SortOrder
@@ -857,6 +889,14 @@ export type BuildingSumOrderByAggregateInput = {
   initialBudget?: Prisma.SortOrder
 }
 
+export type BuildingCreatedocumentImgUrlInput = {
+  set: string[]
+}
+
+export type BuildingCreateimageUrlInput = {
+  set: string[]
+}
+
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -865,31 +905,25 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type EnumConditionFieldUpdateOperationsInput = {
-  set?: $Enums.Condition
+export type BuildingUpdatedocumentImgUrlInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
-export type NullableDecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
-}
-
-export type EnumBuildingStatusFieldUpdateOperationsInput = {
-  set?: $Enums.BuildingStatus
+export type BuildingUpdateimageUrlInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 
 
 export type BuildingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
   address?: boolean
   provinceId?: boolean
   provinceName?: boolean
   regencyId?: boolean
+  name?: boolean
   regencyName?: boolean
   districtId?: boolean
   districtName?: boolean
@@ -909,17 +943,19 @@ export type BuildingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   landStatus?: boolean
   notes?: boolean
   buildingStatus?: boolean
+  documentImgUrl?: boolean
+  imageUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["building"]>
 
 export type BuildingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
   address?: boolean
   provinceId?: boolean
   provinceName?: boolean
   regencyId?: boolean
+  name?: boolean
   regencyName?: boolean
   districtId?: boolean
   districtName?: boolean
@@ -939,17 +975,19 @@ export type BuildingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   landStatus?: boolean
   notes?: boolean
   buildingStatus?: boolean
+  documentImgUrl?: boolean
+  imageUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["building"]>
 
 export type BuildingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
   address?: boolean
   provinceId?: boolean
   provinceName?: boolean
   regencyId?: boolean
+  name?: boolean
   regencyName?: boolean
   districtId?: boolean
   districtName?: boolean
@@ -969,17 +1007,19 @@ export type BuildingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   landStatus?: boolean
   notes?: boolean
   buildingStatus?: boolean
+  documentImgUrl?: boolean
+  imageUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["building"]>
 
 export type BuildingSelectScalar = {
   id?: boolean
-  name?: boolean
   address?: boolean
   provinceId?: boolean
   provinceName?: boolean
   regencyId?: boolean
+  name?: boolean
   regencyName?: boolean
   districtId?: boolean
   districtName?: boolean
@@ -999,22 +1039,24 @@ export type BuildingSelectScalar = {
   landStatus?: boolean
   notes?: boolean
   buildingStatus?: boolean
+  documentImgUrl?: boolean
+  imageUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type BuildingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "address" | "provinceId" | "provinceName" | "regencyId" | "regencyName" | "districtId" | "districtName" | "villageId" | "villageName" | "latitude" | "longitude" | "condition" | "capacity" | "establishedYear" | "initialBudget" | "currentArea" | "mainMaterial" | "expansionStatus" | "renovationHistory" | "expansionTarget" | "landStatus" | "notes" | "buildingStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["building"]>
+export type BuildingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "address" | "provinceId" | "provinceName" | "regencyId" | "name" | "regencyName" | "districtId" | "districtName" | "villageId" | "villageName" | "latitude" | "longitude" | "condition" | "capacity" | "establishedYear" | "initialBudget" | "currentArea" | "mainMaterial" | "expansionStatus" | "renovationHistory" | "expansionTarget" | "landStatus" | "notes" | "buildingStatus" | "documentImgUrl" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["building"]>
 
 export type $BuildingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Building"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    name: string
     address: string
     provinceId: string
     provinceName: string
     regencyId: string
+    name: string
     regencyName: string
     districtId: string | null
     districtName: string | null
@@ -1034,6 +1076,8 @@ export type $BuildingPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     landStatus: string | null
     notes: string | null
     buildingStatus: $Enums.BuildingStatus
+    documentImgUrl: string[]
+    imageUrl: string[]
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["building"]>
@@ -1460,11 +1504,11 @@ export interface Prisma__BuildingClient<T, Null = never, ExtArgs extends runtime
  */
 export interface BuildingFieldRefs {
   readonly id: Prisma.FieldRef<"Building", 'String'>
-  readonly name: Prisma.FieldRef<"Building", 'String'>
   readonly address: Prisma.FieldRef<"Building", 'String'>
   readonly provinceId: Prisma.FieldRef<"Building", 'String'>
   readonly provinceName: Prisma.FieldRef<"Building", 'String'>
   readonly regencyId: Prisma.FieldRef<"Building", 'String'>
+  readonly name: Prisma.FieldRef<"Building", 'String'>
   readonly regencyName: Prisma.FieldRef<"Building", 'String'>
   readonly districtId: Prisma.FieldRef<"Building", 'String'>
   readonly districtName: Prisma.FieldRef<"Building", 'String'>
@@ -1484,6 +1528,8 @@ export interface BuildingFieldRefs {
   readonly landStatus: Prisma.FieldRef<"Building", 'String'>
   readonly notes: Prisma.FieldRef<"Building", 'String'>
   readonly buildingStatus: Prisma.FieldRef<"Building", 'BuildingStatus'>
+  readonly documentImgUrl: Prisma.FieldRef<"Building", 'String[]'>
+  readonly imageUrl: Prisma.FieldRef<"Building", 'String[]'>
   readonly createdAt: Prisma.FieldRef<"Building", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Building", 'DateTime'>
 }

@@ -4,14 +4,14 @@ import dynamic from "next/dynamic";
 import { Search, Hammer, RotateCcw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { conditionLabel, conditionTone } from "@/lib/format";
-import type { Building, BuildingCondition, MasjidMN } from "@/lib/types";
+import type { Masjid, KondisiMasjid, MasjidMNBaru } from "@/lib/types";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), {
   ssr: false,
   loading: () => <div className="leaflet-container" />,
 });
 
-const conditions: Array<{ value: "ALL" | BuildingCondition; label: string }> = [
+const conditions: Array<{ value: "ALL" | KondisiMasjid; label: string }> = [
   { value: "ALL", label: "Semua Kondisi" },
   { value: "RUSAK_BERAT", label: "Rusak Berat" },
   { value: "RUSAK_SEDANG", label: "Rusak Sedang" },
@@ -22,18 +22,18 @@ const conditions: Array<{ value: "ALL" | BuildingCondition; label: string }> = [
 type MapMode = "renovasi" | "dibangun";
 
 interface Props {
-  buildingsRenovasi: Building[];
-  buildingsDibangun: MasjidMN[];
+  buildingsRenovasi: Masjid[];
+  buildingsDibangun: MasjidMNBaru[];
 }
 
 export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   const [mapMode, setMapMode] = useState<MapMode>("renovasi");
   const [query, setQuery] = useState("");
-  const [condition, setCondition] = useState<"ALL" | BuildingCondition>("ALL");
+  const [condition, setCondition] = useState<"ALL" | KondisiMasjid>("ALL");
   const [province, setProvince] = useState("ALL");
 
   // Pilih dataset aktif berdasarkan mode
-  const activeBuildings: (Building | MasjidMN)[] =
+  const activeBuildings: (Masjid | MasjidMNBaru)[] =
     mapMode === "renovasi" ? buildingsRenovasi : buildingsDibangun;
 
   const [geoStatus, setGeoStatus] = useState<"idle" | "loading" | "error">(
@@ -43,7 +43,7 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   const provinces = useMemo(() => {
     return Array.from(
       new Map(
-        activeBuildings.map((item) => [item.provinceId, item.provinceName])
+        activeBuildings.map((item) => [item.idProvinsi, item.namaProvinsi])
       ).entries()
     );
   }, [activeBuildings]);
@@ -52,14 +52,13 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
     const keyword = query.trim().toLowerCase();
     return activeBuildings.filter((building) => {
       const haystack = [
-        building.name,
-        building.address,
-        building.provinceName,
-        building.regencyName,
-        building.districtName,
-        building.villageName,
-        building.condition,
-        building.landStatus,
+        building.nama,
+        building.alamat,
+        building.namaProvinsi,
+        building.namaKota,
+        building.namaKecamatan,
+        building.namaDesa,
+        building.kondisi,
       ]
         .filter(Boolean)
         .join(" ")
@@ -67,14 +66,14 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
 
       const matchStatus =
         mapMode !== "renovasi" ||
-        ("buildingStatus" in building &&
-          building.buildingStatus === "APPROVED");
+        ("statusPengajuan" in building &&
+          building.statusPengajuan === "APPROVED");
 
       return (
         matchStatus &&
         (!keyword || haystack.includes(keyword)) &&
-        (condition === "ALL" || building.condition === condition) &&
-        (province === "ALL" || building.provinceId === province)
+        (condition === "ALL" || building.kondisi === condition) &&
+        (province === "ALL" || building.idProvinsi === province)
       );
     });
   }, [activeBuildings, condition, province, query]);
@@ -216,9 +215,9 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
             onChange={(e) => setProvince(e.target.value)}
           >
             <option value="ALL">Seluruh Indonesia</option>
-            {provinces.map(([id, name]) => (
+            {provinces.map(([id, nama]) => (
               <option key={id} value={id}>
-                {name}
+                {nama}
               </option>
             ))}
           </select>
@@ -251,11 +250,11 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
               type="button"
               onClick={() => handleSelectFromList(building.id)}
             >
-              <h2>{building.name}</h2>
-              <p>{building.address}</p>
+              <h2>{building.nama}</h2>
+              <p>{building.alamat}</p>
               {mapMode === "renovasi" && (
-                <span className={`badge ${conditionTone(building.condition)}`}>
-                  {conditionLabel(building.condition)}
+                <span className={`badge ${conditionTone(building.kondisi)}`}>
+                  {conditionLabel(building.kondisi)}
                 </span>
               )}
             </button>

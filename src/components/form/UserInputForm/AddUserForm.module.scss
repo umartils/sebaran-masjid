@@ -1,0 +1,191 @@
+// Brand Colors (Diselaraskan dengan tema SEIMAN Anda)
+$seiman-orange: #f59e0b;       // Oranye utama Seiman
+$seiman-orange-hover: #d97706; // Oranye tua saat di-hover
+$text-main: #1e293b;          // Abu-abu sangat gelap untuk teks judul & label
+$text-sub: #64748b;           // Abu-abu sekunder (sub-judul & ikon)
+$border-light: #e2e8f0;       // Warna border input bawaan (halus)
+$bg-readonly: #f8fafc;        // Background abu-abu tipis untuk field read-only
+$error-color: #ef4444;
+$success-color: #10b981;
+
+.pageContainer {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #f8fafc; // Menyamakan background luar dengan dashboard
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.formCard {
+  width: 100%;
+  max-width: 850px;
+  background-color: #ffffff;
+  padding: 3rem 2.5rem;
+  border-radius: 16px; // Lengkungan sudut halus mirip container dashboard Anda
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.02), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: 0.5rem;
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $seiman-orange; // Menyamakan judul dengan skema oranye SEIMAN
+    margin: 0 0 0.5rem 0;
+  }
+
+  &__subtitle {
+    font-size: 0.95rem;
+    color: $text-sub;
+    margin: 0;
+  }
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &--span2 {
+    grid-column: span 2;
+    @media (max-width: 640px) {
+      grid-column: span 1;
+    }
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $text-main;
+  }
+
+  // Box pembungkus utama yang menyatukan ikon di dalam field
+  &__inputContainer {
+    display: flex;
+    align-items: center;
+    border: 1px solid $border-light;
+    border-radius: 10px; // Lengkungan melingkar yang modern
+    padding: 0 1rem;
+    background-color: #ffffff;
+    transition: all 0.2s ease-in-out;
+
+    &:focus-within {
+      border-color: $seiman-orange;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15); // Glow efek warna oranye tipis
+    }
+
+    &--readonly {
+      background-color: $bg-readonly;
+      border-color: #e2e8f0;
+      cursor: not-allowed;
+    }
+  }
+
+  &__icon {
+    color: #475569; // Menggunakan warna gelap bodi agar ikon terlihat jelas
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  &__input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0.85rem 0; // Memberikan tinggi field yang pas dan lega
+    font-size: 0.9rem;
+    color: $text-main;
+
+    &::placeholder {
+      color: #94a3b8;
+    }
+
+    &:read-only {
+      cursor: not-allowed;
+      color: #64748b;
+    }
+
+    // Mengatur dropdown select agar serasi
+    &--select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0 center;
+      background-size: 1rem;
+      padding-right: 1.5rem;
+    }
+  }
+}
+
+.formStatus {
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+
+  &--error {
+    background-color: rgba($error-color, 0.08);
+    color: $error-color;
+    border: 1px solid rgba($error-color, 0.15);
+  }
+
+  &--success {
+    background-color: rgba($success-color, 0.08);
+    color: $success-color;
+    border: 1px solid rgba($success-color, 0.15);
+  }
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+
+  &__submitBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: $seiman-orange; // Menggunakan warna oranye SEIMAN
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.85rem 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    @media (max-width: 640px) {
+      width: 100%;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: $seiman-orange-hover;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}

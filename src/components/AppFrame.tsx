@@ -10,7 +10,7 @@ import { ChevronLeft, ChevronRight, LogIn, LogOut, User } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { signOut, useSession } from "next-auth/react";
-import { Navbar } from "./navbar/index";
+import { Navbar } from "./navbar/navbar";
 
 export function AppFrame({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

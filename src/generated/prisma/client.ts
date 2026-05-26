@@ -62,6 +62,11 @@ export type Session = Prisma.SessionModel
  */
 export type VerificationToken = Prisma.VerificationTokenModel
 /**
+ * Model Masjid
+ * 
+ */
+export type Masjid = Prisma.MasjidModel
+/**
  * Model Building
  * 
  */
@@ -71,3 +76,8 @@ export type Building = Prisma.BuildingModel
  * 
  */
 export type MasjidMN = Prisma.MasjidMNModel
+/**
+ * Model MasjidMNBaru
+ * 
+ */
+export type MasjidMNBaru = Prisma.MasjidMNBaruModel

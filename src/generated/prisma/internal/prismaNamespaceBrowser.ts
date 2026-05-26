@@ -55,8 +55,10 @@ export const ModelName = {
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',
+  Masjid: 'Masjid',
   Building: 'Building',
-  MasjidMN: 'MasjidMN'
+  MasjidMN: 'MasjidMN',
+  MasjidMNBaru: 'MasjidMNBaru'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -80,9 +82,11 @@ export const UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   emailVerified: 'emailVerified',
+  nomorTelepon: 'nomorTelepon',
   role: 'role',
   image: 'image',
-  password: 'password'
+  password: 'password',
+  userInput: 'userInput'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -125,13 +129,83 @@ export const VerificationTokenScalarFieldEnum = {
 export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
 
 
+export const MasjidScalarFieldEnum = {
+  id: 'id',
+  nama: 'nama',
+  alamat: 'alamat',
+  idProvinsi: 'idProvinsi',
+  namaProvinsi: 'namaProvinsi',
+  idKota: 'idKota',
+  namaKota: 'namaKota',
+  idKecamatan: 'idKecamatan',
+  namaKecamatan: 'namaKecamatan',
+  idDesa: 'idDesa',
+  namaDesa: 'namaDesa',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  kondisi: 'kondisi',
+  kapasitas: 'kapasitas',
+  tahunDibangun: 'tahunDibangun',
+  budgetAwal: 'budgetAwal',
+  luasSekarang: 'luasSekarang',
+  materialUtama: 'materialUtama',
+  statusPerluasan: 'statusPerluasan',
+  riwayatRenovasi: 'riwayatRenovasi',
+  targetPerluasan: 'targetPerluasan',
+  statusTanah: 'statusTanah',
+  statusListrik: 'statusListrik',
+  waktuKerusakan: 'waktuKerusakan',
+  alasan: 'alasan',
+  detail: 'detail',
+  dampakKerusakan: 'dampakKerusakan',
+  hambatanAktivitas: 'hambatanAktivitas',
+  kondisiHujan: 'kondisiHujan',
+  riwayatRoboh: 'riwayatRoboh',
+  usahaPerbaikan: 'usahaPerbaikan',
+  riwayatMenerimaBantuan: 'riwayatMenerimaBantuan',
+  kkMuslim: 'kkMuslim',
+  jumlahJamaah: 'jumlahJamaah',
+  avgProfesiJamaah: 'avgProfesiJamaah',
+  avgGajiJamaah: 'avgGajiJamaah',
+  usahaJamaah: 'usahaJamaah',
+  jarakKeKota: 'jarakKeKota',
+  waktuTempuhKeKota: 'waktuTempuhKeKota',
+  kondisiAksesKota: 'kondisiAksesKota',
+  kondisiAksesDesa: 'kondisiAksesDesa',
+  jenisKendaraan: 'jenisKendaraan',
+  hambatanAkses: 'hambatanAkses',
+  gantiNama: 'gantiNama',
+  masjidTerdekat: 'masjidTerdekat',
+  aksesMasjidTerdekat: 'aksesMasjidTerdekat',
+  jarakKeMasjidTerdekat: 'jarakKeMasjidTerdekat',
+  alasanTidakPilihTerdekat: 'alasanTidakPilihTerdekat',
+  kelayakan: 'kelayakan',
+  aktivitasMasjid: 'aktivitasMasjid',
+  jamaahSubuh: 'jamaahSubuh',
+  jumlahSantri: 'jumlahSantri',
+  namaPic: 'namaPic',
+  jabatanPic: 'jabatanPic',
+  kontakPic: 'kontakPic',
+  catatan: 'catatan',
+  statusPengajuan: 'statusPengajuan',
+  documentImgUrl: 'documentImgUrl',
+  imageUrl: 'imageUrl',
+  namaRelawan: 'namaRelawan',
+  noTelpRelawan: 'noTelpRelawan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MasjidScalarFieldEnum = (typeof MasjidScalarFieldEnum)[keyof typeof MasjidScalarFieldEnum]
+
+
 export const BuildingScalarFieldEnum = {
   id: 'id',
-  name: 'name',
   address: 'address',
   provinceId: 'provinceId',
   provinceName: 'provinceName',
   regencyId: 'regencyId',
+  name: 'name',
   regencyName: 'regencyName',
   districtId: 'districtId',
   districtName: 'districtName',
@@ -151,6 +225,8 @@ export const BuildingScalarFieldEnum = {
   landStatus: 'landStatus',
   notes: 'notes',
   buildingStatus: 'buildingStatus',
+  documentImgUrl: 'documentImgUrl',
+  imageUrl: 'imageUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -182,6 +258,32 @@ export const MasjidMNScalarFieldEnum = {
 } as const
 
 export type MasjidMNScalarFieldEnum = (typeof MasjidMNScalarFieldEnum)[keyof typeof MasjidMNScalarFieldEnum]
+
+
+export const MasjidMNBaruScalarFieldEnum = {
+  id: 'id',
+  nama: 'nama',
+  alamat: 'alamat',
+  idProvinsi: 'idProvinsi',
+  namaProvinsi: 'namaProvinsi',
+  idKota: 'idKota',
+  namaKota: 'namaKota',
+  idKecamatan: 'idKecamatan',
+  namaKecamatan: 'namaKecamatan',
+  idDesa: 'idDesa',
+  namaDesa: 'namaDesa',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  kapasitas: 'kapasitas',
+  tahunDibangun: 'tahunDibangun',
+  statusTanah: 'statusTanah',
+  catatan: 'catatan',
+  kondisi: 'kondisi',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MasjidMNBaruScalarFieldEnum = (typeof MasjidMNBaruScalarFieldEnum)[keyof typeof MasjidMNBaruScalarFieldEnum]
 
 
 export const SortOrder = {

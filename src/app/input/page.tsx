@@ -1,5 +1,5 @@
 import { AppFrame } from "@/components/AppFrame";
-import { BuildingForm } from "@/components/form/BuildingForm";
+import { FormPengajuan } from "@/components/form/FormPengajuan";
 import { ProtectedPage } from "@/components/ProtectedPage";
 
 export default function InputPage() {
@@ -7,7 +7,7 @@ export default function InputPage() {
     <AppFrame>
       <ProtectedPage redirectTo="/input">
         <section className="form-page">
-          <BuildingForm />
+          <FormPengajuan />
         </section>
       </ProtectedPage>
     </AppFrame>

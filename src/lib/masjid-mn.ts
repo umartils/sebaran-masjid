@@ -1,13 +1,14 @@
 import { prisma } from "@/lib/prisma";
-import type { MasjidMN } from "@/lib/types";
+import type { MasjidMNBaru } from "@/lib/types";
+// import { KondisiMasjid } from "./types";
 
-export async function getMasjidMN(): Promise<MasjidMN[]> {
-  const records = await prisma.masjidMN.findMany({
+export async function getMasjidMN(): Promise<MasjidMNBaru[]> {
+  const records = await prisma.masjidMNBaru.findMany({
     orderBy: { createdAt: "desc" },
   });
 
   return records.map((record) => ({
     ...record,
-    condition: record.condition as MasjidMN["condition"],
+    kondisi: record.kondisi as MasjidMNBaru["kondisi"],
   }));
 }
