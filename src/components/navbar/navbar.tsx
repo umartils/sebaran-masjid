@@ -52,11 +52,11 @@ const navItems = [
     icon: UserRoundCog,
     protected: true,
     children: [
-      {
-        // href: "/admin/user/list",
-        href: "/",
-        label: "List User",
-      },
+      // {
+      //   // href: "/admin/user/list",
+      //   href: "/",
+      //   label: "List User",
+      // },
       {
         href: "/admin/user/form",
         label: "Add User",
