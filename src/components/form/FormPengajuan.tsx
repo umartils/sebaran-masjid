@@ -9,10 +9,10 @@ import type { Region } from "@/lib/types";
 import ImageUploadField from "@/components/ImageUploadField/ImageUploadField";
 import { useSession } from "next-auth/react";
 
+import { createId } from "@paralleldrive/cuid2";
+
 const API_BASE = "https://www.emsifa.com/api-wilayah-indonesia/api";
 const emptyRegions: Region[] = [];
-
-
 
 async function fetchRegions(path: string): Promise<Region[]> {
   const res = await fetch(`${API_BASE}/${path}`);
@@ -29,7 +29,8 @@ function parseCoordinates(value: string) {
   ];
   for (const pattern of patterns) {
     const match = decoded.match(pattern);
-    if (match?.[1] && match?.[2]) return { latitude: match[1], longitude: match[2] };
+    if (match?.[1] && match?.[2])
+      return { latitude: match[1], longitude: match[2] };
   }
   return { latitude: "", longitude: "" };
 }
@@ -94,17 +95,13 @@ const initialForm = {
 };
 
 export function FormPengajuan() {
+  const [masjidId] = useState(() => createId());
   const { data: session } = useSession();
 
-  const namaRelawan =
-    session?.user?.name ??
-    session?.user?.email ??
-    "";
+  const namaRelawan = session?.user?.name ?? session?.user?.email ?? "";
 
   const kontakRelawan =
-    session?.user?.nomorTelepon ??
-    session?.user?.email ??
-    "";
+    session?.user?.nomorTelepon ?? session?.user?.email ?? "";
   console.log("Nama:", namaRelawan, "Kontak:", kontakRelawan);
   const [documentUrls, setDocumentUrls] = useState<string[]>([]);
   const [buildingImageUrls, setBuildingImageUrls] = useState<string[]>([]);
@@ -132,14 +129,23 @@ export function FormPengajuan() {
   useEffect(() => {
     if (!form.idProvinsi) return;
     fetchRegions(`regencies/${form.idProvinsi}.json`)
-      .then((regencies) => setRegions((c) => ({ ...c, regencies, districts: emptyRegions, villages: emptyRegions })))
+      .then((regencies) =>
+        setRegions((c) => ({
+          ...c,
+          regencies,
+          districts: emptyRegions,
+          villages: emptyRegions,
+        }))
+      )
       .catch(() => setStatus("Data kabupaten/kota gagal dimuat."));
   }, [form.idProvinsi]);
 
   useEffect(() => {
     if (!form.idKota) return;
     fetchRegions(`districts/${form.idKota}.json`)
-      .then((districts) => setRegions((c) => ({ ...c, districts, villages: emptyRegions })))
+      .then((districts) =>
+        setRegions((c) => ({ ...c, districts, villages: emptyRegions }))
+      )
       .catch(() => setStatus("Data kecamatan gagal dimuat."));
   }, [form.idKota]);
 
@@ -155,31 +161,46 @@ export function FormPengajuan() {
     setForm((prev) => ({
       ...prev,
       namaRelawan: namaRelawan ?? "",
-      noTelpRelawan:
-        kontakRelawan ??
-        "",
+      noTelpRelawan: kontakRelawan ?? "",
     }));
   }, [session]);
 
-  const selectedNames = useMemo(() => ({
-    namaProvinsi:  regions.provinces.find((r) => r.id === form.idProvinsi)?.name  ?? "",
-    namaKota:      regions.regencies.find((r) => r.id === form.idKota)?.name      ?? "",
-    namaKecamatan: regions.districts.find((r) => r.id === form.idKecamatan)?.name ?? "",
-    namaDesa:      regions.villages.find((r)  => r.id === form.idDesa)?.name      ?? "",
-  }), [form.idProvinsi, form.idKota, form.idKecamatan, form.idDesa, regions]);
+  const selectedNames = useMemo(
+    () => ({
+      namaProvinsi:
+        regions.provinces.find((r) => r.id === form.idProvinsi)?.name ?? "",
+      namaKota: regions.regencies.find((r) => r.id === form.idKota)?.name ?? "",
+      namaKecamatan:
+        regions.districts.find((r) => r.id === form.idKecamatan)?.name ?? "",
+      namaDesa: regions.villages.find((r) => r.id === form.idDesa)?.name ?? "",
+    }),
+    [form.idProvinsi, form.idKota, form.idKecamatan, form.idDesa, regions]
+  );
 
   function set(name: keyof typeof form, value: string) {
     setForm((c) => {
       const next = { ...c, [name]: value };
-      if (name === "idProvinsi") { next.idKota = ""; next.idKecamatan = ""; next.idDesa = ""; }
-      if (name === "idKota")     { next.idKecamatan = ""; next.idDesa = ""; }
-      if (name === "idKecamatan"){ next.idDesa = ""; }
+      if (name === "idProvinsi") {
+        next.idKota = "";
+        next.idKecamatan = "";
+        next.idDesa = "";
+      }
+      if (name === "idKota") {
+        next.idKecamatan = "";
+        next.idDesa = "";
+      }
+      if (name === "idKecamatan") {
+        next.idDesa = "";
+      }
       return next;
     });
   }
 
   function locatePosition() {
-    if (!navigator.geolocation) { setStatus("Browser tidak mendukung fitur lokasi."); return; }
+    if (!navigator.geolocation) {
+      setStatus("Browser tidak mendukung fitur lokasi.");
+      return;
+    }
     setLoadingPosition(true);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
@@ -190,7 +211,10 @@ export function FormPengajuan() {
         setLoadingPosition(false);
         setStatus("Koordinat berhasil diambil.");
       },
-      () => { setLoadingPosition(false); setStatus("Izin lokasi ditolak."); },
+      () => {
+        setLoadingPosition(false);
+        setStatus("Izin lokasi ditolak.");
+      },
       { enableHighAccuracy: true, timeout: 12000 }
     );
   }
@@ -200,13 +224,16 @@ export function FormPengajuan() {
     setStatus("Menyimpan data...");
 
     const payload = {
+      id: masjidId,
       ...form,
       ...selectedNames,
       documentImgUrl: documentUrls,
       imageUrl: buildingImageUrls,
       // coerce numerics
       kapasitas: form.kapasitas ? Number(form.kapasitas) : undefined,
-      tahunDibangun: form.tahunDibangun ? Number(form.tahunDibangun) : undefined,
+      tahunDibangun: form.tahunDibangun
+        ? Number(form.tahunDibangun)
+        : undefined,
       budgetAwal: form.budgetAwal ? Number(form.budgetAwal) : undefined,
       kkMuslim: form.kkMuslim ? Number(form.kkMuslim) : undefined,
       latitude: Number(form.latitude),
@@ -233,28 +260,44 @@ export function FormPengajuan() {
     <form className="form-card" onSubmit={submitForm}>
       <header className="form-header">
         <h1>Formulir Pendataan Masjid</h1>
-        <p>Masukkan data masjid yang membutuhkan bantuan renovasi atau pembangunan.</p>
+        <p>
+          Masukkan data masjid yang membutuhkan bantuan renovasi atau
+          pembangunan.
+        </p>
       </header>
 
       {/* ── 1. Info Umum ── */}
-      <h2 className="section-title"><Info size={22} /> 1. Info Umum</h2>
+      <h2 className="section-title">
+        <Info size={22} /> 1. Info Umum
+      </h2>
       <div className="form-grid">
         <label className="field span-2">
           <span className="label">Nama Masjid / Musholla*</span>
-          <input className="control" required value={form.nama}
+          <input
+            className="control"
+            required
+            value={form.nama}
             onChange={(e) => set("nama", e.target.value)}
-            placeholder="Contoh: Masjid Al Ikhlas" />
+            placeholder="Contoh: Masjid Al Ikhlas"
+          />
         </label>
         <label className="field span-2">
           <span className="label">Alamat Lengkap*</span>
-          <textarea className="control" required value={form.alamat}
+          <textarea
+            className="control"
+            required
+            value={form.alamat}
             onChange={(e) => set("alamat", e.target.value)}
-            placeholder="Jalan, RT/RW, Patokan..." />
+            placeholder="Jalan, RT/RW, Patokan..."
+          />
         </label>
         <label className="field span-2">
           <span className="label">Titik Koordinat Lokasi*</span>
           <span className="coordinate-row">
-            <input className="control" required value={coordinateInput}
+            <input
+              className="control"
+              required
+              value={coordinateInput}
               onChange={(e) => {
                 const val = e.target.value;
                 const coords = parseCoordinates(val);
@@ -262,82 +305,158 @@ export function FormPengajuan() {
                 set("latitude", coords.latitude);
                 set("longitude", coords.longitude);
               }}
-              placeholder="Contoh: -7.214, 107.821 atau paste link Google Maps" />
-            <button className="secondary-button" type="button" onClick={locatePosition}>
+              placeholder="Contoh: -7.214, 107.821 atau paste link Google Maps"
+            />
+            <button
+              className="secondary-button"
+              type="button"
+              onClick={locatePosition}
+            >
               <MapPinnedIcon size={18} className="button-icon" />
               {loadingPosition ? "Melacak..." : "Lacak Posisi"}
             </button>
           </span>
-          <p className="help">Wajib diisi agar masjid bisa ditayangkan di Peta Sebaran.</p>
+          <p className="help">
+            Wajib diisi agar masjid bisa ditayangkan di Peta Sebaran.
+          </p>
         </label>
-        <RegionSelect label="Provinsi*"       value={form.idProvinsi}  regions={regions.provinces} onChange={(v) => set("idProvinsi", v)} />
-        <RegionSelect label="Kabupaten/Kota*" value={form.idKota}      regions={regions.regencies} onChange={(v) => set("idKota", v)}     disabled={!form.idProvinsi} />
-        <RegionSelect label="Kecamatan"       value={form.idKecamatan} regions={regions.districts}  onChange={(v) => set("idKecamatan", v)} disabled={!form.idKota} />
-        <RegionSelect label="Desa/Kelurahan"  value={form.idDesa}      regions={regions.villages}   onChange={(v) => set("idDesa", v)}    disabled={!form.idKecamatan} />
+        <RegionSelect
+          label="Provinsi*"
+          value={form.idProvinsi}
+          regions={regions.provinces}
+          onChange={(v) => set("idProvinsi", v)}
+        />
+        <RegionSelect
+          label="Kabupaten/Kota*"
+          value={form.idKota}
+          regions={regions.regencies}
+          onChange={(v) => set("idKota", v)}
+          disabled={!form.idProvinsi}
+        />
+        <RegionSelect
+          label="Kecamatan"
+          value={form.idKecamatan}
+          regions={regions.districts}
+          onChange={(v) => set("idKecamatan", v)}
+          disabled={!form.idKota}
+        />
+        <RegionSelect
+          label="Desa/Kelurahan"
+          value={form.idDesa}
+          regions={regions.villages}
+          onChange={(v) => set("idDesa", v)}
+          disabled={!form.idKecamatan}
+        />
         <label className="field">
           <span className="label">Tahun Berdiri*</span>
-          <input className="control" required inputMode="numeric" value={form.tahunDibangun}
-            onChange={(e) => set("tahunDibangun", e.target.value)} placeholder="Contoh: 1990" />
+          <input
+            className="control"
+            required
+            inputMode="numeric"
+            value={form.tahunDibangun}
+            onChange={(e) => set("tahunDibangun", e.target.value)}
+            placeholder="Contoh: 1990"
+          />
         </label>
         <label className="field">
           <span className="label">Biaya Pembangunan Awal (Rp)</span>
-          <input className="control" inputMode="numeric" value={form.budgetAwal}
-            onChange={(e) => set("budgetAwal", e.target.value)} placeholder="Contoh: 50000000" />
+          <input
+            className="control"
+            inputMode="numeric"
+            value={form.budgetAwal}
+            onChange={(e) => set("budgetAwal", e.target.value)}
+            placeholder="Contoh: 50000000"
+          />
         </label>
       </div>
 
       {/* ── 2. Fisik & Bangunan ── */}
-      <h2 className="section-title"><Landmark size={22} /> 2. Detail Fisik & Bangunan</h2>
+      <h2 className="section-title">
+        <Landmark size={22} /> 2. Detail Fisik & Bangunan
+      </h2>
       <div className="form-grid">
         <label className="field">
           <span className="label">Luas Bangunan Saat Ini*</span>
-          <input className="control" required value={form.luasSekarang}
-            onChange={(e) => set("luasSekarang", e.target.value)} placeholder="Contoh: 10 x 10 meter" />
+          <input
+            className="control"
+            required
+            value={form.luasSekarang}
+            onChange={(e) => set("luasSekarang", e.target.value)}
+            placeholder="Contoh: 10 x 10 meter"
+          />
         </label>
         <label className="field">
           <span className="label">Kapasitas Jamaah*</span>
-          <input className="control" required inputMode="numeric" value={form.kapasitas}
-            onChange={(e) => set("kapasitas", e.target.value)} placeholder="Contoh: 100" />
+          <input
+            className="control"
+            required
+            inputMode="numeric"
+            value={form.kapasitas}
+            onChange={(e) => set("kapasitas", e.target.value)}
+            placeholder="Contoh: 100"
+          />
         </label>
         <label className="field span-2">
           <span className="label">Material Bangunan Utama*</span>
-          <input className="control" required value={form.materialUtama}
+          <input
+            className="control"
+            required
+            value={form.materialUtama}
             onChange={(e) => set("materialUtama", e.target.value)}
-            placeholder="Contoh: Bata merah, Kayu, Bambu, dll" />
+            placeholder="Contoh: Bata merah, Kayu, Bambu, dll"
+          />
         </label>
         <label className="field span-2">
           <span className="label">Status Perluasan</span>
-          <textarea className="control" value={form.statusPerluasan}
+          <textarea
+            className="control"
+            value={form.statusPerluasan}
             onChange={(e) => set("statusPerluasan", e.target.value)}
-            placeholder="Contoh: Ya, diperluas menjadi 15x10 meter" />
+            placeholder="Contoh: Ya, diperluas menjadi 15x10 meter"
+          />
         </label>
         <label className="field span-2">
           <span className="label">Riwayat Renovasi</span>
-          <textarea className="control" value={form.riwayatRenovasi}
+          <textarea
+            className="control"
+            value={form.riwayatRenovasi}
             onChange={(e) => set("riwayatRenovasi", e.target.value)}
-            placeholder="Contoh: 2 kali (Perbaikan atap dan penambahan tempat wudhu)" />
+            placeholder="Contoh: 2 kali (Perbaikan atap dan penambahan tempat wudhu)"
+          />
         </label>
         <label className="field span-2">
           <span className="label">Target Perluasan</span>
-          <input className="control" value={form.targetPerluasan}
+          <input
+            className="control"
+            value={form.targetPerluasan}
             onChange={(e) => set("targetPerluasan", e.target.value)}
-            placeholder="Contoh: Rencana menjadi 20x15 meter" />
+            placeholder="Contoh: Rencana menjadi 20x15 meter"
+          />
         </label>
       </div>
 
       {/* ── 3. Legalitas & Kondisi Kerusakan ── */}
-      <h2 className="section-title"><AlertTriangle size={22} /> 3. Legalitas & Kondisi Kerusakan</h2>
+      <h2 className="section-title">
+        <AlertTriangle size={22} /> 3. Legalitas & Kondisi Kerusakan
+      </h2>
       <div className="form-grid">
         <label className="field">
           <span className="label">Status Tanah*</span>
-          <input className="control" required value={form.statusTanah}
+          <input
+            className="control"
+            required
+            value={form.statusTanah}
             onChange={(e) => set("statusTanah", e.target.value)}
-            placeholder="Milik, Wakaf, Sewa, dll" />
+            placeholder="Milik, Wakaf, Sewa, dll"
+          />
         </label>
         <label className="field">
           <span className="label">Kondisi Bangunan*</span>
-          <select className="control" value={form.kondisi}
-            onChange={(e) => set("kondisi", e.target.value)}>
+          <select
+            className="control"
+            value={form.kondisi}
+            onChange={(e) => set("kondisi", e.target.value)}
+          >
             <option value="RUSAK_BERAT">Rusak Berat</option>
             <option value="RUSAK_SEDANG">Rusak Sedang</option>
             <option value="RUSAK_RINGAN">Rusak Ringan</option>
@@ -346,132 +465,215 @@ export function FormPengajuan() {
         </label>
         <label className="field span-2">
           <span className="label">Jaringan Listrik</span>
-          <input className="control" value={form.statusListrik}
+          <input
+            className="control"
+            value={form.statusListrik}
             onChange={(e) => set("statusListrik", e.target.value)}
-            placeholder="Contoh: PLN, Genset, Tidak ada" />
+            placeholder="Contoh: PLN, Genset, Tidak ada"
+          />
         </label>
         <label className="field">
           <span className="label">Waktu Kerusakan</span>
-          <input className="control" value={form.waktuKerusakan}
+          <input
+            className="control"
+            value={form.waktuKerusakan}
             onChange={(e) => set("waktuKerusakan", e.target.value)}
-            placeholder="Contoh: 2 tahun lalu" />
+            placeholder="Contoh: 2 tahun lalu"
+          />
         </label>
         <label className="field">
           <span className="label">Riwayat Roboh</span>
-          <input className="control" value={form.riwayatRoboh}
+          <input
+            className="control"
+            value={form.riwayatRoboh}
             onChange={(e) => set("riwayatRoboh", e.target.value)}
-            placeholder="Contoh: Pernah, 1 kali" />
+            placeholder="Contoh: Pernah, 1 kali"
+          />
         </label>
         <label className="field span-2">
           <span className="label">Alasan Mendesak Renovasi</span>
-          <textarea className="control" value={form.alasan}
+          <textarea
+            className="control"
+            value={form.alasan}
             onChange={(e) => set("alasan", e.target.value)}
-            placeholder="Jelaskan alasan utama mengapa renovasi mendesak..." />
+            placeholder="Jelaskan alasan utama mengapa renovasi mendesak..."
+          />
         </label>
         <label className="field span-2">
           <span className="label">Dampak Kerusakan</span>
-          <textarea className="control" value={form.dampakKerusakan}
+          <textarea
+            className="control"
+            value={form.dampakKerusakan}
             onChange={(e) => set("dampakKerusakan", e.target.value)}
-            placeholder="Contoh: Jamaah berkurang, aktivitas terganggu saat hujan..." />
+            placeholder="Contoh: Jamaah berkurang, aktivitas terganggu saat hujan..."
+          />
         </label>
         <label className="field span-2">
           <span className="label">Hambatan Aktivitas Ibadah</span>
-          <textarea className="control" value={form.hambatanAktivitas}
+          <textarea
+            className="control"
+            value={form.hambatanAktivitas}
             onChange={(e) => set("hambatanAktivitas", e.target.value)}
-            placeholder="Contoh: Atap bocor, lantai retak, dinding miring..." />
+            placeholder="Contoh: Atap bocor, lantai retak, dinding miring..."
+          />
         </label>
         <label className="field">
           <span className="label">Kondisi saat Hujan</span>
-          <input className="control" value={form.kondisiHujan}
+          <input
+            className="control"
+            value={form.kondisiHujan}
             onChange={(e) => set("kondisiHujan", e.target.value)}
-            placeholder="Contoh: Bocor di bagian atap depan" />
+            placeholder="Contoh: Bocor di bagian atap depan"
+          />
         </label>
         <label className="field">
           <span className="label">Usaha Perbaikan Sebelumnya</span>
-          <input className="control" value={form.usahaPerbaikan}
+          <input
+            className="control"
+            value={form.usahaPerbaikan}
             onChange={(e) => set("usahaPerbaikan", e.target.value)}
-            placeholder="Contoh: Tambal sementara pakai terpal" />
+            placeholder="Contoh: Tambal sementara pakai terpal"
+          />
         </label>
         <label className="field span-2">
           <span className="label">Riwayat Menerima Bantuan</span>
-          <textarea className="control" value={form.riwayatMenerimaBantuan}
+          <textarea
+            className="control"
+            value={form.riwayatMenerimaBantuan}
             onChange={(e) => set("riwayatMenerimaBantuan", e.target.value)}
-            placeholder="Contoh: Pernah menerima bantuan dari Baznas tahun 2020..." />
+            placeholder="Contoh: Pernah menerima bantuan dari Baznas tahun 2020..."
+          />
         </label>
       </div>
 
       {/* ── 4. Data Masyarakat ── */}
-      <h2 className="section-title"><Users size={22} /> 4. Data Masyarakat</h2>
+      <h2 className="section-title">
+        <Users size={22} /> 4. Data Masyarakat
+      </h2>
       <div className="form-grid">
         <label className="field">
           <span className="label">Jumlah KK Muslim</span>
-          <input className="control" inputMode="numeric" value={form.kkMuslim}
-            onChange={(e) => set("kkMuslim", e.target.value)} placeholder="Contoh: 150" />
+          <input
+            className="control"
+            inputMode="numeric"
+            value={form.kkMuslim}
+            onChange={(e) => set("kkMuslim", e.target.value)}
+            placeholder="Contoh: 150"
+          />
         </label>
         <label className="field">
           <span className="label">Jumlah Jamaah Aktif</span>
-          <input className="control" value={form.jumlahJamaah}
-            onChange={(e) => set("jumlahJamaah", e.target.value)} placeholder="Contoh: 80 orang" />
+          <input
+            className="control"
+            value={form.jumlahJamaah}
+            onChange={(e) => set("jumlahJamaah", e.target.value)}
+            placeholder="Contoh: 80 orang"
+          />
         </label>
         <label className="field">
           <span className="label">Profesi Mayoritas Jamaah</span>
-          <input className="control" value={form.avgProfesiJamaah}
-            onChange={(e) => set("avgProfesiJamaah", e.target.value)} placeholder="Contoh: Petani, Buruh" />
+          <input
+            className="control"
+            value={form.avgProfesiJamaah}
+            onChange={(e) => set("avgProfesiJamaah", e.target.value)}
+            placeholder="Contoh: Petani, Buruh"
+          />
         </label>
         <label className="field">
           <span className="label">Rata-rata Gaji Jamaah</span>
-          <input className="control" value={form.avgGajiJamaah}
-            onChange={(e) => set("avgGajiJamaah", e.target.value)} placeholder="Contoh: Rp 2.000.000/bulan" />
+          <input
+            className="control"
+            value={form.avgGajiJamaah}
+            onChange={(e) => set("avgGajiJamaah", e.target.value)}
+            placeholder="Contoh: Rp 2.000.000/bulan"
+          />
         </label>
-        <label className="field span-2">
+        {/* <label className="field span-2">
           <span className="label">Usaha / Bisnis Jamaah</span>
-          <input className="control" value={form.usahaJamaah}
-            onChange={(e) => set("usahaJamaah", e.target.value)} placeholder="Contoh: Warung, Pertanian, UMKM" />
-        </label>
+          <input
+            className="control"
+            value={form.usahaJamaah}
+            onChange={(e) => set("usahaJamaah", e.target.value)}
+            placeholder="Contoh: Warung, Pertanian, UMKM"
+          />
+        </label> */}
       </div>
 
       {/* ── 5. Akses & Lingkungan ── */}
-      <h2 className="section-title"><Navigation size={22} /> 5. Akses & Kondisi Lingkungan</h2>
+      <h2 className="section-title">
+        <Navigation size={22} /> 5. Akses & Kondisi Lingkungan
+      </h2>
       <div className="form-grid">
         <label className="field">
           <span className="label">Jarak ke Kota</span>
-          <input className="control" value={form.jarakKeKota}
-            onChange={(e) => set("jarakKeKota", e.target.value)} placeholder="Contoh: 15 km" />
+          <input
+            className="control"
+            value={form.jarakKeKota}
+            onChange={(e) => set("jarakKeKota", e.target.value)}
+            placeholder="Contoh: 15 km"
+          />
         </label>
         <label className="field">
           <span className="label">Waktu Tempuh ke Kota</span>
-          <input className="control" value={form.waktuTempuhKeKota}
-            onChange={(e) => set("waktuTempuhKeKota", e.target.value)} placeholder="Contoh: 30 menit" />
+          <input
+            className="control"
+            value={form.waktuTempuhKeKota}
+            onChange={(e) => set("waktuTempuhKeKota", e.target.value)}
+            placeholder="Contoh: 30 menit"
+          />
         </label>
         <label className="field">
           <span className="label">Kondisi Jalan ke Kota</span>
-          <input className="control" value={form.kondisiAksesKota}
-            onChange={(e) => set("kondisiAksesKota", e.target.value)} placeholder="Contoh: Aspal, baik" />
+          <input
+            className="control"
+            value={form.kondisiAksesKota}
+            onChange={(e) => set("kondisiAksesKota", e.target.value)}
+            placeholder="Contoh: Aspal, baik"
+          />
         </label>
         <label className="field">
           <span className="label">Kondisi Jalan ke Desa</span>
-          <input className="control" value={form.kondisiAksesDesa}
-            onChange={(e) => set("kondisiAksesDesa", e.target.value)} placeholder="Contoh: Makadam, rusak" />
+          <input
+            className="control"
+            value={form.kondisiAksesDesa}
+            onChange={(e) => set("kondisiAksesDesa", e.target.value)}
+            placeholder="Contoh: Makadam, rusak"
+          />
         </label>
         <label className="field">
           <span className="label">Jenis Kendaraan yang Bisa Masuk</span>
-          <input className="control" value={form.jenisKendaraan}
-            onChange={(e) => set("jenisKendaraan", e.target.value)} placeholder="Contoh: Motor, Mobil kecil" />
+          <input
+            className="control"
+            value={form.jenisKendaraan}
+            onChange={(e) => set("jenisKendaraan", e.target.value)}
+            placeholder="Contoh: Motor, Mobil kecil"
+          />
         </label>
         <label className="field">
           <span className="label">Hambatan Akses</span>
-          <input className="control" value={form.hambatanAkses}
-            onChange={(e) => set("hambatanAkses", e.target.value)} placeholder="Contoh: Jembatan sempit" />
+          <input
+            className="control"
+            value={form.hambatanAkses}
+            onChange={(e) => set("hambatanAkses", e.target.value)}
+            placeholder="Contoh: Jembatan sempit"
+          />
         </label>
         <label className="field">
           <span className="label">Masjid Terdekat</span>
-          <input className="control" value={form.masjidTerdekat}
-            onChange={(e) => set("masjidTerdekat", e.target.value)} placeholder="Contoh: Masjid Al-Hidayah, 2 km" />
+          <input
+            className="control"
+            value={form.masjidTerdekat}
+            onChange={(e) => set("masjidTerdekat", e.target.value)}
+            placeholder="Contoh: Masjid Al-Hidayah, 2 km"
+          />
         </label>
         <label className="field">
           <span className="label">Kesediaan Ganti Nama</span>
-          <select className="control" value={form.gantiNama}
-            onChange={(e) => set("gantiNama", e.target.value)}>
+          <select
+            className="control"
+            value={form.gantiNama}
+            onChange={(e) => set("gantiNama", e.target.value)}
+          >
             <option value="">Pilih...</option>
             <option value="Ya">Ya, bersedia</option>
             <option value="Tidak">Tidak bersedia</option>
@@ -481,12 +683,17 @@ export function FormPengajuan() {
       </div>
 
       {/* ── 6. Aktivitas Ibadah ── */}
-      <h2 className="section-title"><Sun size={22} /> 6. Aktivitas Ibadah</h2>
+      <h2 className="section-title">
+        <Sun size={22} /> 6. Aktivitas Ibadah
+      </h2>
       <div className="form-grid">
         <label className="field">
           <span className="label">Kelayakan Shalat Jumat</span>
-          <select className="control" value={form.kelayakan}
-            onChange={(e) => set("kelayakan", e.target.value)}>
+          <select
+            className="control"
+            value={form.kelayakan}
+            onChange={(e) => set("kelayakan", e.target.value)}
+          >
             <option value="">Pilih...</option>
             <option value="Layak">Layak</option>
             <option value="Tidak Layak">Tidak Layak</option>
@@ -495,54 +702,86 @@ export function FormPengajuan() {
         </label>
         <label className="field">
           <span className="label">Rata-rata Jamaah Subuh</span>
-          <input className="control" value={form.jamaahSubuh}
-            onChange={(e) => set("jamaahSubuh", e.target.value)} placeholder="Contoh: 20 orang" />
+          <input
+            className="control"
+            value={form.jamaahSubuh}
+            onChange={(e) => set("jamaahSubuh", e.target.value)}
+            placeholder="Contoh: 20 orang"
+          />
         </label>
         <label className="field">
           <span className="label">Jumlah Santri</span>
-          <input className="control" value={form.jumlahSantri}
-            onChange={(e) => set("jumlahSantri", e.target.value)} placeholder="Contoh: 30 santri" />
+          <input
+            className="control"
+            value={form.jumlahSantri}
+            onChange={(e) => set("jumlahSantri", e.target.value)}
+            placeholder="Contoh: 30 santri"
+          />
         </label>
         <label className="field span-2">
           <span className="label">Aktivitas / Kegiatan Masjid</span>
-          <textarea className="control" value={form.aktivitasMasjid}
+          <textarea
+            className="control"
+            value={form.aktivitasMasjid}
             onChange={(e) => set("aktivitasMasjid", e.target.value)}
-            placeholder="Contoh: TPA, Pengajian rutin, Majelis taklim..." />
+            placeholder="Contoh: TPA, Pengajian rutin, Majelis taklim..."
+          />
         </label>
       </div>
 
       {/* ── 7. PIC & Dokumen ── */}
-      <h2 className="section-title"><UserCircle size={22} /> 7. Narahubung & Dokumentasi</h2>
+      <h2 className="section-title">
+        <UserCircle size={22} /> 7. Narahubung & Dokumentasi
+      </h2>
       <div className="form-grid">
         <label className="field">
           <span className="label">Nama PIC / Narahubung*</span>
-          <input className="control" required value={form.namaPic}
-            onChange={(e) => set("namaPic", e.target.value)} placeholder="Nama lengkap" />
+          <input
+            className="control"
+            required
+            value={form.namaPic}
+            onChange={(e) => set("namaPic", e.target.value)}
+            placeholder="Nama lengkap"
+          />
         </label>
         <label className="field">
           <span className="label">Jabatan PIC</span>
-          <input className="control" value={form.jabatanPic}
-            onChange={(e) => set("jabatanPic", e.target.value)} placeholder="Contoh: Ketua DKM" />
+          <input
+            className="control"
+            value={form.jabatanPic}
+            onChange={(e) => set("jabatanPic", e.target.value)}
+            placeholder="Contoh: Ketua DKM"
+          />
         </label>
         <label className="field span-2">
           <span className="label">Kontak PIC (WA/Telp)*</span>
-          <input className="control" required value={form.kontakPic}
-            onChange={(e) => set("kontakPic", e.target.value)} placeholder="Contoh: 08123456789" />
+          <input
+            className="control"
+            required
+            value={form.kontakPic}
+            onChange={(e) => set("kontakPic", e.target.value)}
+            placeholder="Contoh: 08123456789"
+          />
         </label>
         <label className="field span-2">
           <span className="label">Catatan Tambahan</span>
-          <textarea className="control" value={form.catatan}
+          <textarea
+            className="control"
+            value={form.catatan}
             onChange={(e) => set("catatan", e.target.value)}
-            placeholder="Kebutuhan utama, informasi tambahan, atau catatan verifikasi..." />
+            placeholder="Kebutuhan utama, informasi tambahan, atau catatan verifikasi..."
+          />
         </label>
 
         <ImageUploadField
           label="Foto Dokumen Kepemilikan Tanah"
+          folder={`masjid/${masjidId}/dokumen`}
           maxFiles={5}
           onUrlsChange={setDocumentUrls}
         />
         <ImageUploadField
           label="Foto Bangunan"
+          folder={`masjid/${masjidId}/bangunan`}
           maxFiles={5}
           onUrlsChange={setBuildingImageUrls}
         />

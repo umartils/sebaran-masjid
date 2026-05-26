@@ -11,6 +11,7 @@ const optionalNumber = z.coerce
 
 const masjidSchema = z.object({
   // ── Info Umum ──────────────────────────────────
+  id: z.string().min(1),
   nama: z.string().min(3),
   alamat: z.string().min(5),
   idProvinsi: z.string().min(1),
@@ -131,7 +132,10 @@ export async function POST(request: Request) {
 
   try {
     const masjid = await prisma.masjid.create({
-      data: parsed.data,
+      data: {
+        ...parsed.data,
+        id: parsed.data.id,
+      },
     });
     return NextResponse.json({ masjid }, { status: 201 });
   } catch (error) {
