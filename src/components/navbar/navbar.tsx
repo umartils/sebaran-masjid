@@ -53,7 +53,8 @@ const navItems = [
     protected: true,
     children: [
       {
-        href: "/admin/user/list",
+        // href: "/admin/user/list",
+        href: "/",
         label: "List User",
       },
       {
