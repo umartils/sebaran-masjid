@@ -96,6 +96,9 @@ export interface Masjid {
   documentImgUrl: string[];
   imageUrl: string[];
 
+  namaRelawan?: string | null;
+  noTelpRelawan?: string | null;
+
   // Timestamp
   createdAt: Date;
   updatedAt: Date;

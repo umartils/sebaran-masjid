@@ -122,8 +122,8 @@ model Masjid {
   statusPengajuan             BuildingStatus @default(PENDING)
   documentImgUrl              String[]
   imageUrl                    String[]
-  namaRelawan         String?
-  noTelpRelawan       String?
+  namaRelawan                 String?
+  noTelpRelawan               String?
   createdAt                   DateTime @default(now())
   updatedAt                   DateTime @updatedAt
 
