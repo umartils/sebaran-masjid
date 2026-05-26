@@ -1,8 +1,17 @@
 "use client";
 
 import {
-  Info, Landmark, MapPinned, MapPinnedIcon,
-  Save, Users, Navigation, Sun, UserCircle, AlertTriangle, UserPen
+  Info,
+  Landmark,
+  MapPinned,
+  MapPinnedIcon,
+  Save,
+  Users,
+  Navigation,
+  Sun,
+  UserCircle,
+  AlertTriangle,
+  Camera,
 } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import type { Region } from "@/lib/types";
@@ -731,7 +740,7 @@ export function FormPengajuan() {
 
       {/* ── 7. PIC & Dokumen ── */}
       <h2 className="section-title">
-        <UserCircle size={22} /> 7. Narahubung & Dokumentasi
+        <UserCircle size={22} /> 7. Narahubung
       </h2>
       <div className="form-grid">
         <label className="field">
@@ -772,7 +781,12 @@ export function FormPengajuan() {
             placeholder="Kebutuhan utama, informasi tambahan, atau catatan verifikasi..."
           />
         </label>
+      </div>
 
+      <h2 className="section-title">
+        <Camera size={22} /> 8. Dokumentasi.
+      </h2>
+      <div className="form-grid">
         <ImageUploadField
           label="Foto Dokumen Kepemilikan Tanah"
           folder={`masjid/${masjidId}/dokumen`}
