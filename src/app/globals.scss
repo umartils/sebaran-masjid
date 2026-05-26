@@ -776,7 +776,7 @@ textarea.control {
   width: 100%;
   padding: 7px 0;
   background-color: #F59E0B;
-  color: #fff;
+  color: #fff !important;
   font-size: 13px;
   font-weight: 600;
   border-radius: 8px;
@@ -786,7 +786,7 @@ textarea.control {
 
 .popup-detail-btn:hover {
   background-color: #D97706;
-  color: #fff;
+  color: #fff !important;
 }
 
 /* ── Floating Mode Toggle ── */
