@@ -35,3 +35,13 @@ export const BuildingStatus = {
 } as const
 
 export type BuildingStatus = (typeof BuildingStatus)[keyof typeof BuildingStatus]
+
+
+export const Category = {
+  Pelosok_Pedalaman: 'Pelosok_Pedalaman',
+  Muslim_Minoritas: 'Muslim_Minoritas',
+  Kampung_Mualaf: 'Kampung_Mualaf',
+  Terdampak_Bencana: 'Terdampak_Bencana'
+} as const
+
+export type Category = (typeof Category)[keyof typeof Category]

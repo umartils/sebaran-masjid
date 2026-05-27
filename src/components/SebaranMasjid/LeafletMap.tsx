@@ -10,7 +10,7 @@ import {
   ZoomControl,
 } from "react-leaflet";
 import { use, useEffect, useMemo, useRef } from "react";
-import { conditionLabel, conditionTone } from "@/lib/format";
+import { kategoriLabel, kategoriTone } from "@/lib/format";
 import type { Masjid, MasjidMNBaru } from "@/lib/types";
 import { ExternalLink } from "lucide-react";
 const markerIcon = L.divIcon({
@@ -103,8 +103,8 @@ function BuildingMarker({
             {mapMode === "renovasi" && (
               <div className="popup-row">
                 <p>Status</p>
-                <span className={`badge ${conditionTone(building.kondisi)}`}>
-                  {conditionLabel(building.kondisi)}
+                <span className={`badge ${kategoriTone(building.kategori)}`}>
+                  {kategoriLabel(building.kategori)}
                 </span>
               </div>
             )}

@@ -1,5 +1,5 @@
 import { AppFrame } from "@/components/AppFrame";
-import { MapExperience } from "@/components/MapExperience";
+import { MapExperience } from "@/components/SebaranMasjid/MapExperience";
 import { getMasjid } from "@/lib/masjid";
 import { getMasjidMN } from "@/lib/masjid-mn";
 export const dynamic = "force-dynamic";

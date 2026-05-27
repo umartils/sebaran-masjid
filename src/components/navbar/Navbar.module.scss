@@ -1,0 +1,104 @@
+.nav {
+  display: grid;
+  gap: 6px;
+}
+
+.navItem {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 20px;
+  border-radius: 10px;
+  color: #65748a;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 150ms ease, color 150ms ease;
+  position: relative;
+
+  svg {
+    flex: 0 0 auto;
+  }
+
+  &:hover:not(.active) {
+    background: $soft;
+    color: $ink;
+  }
+
+  &.active {
+    border-radius: 12px;
+    color: #ffffff;
+    background: $brand;
+    box-shadow: 0 8px 20px rgba(246, 163, 19, 0.28);
+  }
+
+  &--locked {
+    opacity: 0.7;
+
+    &:hover {
+      background: #fff3e0 !important;
+      color: $warning !important;
+    }
+  }
+}
+
+.navLockBadge {
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: #fef3c7;
+  color: $warning;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.navGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.navParent {
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.navExpand {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.navChildren {
+  display: flex;
+  flex-direction: column;
+  margin-left: 18px;
+  gap: 4px;
+}
+
+.navChild {
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 14px;
+  opacity: 0.8;
+  transition: 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    opacity: 1;
+ }
+
+ &.active {
+  background: rgba(255, 255, 255, 0.12);
+  font-weight: 600;
+  opacity: 1;
+ }
+}

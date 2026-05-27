@@ -5,7 +5,7 @@ import Providers from "./providers";
 // import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
-  title: "SEIMAN | YMN",
+  title: "Se-iMaN",
   description: "Peta persebaran bangunan masjid dan formulir pendataan.",
   icons: {
     icon: "/assets/cropped-logo-masjid-nusantara.png",

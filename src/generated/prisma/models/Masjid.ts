@@ -59,6 +59,7 @@ export type MasjidMinAggregateOutputType = {
   latitude: number | null
   longitude: number | null
   kondisi: $Enums.Condition | null
+  kategori: $Enums.Category | null
   kapasitas: number | null
   tahunDibangun: number | null
   budgetAwal: runtime.Decimal | null
@@ -124,6 +125,7 @@ export type MasjidMaxAggregateOutputType = {
   latitude: number | null
   longitude: number | null
   kondisi: $Enums.Condition | null
+  kategori: $Enums.Category | null
   kapasitas: number | null
   tahunDibangun: number | null
   budgetAwal: runtime.Decimal | null
@@ -189,6 +191,7 @@ export type MasjidCountAggregateOutputType = {
   latitude: number
   longitude: number
   kondisi: number
+  kategori: number
   kapasitas: number
   tahunDibangun: number
   budgetAwal: number
@@ -276,6 +279,7 @@ export type MasjidMinAggregateInputType = {
   latitude?: true
   longitude?: true
   kondisi?: true
+  kategori?: true
   kapasitas?: true
   tahunDibangun?: true
   budgetAwal?: true
@@ -341,6 +345,7 @@ export type MasjidMaxAggregateInputType = {
   latitude?: true
   longitude?: true
   kondisi?: true
+  kategori?: true
   kapasitas?: true
   tahunDibangun?: true
   budgetAwal?: true
@@ -406,6 +411,7 @@ export type MasjidCountAggregateInputType = {
   latitude?: true
   longitude?: true
   kondisi?: true
+  kategori?: true
   kapasitas?: true
   tahunDibangun?: true
   budgetAwal?: true
@@ -560,6 +566,7 @@ export type MasjidGroupByOutputType = {
   latitude: number
   longitude: number
   kondisi: $Enums.Condition
+  kategori: $Enums.Category
   kapasitas: number | null
   tahunDibangun: number | null
   budgetAwal: runtime.Decimal | null
@@ -650,6 +657,7 @@ export type MasjidWhereInput = {
   latitude?: Prisma.FloatFilter<"Masjid"> | number
   longitude?: Prisma.FloatFilter<"Masjid"> | number
   kondisi?: Prisma.EnumConditionFilter<"Masjid"> | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFilter<"Masjid"> | $Enums.Category
   kapasitas?: Prisma.IntNullableFilter<"Masjid"> | number | null
   tahunDibangun?: Prisma.IntNullableFilter<"Masjid"> | number | null
   budgetAwal?: Prisma.DecimalNullableFilter<"Masjid"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -717,6 +725,7 @@ export type MasjidOrderByWithRelationInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   kondisi?: Prisma.SortOrder
+  kategori?: Prisma.SortOrder
   kapasitas?: Prisma.SortOrderInput | Prisma.SortOrder
   tahunDibangun?: Prisma.SortOrderInput | Prisma.SortOrder
   budgetAwal?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -787,6 +796,7 @@ export type MasjidWhereUniqueInput = Prisma.AtLeast<{
   latitude?: Prisma.FloatFilter<"Masjid"> | number
   longitude?: Prisma.FloatFilter<"Masjid"> | number
   kondisi?: Prisma.EnumConditionFilter<"Masjid"> | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFilter<"Masjid"> | $Enums.Category
   kapasitas?: Prisma.IntNullableFilter<"Masjid"> | number | null
   tahunDibangun?: Prisma.IntNullableFilter<"Masjid"> | number | null
   budgetAwal?: Prisma.DecimalNullableFilter<"Masjid"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -854,6 +864,7 @@ export type MasjidOrderByWithAggregationInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   kondisi?: Prisma.SortOrder
+  kategori?: Prisma.SortOrder
   kapasitas?: Prisma.SortOrderInput | Prisma.SortOrder
   tahunDibangun?: Prisma.SortOrderInput | Prisma.SortOrder
   budgetAwal?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -929,6 +940,7 @@ export type MasjidScalarWhereWithAggregatesInput = {
   latitude?: Prisma.FloatWithAggregatesFilter<"Masjid"> | number
   longitude?: Prisma.FloatWithAggregatesFilter<"Masjid"> | number
   kondisi?: Prisma.EnumConditionWithAggregatesFilter<"Masjid"> | $Enums.Condition
+  kategori?: Prisma.EnumCategoryWithAggregatesFilter<"Masjid"> | $Enums.Category
   kapasitas?: Prisma.IntNullableWithAggregatesFilter<"Masjid"> | number | null
   tahunDibangun?: Prisma.IntNullableWithAggregatesFilter<"Masjid"> | number | null
   budgetAwal?: Prisma.DecimalNullableWithAggregatesFilter<"Masjid"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -996,6 +1008,7 @@ export type MasjidCreateInput = {
   latitude: number
   longitude: number
   kondisi?: $Enums.Condition
+  kategori?: $Enums.Category
   kapasitas?: number | null
   tahunDibangun?: number | null
   budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1063,6 +1076,7 @@ export type MasjidUncheckedCreateInput = {
   latitude: number
   longitude: number
   kondisi?: $Enums.Condition
+  kategori?: $Enums.Category
   kapasitas?: number | null
   tahunDibangun?: number | null
   budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1130,6 +1144,7 @@ export type MasjidUpdateInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   kondisi?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1197,6 +1212,7 @@ export type MasjidUncheckedUpdateInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   kondisi?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1264,6 +1280,7 @@ export type MasjidCreateManyInput = {
   latitude: number
   longitude: number
   kondisi?: $Enums.Condition
+  kategori?: $Enums.Category
   kapasitas?: number | null
   tahunDibangun?: number | null
   budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1331,6 +1348,7 @@ export type MasjidUpdateManyMutationInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   kondisi?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1398,6 +1416,7 @@ export type MasjidUncheckedUpdateManyInput = {
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   kondisi?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1473,6 +1492,7 @@ export type MasjidCountOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   kondisi?: Prisma.SortOrder
+  kategori?: Prisma.SortOrder
   kapasitas?: Prisma.SortOrder
   tahunDibangun?: Prisma.SortOrder
   budgetAwal?: Prisma.SortOrder
@@ -1549,6 +1569,7 @@ export type MasjidMaxOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   kondisi?: Prisma.SortOrder
+  kategori?: Prisma.SortOrder
   kapasitas?: Prisma.SortOrder
   tahunDibangun?: Prisma.SortOrder
   budgetAwal?: Prisma.SortOrder
@@ -1614,6 +1635,7 @@ export type MasjidMinOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   kondisi?: Prisma.SortOrder
+  kategori?: Prisma.SortOrder
   kapasitas?: Prisma.SortOrder
   tahunDibangun?: Prisma.SortOrder
   budgetAwal?: Prisma.SortOrder
@@ -1693,6 +1715,10 @@ export type EnumConditionFieldUpdateOperationsInput = {
   set?: $Enums.Condition
 }
 
+export type EnumCategoryFieldUpdateOperationsInput = {
+  set?: $Enums.Category
+}
+
 export type NullableDecimalFieldUpdateOperationsInput = {
   set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1732,6 +1758,7 @@ export type MasjidSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   latitude?: boolean
   longitude?: boolean
   kondisi?: boolean
+  kategori?: boolean
   kapasitas?: boolean
   tahunDibangun?: boolean
   budgetAwal?: boolean
@@ -1799,6 +1826,7 @@ export type MasjidSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   latitude?: boolean
   longitude?: boolean
   kondisi?: boolean
+  kategori?: boolean
   kapasitas?: boolean
   tahunDibangun?: boolean
   budgetAwal?: boolean
@@ -1866,6 +1894,7 @@ export type MasjidSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   latitude?: boolean
   longitude?: boolean
   kondisi?: boolean
+  kategori?: boolean
   kapasitas?: boolean
   tahunDibangun?: boolean
   budgetAwal?: boolean
@@ -1933,6 +1962,7 @@ export type MasjidSelectScalar = {
   latitude?: boolean
   longitude?: boolean
   kondisi?: boolean
+  kategori?: boolean
   kapasitas?: boolean
   tahunDibangun?: boolean
   budgetAwal?: boolean
@@ -1985,7 +2015,7 @@ export type MasjidSelectScalar = {
   updatedAt?: boolean
 }
 
-export type MasjidOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nama" | "alamat" | "idProvinsi" | "namaProvinsi" | "idKota" | "namaKota" | "idKecamatan" | "namaKecamatan" | "idDesa" | "namaDesa" | "latitude" | "longitude" | "kondisi" | "kapasitas" | "tahunDibangun" | "budgetAwal" | "luasSekarang" | "materialUtama" | "statusPerluasan" | "riwayatRenovasi" | "targetPerluasan" | "statusTanah" | "statusListrik" | "waktuKerusakan" | "alasan" | "detail" | "dampakKerusakan" | "hambatanAktivitas" | "kondisiHujan" | "riwayatRoboh" | "usahaPerbaikan" | "riwayatMenerimaBantuan" | "kkMuslim" | "jumlahJamaah" | "avgProfesiJamaah" | "avgGajiJamaah" | "usahaJamaah" | "jarakKeKota" | "waktuTempuhKeKota" | "kondisiAksesKota" | "kondisiAksesDesa" | "jenisKendaraan" | "hambatanAkses" | "gantiNama" | "masjidTerdekat" | "aksesMasjidTerdekat" | "jarakKeMasjidTerdekat" | "alasanTidakPilihTerdekat" | "kelayakan" | "aktivitasMasjid" | "jamaahSubuh" | "jumlahSantri" | "namaPic" | "jabatanPic" | "kontakPic" | "catatan" | "statusPengajuan" | "documentImgUrl" | "imageUrl" | "namaRelawan" | "noTelpRelawan" | "createdAt" | "updatedAt", ExtArgs["result"]["masjid"]>
+export type MasjidOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nama" | "alamat" | "idProvinsi" | "namaProvinsi" | "idKota" | "namaKota" | "idKecamatan" | "namaKecamatan" | "idDesa" | "namaDesa" | "latitude" | "longitude" | "kondisi" | "kategori" | "kapasitas" | "tahunDibangun" | "budgetAwal" | "luasSekarang" | "materialUtama" | "statusPerluasan" | "riwayatRenovasi" | "targetPerluasan" | "statusTanah" | "statusListrik" | "waktuKerusakan" | "alasan" | "detail" | "dampakKerusakan" | "hambatanAktivitas" | "kondisiHujan" | "riwayatRoboh" | "usahaPerbaikan" | "riwayatMenerimaBantuan" | "kkMuslim" | "jumlahJamaah" | "avgProfesiJamaah" | "avgGajiJamaah" | "usahaJamaah" | "jarakKeKota" | "waktuTempuhKeKota" | "kondisiAksesKota" | "kondisiAksesDesa" | "jenisKendaraan" | "hambatanAkses" | "gantiNama" | "masjidTerdekat" | "aksesMasjidTerdekat" | "jarakKeMasjidTerdekat" | "alasanTidakPilihTerdekat" | "kelayakan" | "aktivitasMasjid" | "jamaahSubuh" | "jumlahSantri" | "namaPic" | "jabatanPic" | "kontakPic" | "catatan" | "statusPengajuan" | "documentImgUrl" | "imageUrl" | "namaRelawan" | "noTelpRelawan" | "createdAt" | "updatedAt", ExtArgs["result"]["masjid"]>
 
 export type $MasjidPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Masjid"
@@ -2005,6 +2035,7 @@ export type $MasjidPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     latitude: number
     longitude: number
     kondisi: $Enums.Condition
+    kategori: $Enums.Category
     kapasitas: number | null
     tahunDibangun: number | null
     budgetAwal: runtime.Decimal | null
@@ -2492,6 +2523,7 @@ export interface MasjidFieldRefs {
   readonly latitude: Prisma.FieldRef<"Masjid", 'Float'>
   readonly longitude: Prisma.FieldRef<"Masjid", 'Float'>
   readonly kondisi: Prisma.FieldRef<"Masjid", 'Condition'>
+  readonly kategori: Prisma.FieldRef<"Masjid", 'Category'>
   readonly kapasitas: Prisma.FieldRef<"Masjid", 'Int'>
   readonly tahunDibangun: Prisma.FieldRef<"Masjid", 'Int'>
   readonly budgetAwal: Prisma.FieldRef<"Masjid", 'Decimal'>

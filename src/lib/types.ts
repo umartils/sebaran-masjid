@@ -4,162 +4,170 @@ export type KondisiMasjid =
   | "RUSAK_RINGAN"
   | "LAYAK";
 
-export type StatusMasjid = "APPROVED" | "PENDING" | "REJECTED" | "DELETED";
+  export type KategoriMasjid =
+    | "Pelosok_Pedalaman"
+    | "Muslim_Minoritas"
+    | "Kampung_Mualaf"
+    | "Terdampak_Bencana";
 
-export interface Masjid {
-  id: string;
+  export type StatusMasjid = "APPROVED" | "PENDING" | "REJECTED" | "DELETED";
 
-  // Informasi dasar
-  nama: string;
-  alamat: string;
+  export interface Masjid {
+    id: string;
 
-  // Wilayah
-  idProvinsi: string;
-  namaProvinsi: string;
-  idKota: string;
-  namaKota: string;
-  idKecamatan?: string | null;
-  namaKecamatan?: string | null;
-  idDesa?: string | null;
-  namaDesa?: string | null;
+    // Informasi dasar
+    nama: string;
+    alamat: string;
 
-  // Lokasi
-  latitude: number;
-  longitude: number;
+    // Wilayah
+    idProvinsi: string;
+    namaProvinsi: string;
+    idKota: string;
+    namaKota: string;
+    idKecamatan?: string | null;
+    namaKecamatan?: string | null;
+    idDesa?: string | null;
+    namaDesa?: string | null;
 
-  // Kondisi masjid
-  kondisi: KondisiMasjid;
+    // Lokasi
+    latitude: number;
+    longitude: number;
 
-  // Informasi bangunan
-  kapasitas?: number | null;
-  tahunDibangun?: number | null;
-  budgetAwal?: string | null;
-  luasSekarang?: string | null;
-  materialUtama?: string | null;
-  statusPerluasan?: string | null;
-  riwayatRenovasi?: string | null;
-  targetPerluasan?: string | null;
-  statusTanah?: string | null;
-  statusListrik?: string | null;
+    // Kondisi masjid
+    kondisi: KondisiMasjid;
+    kategori: KategoriMasjid;
 
-  // Detail kerusakan
-  waktuKerusakan?: string | null;
-  alasan?: string | null;
-  detail?: string | null;
-  dampakKerusakan?: string | null;
-  hambatanAktivitas?: string | null;
-  kondisiHujan?: string | null;
-  riwayatRoboh?: string | null;
-  usahaPerbaikan?: string | null;
-  riwayatMenerimaBantuan?: string | null;
+    // Informasi bangunan
+    kapasitas?: number | null;
+    tahunDibangun?: number | null;
+    budgetAwal?: string | null;
+    luasSekarang?: string | null;
+    materialUtama?: string | null;
+    statusPerluasan?: string | null;
+    riwayatRenovasi?: string | null;
+    targetPerluasan?: string | null;
+    statusTanah?: string | null;
+    statusListrik?: string | null;
 
-  // Data jamaah
-  kkMuslim?: number | null;
-  jumlahJamaah?: string | null;
-  avgProfesiJamaah?: string | null;
-  avgGajiJamaah?: string | null;
-  usahaJamaah?: string | null;
+    // Detail kerusakan
+    waktuKerusakan?: string | null;
+    alasan?: string | null;
+    detail?: string | null;
+    dampakKerusakan?: string | null;
+    hambatanAktivitas?: string | null;
+    kondisiHujan?: string | null;
+    riwayatRoboh?: string | null;
+    usahaPerbaikan?: string | null;
+    riwayatMenerimaBantuan?: string | null;
 
-  // Akses dan kondisi sekitar
-  jarakKeKota?: string | null;
-  waktuTempuhKeKota?: string | null;
-  kondisiAksesKota?: string | null;
-  kondisiAksesDesa?: string | null;
-  jenisKendaraan?: string | null;
-  hambatanAkses?: string | null;
+    // Data jamaah
+    kkMuslim?: number | null;
+    jumlahJamaah?: string | null;
+    avgProfesiJamaah?: string | null;
+    avgGajiJamaah?: string | null;
+    usahaJamaah?: string | null;
 
-  // Informasi pembanding
-  gantiNama?: string | null;
-  masjidTerdekat?: string | null;
-  aksesMasjidTerdekat?: string | null;
-  jarakKeMasjidTerdekat?: string | null;
-  alasanTidakPilihTerdekat?: string | null;
+    // Akses dan kondisi sekitar
+    jarakKeKota?: string | null;
+    waktuTempuhKeKota?: string | null;
+    kondisiAksesKota?: string | null;
+    kondisiAksesDesa?: string | null;
+    jenisKendaraan?: string | null;
+    hambatanAkses?: string | null;
 
-  // Kelayakan dan aktivitas
-  kelayakan?: string | null;
-  aktivitasMasjid?: string | null;
-  jamaahSubuh?: string | null;
-  jumlahSantri?: string | null;
+    // Informasi pembanding
+    gantiNama?: string | null;
+    masjidTerdekat?: string | null;
+    aksesMasjidTerdekat?: string | null;
+    jarakKeMasjidTerdekat?: string | null;
+    alasanTidakPilihTerdekat?: string | null;
 
-  // PIC
-  namaPic?: string | null;
-  jabatanPic?: string | null;
-  kontakPic?: string | null;
+    // Kelayakan dan aktivitas
+    kelayakan?: string | null;
+    aktivitasMasjid?: string | null;
+    jamaahSubuh?: string | null;
+    jumlahSantri?: string | null;
 
-  // Catatan
-  catatan?: string | null;
+    // PIC
+    namaPic?: string | null;
+    jabatanPic?: string | null;
+    kontakPic?: string | null;
 
-  // Status pengajuan
-  statusPengajuan: StatusMasjid;
+    // Catatan
+    catatan?: string | null;
 
-  // Dokumen & Foto
-  documentImgUrl: string[];
-  imageUrl: string[];
+    // Status pengajuan
+    statusPengajuan: StatusMasjid;
 
-  namaRelawan?: string | null;
-  noTelpRelawan?: string | null;
+    // Dokumen & Foto
+    documentImgUrl: string[];
+    imageUrl: string[];
 
-  // Timestamp
-  createdAt: Date;
-  updatedAt: Date;
-}
+    namaRelawan?: string | null;
+    noTelpRelawan?: string | null;
 
-export type Region = {
-  id: string;
-  name: string;
-};
+    // Timestamp
+    createdAt: Date;
+    updatedAt: Date;
+  }
 
-export type MasjidMN = {
-  id: string;
-  name: string;
-  address: string;
-  provinceId: string;
-  provinceName: string;
-  regencyId: string;
-  regencyName: string;
-  districtId?: string | null;
-  districtName?: string | null;
-  villageId?: string | null;
-  villageName?: string | null;
-  latitude: number;
-  longitude: number;
-  condition: KondisiMasjid;
-  capacity?: number | null;
-  establishedYear?: number | null;
-  landStatus?: string | null;
-  notes?: string | null;
-};
+  export type Region = {
+    id: string;
+    name: string;
+  };
 
-export type MasjidMNBaru = {
-  id: string;
+  export type MasjidMN = {
+    id: string;
+    name: string;
+    address: string;
+    provinceId: string;
+    provinceName: string;
+    regencyId: string;
+    regencyName: string;
+    districtId?: string | null;
+    districtName?: string | null;
+    villageId?: string | null;
+    villageName?: string | null;
+    latitude: number;
+    longitude: number;
+    condition: KondisiMasjid;
+    capacity?: number | null;
+    establishedYear?: number | null;
+    landStatus?: string | null;
+    notes?: string | null;
+  };
 
-  // Informasi dasar
-  nama: string;
-  alamat: string;
+  export type MasjidMNBaru = {
+    id: string;
 
-  // Wilayah
-  idProvinsi: string;
-  namaProvinsi: string;
-  idKota: string;
-  namaKota: string;
-  idKecamatan?: string;
-  namaKecamatan?: string;
-  idDesa?: string;
-  namaDesa?: string;
+    // Informasi dasar
+    nama: string;
+    alamat: string;
 
-  // Lokasi
-  latitude: number;
-  longitude: number;
+    // Wilayah
+    idProvinsi: string;
+    namaProvinsi: string;
+    idKota: string;
+    namaKota: string;
+    idKecamatan?: string;
+    namaKecamatan?: string;
+    idDesa?: string;
+    namaDesa?: string;
 
-  // Kondisi masjid
-  kondisi: KondisiMasjid;
+    // Lokasi
+    latitude: number;
+    longitude: number;
 
-  // Informasi bangunan
-  kapasitas?: number | null;
-  tahunDibangun?: number | null;
+    // Kondisi masjid
+    kondisi: KondisiMasjid;
+    kategori: KategoriMasjid;
 
-  createdAt: Date;
-  updatedAt: Date;
+    // Informasi bangunan
+    kapasitas?: number | null;
+    tahunDibangun?: number | null;
 
-  catatan?: string | null;
-};
+    createdAt: Date;
+    updatedAt: Date;
+
+    catatan?: string | null;
+  };

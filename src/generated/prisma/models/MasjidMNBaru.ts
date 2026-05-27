@@ -59,6 +59,7 @@ export type MasjidMNBaruMinAggregateOutputType = {
   statusTanah: string | null
   catatan: string | null
   kondisi: $Enums.Condition | null
+  kategori: $Enums.Category | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -82,6 +83,7 @@ export type MasjidMNBaruMaxAggregateOutputType = {
   statusTanah: string | null
   catatan: string | null
   kondisi: $Enums.Condition | null
+  kategori: $Enums.Category | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -105,6 +107,7 @@ export type MasjidMNBaruCountAggregateOutputType = {
   statusTanah: number
   catatan: number
   kondisi: number
+  kategori: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -144,6 +147,7 @@ export type MasjidMNBaruMinAggregateInputType = {
   statusTanah?: true
   catatan?: true
   kondisi?: true
+  kategori?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -167,6 +171,7 @@ export type MasjidMNBaruMaxAggregateInputType = {
   statusTanah?: true
   catatan?: true
   kondisi?: true
+  kategori?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -190,6 +195,7 @@ export type MasjidMNBaruCountAggregateInputType = {
   statusTanah?: true
   catatan?: true
   kondisi?: true
+  kategori?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -300,6 +306,7 @@ export type MasjidMNBaruGroupByOutputType = {
   statusTanah: string | null
   catatan: string | null
   kondisi: $Enums.Condition
+  kategori: $Enums.Category
   createdAt: Date
   updatedAt: Date
   _count: MasjidMNBaruCountAggregateOutputType | null
@@ -346,6 +353,7 @@ export type MasjidMNBaruWhereInput = {
   statusTanah?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
   catatan?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
   kondisi?: Prisma.EnumConditionFilter<"MasjidMNBaru"> | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFilter<"MasjidMNBaru"> | $Enums.Category
   createdAt?: Prisma.DateTimeFilter<"MasjidMNBaru"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MasjidMNBaru"> | Date | string
 }
@@ -369,6 +377,7 @@ export type MasjidMNBaruOrderByWithRelationInput = {
   statusTanah?: Prisma.SortOrderInput | Prisma.SortOrder
   catatan?: Prisma.SortOrderInput | Prisma.SortOrder
   kondisi?: Prisma.SortOrder
+  kategori?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -395,6 +404,7 @@ export type MasjidMNBaruWhereUniqueInput = Prisma.AtLeast<{
   statusTanah?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
   catatan?: Prisma.StringNullableFilter<"MasjidMNBaru"> | string | null
   kondisi?: Prisma.EnumConditionFilter<"MasjidMNBaru"> | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFilter<"MasjidMNBaru"> | $Enums.Category
   createdAt?: Prisma.DateTimeFilter<"MasjidMNBaru"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MasjidMNBaru"> | Date | string
 }, "id">
@@ -418,6 +428,7 @@ export type MasjidMNBaruOrderByWithAggregationInput = {
   statusTanah?: Prisma.SortOrderInput | Prisma.SortOrder
   catatan?: Prisma.SortOrderInput | Prisma.SortOrder
   kondisi?: Prisma.SortOrder
+  kategori?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MasjidMNBaruCountOrderByAggregateInput
@@ -449,6 +460,7 @@ export type MasjidMNBaruScalarWhereWithAggregatesInput = {
   statusTanah?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
   catatan?: Prisma.StringNullableWithAggregatesFilter<"MasjidMNBaru"> | string | null
   kondisi?: Prisma.EnumConditionWithAggregatesFilter<"MasjidMNBaru"> | $Enums.Condition
+  kategori?: Prisma.EnumCategoryWithAggregatesFilter<"MasjidMNBaru"> | $Enums.Category
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MasjidMNBaru"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"MasjidMNBaru"> | Date | string
 }
@@ -472,6 +484,7 @@ export type MasjidMNBaruCreateInput = {
   statusTanah?: string | null
   catatan?: string | null
   kondisi?: $Enums.Condition
+  kategori?: $Enums.Category
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -495,6 +508,7 @@ export type MasjidMNBaruUncheckedCreateInput = {
   statusTanah?: string | null
   catatan?: string | null
   kondisi?: $Enums.Condition
+  kategori?: $Enums.Category
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -518,6 +532,7 @@ export type MasjidMNBaruUpdateInput = {
   statusTanah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kondisi?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -541,6 +556,7 @@ export type MasjidMNBaruUncheckedUpdateInput = {
   statusTanah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kondisi?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -564,6 +580,7 @@ export type MasjidMNBaruCreateManyInput = {
   statusTanah?: string | null
   catatan?: string | null
   kondisi?: $Enums.Condition
+  kategori?: $Enums.Category
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -587,6 +604,7 @@ export type MasjidMNBaruUpdateManyMutationInput = {
   statusTanah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kondisi?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -610,6 +628,7 @@ export type MasjidMNBaruUncheckedUpdateManyInput = {
   statusTanah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kondisi?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -633,6 +652,7 @@ export type MasjidMNBaruCountOrderByAggregateInput = {
   statusTanah?: Prisma.SortOrder
   catatan?: Prisma.SortOrder
   kondisi?: Prisma.SortOrder
+  kategori?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -663,6 +683,7 @@ export type MasjidMNBaruMaxOrderByAggregateInput = {
   statusTanah?: Prisma.SortOrder
   catatan?: Prisma.SortOrder
   kondisi?: Prisma.SortOrder
+  kategori?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -686,6 +707,7 @@ export type MasjidMNBaruMinOrderByAggregateInput = {
   statusTanah?: Prisma.SortOrder
   catatan?: Prisma.SortOrder
   kondisi?: Prisma.SortOrder
+  kategori?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -718,6 +740,7 @@ export type MasjidMNBaruSelect<ExtArgs extends runtime.Types.Extensions.Internal
   statusTanah?: boolean
   catatan?: boolean
   kondisi?: boolean
+  kategori?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["masjidMNBaru"]>
@@ -741,6 +764,7 @@ export type MasjidMNBaruSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   statusTanah?: boolean
   catatan?: boolean
   kondisi?: boolean
+  kategori?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["masjidMNBaru"]>
@@ -764,6 +788,7 @@ export type MasjidMNBaruSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   statusTanah?: boolean
   catatan?: boolean
   kondisi?: boolean
+  kategori?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["masjidMNBaru"]>
@@ -787,11 +812,12 @@ export type MasjidMNBaruSelectScalar = {
   statusTanah?: boolean
   catatan?: boolean
   kondisi?: boolean
+  kategori?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MasjidMNBaruOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nama" | "alamat" | "idProvinsi" | "namaProvinsi" | "idKota" | "namaKota" | "idKecamatan" | "namaKecamatan" | "idDesa" | "namaDesa" | "latitude" | "longitude" | "kapasitas" | "tahunDibangun" | "statusTanah" | "catatan" | "kondisi" | "createdAt" | "updatedAt", ExtArgs["result"]["masjidMNBaru"]>
+export type MasjidMNBaruOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nama" | "alamat" | "idProvinsi" | "namaProvinsi" | "idKota" | "namaKota" | "idKecamatan" | "namaKecamatan" | "idDesa" | "namaDesa" | "latitude" | "longitude" | "kapasitas" | "tahunDibangun" | "statusTanah" | "catatan" | "kondisi" | "kategori" | "createdAt" | "updatedAt", ExtArgs["result"]["masjidMNBaru"]>
 
 export type $MasjidMNBaruPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "MasjidMNBaru"
@@ -815,6 +841,7 @@ export type $MasjidMNBaruPayload<ExtArgs extends runtime.Types.Extensions.Intern
     statusTanah: string | null
     catatan: string | null
     kondisi: $Enums.Condition
+    kategori: $Enums.Category
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["masjidMNBaru"]>
@@ -1258,6 +1285,7 @@ export interface MasjidMNBaruFieldRefs {
   readonly statusTanah: Prisma.FieldRef<"MasjidMNBaru", 'String'>
   readonly catatan: Prisma.FieldRef<"MasjidMNBaru", 'String'>
   readonly kondisi: Prisma.FieldRef<"MasjidMNBaru", 'Condition'>
+  readonly kategori: Prisma.FieldRef<"MasjidMNBaru", 'Category'>
   readonly createdAt: Prisma.FieldRef<"MasjidMNBaru", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"MasjidMNBaru", 'DateTime'>
 }

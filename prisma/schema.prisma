@@ -75,6 +75,7 @@ model Masjid {
   latitude                    Float
   longitude                   Float
   kondisi                     Condition @default(RUSAK_SEDANG)
+  kategori                    Category @default(Pelosok_Pedalaman)
   kapasitas                   Int?
   tahunDibangun               Int?
   budgetAwal                  Decimal? @db.Decimal(14, 2)
@@ -211,6 +212,7 @@ model MasjidMNBaru {
   statusTanah         String?
   catatan             String?
   kondisi             Condition @default(RUSAK_SEDANG)
+  kategori                    Category @default(Pelosok_Pedalaman)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
@@ -235,5 +237,12 @@ enum BuildingStatus {
   PENDING
   REJECTED
   DELETED
+}
+
+enum Category {
+  Pelosok_Pedalaman
+  Muslim_Minoritas
+  Kampung_Mualaf
+  Terdampak_Bencana
 }
 

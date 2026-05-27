@@ -3,21 +3,29 @@
 import dynamic from "next/dynamic";
 import { Search, Hammer, RotateCcw } from "lucide-react";
 import { useMemo, useState } from "react";
-import { conditionLabel, conditionTone } from "@/lib/format";
-import type { Masjid, KondisiMasjid, MasjidMNBaru } from "@/lib/types";
+import { kategoriLabel, kategoriTone } from "@/lib/format";
+import type { Masjid, KondisiMasjid, MasjidMNBaru, KategoriMasjid } from "@/lib/types";
 
-const LeafletMap = dynamic(() => import("@/components/LeafletMap"), {
+const LeafletMap = dynamic(() => import("@/components/SebaranMasjid/LeafletMap"), {
   ssr: false,
   loading: () => <div className="leaflet-container" />,
 });
 
-const conditions: Array<{ value: "ALL" | KondisiMasjid; label: string }> = [
-  { value: "ALL", label: "Semua Kondisi" },
-  { value: "RUSAK_BERAT", label: "Rusak Berat" },
-  { value: "RUSAK_SEDANG", label: "Rusak Sedang" },
-  { value: "RUSAK_RINGAN", label: "Rusak Ringan" },
-  { value: "LAYAK", label: "Layak" },
-];
+// const conditions: Array<{ value: "ALL" | KondisiMasjid; label: string }> = [
+//   { value: "ALL", label: "Semua Kondisi" },
+//   { value: "RUSAK_BERAT", label: "Rusak Berat" },
+//   { value: "RUSAK_SEDANG", label: "Rusak Sedang" },
+//   { value: "RUSAK_RINGAN", label: "Rusak Ringan" },
+//   { value: "LAYAK", label: "Layak" },
+// ];
+
+const categories: Array<{ value: "ALL" | KategoriMasjid; label: string }> = [
+  { value: "ALL", label: "Semua Kategori" },
+  { value: "Pelosok_Pedalaman", label: "Pelosok Pedalaman" },
+  { value: "Muslim_Minoritas", label: "Muslim Minorits" },
+  { value: "Kampung_Mualaf", label: "Kampung Mualaf" },
+  { value: "Terdampak_Bencana", label: "Terdampak Bencana" },
+]
 
 type MapMode = "renovasi" | "dibangun";
 
@@ -29,7 +37,7 @@ interface Props {
 export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   const [mapMode, setMapMode] = useState<MapMode>("renovasi");
   const [query, setQuery] = useState("");
-  const [condition, setCondition] = useState<"ALL" | KondisiMasjid>("ALL");
+  const [category, setCategory] = useState<"ALL" | KategoriMasjid>("ALL");
   const [province, setProvince] = useState("ALL");
 
   // Pilih dataset aktif berdasarkan mode
@@ -58,7 +66,7 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
         building.namaKota,
         building.namaKecamatan,
         building.namaDesa,
-        building.kondisi,
+        building.kategori,
       ]
         .filter(Boolean)
         .join(" ")
@@ -72,11 +80,11 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
       return (
         matchStatus &&
         (!keyword || haystack.includes(keyword)) &&
-        (condition === "ALL" || building.kondisi === condition) &&
+        (category === "ALL" || building.kategori === category) &&
         (province === "ALL" || building.idProvinsi === province)
       );
     });
-  }, [activeBuildings, condition, province, query]);
+  }, [activeBuildings, category, province, query]);
 
   const [selectedId, setSelectedId] = useState<string>("");
   const selectedBuilding =
@@ -86,7 +94,7 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
 
   const isDirty =
     query !== "" ||
-    condition !== "ALL" ||
+    category !== "ALL" ||
     province !== "ALL" ||
     selectedId !== "";
 
@@ -103,7 +111,7 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   const [resetViewTrigger, setResetViewTrigger] = useState(0);
   function handleReset() {
     setQuery("");
-    setCondition("ALL");
+    setCategory("ALL");
     setProvince("ALL");
     setSelectedId("");
     setUserSelected(false);
@@ -134,7 +142,7 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   function switchMode(mode: MapMode) {
     setMapMode(mode);
     setQuery("");
-    setCondition("ALL");
+    setCategory("ALL");
     setProvince("ALL");
     setSelectedId("");
     setUserSelected(false);
@@ -193,13 +201,13 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
         </label>
         {mapMode === "renovasi" && (
           <label className="field hidden">
-            <span className="label">Filter Kondisi</span>
+            <span className="label">Filter Kategori</span>
             <select
               className="control"
-              value={condition}
-              onChange={(e) => setCondition(e.target.value as typeof condition)}
+              value={category}
+              onChange={(e) => setCategory(e.target.value as typeof category)}
             >
-              {conditions.map((item) => (
+              {categories.map((item) => (
                 <option key={item.value} value={item.value}>
                   {item.label}
                 </option>
@@ -253,8 +261,8 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
               <h2>{building.nama}</h2>
               <p>{building.alamat}</p>
               {mapMode === "renovasi" && (
-                <span className={`badge ${conditionTone(building.kondisi)}`}>
-                  {conditionLabel(building.kondisi)}
+                <span className={`badge ${kategoriTone(building.kategori)}`}>
+                  {kategoriLabel(building.kategori)}
                 </span>
               )}
             </button>

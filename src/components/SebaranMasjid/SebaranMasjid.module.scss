@@ -1,0 +1,201 @@
+// @use "@/styles/mixins" as *;
+
+$brand: #f6a313;
+$brand-dark: #d88906;
+$brand-light: #fff8ec;
+$ink: #14213d;
+$muted: #64748b;
+$line: #dbe3ed;
+$surface: #ffffff;
+$soft: #f5f8fb;
+$danger: #f04438;
+$warning: #d97706;
+$success: #15803d;
+$breakpoint-mobile: 900px;
+
+@mixin mobile {
+    @media (max-width: $breakpoint-mobile) {
+        @content;
+    }
+}
+
+// :global(.building-popup) {
+//   :global(.leaflet-popup-content-wrapper) {
+//     padding: 0;
+//     border-radius: 12px;
+//     overflow: hidden;
+//     box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+
+//     @include mobile {
+//       box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
+//     }
+//   }
+
+//   :global(.leaflet-popup-content) {
+//     width: auto !important;
+//     margin: 0;
+//   }
+
+//   :global(.leaflet-popup-close-button) {
+//     top: 8px;
+//     right: 8px;
+//     color: rgba(255, 255, 255, 0.9);
+
+//     @include mobile {
+//       top: 4px;
+//       right: 4px;
+//       width: 26px;
+//       height: 26px;
+//       color: rgba(255, 255, 255, 0.92);
+//     }
+//   }
+
+//   :global(.leaflet-popup-tip-container) {
+//     @include mobile {
+//       height: 14px;
+//     }
+//   }
+// }
+
+.popupCard {
+  width: 260px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #ffffff;
+
+  @include mobile {
+    width: min(240px, calc(100vw - 88px));
+  }
+}
+
+.popupHead {
+  padding: 18px 18px 10px;
+  color: #ffffff;
+  background: linear-gradient(135deg, $brand, $brand-dark);
+
+  h3 {
+    margin: 1px 0 4px;
+    font-size: 20px;
+    font-weight: 700;
+
+    @include mobile {
+      font-size: 15px;
+    }
+  }
+
+  p {
+    margin: 0;
+    font-size: 11px;
+    opacity: 0.85;
+    line-height: 1.1;
+  }
+
+  @include mobile {
+    padding: 16px 14px 8px;
+  }
+}
+
+.popupBody {
+  padding: 8px 15px 8px;
+
+  @include mobile {
+    padding: 6px 14px 5px;
+  }
+}
+
+.popupRow {
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  border-bottom: 2px solid #f1f5f9;
+  font-size: 13px;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  p {
+    margin: 0;
+    color: $muted;
+  }
+
+  strong {
+    max-width: 150px;
+    text-align: right;
+    color: $ink;
+    font-weight: 600;
+  }
+
+  @include mobile {
+    min-height: 32px;
+    display: grid;
+    grid-template-columns: 74px minmax(0, 1fr);
+    padding: 6px 0;
+    font-size: 11px;
+
+    &:nth-child(n + 3) {
+      display: none;
+    }
+
+    :global(.badge) {
+      justify-self: end;
+      min-height: 22px;
+      padding: 0 9px;
+      font-size: 11px;
+    }
+
+    strong {
+      max-width: none;
+      justify-self: end;
+      font-size: 13px;
+    }
+  }
+}
+
+.popupFooter {
+  padding: 10px 14px 12px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.popupDetailBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 7px 0;
+  background-color: #f59e0b;
+  color: #fff !important;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+
+.popup-detail-btn:hover {
+  background-color: #D97706;
+  color: #fff !important;
+}
+
+/* ── Floating Mode Toggle ── */
+.map-mode-toggle {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  gap: 0.5rem;
+  background: white;
+  border-radius: 999px;
+  padding: 0.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+
+  @include mobile {
+    bottom: auto;
+    top: 1rem;
+  }
+}

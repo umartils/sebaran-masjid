@@ -144,6 +144,7 @@ export const MasjidScalarFieldEnum = {
   latitude: 'latitude',
   longitude: 'longitude',
   kondisi: 'kondisi',
+  kategori: 'kategori',
   kapasitas: 'kapasitas',
   tahunDibangun: 'tahunDibangun',
   budgetAwal: 'budgetAwal',
@@ -279,6 +280,7 @@ export const MasjidMNBaruScalarFieldEnum = {
   statusTanah: 'statusTanah',
   catatan: 'catatan',
   kondisi: 'kondisi',
+  kategori: 'kategori',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
