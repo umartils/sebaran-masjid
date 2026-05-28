@@ -41,8 +41,8 @@ export function conditionTone(condition: KondisiMasjid) {
 
 export function kategoriTone(category: KategoriMasjid) {
   if (category == "Pelosok_Pedalaman") return "badge--success";
-  if (category == "Kampung_Mualaf") return "badge--warning";
-  if (category == "Muslim_Minoritas") return "badge--info";
+  if (category == "Kampung_Mualaf") return "badge--info";
+  if (category == "Muslim_Minoritas") return "badge--warning";
   return "badge--brand-light";
 }
 
