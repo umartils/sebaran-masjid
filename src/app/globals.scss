@@ -615,9 +615,9 @@ textarea.control {
     background: $brand-light;
   }
 
-  &--secondary {
-    color: $ink;
-    background: $line;
+  &--info{
+    color: $info;
+    background: #e0f2fe;
   }
 }
 
