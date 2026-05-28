@@ -125,6 +125,7 @@ model Masjid {
   imageUrl                    String[]
   namaRelawan                 String?
   noTelpRelawan               String?
+  editedBy                    String?
   createdAt                   DateTime @default(now())
   updatedAt                   DateTime @updatedAt
 
@@ -146,7 +147,7 @@ model Building {
   villageName         String?
   latitude            Float
   longitude           Float
-  condition           Condition @default(RUSAK_SEDANG)
+  condition           Condition? @default(RUSAK_SEDANG)
   capacity            Int?
   establishedYear     Int?
   initialBudget       Decimal? @db.Decimal(14, 2)
@@ -181,7 +182,7 @@ model MasjidMN {
   villageName         String?
   latitude            Float
   longitude           Float
-  condition           Condition @default(LAYAK)
+  condition           Condition? @default(LAYAK)
   capacity            Int?
   establishedYear     Int?
   landStatus          String?
@@ -211,7 +212,7 @@ model MasjidMNBaru {
   tahunDibangun       Int?
   statusTanah         String?
   catatan             String?
-  kondisi             Condition @default(RUSAK_SEDANG)
+  kondisi             Condition? @default(RUSAK_SEDANG)
   kategori                    Category @default(Pelosok_Pedalaman)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt

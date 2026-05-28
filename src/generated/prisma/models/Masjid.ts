@@ -106,6 +106,7 @@ export type MasjidMinAggregateOutputType = {
   statusPengajuan: $Enums.BuildingStatus | null
   namaRelawan: string | null
   noTelpRelawan: string | null
+  editedBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -172,6 +173,7 @@ export type MasjidMaxAggregateOutputType = {
   statusPengajuan: $Enums.BuildingStatus | null
   namaRelawan: string | null
   noTelpRelawan: string | null
+  editedBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -240,6 +242,7 @@ export type MasjidCountAggregateOutputType = {
   imageUrl: number
   namaRelawan: number
   noTelpRelawan: number
+  editedBy: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -326,6 +329,7 @@ export type MasjidMinAggregateInputType = {
   statusPengajuan?: true
   namaRelawan?: true
   noTelpRelawan?: true
+  editedBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -392,6 +396,7 @@ export type MasjidMaxAggregateInputType = {
   statusPengajuan?: true
   namaRelawan?: true
   noTelpRelawan?: true
+  editedBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -460,6 +465,7 @@ export type MasjidCountAggregateInputType = {
   imageUrl?: true
   namaRelawan?: true
   noTelpRelawan?: true
+  editedBy?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -615,6 +621,7 @@ export type MasjidGroupByOutputType = {
   imageUrl: string[]
   namaRelawan: string | null
   noTelpRelawan: string | null
+  editedBy: string | null
   createdAt: Date
   updatedAt: Date
   _count: MasjidCountAggregateOutputType | null
@@ -706,6 +713,7 @@ export type MasjidWhereInput = {
   imageUrl?: Prisma.StringNullableListFilter<"Masjid">
   namaRelawan?: Prisma.StringNullableFilter<"Masjid"> | string | null
   noTelpRelawan?: Prisma.StringNullableFilter<"Masjid"> | string | null
+  editedBy?: Prisma.StringNullableFilter<"Masjid"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Masjid"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Masjid"> | Date | string
 }
@@ -774,6 +782,7 @@ export type MasjidOrderByWithRelationInput = {
   imageUrl?: Prisma.SortOrder
   namaRelawan?: Prisma.SortOrderInput | Prisma.SortOrder
   noTelpRelawan?: Prisma.SortOrderInput | Prisma.SortOrder
+  editedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -845,6 +854,7 @@ export type MasjidWhereUniqueInput = Prisma.AtLeast<{
   imageUrl?: Prisma.StringNullableListFilter<"Masjid">
   namaRelawan?: Prisma.StringNullableFilter<"Masjid"> | string | null
   noTelpRelawan?: Prisma.StringNullableFilter<"Masjid"> | string | null
+  editedBy?: Prisma.StringNullableFilter<"Masjid"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Masjid"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Masjid"> | Date | string
 }, "id">
@@ -913,6 +923,7 @@ export type MasjidOrderByWithAggregationInput = {
   imageUrl?: Prisma.SortOrder
   namaRelawan?: Prisma.SortOrderInput | Prisma.SortOrder
   noTelpRelawan?: Prisma.SortOrderInput | Prisma.SortOrder
+  editedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MasjidCountOrderByAggregateInput
@@ -989,6 +1000,7 @@ export type MasjidScalarWhereWithAggregatesInput = {
   imageUrl?: Prisma.StringNullableListFilter<"Masjid">
   namaRelawan?: Prisma.StringNullableWithAggregatesFilter<"Masjid"> | string | null
   noTelpRelawan?: Prisma.StringNullableWithAggregatesFilter<"Masjid"> | string | null
+  editedBy?: Prisma.StringNullableWithAggregatesFilter<"Masjid"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Masjid"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Masjid"> | Date | string
 }
@@ -1057,6 +1069,7 @@ export type MasjidCreateInput = {
   imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
   namaRelawan?: string | null
   noTelpRelawan?: string | null
+  editedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1125,6 +1138,7 @@ export type MasjidUncheckedCreateInput = {
   imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
   namaRelawan?: string | null
   noTelpRelawan?: string | null
+  editedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1193,6 +1207,7 @@ export type MasjidUpdateInput = {
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1261,6 +1276,7 @@ export type MasjidUncheckedUpdateInput = {
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1329,6 +1345,7 @@ export type MasjidCreateManyInput = {
   imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
   namaRelawan?: string | null
   noTelpRelawan?: string | null
+  editedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1397,6 +1414,7 @@ export type MasjidUpdateManyMutationInput = {
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1465,6 +1483,7 @@ export type MasjidUncheckedUpdateManyInput = {
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1541,6 +1560,7 @@ export type MasjidCountOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   namaRelawan?: Prisma.SortOrder
   noTelpRelawan?: Prisma.SortOrder
+  editedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1616,6 +1636,7 @@ export type MasjidMaxOrderByAggregateInput = {
   statusPengajuan?: Prisma.SortOrder
   namaRelawan?: Prisma.SortOrder
   noTelpRelawan?: Prisma.SortOrder
+  editedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1682,6 +1703,7 @@ export type MasjidMinOrderByAggregateInput = {
   statusPengajuan?: Prisma.SortOrder
   namaRelawan?: Prisma.SortOrder
   noTelpRelawan?: Prisma.SortOrder
+  editedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1807,6 +1829,7 @@ export type MasjidSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   imageUrl?: boolean
   namaRelawan?: boolean
   noTelpRelawan?: boolean
+  editedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["masjid"]>
@@ -1875,6 +1898,7 @@ export type MasjidSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   imageUrl?: boolean
   namaRelawan?: boolean
   noTelpRelawan?: boolean
+  editedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["masjid"]>
@@ -1943,6 +1967,7 @@ export type MasjidSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   imageUrl?: boolean
   namaRelawan?: boolean
   noTelpRelawan?: boolean
+  editedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["masjid"]>
@@ -2011,11 +2036,12 @@ export type MasjidSelectScalar = {
   imageUrl?: boolean
   namaRelawan?: boolean
   noTelpRelawan?: boolean
+  editedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MasjidOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nama" | "alamat" | "idProvinsi" | "namaProvinsi" | "idKota" | "namaKota" | "idKecamatan" | "namaKecamatan" | "idDesa" | "namaDesa" | "latitude" | "longitude" | "kondisi" | "kategori" | "kapasitas" | "tahunDibangun" | "budgetAwal" | "luasSekarang" | "materialUtama" | "statusPerluasan" | "riwayatRenovasi" | "targetPerluasan" | "statusTanah" | "statusListrik" | "waktuKerusakan" | "alasan" | "detail" | "dampakKerusakan" | "hambatanAktivitas" | "kondisiHujan" | "riwayatRoboh" | "usahaPerbaikan" | "riwayatMenerimaBantuan" | "kkMuslim" | "jumlahJamaah" | "avgProfesiJamaah" | "avgGajiJamaah" | "usahaJamaah" | "jarakKeKota" | "waktuTempuhKeKota" | "kondisiAksesKota" | "kondisiAksesDesa" | "jenisKendaraan" | "hambatanAkses" | "gantiNama" | "masjidTerdekat" | "aksesMasjidTerdekat" | "jarakKeMasjidTerdekat" | "alasanTidakPilihTerdekat" | "kelayakan" | "aktivitasMasjid" | "jamaahSubuh" | "jumlahSantri" | "namaPic" | "jabatanPic" | "kontakPic" | "catatan" | "statusPengajuan" | "documentImgUrl" | "imageUrl" | "namaRelawan" | "noTelpRelawan" | "createdAt" | "updatedAt", ExtArgs["result"]["masjid"]>
+export type MasjidOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nama" | "alamat" | "idProvinsi" | "namaProvinsi" | "idKota" | "namaKota" | "idKecamatan" | "namaKecamatan" | "idDesa" | "namaDesa" | "latitude" | "longitude" | "kondisi" | "kategori" | "kapasitas" | "tahunDibangun" | "budgetAwal" | "luasSekarang" | "materialUtama" | "statusPerluasan" | "riwayatRenovasi" | "targetPerluasan" | "statusTanah" | "statusListrik" | "waktuKerusakan" | "alasan" | "detail" | "dampakKerusakan" | "hambatanAktivitas" | "kondisiHujan" | "riwayatRoboh" | "usahaPerbaikan" | "riwayatMenerimaBantuan" | "kkMuslim" | "jumlahJamaah" | "avgProfesiJamaah" | "avgGajiJamaah" | "usahaJamaah" | "jarakKeKota" | "waktuTempuhKeKota" | "kondisiAksesKota" | "kondisiAksesDesa" | "jenisKendaraan" | "hambatanAkses" | "gantiNama" | "masjidTerdekat" | "aksesMasjidTerdekat" | "jarakKeMasjidTerdekat" | "alasanTidakPilihTerdekat" | "kelayakan" | "aktivitasMasjid" | "jamaahSubuh" | "jumlahSantri" | "namaPic" | "jabatanPic" | "kontakPic" | "catatan" | "statusPengajuan" | "documentImgUrl" | "imageUrl" | "namaRelawan" | "noTelpRelawan" | "editedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["masjid"]>
 
 export type $MasjidPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Masjid"
@@ -2084,6 +2110,7 @@ export type $MasjidPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     imageUrl: string[]
     namaRelawan: string | null
     noTelpRelawan: string | null
+    editedBy: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["masjid"]>
@@ -2572,6 +2599,7 @@ export interface MasjidFieldRefs {
   readonly imageUrl: Prisma.FieldRef<"Masjid", 'String[]'>
   readonly namaRelawan: Prisma.FieldRef<"Masjid", 'String'>
   readonly noTelpRelawan: Prisma.FieldRef<"Masjid", 'String'>
+  readonly editedBy: Prisma.FieldRef<"Masjid", 'String'>
   readonly createdAt: Prisma.FieldRef<"Masjid", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Masjid", 'DateTime'>
 }

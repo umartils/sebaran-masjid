@@ -295,7 +295,7 @@ export type MasjidMNGroupByOutputType = {
   villageName: string | null
   latitude: number
   longitude: number
-  condition: $Enums.Condition
+  condition: $Enums.Condition | null
   capacity: number | null
   establishedYear: number | null
   landStatus: string | null
@@ -341,7 +341,7 @@ export type MasjidMNWhereInput = {
   villageName?: Prisma.StringNullableFilter<"MasjidMN"> | string | null
   latitude?: Prisma.FloatFilter<"MasjidMN"> | number
   longitude?: Prisma.FloatFilter<"MasjidMN"> | number
-  condition?: Prisma.EnumConditionFilter<"MasjidMN"> | $Enums.Condition
+  condition?: Prisma.EnumConditionNullableFilter<"MasjidMN"> | $Enums.Condition | null
   capacity?: Prisma.IntNullableFilter<"MasjidMN"> | number | null
   establishedYear?: Prisma.IntNullableFilter<"MasjidMN"> | number | null
   landStatus?: Prisma.StringNullableFilter<"MasjidMN"> | string | null
@@ -364,7 +364,7 @@ export type MasjidMNOrderByWithRelationInput = {
   villageName?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  condition?: Prisma.SortOrder
+  condition?: Prisma.SortOrderInput | Prisma.SortOrder
   capacity?: Prisma.SortOrderInput | Prisma.SortOrder
   establishedYear?: Prisma.SortOrderInput | Prisma.SortOrder
   landStatus?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -390,7 +390,7 @@ export type MasjidMNWhereUniqueInput = Prisma.AtLeast<{
   villageName?: Prisma.StringNullableFilter<"MasjidMN"> | string | null
   latitude?: Prisma.FloatFilter<"MasjidMN"> | number
   longitude?: Prisma.FloatFilter<"MasjidMN"> | number
-  condition?: Prisma.EnumConditionFilter<"MasjidMN"> | $Enums.Condition
+  condition?: Prisma.EnumConditionNullableFilter<"MasjidMN"> | $Enums.Condition | null
   capacity?: Prisma.IntNullableFilter<"MasjidMN"> | number | null
   establishedYear?: Prisma.IntNullableFilter<"MasjidMN"> | number | null
   landStatus?: Prisma.StringNullableFilter<"MasjidMN"> | string | null
@@ -413,7 +413,7 @@ export type MasjidMNOrderByWithAggregationInput = {
   villageName?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  condition?: Prisma.SortOrder
+  condition?: Prisma.SortOrderInput | Prisma.SortOrder
   capacity?: Prisma.SortOrderInput | Prisma.SortOrder
   establishedYear?: Prisma.SortOrderInput | Prisma.SortOrder
   landStatus?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -444,7 +444,7 @@ export type MasjidMNScalarWhereWithAggregatesInput = {
   villageName?: Prisma.StringNullableWithAggregatesFilter<"MasjidMN"> | string | null
   latitude?: Prisma.FloatWithAggregatesFilter<"MasjidMN"> | number
   longitude?: Prisma.FloatWithAggregatesFilter<"MasjidMN"> | number
-  condition?: Prisma.EnumConditionWithAggregatesFilter<"MasjidMN"> | $Enums.Condition
+  condition?: Prisma.EnumConditionNullableWithAggregatesFilter<"MasjidMN"> | $Enums.Condition | null
   capacity?: Prisma.IntNullableWithAggregatesFilter<"MasjidMN"> | number | null
   establishedYear?: Prisma.IntNullableWithAggregatesFilter<"MasjidMN"> | number | null
   landStatus?: Prisma.StringNullableWithAggregatesFilter<"MasjidMN"> | string | null
@@ -467,7 +467,7 @@ export type MasjidMNCreateInput = {
   villageName?: string | null
   latitude: number
   longitude: number
-  condition?: $Enums.Condition
+  condition?: $Enums.Condition | null
   capacity?: number | null
   establishedYear?: number | null
   landStatus?: string | null
@@ -490,7 +490,7 @@ export type MasjidMNUncheckedCreateInput = {
   villageName?: string | null
   latitude: number
   longitude: number
-  condition?: $Enums.Condition
+  condition?: $Enums.Condition | null
   capacity?: number | null
   establishedYear?: number | null
   landStatus?: string | null
@@ -513,7 +513,7 @@ export type MasjidMNUpdateInput = {
   villageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  condition?: Prisma.NullableEnumConditionFieldUpdateOperationsInput | $Enums.Condition | null
   capacity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   landStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -536,7 +536,7 @@ export type MasjidMNUncheckedUpdateInput = {
   villageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  condition?: Prisma.NullableEnumConditionFieldUpdateOperationsInput | $Enums.Condition | null
   capacity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   landStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -559,7 +559,7 @@ export type MasjidMNCreateManyInput = {
   villageName?: string | null
   latitude: number
   longitude: number
-  condition?: $Enums.Condition
+  condition?: $Enums.Condition | null
   capacity?: number | null
   establishedYear?: number | null
   landStatus?: string | null
@@ -582,7 +582,7 @@ export type MasjidMNUpdateManyMutationInput = {
   villageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  condition?: Prisma.NullableEnumConditionFieldUpdateOperationsInput | $Enums.Condition | null
   capacity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   landStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -605,7 +605,7 @@ export type MasjidMNUncheckedUpdateManyInput = {
   villageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  condition?: Prisma.NullableEnumConditionFieldUpdateOperationsInput | $Enums.Condition | null
   capacity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   landStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -810,7 +810,7 @@ export type $MasjidMNPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     villageName: string | null
     latitude: number
     longitude: number
-    condition: $Enums.Condition
+    condition: $Enums.Condition | null
     capacity: number | null
     establishedYear: number | null
     landStatus: string | null

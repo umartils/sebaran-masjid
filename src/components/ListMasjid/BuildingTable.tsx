@@ -5,6 +5,7 @@ import { Search, SlidersHorizontal, Eye, Pencil, MapPin, Check, X, Trash } from 
 import { useMemo, useState } from "react";
 import type { Masjid, KondisiMasjid, StatusMasjid } from "@/lib/types";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 // import { MasjidStatus } from "@/generated/prisma/enums";
 
 const conditions: Array<{ value: "ALL" | KondisiMasjid; label: string }> = [
@@ -19,6 +20,7 @@ type Props = {
 };
 
 export function BuildingTable({ buildings }: Props) {
+  const { data: session } = useSession();
   const router = useRouter();
 
   const [toast, setToast] = useState<{
@@ -86,6 +88,7 @@ export function BuildingTable({ buildings }: Props) {
           },
           body: JSON.stringify({
             status: actionType,
+            approvedBy: session?.user?.name,
           }),
           cache: "no-store",
         }

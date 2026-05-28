@@ -610,6 +610,15 @@ textarea.control {
     color: $success;
     background: #dcfce7;
   }
+  &--primary {
+    color: $brand;
+    background: $brand-light;
+  }
+
+  &--secondary {
+    color: $ink;
+    background: $line;
+  }
 }
 
 // ─── Map Marker & Popup ───────────────────────────────────────────────────────

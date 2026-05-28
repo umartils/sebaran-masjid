@@ -345,7 +345,7 @@ export type BuildingGroupByOutputType = {
   villageName: string | null
   latitude: number
   longitude: number
-  condition: $Enums.Condition
+  condition: $Enums.Condition | null
   capacity: number | null
   establishedYear: number | null
   initialBudget: runtime.Decimal | null
@@ -400,7 +400,7 @@ export type BuildingWhereInput = {
   villageName?: Prisma.StringNullableFilter<"Building"> | string | null
   latitude?: Prisma.FloatFilter<"Building"> | number
   longitude?: Prisma.FloatFilter<"Building"> | number
-  condition?: Prisma.EnumConditionFilter<"Building"> | $Enums.Condition
+  condition?: Prisma.EnumConditionNullableFilter<"Building"> | $Enums.Condition | null
   capacity?: Prisma.IntNullableFilter<"Building"> | number | null
   establishedYear?: Prisma.IntNullableFilter<"Building"> | number | null
   initialBudget?: Prisma.DecimalNullableFilter<"Building"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -432,7 +432,7 @@ export type BuildingOrderByWithRelationInput = {
   villageName?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  condition?: Prisma.SortOrder
+  condition?: Prisma.SortOrderInput | Prisma.SortOrder
   capacity?: Prisma.SortOrderInput | Prisma.SortOrder
   establishedYear?: Prisma.SortOrderInput | Prisma.SortOrder
   initialBudget?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -467,7 +467,7 @@ export type BuildingWhereUniqueInput = Prisma.AtLeast<{
   villageName?: Prisma.StringNullableFilter<"Building"> | string | null
   latitude?: Prisma.FloatFilter<"Building"> | number
   longitude?: Prisma.FloatFilter<"Building"> | number
-  condition?: Prisma.EnumConditionFilter<"Building"> | $Enums.Condition
+  condition?: Prisma.EnumConditionNullableFilter<"Building"> | $Enums.Condition | null
   capacity?: Prisma.IntNullableFilter<"Building"> | number | null
   establishedYear?: Prisma.IntNullableFilter<"Building"> | number | null
   initialBudget?: Prisma.DecimalNullableFilter<"Building"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -499,7 +499,7 @@ export type BuildingOrderByWithAggregationInput = {
   villageName?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  condition?: Prisma.SortOrder
+  condition?: Prisma.SortOrderInput | Prisma.SortOrder
   capacity?: Prisma.SortOrderInput | Prisma.SortOrder
   establishedYear?: Prisma.SortOrderInput | Prisma.SortOrder
   initialBudget?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -539,7 +539,7 @@ export type BuildingScalarWhereWithAggregatesInput = {
   villageName?: Prisma.StringNullableWithAggregatesFilter<"Building"> | string | null
   latitude?: Prisma.FloatWithAggregatesFilter<"Building"> | number
   longitude?: Prisma.FloatWithAggregatesFilter<"Building"> | number
-  condition?: Prisma.EnumConditionWithAggregatesFilter<"Building"> | $Enums.Condition
+  condition?: Prisma.EnumConditionNullableWithAggregatesFilter<"Building"> | $Enums.Condition | null
   capacity?: Prisma.IntNullableWithAggregatesFilter<"Building"> | number | null
   establishedYear?: Prisma.IntNullableWithAggregatesFilter<"Building"> | number | null
   initialBudget?: Prisma.DecimalNullableWithAggregatesFilter<"Building"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -571,7 +571,7 @@ export type BuildingCreateInput = {
   villageName?: string | null
   latitude: number
   longitude: number
-  condition?: $Enums.Condition
+  condition?: $Enums.Condition | null
   capacity?: number | null
   establishedYear?: number | null
   initialBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -603,7 +603,7 @@ export type BuildingUncheckedCreateInput = {
   villageName?: string | null
   latitude: number
   longitude: number
-  condition?: $Enums.Condition
+  condition?: $Enums.Condition | null
   capacity?: number | null
   establishedYear?: number | null
   initialBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -635,7 +635,7 @@ export type BuildingUpdateInput = {
   villageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  condition?: Prisma.NullableEnumConditionFieldUpdateOperationsInput | $Enums.Condition | null
   capacity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   initialBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -667,7 +667,7 @@ export type BuildingUncheckedUpdateInput = {
   villageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  condition?: Prisma.NullableEnumConditionFieldUpdateOperationsInput | $Enums.Condition | null
   capacity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   initialBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -699,7 +699,7 @@ export type BuildingCreateManyInput = {
   villageName?: string | null
   latitude: number
   longitude: number
-  condition?: $Enums.Condition
+  condition?: $Enums.Condition | null
   capacity?: number | null
   establishedYear?: number | null
   initialBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -731,7 +731,7 @@ export type BuildingUpdateManyMutationInput = {
   villageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  condition?: Prisma.NullableEnumConditionFieldUpdateOperationsInput | $Enums.Condition | null
   capacity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   initialBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -763,7 +763,7 @@ export type BuildingUncheckedUpdateManyInput = {
   villageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
-  condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  condition?: Prisma.NullableEnumConditionFieldUpdateOperationsInput | $Enums.Condition | null
   capacity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   establishedYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   initialBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -895,6 +895,10 @@ export type BuildingCreatedocumentImgUrlInput = {
 
 export type BuildingCreateimageUrlInput = {
   set: string[]
+}
+
+export type NullableEnumConditionFieldUpdateOperationsInput = {
+  set?: $Enums.Condition | null
 }
 
 export type BuildingUpdatedocumentImgUrlInput = {
@@ -1056,7 +1060,7 @@ export type $BuildingPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     villageName: string | null
     latitude: number
     longitude: number
-    condition: $Enums.Condition
+    condition: $Enums.Condition | null
     capacity: number | null
     establishedYear: number | null
     initialBudget: runtime.Decimal | null

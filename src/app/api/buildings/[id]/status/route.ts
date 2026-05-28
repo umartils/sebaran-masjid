@@ -34,6 +34,7 @@ export async function PATCH(
       },
       data: {
         statusPengajuan: status,
+        editedBy: body.approvedBy,
       },
     });
 

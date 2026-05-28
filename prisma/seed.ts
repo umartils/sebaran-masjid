@@ -1,4 +1,5 @@
-import { PrismaClient, Condition } from "@prisma/client";
+// import { Category } from './../src/generated/prisma/enums';
+import { PrismaClient, Condition, Category } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -20,11 +21,12 @@ async function main() {
         latitude: -6.9469,
         longitude: 107.6328,
         condition: Condition.RUSAK_BERAT,
+        kategori: Category.Pelosok_Pedalaman,
         capacity: 100,
         establishedYear: 2000,
         currentArea: "10 x 10 meter",
         mainMaterial: "Bata merah, kayu",
-        landStatus: "Milik wakaf"
+        landStatus: "Milik wakaf",
       },
       {
         id: "seed-nurul-huda",
@@ -39,12 +41,13 @@ async function main() {
         latitude: -7.1035,
         longitude: 107.5867,
         condition: Condition.RUSAK_SEDANG,
+        kategori: Category.Pelosok_Pedalaman,
         capacity: 180,
         establishedYear: 1998,
         currentArea: "12 x 15 meter",
-        mainMaterial: "Bata ringan, kayu"
-      }
-    ]
+        mainMaterial: "Bata ringan, kayu",
+      },
+    ],
   });
 }
 
@@ -56,4 +59,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-

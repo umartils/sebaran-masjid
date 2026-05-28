@@ -51,7 +51,13 @@ const masjidSchema = z.object({
   targetPerluasan: optionalString,
 
   // ── Legalitas & Kondisi Kerusakan ─────────────
-  kondisi: z.enum(["RUSAK_BERAT", "RUSAK_SEDANG", "RUSAK_RINGAN", "LAYAK"]),
+  kondisi: z.enum(["LAYAK", "RUSAK_RINGAN", "RUSAK_SEDANG", "RUSAK_BERAT"]),
+  kategori: z.enum([
+    "Pelosok_Pedalaman",
+    "Kampung_Mualaf",
+    "Muslim_Minoritas",
+    "Terdampak_Bencana",
+  ]),
   statusTanah: optionalString,
   statusListrik: optionalString,
   waktuKerusakan: optionalString,
@@ -124,6 +130,7 @@ export async function POST(request: Request) {
   const parsed = masjidSchema.safeParse(body);
 
   if (!parsed.success) {
+    console.error(parsed.error);
     return NextResponse.json(
       { message: "Data tidak valid", errors: parsed.error.flatten() },
       { status: 422 }

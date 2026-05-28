@@ -1158,6 +1158,7 @@ export const MasjidScalarFieldEnum = {
   imageUrl: 'imageUrl',
   namaRelawan: 'namaRelawan',
   noTelpRelawan: 'noTelpRelawan',
+  editedBy: 'editedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

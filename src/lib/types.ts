@@ -109,6 +109,7 @@ export type KondisiMasjid =
     // Timestamp
     createdAt: Date;
     updatedAt: Date;
+    editedBy?: string | null;
   }
 
   export type Region = {

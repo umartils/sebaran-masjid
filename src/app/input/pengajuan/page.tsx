@@ -1,5 +1,5 @@
 import { AppFrame } from "@/components/AppFrame";
-import { FormPengajuan } from "@/components/form/FormPengajuan";
+import { FormPengajuan } from "@/components/form/FormPengajuan/FormPengajuan";
 import { ProtectedPage } from "@/components/ProtectedPage";
 
 export default function InputPage() {
