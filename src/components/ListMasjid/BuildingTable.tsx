@@ -1,19 +1,34 @@
 "use client";
 
-import { conditionLabel, conditionTone, statusTone, statusLabel } from "@/lib/format";
-import { Search, SlidersHorizontal, Eye, Pencil, MapPin, Check, X, Trash } from "lucide-react";
+import { kategoriLabel, statusTone } from "@/lib/format";
+import {
+  Search,
+  SlidersHorizontal,
+  Eye,
+  Pencil,
+  MapPin,
+  Check,
+  X,
+  Trash,
+} from "lucide-react";
 import { useMemo, useState } from "react";
-import type { Masjid, KondisiMasjid, StatusMasjid } from "@/lib/types";
+import type {
+  Masjid,
+  KondisiMasjid,
+  StatusMasjid,
+  KategoriMasjid,
+} from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-// import { MasjidStatus } from "@/generated/prisma/enums";
 
-const conditions: Array<{ value: "ALL" | KondisiMasjid; label: string }> = [
-  { value: "ALL", label: "Semua Kondisi" },
-  { value: "RUSAK_BERAT", label: "Rusak Berat" },
-  { value: "RUSAK_SEDANG", label: "Rusak Sedang" },
-  { value: "RUSAK_RINGAN", label: "Rusak Ringan" },
-  { value: "LAYAK", label: "Layak" },
+import styles from "./ListMasjid.module.scss";
+
+const categories: Array<{ value: "ALL" | KategoriMasjid; label: string }> = [
+  { value: "ALL", label: "Semua Kategori" },
+  { value: "Pelosok_Pedalaman", label: "Pelosok Pedalaman" },
+  { value: "Muslim_Minoritas", label: "Muslim Minorits" },
+  { value: "Kampung_Mualaf", label: "Kampung Mualaf" },
+  { value: "Terdampak_Bencana", label: "Terdampak Bencana" },
 ];
 type Props = {
   buildings: Masjid[];
@@ -33,7 +48,7 @@ export function BuildingTable({ buildings }: Props) {
     message: "",
   });
   const [query, setQuery] = useState("");
-  const [conditionFilter, setConditionFilter] = useState<"ALL" | KondisiMasjid>(
+  const [categoryFilter, setCategoryFilter] = useState<"ALL" | KategoriMasjid>(
     "ALL"
   );
 
@@ -128,43 +143,43 @@ export function BuildingTable({ buildings }: Props) {
         b.alamat.toLowerCase().includes(q) ||
         b.namaKota.toLowerCase().includes(q) ||
         b.namaProvinsi.toLowerCase().includes(q) ||
-        conditionLabel(b.kondisi).toLowerCase().includes(q);
+        kategoriLabel(b.kategori).toLowerCase().includes(q);
 
       const matchesCondition =
-        conditionFilter == "ALL" || b.kondisi === conditionFilter;
+        categoryFilter == "ALL" || b.kategori === categoryFilter;
 
       const excludedData =
         b.statusPengajuan === "DELETED" || b.statusPengajuan === "REJECTED";
 
       return matchesQuery && matchesCondition && !excludedData;
     });
-  }, [buildings, query, conditionFilter]);
+  }, [buildings, query, categoryFilter]);
 
   return (
     <>
       {/* Search & Filter Bar */}
-      <div className="table-controls">
-        <label className="search-field">
-          <Search size={18} className="search-icon" />
+      <div className={styles.tableControls}>
+        <label className={styles.searchField}>
+          <Search size={18} className={styles.searchIcon} />
           <input
-            className="search-input"
+            className={styles.searchInput}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Cari nama, alamat, kota, kabupaten, kondisi..."
+            placeholder="Cari nama, alamat, kota, kabupaten, kategori..."
             type="search"
           />
         </label>
 
-        <div className="filter-field">
-          <SlidersHorizontal size={18} className="filter-icon" />
+        <div className={styles.filterField}>
+          <SlidersHorizontal size={18} className={styles.filterIcon} />
           <select
-            className="filter-select"
-            value={conditionFilter}
+            className={styles.filterSelect}
+            value={categoryFilter}
             onChange={(e) =>
-              setConditionFilter(e.target.value as typeof conditionFilter)
+              setCategoryFilter(e.target.value as typeof categoryFilter)
             }
           >
-            {conditions.map((item) => (
+            {categories.map((item) => (
               <option key={item.value} value={item.value}>
                 {item.label}
               </option>
@@ -172,20 +187,20 @@ export function BuildingTable({ buildings }: Props) {
           </select>
         </div>
 
-        {(query || conditionFilter !== "ALL") && (
-          <span className="result-count">
+        {(query || categoryFilter !== "ALL") && (
+          <span className={styles.resultCount}>
             {filtered.length} dari {buildings.length} masjid
           </span>
         )}
       </div>
 
-      <div className="admin-table-wrap">
-        <table className="admin-table">
+      <div className={styles.adminTableWrap}>
+        <table className={styles.adminTable}>
           <thead>
             <tr>
               <th>Nama Masjid</th>
               <th>Wilayah</th>
-              <th>Kondisi</th>
+              <th>Kategori</th>
               <th>Kapasitas</th>
               <th>Status</th>
               <th>Aksi</th>
@@ -194,7 +209,7 @@ export function BuildingTable({ buildings }: Props) {
           <tbody>
             {filtered.length === 0 ? (
               <tr>
-                <td colSpan={6} className="table-empty">
+                <td colSpan={6} className={styles.tableEmpty}>
                   Tidak ada masjid yang sesuai dengan pencarian.
                 </td>
               </tr>
@@ -204,20 +219,18 @@ export function BuildingTable({ buildings }: Props) {
                   <td>
                     <strong>{building.nama}</strong>
                     <br />
-                    <span className="table-address">{building.alamat}</span>
+                    <span className={styles.tableAddress}>
+                      {building.alamat}
+                    </span>
                   </td>
                   <td>
                     {building.namaKota},<br />
-                    <span className="table-province">
+                    <span className={styles.tableProvince}>
                       {building.namaProvinsi}
                     </span>
                   </td>
                   <td>
-                    <span
-                      className={`badge ${conditionTone(building.kondisi)}`}
-                    >
-                      {conditionLabel(building.kondisi)}
-                    </span>
+                    <span>{kategoriLabel(building.kategori)}</span>
                   </td>
                   <td>
                     {building.kapasitas ? `${building.kapasitas} Jamaah` : "-"}
@@ -232,11 +245,11 @@ export function BuildingTable({ buildings }: Props) {
                     </span>
                   </td>
                   <td>
-                    <div className="table-actions">
+                    <div className={styles.tableActions}>
                       {/* View */}
                       <a
-                        href={`/masjid/${building.id}`}
-                        className="action-btn action-btn--view"
+                        href={`/masjid/detail/${building.id}`}
+                        className={`${styles.actionBtn} ${styles.actionBtnView}`}
                         title="Lihat detail"
                       >
                         <Eye size={15} />
@@ -246,7 +259,7 @@ export function BuildingTable({ buildings }: Props) {
                         <button
                           type="button"
                           onClick={() => openConfirmation(building, "APPROVED")}
-                          className="action-btn action-btn--approve"
+                          className={`${styles.actionBtn} ${styles.actionBtnApprove}`}
                           title="Setujui masjid ini"
                         >
                           <Check size={15} />
@@ -257,7 +270,7 @@ export function BuildingTable({ buildings }: Props) {
                         <button
                           type="button"
                           onClick={() => openConfirmation(building, "REJECTED")}
-                          className="action-btn action-btn--reject"
+                          className={`${styles.actionBtn} ${styles.actionBtnReject}`}
                           title="Tolak masjid ini"
                         >
                           <X size={15} />
@@ -267,8 +280,8 @@ export function BuildingTable({ buildings }: Props) {
 
                       {building.statusPengajuan === "APPROVED" && (
                         <a
-                          href={`/admin/buildings/${building.id}/edit`}
-                          className="action-btn action-btn--edit"
+                          href={`/masjid/edit/${building.id}`}
+                          className={`${styles.actionBtn} ${styles.actionBtnEdit}`}
                           title="Edit data"
                         >
                           <Pencil size={15} />
@@ -280,7 +293,7 @@ export function BuildingTable({ buildings }: Props) {
                           href={`https://www.google.com/maps/search/?api=1&query=${building.latitude},${building.longitude}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="action-btn action-btn--maps"
+                          className={`${styles.actionBtn} ${styles.actionBtnMaps}`}
                           title="Buka di Google Maps"
                         >
                           <MapPin size={15} />
@@ -291,7 +304,7 @@ export function BuildingTable({ buildings }: Props) {
                         <button
                           type="button"
                           onClick={() => openConfirmation(building, "DELETED")}
-                          className="action-btn action-btn--reject"
+                          className={`${styles.actionBtn} ${styles.actionBtnReject}`}
                           title="Hapus Data"
                         >
                           <Trash size={15} />

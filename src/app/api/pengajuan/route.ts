@@ -153,3 +153,34 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function PUT(request: Request) {
+  const body = await request.json();
+  const parsed = masjidSchema.safeParse(body);
+
+  if (!parsed.success) {
+    console.error(parsed.error);
+    return NextResponse.json(
+      { message: "Data tidak valid", errors: parsed.error.flatten() },
+      { status: 422 }
+    );
+  }
+
+  try {
+    const masjid = await prisma.masjid.update({
+      where: {
+        id: parsed.data.id,
+      },
+      data: {
+        ...parsed.data,
+      },
+    });
+    return NextResponse.json({ masjid }, { status: 200 });
+  } catch (error) {
+    console.error("Prisma error:", error);
+    return NextResponse.json(
+      { message: "Gagal memperbarui data masjid." },
+      { status: 500 }
+    );
+  }
+}

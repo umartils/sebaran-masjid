@@ -1,13 +1,15 @@
 'use client';
-import { useCallback } from 'react';
-import { useMultiImageUpload } from '@/hooks/useMultiImageUpload';
-import styles from './ImageUploadField.module.scss';
+import { useCallback } from "react";
+import { useMultiImageUpload } from "@/hooks/useMultiImageUpload";
+import styles from "./ImageUploadField.module.scss";
 
 interface Props {
   label: string;
   maxFiles?: number;
   folder?: string;
   onUrlsChange: (urls: string[]) => void;
+
+  existingUrls?: string[];
 }
 
 export default function ImageUploadField({
@@ -15,6 +17,7 @@ export default function ImageUploadField({
   maxFiles = 5,
   folder = "masjid",
   onUrlsChange,
+  existingUrls = [],
 }: Props) {
   const { images, error, uploadFiles, removeImage, isUploading, isFull } =
     useMultiImageUpload(maxFiles, folder);
@@ -25,7 +28,7 @@ export default function ImageUploadField({
     e.target.value = "";
 
     const uploadedUrls = await uploadFiles(files);
-    onUrlsChange(uploadedUrls);
+    onUrlsChange([...existingUrls, ...uploadedUrls]);
   };
 
   const handleDrop = useCallback(async (e: React.DragEvent) => {
@@ -107,8 +110,33 @@ export default function ImageUploadField({
       {error && <p className={styles.errorMsg}>❌ {error}</p>}
 
       {/* Preview Grid */}
-      {images.length > 0 && (
+      {(existingUrls.length > 0 || images.length > 0) && (
         <div className={styles.previewGrid}>
+          {existingUrls.map((url, index) => (
+            <div key={`existing-${index}`} className={styles.previewItem}>
+              <img
+                src={url}
+                alt={`existing-${index}`}
+                className={styles.previewImg}
+              />
+
+              <button
+                type="button"
+                className={styles.removeBtn}
+                onClick={() => {
+                  const updated = existingUrls.filter((_, i) => i !== index);
+
+                  const uploadedUrls = images
+                    .filter((img) => img.status === "done")
+                    .map((img) => img.url);
+
+                  onUrlsChange([...updated, ...uploadedUrls]);
+                }}
+              >
+                ✕
+              </button>
+            </div>
+          ))}
           {images.map((img, index) => (
             <div key={index} className={styles.previewItem}>
               <img

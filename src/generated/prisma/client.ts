@@ -67,17 +67,17 @@ export type VerificationToken = Prisma.VerificationTokenModel
  */
 export type Masjid = Prisma.MasjidModel
 /**
- * Model Building
- * 
- */
-export type Building = Prisma.BuildingModel
-/**
- * Model MasjidMN
- * 
- */
-export type MasjidMN = Prisma.MasjidMNModel
-/**
  * Model MasjidMNBaru
  * 
  */
 export type MasjidMNBaru = Prisma.MasjidMNBaruModel
+/**
+ * Model TrackingMasjid
+ * 
+ */
+export type TrackingMasjid = Prisma.TrackingMasjidModel
+/**
+ * Model TrackingMasjidLog
+ * 
+ */
+export type TrackingMasjidLog = Prisma.TrackingMasjidLogModel

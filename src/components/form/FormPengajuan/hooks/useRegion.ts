@@ -62,20 +62,26 @@ export function useRegion(
           .catch(() => setRegionError("Data desa gagal dimuat."));
       }, [idKecamatan]);
 
-      const selectedNames = useMemo (
+      const selectedNames = useMemo(
         () => ({
-            namaProvinsi: regions.provinces.find((p) => p.id === idProvinsi)?.name ?? "",
-            namaKota: regions.regencies.find((r) => r.id === idKota)?.name ?? "",
-            namaKecamatan: regions.districts.find((d) => d.id === idKecamatan)?.name ?? "",
-            namaDesa: regions.villages.find((v) => v.id === idDesa)?.name ?? "",
+          namaProvinsi:
+            regions.provinces.find((p) => p.id === idProvinsi)?.name ?? "",
+          namaKota: regions.regencies.find((r) => r.id === idKota)?.name ?? "",
+          namaKecamatan:
+            regions.districts.find((d) => d.id === idKecamatan)?.name ?? "",
+          namaDesa: regions.villages.find((v) => v.id === idDesa)?.name ?? "",
         }),
         [
-            idProvinsi,
-            idKota,
-            idKecamatan,
-            idDesa
+          regions.provinces,
+          regions.regencies,
+          regions.districts,
+          regions.villages,
+          idProvinsi,
+          idKota,
+          idKecamatan,
+          idDesa,
         ]
-      )
+      );
 
       return {
         regions,

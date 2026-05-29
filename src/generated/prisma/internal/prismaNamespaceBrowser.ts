@@ -56,9 +56,9 @@ export const ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Masjid: 'Masjid',
-  Building: 'Building',
-  MasjidMN: 'MasjidMN',
-  MasjidMNBaru: 'MasjidMNBaru'
+  MasjidMNBaru: 'MasjidMNBaru',
+  TrackingMasjid: 'TrackingMasjid',
+  TrackingMasjidLog: 'TrackingMasjidLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -201,67 +201,6 @@ export const MasjidScalarFieldEnum = {
 export type MasjidScalarFieldEnum = (typeof MasjidScalarFieldEnum)[keyof typeof MasjidScalarFieldEnum]
 
 
-export const BuildingScalarFieldEnum = {
-  id: 'id',
-  address: 'address',
-  provinceId: 'provinceId',
-  provinceName: 'provinceName',
-  regencyId: 'regencyId',
-  name: 'name',
-  regencyName: 'regencyName',
-  districtId: 'districtId',
-  districtName: 'districtName',
-  villageId: 'villageId',
-  villageName: 'villageName',
-  latitude: 'latitude',
-  longitude: 'longitude',
-  condition: 'condition',
-  capacity: 'capacity',
-  establishedYear: 'establishedYear',
-  initialBudget: 'initialBudget',
-  currentArea: 'currentArea',
-  mainMaterial: 'mainMaterial',
-  expansionStatus: 'expansionStatus',
-  renovationHistory: 'renovationHistory',
-  expansionTarget: 'expansionTarget',
-  landStatus: 'landStatus',
-  notes: 'notes',
-  buildingStatus: 'buildingStatus',
-  documentImgUrl: 'documentImgUrl',
-  imageUrl: 'imageUrl',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type BuildingScalarFieldEnum = (typeof BuildingScalarFieldEnum)[keyof typeof BuildingScalarFieldEnum]
-
-
-export const MasjidMNScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  address: 'address',
-  provinceId: 'provinceId',
-  provinceName: 'provinceName',
-  regencyId: 'regencyId',
-  regencyName: 'regencyName',
-  districtId: 'districtId',
-  districtName: 'districtName',
-  villageId: 'villageId',
-  villageName: 'villageName',
-  latitude: 'latitude',
-  longitude: 'longitude',
-  condition: 'condition',
-  capacity: 'capacity',
-  establishedYear: 'establishedYear',
-  landStatus: 'landStatus',
-  notes: 'notes',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type MasjidMNScalarFieldEnum = (typeof MasjidMNScalarFieldEnum)[keyof typeof MasjidMNScalarFieldEnum]
-
-
 export const MasjidMNBaruScalarFieldEnum = {
   id: 'id',
   nama: 'nama',
@@ -287,6 +226,26 @@ export const MasjidMNBaruScalarFieldEnum = {
 } as const
 
 export type MasjidMNBaruScalarFieldEnum = (typeof MasjidMNBaruScalarFieldEnum)[keyof typeof MasjidMNBaruScalarFieldEnum]
+
+
+export const TrackingMasjidScalarFieldEnum = {
+  id: 'id',
+  idPengajuan: 'idPengajuan',
+  status: 'status',
+  persentasi: 'persentasi'
+} as const
+
+export type TrackingMasjidScalarFieldEnum = (typeof TrackingMasjidScalarFieldEnum)[keyof typeof TrackingMasjidScalarFieldEnum]
+
+
+export const TrackingMasjidLogScalarFieldEnum = {
+  id: 'id',
+  idTracking: 'idTracking',
+  status: 'status',
+  persentasi: 'persentasi'
+} as const
+
+export type TrackingMasjidLogScalarFieldEnum = (typeof TrackingMasjidLogScalarFieldEnum)[keyof typeof TrackingMasjidLogScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -133,67 +133,6 @@ model Masjid {
   @@index([idProvinsi, idKota])
 }
 
-model Building {
-  id                  String   @id @default(cuid())
-  address             String
-  provinceId          String
-  provinceName        String
-  regencyId           String
-  name                String
-  regencyName         String
-  districtId          String?
-  districtName        String?
-  villageId           String?
-  villageName         String?
-  latitude            Float
-  longitude           Float
-  condition           Condition? @default(RUSAK_SEDANG)
-  capacity            Int?
-  establishedYear     Int?
-  initialBudget       Decimal? @db.Decimal(14, 2)
-  currentArea         String?
-  mainMaterial        String?
-  expansionStatus     String?
-  renovationHistory   String?
-  expansionTarget     String?
-  landStatus          String?
-  notes               String?
-  buildingStatus      BuildingStatus @default(PENDING)
-  documentImgUrl      String[]
-  imageUrl            String[]
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-
-  @@index([name])
-  @@index([provinceId, regencyId])
-}
-
-model MasjidMN {
-  id                  String   @id @default(cuid())
-  name                String
-  address             String
-  provinceId          String
-  provinceName        String
-  regencyId           String
-  regencyName         String
-  districtId          String?
-  districtName        String?
-  villageId           String?
-  villageName         String?
-  latitude            Float
-  longitude           Float
-  condition           Condition? @default(LAYAK)
-  capacity            Int?
-  establishedYear     Int?
-  landStatus          String?
-  notes               String?
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-
-  @@index([name])
-  @@index([provinceId, regencyId])
-}
-
 model MasjidMNBaru {
   id                  String   @id @default(cuid())
   nama                String
@@ -219,6 +158,20 @@ model MasjidMNBaru {
 
   @@index([nama])
   @@index([idProvinsi, idKota])
+}
+
+model TrackingMasjid {
+  id            String   @id @default(cuid())
+  idPengajuan   String
+  status        String?
+  persentasi    String
+}
+
+model TrackingMasjidLog {
+  id            String   @id @default(cuid())
+  idTracking   String
+  status        String?
+  persentasi    String
 }
 
 enum Condition {

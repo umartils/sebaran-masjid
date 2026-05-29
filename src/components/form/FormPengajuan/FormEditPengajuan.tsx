@@ -1,29 +1,21 @@
 "use client";
 
 import {
-  Info,
-  Landmark,
-  MapPinned,
-  MapPinnedIcon,
   Save,
-  Users,
-  Navigation,
-  Sun,
-  UserCircle,
-  AlertTriangle,
+  Pencil,
   Camera,
 } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import ImageUploadField from "@/components/ImageUploadField/ImageUploadField";
 import { useSession } from "next-auth/react";
-
-import { createId } from "@paralleldrive/cuid2";
+import { Masjid } from "@/lib/types";
 
 // import initialForm from "./constants/initialForm";
 import { parseCoordinates } from "./utils/coordinate";
 import { useRegion } from "./hooks/useRegion";
 import { useGeolocation } from "./hooks/useGeolocation";
 import { useFormPengajuan } from "./hooks/useFormPengajuan";
+import { mapMasjidToForm } from "./utils/masjidToForm";
 
 // Import Section
 import InfoUmumSection from "./sections/InfoUmumSection";
@@ -34,16 +26,48 @@ import AksesLingunganSection from "./sections/AksesLingunganSection";
 import AktivitasIbadahSection from "./sections/AktivitasIbadahSection";
 import PicDokumenSection from "./sections/PicDokumenSection";
 
-export function FormPengajuan() {
-  const [masjidId] = useState(() => createId());
+export function FormEditPengajuan({ masjid }: { masjid: Masjid }) {
+  // const [masjidId] = useState(() => createId());
+  const [masjidId] = useState(masjid.id);
   const { data: session } = useSession();
+
   const [documentUrls, setDocumentUrls] = useState<string[]>([]);
   const [buildingImageUrls, setBuildingImageUrls] = useState<string[]>([]);
 
-  const { form, setField, resetForm } = useFormPengajuan({ session });
+  const { form, setField, resetForm, setForm } = useFormPengajuan({ session});
+
+  const [coordinateInput, setCoordinateInput] = useState("");
+
+  useEffect(() => {
+    if (!masjid) return;
+
+    setForm((prev) => ({
+      ...prev,
+      ...mapMasjidToForm(masjid),
+    }));
+    setCoordinateInput(
+      `${masjid.latitude}, ${masjid.longitude}`
+    );
+    setDocumentUrls(masjid.documentImgUrl ?? []);
+    setBuildingImageUrls(masjid.imageUrl ?? []);
+  }, [masjid, setForm]);
+
+  // console.log({
+  //   idProvinsi: masjid.idProvinsi,
+  //   idKota: masjid.idKota,
+  //   idKecamatan: masjid.idKecamatan,
+  //   idDesa: masjid.idDesa,
+  // });
 
   const [status, setStatus] = useState("");
-  const [coordinateInput, setCoordinateInput] = useState("");
+  
+
+  const { regions, selectedNames, regionError } = useRegion(
+    form.idProvinsi,
+    form.idKota,
+    form.idKecamatan,
+    form.idDesa
+  );
 
   const { locatePosition, loadingPosition, locationError } = useGeolocation();
   const handleLocatePosition = async () => {
@@ -57,13 +81,6 @@ export function FormPengajuan() {
     setCoordinateInput(`${position.latitude}, ${position.longitude}`);
   };
 
-  const { regions, selectedNames, regionError } = useRegion(
-    form.idProvinsi,
-    form.idKota,
-    form.idKecamatan,
-    form.idDesa
-  );
-
   async function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("Menyimpan data...");
@@ -72,6 +89,21 @@ export function FormPengajuan() {
       id: masjidId,
       ...form,
       ...selectedNames,
+      namaProvinsi:
+        selectedNames.namaProvinsi?.trim() ||
+        masjid.namaProvinsi,
+
+      namaKota:
+        selectedNames.namaKota?.trim() ||
+        masjid.namaKota,
+
+      namaKecamatan:
+        selectedNames.namaKecamatan?.trim() ||
+        masjid.namaKecamatan,
+
+      namaDesa:
+        selectedNames.namaDesa?.trim() ||
+        masjid.namaDesa,
       documentImgUrl: documentUrls,
       imageUrl: buildingImageUrls,
       // coerce numerics
@@ -86,15 +118,15 @@ export function FormPengajuan() {
       namaRelawan: form.namaRelawan,
       noTelpRelawan: form.noTelpRelawan,
     };
-
+    console.log(payload);
     const response = await fetch("/api/pengajuan", {
-      method: "POST",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
     if (response.ok) {
-      setStatus("Data " + masjidId + " berhasil disimpan.");
+      setStatus("Data berhasil diupdate.");
       return;
     }
     const data = await response.json().catch(() => ({}));
@@ -104,13 +136,13 @@ export function FormPengajuan() {
   return (
     <form className="form-card" onSubmit={submitForm}>
       <header className="form-header">
-        <h1>Formulir Pendataan Masjid</h1>
-        <p>
+        <h1>Formulir Edit Data {masjid.nama}</h1>
+        {/* <p>
           Masukkan data masjid yang membutuhkan bantuan renovasi atau
           pembangunan.
-        </p>
+        </p> */}
       </header>
-
+      
       {/* ── 1. Informasi Umum ── */}
       <InfoUmumSection
         form={form}
@@ -124,22 +156,40 @@ export function FormPengajuan() {
       />
 
       {/* ── 2. Fisik & Bangunan ── */}
-      <FisikBangunanSection form={form} setField={setField} />
+      <FisikBangunanSection
+        form={form}
+        setField={setField}
+      />
 
       {/* ── 3. Legalitas & Kondisi Kerusakan ── */}
-      <KondisiKerusakanSection form={form} setField={setField} />
+      <KondisiKerusakanSection
+        form={form}
+        setField={setField}
+      />
 
       {/* ── 4. Data Masyarakat ── */}
-      <DataMasyarakatSection form={form} setField={setField} />
+      <DataMasyarakatSection
+        form={form}
+        setField={setField}
+      />
 
       {/* ── 5. Akses & Lingkungan ── */}
-      <AksesLingunganSection form={form} setField={setField} />
+      <AksesLingunganSection
+        form={form}
+        setField={setField}
+      />
 
       {/* ── 6. Aktivitas Ibadah ── */}
-      <AktivitasIbadahSection form={form} setField={setField} />
+      <AktivitasIbadahSection
+        form={form}
+        setField={setField}
+      />
 
       {/* ── 7. PIC & Dokumen ── */}
-      <PicDokumenSection form={form} setField={setField} />
+      <PicDokumenSection
+        form={form}
+        setField={setField}
+      />
 
       <h2 className="section-title">
         <Camera size={22} /> 8. Dokumentasi.
@@ -150,18 +200,20 @@ export function FormPengajuan() {
           folder={`masjid/${masjidId}/dokumen`}
           maxFiles={5}
           onUrlsChange={setDocumentUrls}
+          existingUrls={documentUrls}
         />
         <ImageUploadField
           label="Foto Bangunan"
           folder={`masjid/${masjidId}/bangunan`}
           maxFiles={5}
           onUrlsChange={setBuildingImageUrls}
+          existingUrls={buildingImageUrls}
         />
       </div>
 
       <div className="form-actions">
         <button className="primary-button" type="submit">
-          <Save size={18} /> Simpan Data
+          <Pencil size={18} /> Update Data
         </button>
       </div>
       {status && <p className="status-message">{status}</p>}

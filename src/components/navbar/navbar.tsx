@@ -43,16 +43,23 @@ const navItems = [
     ],
   },
   {
-    href: "/admin/dashboard/masjid",
-    label: "Dashboard Admin",
+    // href: "/admin/dashboard/masjid",
+    label: "Dashboard",
     icon: LayoutDashboard,
     protected: true,
     adminOnly: true,
+    children: [
+      {
+        href: "/admin/dashboard/masjid",
+        label: "List Pengajuan ",
+      },
+    ],
   },
   {
     label: "User",
     icon: UserRoundCog,
     protected: true,
+    adminOnly: true,
     children: [
       // {
       //   // href: "/admin/user/list",

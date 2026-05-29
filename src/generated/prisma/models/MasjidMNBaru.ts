@@ -719,6 +719,10 @@ export type MasjidMNBaruSumOrderByAggregateInput = {
   tahunDibangun?: Prisma.SortOrder
 }
 
+export type NullableEnumConditionFieldUpdateOperationsInput = {
+  set?: $Enums.Condition | null
+}
+
 
 
 export type MasjidMNBaruSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{

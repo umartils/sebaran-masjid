@@ -17,20 +17,16 @@ export default function LoginPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const redirectTo =
-    searchParams.get("redirect") ?? "/input";
+  const redirectTo = searchParams.get("redirect") ?? "/";
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] =
-    useState("");
+  const [password, setPassword] = useState("");
 
-  const [showPassword, setShowPassword] =
-    useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [error, setError] = useState("");
 
-  const [loading, setLoading] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -71,10 +67,7 @@ export default function LoginPageClient() {
       </div>
 
       <div className="login-card">
-        <Link
-          className="login-back"
-          href="/"
-        >
+        <Link className="login-back" href="/">
           <ArrowLeft size={16} />
           Kembali ke Peta
         </Link>
@@ -89,46 +82,24 @@ export default function LoginPageClient() {
             />
           </div>
 
-          <h1 className="login-title">
-            Masuk Akun
-          </h1>
-
-          {/* <p className="login-subtitle">
-            Sistem Informasi Masjid Nusantara
-          </p>
-
-          <p className="login-desc">
-            Masuk sebagai relawan untuk
-            mengelola data
-          </p> */}
+          <h1 className="login-title">Masuk Akun</h1>
         </div>
 
-        <form
-          className="login-form"
-          onSubmit={handleSubmit}
-        >
+        <form className="login-form" onSubmit={handleSubmit}>
           <div className="login-field">
-            <label
-              className="login-label"
-              htmlFor="email"
-            >
+            <label className="login-label" htmlFor="email">
               Email Relawan
             </label>
 
             <div className="login-input-wrap">
-              <User
-                size={18}
-                className="login-input-icon"
-              />
+              <User size={18} className="login-input-icon" />
 
               <input
                 id="email"
                 className="login-input"
                 type="email"
                 value={email}
-                onChange={(e) =>
-                  setEmail(e.target.value)
-                }
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Masukkan email"
                 required
                 autoComplete="email"
@@ -137,31 +108,19 @@ export default function LoginPageClient() {
           </div>
 
           <div className="login-field">
-            <label
-              className="login-label"
-              htmlFor="password"
-            >
+            <label className="login-label" htmlFor="password">
               Password
             </label>
 
             <div className="login-input-wrap">
-              <Lock
-                size={18}
-                className="login-input-icon"
-              />
+              <Lock size={18} className="login-input-icon" />
 
               <input
                 id="password"
                 className="login-input login-input--password"
-                type={
-                  showPassword
-                    ? "text"
-                    : "password"
-                }
+                type={showPassword ? "text" : "password"}
                 value={password}
-                onChange={(e) =>
-                  setPassword(e.target.value)
-                }
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Masukkan password"
                 required
                 autoComplete="current-password"
@@ -170,47 +129,27 @@ export default function LoginPageClient() {
               <button
                 type="button"
                 className="login-eye"
-                onClick={() =>
-                  setShowPassword((v) => !v)
-                }
+                onClick={() => setShowPassword((v) => !v)}
               >
-                {showPassword ? (
-                  <EyeOff size={18} />
-                ) : (
-                  <Eye size={18} />
-                )}
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
           </div>
 
           {error && (
-            <div
-              className="login-error"
-              role="alert"
-            >
+            <div className="login-error" role="alert">
               {error}
             </div>
           )}
 
-          <button
-            className="login-submit"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? (
-              <span className="login-spinner" />
-            ) : (
-              "Masuk"
-            )}
+          <button className="login-submit" type="submit" disabled={loading}>
+            {loading ? <span className="login-spinner" /> : "Masuk"}
           </button>
         </form>
 
         <p className="login-hint">
           Belum punya akun?{" "}
-          <Link
-            href="/register"
-            className="login-link"
-          >
+          <Link href="/register" className="login-link">
             Daftar sekarang
           </Link>
         </p>

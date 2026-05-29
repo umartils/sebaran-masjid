@@ -125,7 +125,7 @@ function BuildingMarker({
           </div>
           <div className="popup-footer">
             <a
-              href={`/masjid/${building.id}`}
+              href={`/masjid/detail/${building.id}`}
               className="popup-detail-btn"
               rel="noopener noreferrer"
             >
