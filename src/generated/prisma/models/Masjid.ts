@@ -716,6 +716,7 @@ export type MasjidWhereInput = {
   editedBy?: Prisma.StringNullableFilter<"Masjid"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Masjid"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Masjid"> | Date | string
+  tracking?: Prisma.XOR<Prisma.TrackingMasjidNullableScalarRelationFilter, Prisma.TrackingMasjidWhereInput> | null
 }
 
 export type MasjidOrderByWithRelationInput = {
@@ -785,6 +786,7 @@ export type MasjidOrderByWithRelationInput = {
   editedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  tracking?: Prisma.TrackingMasjidOrderByWithRelationInput
 }
 
 export type MasjidWhereUniqueInput = Prisma.AtLeast<{
@@ -857,6 +859,7 @@ export type MasjidWhereUniqueInput = Prisma.AtLeast<{
   editedBy?: Prisma.StringNullableFilter<"Masjid"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Masjid"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Masjid"> | Date | string
+  tracking?: Prisma.XOR<Prisma.TrackingMasjidNullableScalarRelationFilter, Prisma.TrackingMasjidWhereInput> | null
 }, "id">
 
 export type MasjidOrderByWithAggregationInput = {
@@ -1072,6 +1075,7 @@ export type MasjidCreateInput = {
   editedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tracking?: Prisma.TrackingMasjidCreateNestedOneWithoutMasjidInput
 }
 
 export type MasjidUncheckedCreateInput = {
@@ -1141,6 +1145,7 @@ export type MasjidUncheckedCreateInput = {
   editedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tracking?: Prisma.TrackingMasjidUncheckedCreateNestedOneWithoutMasjidInput
 }
 
 export type MasjidUpdateInput = {
@@ -1210,6 +1215,7 @@ export type MasjidUpdateInput = {
   editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tracking?: Prisma.TrackingMasjidUpdateOneWithoutMasjidNestedInput
 }
 
 export type MasjidUncheckedUpdateInput = {
@@ -1279,6 +1285,7 @@ export type MasjidUncheckedUpdateInput = {
   editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tracking?: Prisma.TrackingMasjidUncheckedUpdateOneWithoutMasjidNestedInput
 }
 
 export type MasjidCreateManyInput = {
@@ -1717,6 +1724,11 @@ export type MasjidSumOrderByAggregateInput = {
   kkMuslim?: Prisma.SortOrder
 }
 
+export type MasjidScalarRelationFilter = {
+  is?: Prisma.MasjidWhereInput
+  isNot?: Prisma.MasjidWhereInput
+}
+
 export type MasjidCreatedocumentImgUrlInput = {
   set: string[]
 }
@@ -1761,6 +1773,312 @@ export type MasjidUpdatedocumentImgUrlInput = {
 export type MasjidUpdateimageUrlInput = {
   set?: string[]
   push?: string | string[]
+}
+
+export type MasjidCreateNestedOneWithoutTrackingInput = {
+  create?: Prisma.XOR<Prisma.MasjidCreateWithoutTrackingInput, Prisma.MasjidUncheckedCreateWithoutTrackingInput>
+  connectOrCreate?: Prisma.MasjidCreateOrConnectWithoutTrackingInput
+  connect?: Prisma.MasjidWhereUniqueInput
+}
+
+export type MasjidUpdateOneRequiredWithoutTrackingNestedInput = {
+  create?: Prisma.XOR<Prisma.MasjidCreateWithoutTrackingInput, Prisma.MasjidUncheckedCreateWithoutTrackingInput>
+  connectOrCreate?: Prisma.MasjidCreateOrConnectWithoutTrackingInput
+  upsert?: Prisma.MasjidUpsertWithoutTrackingInput
+  connect?: Prisma.MasjidWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MasjidUpdateToOneWithWhereWithoutTrackingInput, Prisma.MasjidUpdateWithoutTrackingInput>, Prisma.MasjidUncheckedUpdateWithoutTrackingInput>
+}
+
+export type MasjidCreateWithoutTrackingInput = {
+  id?: string
+  nama: string
+  alamat: string
+  idProvinsi: string
+  namaProvinsi: string
+  idKota: string
+  namaKota: string
+  idKecamatan?: string | null
+  namaKecamatan?: string | null
+  idDesa?: string | null
+  namaDesa?: string | null
+  latitude: number
+  longitude: number
+  kondisi?: $Enums.Condition
+  kategori?: $Enums.Category
+  kapasitas?: number | null
+  tahunDibangun?: number | null
+  budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  luasSekarang?: string | null
+  materialUtama?: string | null
+  statusPerluasan?: string | null
+  riwayatRenovasi?: string | null
+  targetPerluasan?: string | null
+  statusTanah?: string | null
+  statusListrik?: string | null
+  waktuKerusakan?: string | null
+  alasan?: string | null
+  detail?: string | null
+  dampakKerusakan?: string | null
+  hambatanAktivitas?: string | null
+  kondisiHujan?: string | null
+  riwayatRoboh?: string | null
+  usahaPerbaikan?: string | null
+  riwayatMenerimaBantuan?: string | null
+  kkMuslim?: number | null
+  jumlahJamaah?: string | null
+  avgProfesiJamaah?: string | null
+  avgGajiJamaah?: string | null
+  usahaJamaah?: string | null
+  jarakKeKota?: string | null
+  waktuTempuhKeKota?: string | null
+  kondisiAksesKota?: string | null
+  kondisiAksesDesa?: string | null
+  jenisKendaraan?: string | null
+  hambatanAkses?: string | null
+  gantiNama?: string | null
+  masjidTerdekat?: string | null
+  aksesMasjidTerdekat?: string | null
+  jarakKeMasjidTerdekat?: string | null
+  alasanTidakPilihTerdekat?: string | null
+  kelayakan?: string | null
+  aktivitasMasjid?: string | null
+  jamaahSubuh?: string | null
+  jumlahSantri?: string | null
+  namaPic?: string | null
+  jabatanPic?: string | null
+  kontakPic?: string | null
+  catatan?: string | null
+  statusPengajuan?: $Enums.BuildingStatus
+  documentImgUrl?: Prisma.MasjidCreatedocumentImgUrlInput | string[]
+  imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
+  namaRelawan?: string | null
+  noTelpRelawan?: string | null
+  editedBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type MasjidUncheckedCreateWithoutTrackingInput = {
+  id?: string
+  nama: string
+  alamat: string
+  idProvinsi: string
+  namaProvinsi: string
+  idKota: string
+  namaKota: string
+  idKecamatan?: string | null
+  namaKecamatan?: string | null
+  idDesa?: string | null
+  namaDesa?: string | null
+  latitude: number
+  longitude: number
+  kondisi?: $Enums.Condition
+  kategori?: $Enums.Category
+  kapasitas?: number | null
+  tahunDibangun?: number | null
+  budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  luasSekarang?: string | null
+  materialUtama?: string | null
+  statusPerluasan?: string | null
+  riwayatRenovasi?: string | null
+  targetPerluasan?: string | null
+  statusTanah?: string | null
+  statusListrik?: string | null
+  waktuKerusakan?: string | null
+  alasan?: string | null
+  detail?: string | null
+  dampakKerusakan?: string | null
+  hambatanAktivitas?: string | null
+  kondisiHujan?: string | null
+  riwayatRoboh?: string | null
+  usahaPerbaikan?: string | null
+  riwayatMenerimaBantuan?: string | null
+  kkMuslim?: number | null
+  jumlahJamaah?: string | null
+  avgProfesiJamaah?: string | null
+  avgGajiJamaah?: string | null
+  usahaJamaah?: string | null
+  jarakKeKota?: string | null
+  waktuTempuhKeKota?: string | null
+  kondisiAksesKota?: string | null
+  kondisiAksesDesa?: string | null
+  jenisKendaraan?: string | null
+  hambatanAkses?: string | null
+  gantiNama?: string | null
+  masjidTerdekat?: string | null
+  aksesMasjidTerdekat?: string | null
+  jarakKeMasjidTerdekat?: string | null
+  alasanTidakPilihTerdekat?: string | null
+  kelayakan?: string | null
+  aktivitasMasjid?: string | null
+  jamaahSubuh?: string | null
+  jumlahSantri?: string | null
+  namaPic?: string | null
+  jabatanPic?: string | null
+  kontakPic?: string | null
+  catatan?: string | null
+  statusPengajuan?: $Enums.BuildingStatus
+  documentImgUrl?: Prisma.MasjidCreatedocumentImgUrlInput | string[]
+  imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
+  namaRelawan?: string | null
+  noTelpRelawan?: string | null
+  editedBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type MasjidCreateOrConnectWithoutTrackingInput = {
+  where: Prisma.MasjidWhereUniqueInput
+  create: Prisma.XOR<Prisma.MasjidCreateWithoutTrackingInput, Prisma.MasjidUncheckedCreateWithoutTrackingInput>
+}
+
+export type MasjidUpsertWithoutTrackingInput = {
+  update: Prisma.XOR<Prisma.MasjidUpdateWithoutTrackingInput, Prisma.MasjidUncheckedUpdateWithoutTrackingInput>
+  create: Prisma.XOR<Prisma.MasjidCreateWithoutTrackingInput, Prisma.MasjidUncheckedCreateWithoutTrackingInput>
+  where?: Prisma.MasjidWhereInput
+}
+
+export type MasjidUpdateToOneWithWhereWithoutTrackingInput = {
+  where?: Prisma.MasjidWhereInput
+  data: Prisma.XOR<Prisma.MasjidUpdateWithoutTrackingInput, Prisma.MasjidUncheckedUpdateWithoutTrackingInput>
+}
+
+export type MasjidUpdateWithoutTrackingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nama?: Prisma.StringFieldUpdateOperationsInput | string
+  alamat?: Prisma.StringFieldUpdateOperationsInput | string
+  idProvinsi?: Prisma.StringFieldUpdateOperationsInput | string
+  namaProvinsi?: Prisma.StringFieldUpdateOperationsInput | string
+  idKota?: Prisma.StringFieldUpdateOperationsInput | string
+  namaKota?: Prisma.StringFieldUpdateOperationsInput | string
+  idKecamatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  namaKecamatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  namaDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  kondisi?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  luasSekarang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  materialUtama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riwayatRenovasi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusTanah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusListrik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  waktuKerusakan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  detail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dampakKerusakan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hambatanAktivitas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kondisiHujan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riwayatRoboh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usahaPerbaikan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riwayatMenerimaBantuan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kkMuslim?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jumlahJamaah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avgProfesiJamaah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avgGajiJamaah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usahaJamaah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jarakKeKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  waktuTempuhKeKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kondisiAksesKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kondisiAksesDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jenisKendaraan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hambatanAkses?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gantiNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masjidTerdekat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aksesMasjidTerdekat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jarakKeMasjidTerdekat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alasanTidakPilihTerdekat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelayakan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aktivitasMasjid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jamaahSubuh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jumlahSantri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  namaPic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jabatanPic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kontakPic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusPengajuan?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
+  documentImgUrl?: Prisma.MasjidUpdatedocumentImgUrlInput | string[]
+  imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
+  namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type MasjidUncheckedUpdateWithoutTrackingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nama?: Prisma.StringFieldUpdateOperationsInput | string
+  alamat?: Prisma.StringFieldUpdateOperationsInput | string
+  idProvinsi?: Prisma.StringFieldUpdateOperationsInput | string
+  namaProvinsi?: Prisma.StringFieldUpdateOperationsInput | string
+  idKota?: Prisma.StringFieldUpdateOperationsInput | string
+  namaKota?: Prisma.StringFieldUpdateOperationsInput | string
+  idKecamatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  namaKecamatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  namaDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  kondisi?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
+  kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  luasSekarang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  materialUtama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riwayatRenovasi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusTanah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusListrik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  waktuKerusakan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  detail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dampakKerusakan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hambatanAktivitas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kondisiHujan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riwayatRoboh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usahaPerbaikan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riwayatMenerimaBantuan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kkMuslim?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jumlahJamaah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avgProfesiJamaah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avgGajiJamaah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usahaJamaah?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jarakKeKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  waktuTempuhKeKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kondisiAksesKota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kondisiAksesDesa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jenisKendaraan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hambatanAkses?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gantiNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masjidTerdekat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aksesMasjidTerdekat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jarakKeMasjidTerdekat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alasanTidakPilihTerdekat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelayakan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aktivitasMasjid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jamaahSubuh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jumlahSantri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  namaPic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jabatanPic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kontakPic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusPengajuan?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
+  documentImgUrl?: Prisma.MasjidUpdatedocumentImgUrlInput | string[]
+  imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
+  namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1832,6 +2150,7 @@ export type MasjidSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   editedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  tracking?: boolean | Prisma.Masjid$trackingArgs<ExtArgs>
 }, ExtArgs["result"]["masjid"]>
 
 export type MasjidSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2042,10 +2361,17 @@ export type MasjidSelectScalar = {
 }
 
 export type MasjidOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nama" | "alamat" | "idProvinsi" | "namaProvinsi" | "idKota" | "namaKota" | "idKecamatan" | "namaKecamatan" | "idDesa" | "namaDesa" | "latitude" | "longitude" | "kondisi" | "kategori" | "kapasitas" | "tahunDibangun" | "budgetAwal" | "luasSekarang" | "materialUtama" | "statusPerluasan" | "riwayatRenovasi" | "targetPerluasan" | "statusTanah" | "statusListrik" | "waktuKerusakan" | "alasan" | "detail" | "dampakKerusakan" | "hambatanAktivitas" | "kondisiHujan" | "riwayatRoboh" | "usahaPerbaikan" | "riwayatMenerimaBantuan" | "kkMuslim" | "jumlahJamaah" | "avgProfesiJamaah" | "avgGajiJamaah" | "usahaJamaah" | "jarakKeKota" | "waktuTempuhKeKota" | "kondisiAksesKota" | "kondisiAksesDesa" | "jenisKendaraan" | "hambatanAkses" | "gantiNama" | "masjidTerdekat" | "aksesMasjidTerdekat" | "jarakKeMasjidTerdekat" | "alasanTidakPilihTerdekat" | "kelayakan" | "aktivitasMasjid" | "jamaahSubuh" | "jumlahSantri" | "namaPic" | "jabatanPic" | "kontakPic" | "catatan" | "statusPengajuan" | "documentImgUrl" | "imageUrl" | "namaRelawan" | "noTelpRelawan" | "editedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["masjid"]>
+export type MasjidInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tracking?: boolean | Prisma.Masjid$trackingArgs<ExtArgs>
+}
+export type MasjidIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type MasjidIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $MasjidPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Masjid"
-  objects: {}
+  objects: {
+    tracking: Prisma.$TrackingMasjidPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     nama: string
@@ -2507,6 +2833,7 @@ readonly fields: MasjidFieldRefs;
  */
 export interface Prisma__MasjidClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tracking<T extends Prisma.Masjid$trackingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Masjid$trackingArgs<ExtArgs>>): Prisma.Prisma__TrackingMasjidClient<runtime.Types.Result.GetResult<Prisma.$TrackingMasjidPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2619,6 +2946,10 @@ export type MasjidFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.MasjidOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MasjidInclude<ExtArgs> | null
+  /**
    * Filter, which Masjid to fetch.
    */
   where: Prisma.MasjidWhereUniqueInput
@@ -2637,6 +2968,10 @@ export type MasjidFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.MasjidOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MasjidInclude<ExtArgs> | null
+  /**
    * Filter, which Masjid to fetch.
    */
   where: Prisma.MasjidWhereUniqueInput
@@ -2654,6 +2989,10 @@ export type MasjidFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Masjid
    */
   omit?: Prisma.MasjidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MasjidInclude<ExtArgs> | null
   /**
    * Filter, which Masjid to fetch.
    */
@@ -2703,6 +3042,10 @@ export type MasjidFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.MasjidOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MasjidInclude<ExtArgs> | null
+  /**
    * Filter, which Masjid to fetch.
    */
   where?: Prisma.MasjidWhereInput
@@ -2750,6 +3093,10 @@ export type MasjidFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Masjid
    */
   omit?: Prisma.MasjidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MasjidInclude<ExtArgs> | null
   /**
    * Filter, which Masjids to fetch.
    */
@@ -2799,6 +3146,10 @@ export type MasjidCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.MasjidOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MasjidInclude<ExtArgs> | null
+  /**
    * The data needed to create a Masjid.
    */
   data: Prisma.XOR<Prisma.MasjidCreateInput, Prisma.MasjidUncheckedCreateInput>
@@ -2846,6 +3197,10 @@ export type MasjidUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Masjid
    */
   omit?: Prisma.MasjidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MasjidInclude<ExtArgs> | null
   /**
    * The data needed to update a Masjid.
    */
@@ -2913,6 +3268,10 @@ export type MasjidUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.MasjidOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MasjidInclude<ExtArgs> | null
+  /**
    * The filter to search for the Masjid to update in case it exists.
    */
   where: Prisma.MasjidWhereUniqueInput
@@ -2939,6 +3298,10 @@ export type MasjidDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.MasjidOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MasjidInclude<ExtArgs> | null
+  /**
    * Filter which Masjid to delete.
    */
   where: Prisma.MasjidWhereUniqueInput
@@ -2959,6 +3322,25 @@ export type MasjidDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Masjid.tracking
+ */
+export type Masjid$trackingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TrackingMasjid
+   */
+  select?: Prisma.TrackingMasjidSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TrackingMasjid
+   */
+  omit?: Prisma.TrackingMasjidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidInclude<ExtArgs> | null
+  where?: Prisma.TrackingMasjidWhereInput
+}
+
+/**
  * Masjid without action
  */
 export type MasjidDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2970,4 +3352,8 @@ export type MasjidDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Masjid
    */
   omit?: Prisma.MasjidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MasjidInclude<ExtArgs> | null
 }

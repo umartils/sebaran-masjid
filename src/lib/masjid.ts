@@ -1,14 +1,9 @@
 import { prisma } from "@/lib/prisma";
-import { unstable_noStore as noStore } from "next/cache"; // ← tambah ini
-// import { sampleMasjid } from "@/lib/sample-data";
+import { unstable_noStore as noStore } from "next/cache";
 import type { Masjid } from "@/lib/types";
 
 export async function getMasjid(): Promise<Masjid[]> {
-  noStore(); // ← paksa tidak cache setiap request
-
-  // if (!process.env.DATABASE_URL) {
-  //   return sampleMasjid;
-  // }
+  noStore();
 
   try {
     const records = await prisma.masjid.findMany({
@@ -20,18 +15,13 @@ export async function getMasjid(): Promise<Masjid[]> {
       budgetAwal: record.budgetAwal?.toString() ?? null,
     }));
   } catch (error) {
-    console.error("[getMasjid] Prisma error:", error); // ← log errornya!
-    // return sampleMasjid;
+    console.error("[getMasjid] Prisma error:", error);
     return [];
   }
 }
 
 export async function getMasjidById(id: string): Promise<Masjid | null> {
   noStore();
-
-  // if (!process.env.DATABASE_URL) {
-  //   return sampleMasjid.find((b) => b.id === id) ?? null;
-  // }
 
   try {
     const record = await prisma.masjid.findUnique({

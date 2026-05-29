@@ -1,26 +1,24 @@
 export const dynamic = "force-dynamic";
 import { AppFrame } from "@/components/AppFrame";
-import { getMasjid } from "@/lib/masjid";
+import { getTrackingMasjidList } from "@/lib/tracking";
 import { ProtectedPage } from "@/components/ProtectedPage";
-import { TablePengajuan } from "@/components/ListMasjid/TablePengajuan/TablePengajuan";
+import { TablePengajuan } from "@/components/ListProgres/TableProgres";
 import { DashboardStats } from "@/components/ListMasjid/DashboardStats";
 
 export default async function AdminPage() {
-  const masjid = await getMasjid();
+  const masjid = await getTrackingMasjidList();
 
   return (
     <AppFrame>
-      <ProtectedPage redirectTo="/admin">
+      <ProtectedPage redirectTo="/admin/dashboard/tracking">
         <section className="admin-page">
-          <h1>Dashboard Admin - Daftar Pengajuan Pembangunan</h1>
+          <h1>Dashboard Admin - Tracking Pembangunan</h1>
 
           <p className="subtitle">
-            Ringkasan data bangunan yang masuk ke sistem.
+            Ringkasan data progres pembangunan masjid yang masuk ke sistem.
           </p>
 
-          <DashboardStats masjid={masjid} />
-
-          <TablePengajuan masjid={masjid} />
+          <TablePengajuan progres={masjid} />
         </section>
       </ProtectedPage>
     </AppFrame>

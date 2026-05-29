@@ -53,6 +53,10 @@ const navItems = [
         href: "/admin/dashboard/masjid",
         label: "List Pengajuan ",
       },
+      {
+        href: "/admin/dashboard/tracking",
+        label: "List Progres ",
+      },
     ],
   },
   {

@@ -21,7 +21,7 @@ export function useMultiImageUpload(maxFiles = 5, folder = "masjid") {
   ) => {
     setImages((prev) => {
       const next = updater(prev);
-      imagesRef.current = next; // ✅ selalu sync ref dengan state terbaru
+      imagesRef.current = next;
       return next;
     });
   };

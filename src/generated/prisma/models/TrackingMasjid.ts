@@ -20,52 +20,82 @@ export type TrackingMasjidModel = runtime.Types.Result.DefaultSelection<Prisma.$
 
 export type AggregateTrackingMasjid = {
   _count: TrackingMasjidCountAggregateOutputType | null
+  _avg: TrackingMasjidAvgAggregateOutputType | null
+  _sum: TrackingMasjidSumAggregateOutputType | null
   _min: TrackingMasjidMinAggregateOutputType | null
   _max: TrackingMasjidMaxAggregateOutputType | null
 }
 
+export type TrackingMasjidAvgAggregateOutputType = {
+  persentase: number | null
+}
+
+export type TrackingMasjidSumAggregateOutputType = {
+  persentase: number | null
+}
+
 export type TrackingMasjidMinAggregateOutputType = {
   id: string | null
-  idPengajuan: string | null
-  status: string | null
-  persentasi: string | null
+  masjidId: string | null
+  status: $Enums.ProgresStatus | null
+  persentase: number | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type TrackingMasjidMaxAggregateOutputType = {
   id: string | null
-  idPengajuan: string | null
-  status: string | null
-  persentasi: string | null
+  masjidId: string | null
+  status: $Enums.ProgresStatus | null
+  persentase: number | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type TrackingMasjidCountAggregateOutputType = {
   id: number
-  idPengajuan: number
+  masjidId: number
   status: number
-  persentasi: number
+  persentase: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
+export type TrackingMasjidAvgAggregateInputType = {
+  persentase?: true
+}
+
+export type TrackingMasjidSumAggregateInputType = {
+  persentase?: true
+}
+
 export type TrackingMasjidMinAggregateInputType = {
   id?: true
-  idPengajuan?: true
+  masjidId?: true
   status?: true
-  persentasi?: true
+  persentase?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type TrackingMasjidMaxAggregateInputType = {
   id?: true
-  idPengajuan?: true
+  masjidId?: true
   status?: true
-  persentasi?: true
+  persentase?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type TrackingMasjidCountAggregateInputType = {
   id?: true
-  idPengajuan?: true
+  masjidId?: true
   status?: true
-  persentasi?: true
+  persentase?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -107,6 +137,18 @@ export type TrackingMasjidAggregateArgs<ExtArgs extends runtime.Types.Extensions
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: TrackingMasjidAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: TrackingMasjidSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: TrackingMasjidMinAggregateInputType
@@ -137,16 +179,22 @@ export type TrackingMasjidGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   _count?: TrackingMasjidCountAggregateInputType | true
+  _avg?: TrackingMasjidAvgAggregateInputType
+  _sum?: TrackingMasjidSumAggregateInputType
   _min?: TrackingMasjidMinAggregateInputType
   _max?: TrackingMasjidMaxAggregateInputType
 }
 
 export type TrackingMasjidGroupByOutputType = {
   id: string
-  idPengajuan: string
-  status: string | null
-  persentasi: string
+  masjidId: string
+  status: $Enums.ProgresStatus
+  persentase: number | null
+  createdAt: Date
+  updatedAt: Date
   _count: TrackingMasjidCountAggregateOutputType | null
+  _avg: TrackingMasjidAvgAggregateOutputType | null
+  _sum: TrackingMasjidSumAggregateOutputType | null
   _min: TrackingMasjidMinAggregateOutputType | null
   _max: TrackingMasjidMaxAggregateOutputType | null
 }
@@ -171,36 +219,52 @@ export type TrackingMasjidWhereInput = {
   OR?: Prisma.TrackingMasjidWhereInput[]
   NOT?: Prisma.TrackingMasjidWhereInput | Prisma.TrackingMasjidWhereInput[]
   id?: Prisma.StringFilter<"TrackingMasjid"> | string
-  idPengajuan?: Prisma.StringFilter<"TrackingMasjid"> | string
-  status?: Prisma.StringNullableFilter<"TrackingMasjid"> | string | null
-  persentasi?: Prisma.StringFilter<"TrackingMasjid"> | string
+  masjidId?: Prisma.StringFilter<"TrackingMasjid"> | string
+  status?: Prisma.EnumProgresStatusFilter<"TrackingMasjid"> | $Enums.ProgresStatus
+  persentase?: Prisma.IntNullableFilter<"TrackingMasjid"> | number | null
+  createdAt?: Prisma.DateTimeFilter<"TrackingMasjid"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TrackingMasjid"> | Date | string
+  masjid?: Prisma.XOR<Prisma.MasjidScalarRelationFilter, Prisma.MasjidWhereInput>
+  logs?: Prisma.TrackingMasjidLogListRelationFilter
 }
 
 export type TrackingMasjidOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  idPengajuan?: Prisma.SortOrder
-  status?: Prisma.SortOrderInput | Prisma.SortOrder
-  persentasi?: Prisma.SortOrder
+  masjidId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  persentase?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  masjid?: Prisma.MasjidOrderByWithRelationInput
+  logs?: Prisma.TrackingMasjidLogOrderByRelationAggregateInput
 }
 
 export type TrackingMasjidWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  masjidId?: string
   AND?: Prisma.TrackingMasjidWhereInput | Prisma.TrackingMasjidWhereInput[]
   OR?: Prisma.TrackingMasjidWhereInput[]
   NOT?: Prisma.TrackingMasjidWhereInput | Prisma.TrackingMasjidWhereInput[]
-  idPengajuan?: Prisma.StringFilter<"TrackingMasjid"> | string
-  status?: Prisma.StringNullableFilter<"TrackingMasjid"> | string | null
-  persentasi?: Prisma.StringFilter<"TrackingMasjid"> | string
-}, "id">
+  status?: Prisma.EnumProgresStatusFilter<"TrackingMasjid"> | $Enums.ProgresStatus
+  persentase?: Prisma.IntNullableFilter<"TrackingMasjid"> | number | null
+  createdAt?: Prisma.DateTimeFilter<"TrackingMasjid"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TrackingMasjid"> | Date | string
+  masjid?: Prisma.XOR<Prisma.MasjidScalarRelationFilter, Prisma.MasjidWhereInput>
+  logs?: Prisma.TrackingMasjidLogListRelationFilter
+}, "id" | "masjidId">
 
 export type TrackingMasjidOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  idPengajuan?: Prisma.SortOrder
-  status?: Prisma.SortOrderInput | Prisma.SortOrder
-  persentasi?: Prisma.SortOrder
+  masjidId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  persentase?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.TrackingMasjidCountOrderByAggregateInput
+  _avg?: Prisma.TrackingMasjidAvgOrderByAggregateInput
   _max?: Prisma.TrackingMasjidMaxOrderByAggregateInput
   _min?: Prisma.TrackingMasjidMinOrderByAggregateInput
+  _sum?: Prisma.TrackingMasjidSumOrderByAggregateInput
 }
 
 export type TrackingMasjidScalarWhereWithAggregatesInput = {
@@ -208,121 +272,376 @@ export type TrackingMasjidScalarWhereWithAggregatesInput = {
   OR?: Prisma.TrackingMasjidScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TrackingMasjidScalarWhereWithAggregatesInput | Prisma.TrackingMasjidScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"TrackingMasjid"> | string
-  idPengajuan?: Prisma.StringWithAggregatesFilter<"TrackingMasjid"> | string
-  status?: Prisma.StringNullableWithAggregatesFilter<"TrackingMasjid"> | string | null
-  persentasi?: Prisma.StringWithAggregatesFilter<"TrackingMasjid"> | string
+  masjidId?: Prisma.StringWithAggregatesFilter<"TrackingMasjid"> | string
+  status?: Prisma.EnumProgresStatusWithAggregatesFilter<"TrackingMasjid"> | $Enums.ProgresStatus
+  persentase?: Prisma.IntNullableWithAggregatesFilter<"TrackingMasjid"> | number | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"TrackingMasjid"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TrackingMasjid"> | Date | string
 }
 
 export type TrackingMasjidCreateInput = {
   id?: string
-  idPengajuan: string
-  status?: string | null
-  persentasi: string
+  status?: $Enums.ProgresStatus
+  persentase?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  masjid: Prisma.MasjidCreateNestedOneWithoutTrackingInput
+  logs?: Prisma.TrackingMasjidLogCreateNestedManyWithoutTrackingInput
 }
 
 export type TrackingMasjidUncheckedCreateInput = {
   id?: string
-  idPengajuan: string
-  status?: string | null
-  persentasi: string
+  masjidId: string
+  status?: $Enums.ProgresStatus
+  persentase?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  logs?: Prisma.TrackingMasjidLogUncheckedCreateNestedManyWithoutTrackingInput
 }
 
 export type TrackingMasjidUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  idPengajuan?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  persentasi?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProgresStatusFieldUpdateOperationsInput | $Enums.ProgresStatus
+  persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  masjid?: Prisma.MasjidUpdateOneRequiredWithoutTrackingNestedInput
+  logs?: Prisma.TrackingMasjidLogUpdateManyWithoutTrackingNestedInput
 }
 
 export type TrackingMasjidUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  idPengajuan?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  persentasi?: Prisma.StringFieldUpdateOperationsInput | string
+  masjidId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProgresStatusFieldUpdateOperationsInput | $Enums.ProgresStatus
+  persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  logs?: Prisma.TrackingMasjidLogUncheckedUpdateManyWithoutTrackingNestedInput
 }
 
 export type TrackingMasjidCreateManyInput = {
   id?: string
-  idPengajuan: string
-  status?: string | null
-  persentasi: string
+  masjidId: string
+  status?: $Enums.ProgresStatus
+  persentase?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TrackingMasjidUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  idPengajuan?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  persentasi?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProgresStatusFieldUpdateOperationsInput | $Enums.ProgresStatus
+  persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TrackingMasjidUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  idPengajuan?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  persentasi?: Prisma.StringFieldUpdateOperationsInput | string
+  masjidId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProgresStatusFieldUpdateOperationsInput | $Enums.ProgresStatus
+  persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TrackingMasjidNullableScalarRelationFilter = {
+  is?: Prisma.TrackingMasjidWhereInput | null
+  isNot?: Prisma.TrackingMasjidWhereInput | null
 }
 
 export type TrackingMasjidCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  idPengajuan?: Prisma.SortOrder
+  masjidId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  persentasi?: Prisma.SortOrder
+  persentase?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type TrackingMasjidAvgOrderByAggregateInput = {
+  persentase?: Prisma.SortOrder
 }
 
 export type TrackingMasjidMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  idPengajuan?: Prisma.SortOrder
+  masjidId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  persentasi?: Prisma.SortOrder
+  persentase?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TrackingMasjidMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  idPengajuan?: Prisma.SortOrder
+  masjidId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  persentasi?: Prisma.SortOrder
+  persentase?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
+export type TrackingMasjidSumOrderByAggregateInput = {
+  persentase?: Prisma.SortOrder
+}
+
+export type TrackingMasjidScalarRelationFilter = {
+  is?: Prisma.TrackingMasjidWhereInput
+  isNot?: Prisma.TrackingMasjidWhereInput
+}
+
+export type TrackingMasjidCreateNestedOneWithoutMasjidInput = {
+  create?: Prisma.XOR<Prisma.TrackingMasjidCreateWithoutMasjidInput, Prisma.TrackingMasjidUncheckedCreateWithoutMasjidInput>
+  connectOrCreate?: Prisma.TrackingMasjidCreateOrConnectWithoutMasjidInput
+  connect?: Prisma.TrackingMasjidWhereUniqueInput
+}
+
+export type TrackingMasjidUncheckedCreateNestedOneWithoutMasjidInput = {
+  create?: Prisma.XOR<Prisma.TrackingMasjidCreateWithoutMasjidInput, Prisma.TrackingMasjidUncheckedCreateWithoutMasjidInput>
+  connectOrCreate?: Prisma.TrackingMasjidCreateOrConnectWithoutMasjidInput
+  connect?: Prisma.TrackingMasjidWhereUniqueInput
+}
+
+export type TrackingMasjidUpdateOneWithoutMasjidNestedInput = {
+  create?: Prisma.XOR<Prisma.TrackingMasjidCreateWithoutMasjidInput, Prisma.TrackingMasjidUncheckedCreateWithoutMasjidInput>
+  connectOrCreate?: Prisma.TrackingMasjidCreateOrConnectWithoutMasjidInput
+  upsert?: Prisma.TrackingMasjidUpsertWithoutMasjidInput
+  disconnect?: Prisma.TrackingMasjidWhereInput | boolean
+  delete?: Prisma.TrackingMasjidWhereInput | boolean
+  connect?: Prisma.TrackingMasjidWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrackingMasjidUpdateToOneWithWhereWithoutMasjidInput, Prisma.TrackingMasjidUpdateWithoutMasjidInput>, Prisma.TrackingMasjidUncheckedUpdateWithoutMasjidInput>
+}
+
+export type TrackingMasjidUncheckedUpdateOneWithoutMasjidNestedInput = {
+  create?: Prisma.XOR<Prisma.TrackingMasjidCreateWithoutMasjidInput, Prisma.TrackingMasjidUncheckedCreateWithoutMasjidInput>
+  connectOrCreate?: Prisma.TrackingMasjidCreateOrConnectWithoutMasjidInput
+  upsert?: Prisma.TrackingMasjidUpsertWithoutMasjidInput
+  disconnect?: Prisma.TrackingMasjidWhereInput | boolean
+  delete?: Prisma.TrackingMasjidWhereInput | boolean
+  connect?: Prisma.TrackingMasjidWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrackingMasjidUpdateToOneWithWhereWithoutMasjidInput, Prisma.TrackingMasjidUpdateWithoutMasjidInput>, Prisma.TrackingMasjidUncheckedUpdateWithoutMasjidInput>
+}
+
+export type EnumProgresStatusFieldUpdateOperationsInput = {
+  set?: $Enums.ProgresStatus
+}
+
+export type TrackingMasjidCreateNestedOneWithoutLogsInput = {
+  create?: Prisma.XOR<Prisma.TrackingMasjidCreateWithoutLogsInput, Prisma.TrackingMasjidUncheckedCreateWithoutLogsInput>
+  connectOrCreate?: Prisma.TrackingMasjidCreateOrConnectWithoutLogsInput
+  connect?: Prisma.TrackingMasjidWhereUniqueInput
+}
+
+export type TrackingMasjidUpdateOneRequiredWithoutLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.TrackingMasjidCreateWithoutLogsInput, Prisma.TrackingMasjidUncheckedCreateWithoutLogsInput>
+  connectOrCreate?: Prisma.TrackingMasjidCreateOrConnectWithoutLogsInput
+  upsert?: Prisma.TrackingMasjidUpsertWithoutLogsInput
+  connect?: Prisma.TrackingMasjidWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrackingMasjidUpdateToOneWithWhereWithoutLogsInput, Prisma.TrackingMasjidUpdateWithoutLogsInput>, Prisma.TrackingMasjidUncheckedUpdateWithoutLogsInput>
+}
+
+export type TrackingMasjidCreateWithoutMasjidInput = {
+  id?: string
+  status?: $Enums.ProgresStatus
+  persentase?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  logs?: Prisma.TrackingMasjidLogCreateNestedManyWithoutTrackingInput
+}
+
+export type TrackingMasjidUncheckedCreateWithoutMasjidInput = {
+  id?: string
+  status?: $Enums.ProgresStatus
+  persentase?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  logs?: Prisma.TrackingMasjidLogUncheckedCreateNestedManyWithoutTrackingInput
+}
+
+export type TrackingMasjidCreateOrConnectWithoutMasjidInput = {
+  where: Prisma.TrackingMasjidWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrackingMasjidCreateWithoutMasjidInput, Prisma.TrackingMasjidUncheckedCreateWithoutMasjidInput>
+}
+
+export type TrackingMasjidUpsertWithoutMasjidInput = {
+  update: Prisma.XOR<Prisma.TrackingMasjidUpdateWithoutMasjidInput, Prisma.TrackingMasjidUncheckedUpdateWithoutMasjidInput>
+  create: Prisma.XOR<Prisma.TrackingMasjidCreateWithoutMasjidInput, Prisma.TrackingMasjidUncheckedCreateWithoutMasjidInput>
+  where?: Prisma.TrackingMasjidWhereInput
+}
+
+export type TrackingMasjidUpdateToOneWithWhereWithoutMasjidInput = {
+  where?: Prisma.TrackingMasjidWhereInput
+  data: Prisma.XOR<Prisma.TrackingMasjidUpdateWithoutMasjidInput, Prisma.TrackingMasjidUncheckedUpdateWithoutMasjidInput>
+}
+
+export type TrackingMasjidUpdateWithoutMasjidInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProgresStatusFieldUpdateOperationsInput | $Enums.ProgresStatus
+  persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  logs?: Prisma.TrackingMasjidLogUpdateManyWithoutTrackingNestedInput
+}
+
+export type TrackingMasjidUncheckedUpdateWithoutMasjidInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProgresStatusFieldUpdateOperationsInput | $Enums.ProgresStatus
+  persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  logs?: Prisma.TrackingMasjidLogUncheckedUpdateManyWithoutTrackingNestedInput
+}
+
+export type TrackingMasjidCreateWithoutLogsInput = {
+  id?: string
+  status?: $Enums.ProgresStatus
+  persentase?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  masjid: Prisma.MasjidCreateNestedOneWithoutTrackingInput
+}
+
+export type TrackingMasjidUncheckedCreateWithoutLogsInput = {
+  id?: string
+  masjidId: string
+  status?: $Enums.ProgresStatus
+  persentase?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TrackingMasjidCreateOrConnectWithoutLogsInput = {
+  where: Prisma.TrackingMasjidWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrackingMasjidCreateWithoutLogsInput, Prisma.TrackingMasjidUncheckedCreateWithoutLogsInput>
+}
+
+export type TrackingMasjidUpsertWithoutLogsInput = {
+  update: Prisma.XOR<Prisma.TrackingMasjidUpdateWithoutLogsInput, Prisma.TrackingMasjidUncheckedUpdateWithoutLogsInput>
+  create: Prisma.XOR<Prisma.TrackingMasjidCreateWithoutLogsInput, Prisma.TrackingMasjidUncheckedCreateWithoutLogsInput>
+  where?: Prisma.TrackingMasjidWhereInput
+}
+
+export type TrackingMasjidUpdateToOneWithWhereWithoutLogsInput = {
+  where?: Prisma.TrackingMasjidWhereInput
+  data: Prisma.XOR<Prisma.TrackingMasjidUpdateWithoutLogsInput, Prisma.TrackingMasjidUncheckedUpdateWithoutLogsInput>
+}
+
+export type TrackingMasjidUpdateWithoutLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProgresStatusFieldUpdateOperationsInput | $Enums.ProgresStatus
+  persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  masjid?: Prisma.MasjidUpdateOneRequiredWithoutTrackingNestedInput
+}
+
+export type TrackingMasjidUncheckedUpdateWithoutLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  masjidId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProgresStatusFieldUpdateOperationsInput | $Enums.ProgresStatus
+  persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type TrackingMasjidCountOutputType
+ */
+
+export type TrackingMasjidCountOutputType = {
+  logs: number
+}
+
+export type TrackingMasjidCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  logs?: boolean | TrackingMasjidCountOutputTypeCountLogsArgs
+}
+
+/**
+ * TrackingMasjidCountOutputType without action
+ */
+export type TrackingMasjidCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TrackingMasjidCountOutputType
+   */
+  select?: Prisma.TrackingMasjidCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TrackingMasjidCountOutputType without action
+ */
+export type TrackingMasjidCountOutputTypeCountLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TrackingMasjidLogWhereInput
+}
 
 
 export type TrackingMasjidSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  idPengajuan?: boolean
+  masjidId?: boolean
   status?: boolean
-  persentasi?: boolean
+  persentase?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  masjid?: boolean | Prisma.MasjidDefaultArgs<ExtArgs>
+  logs?: boolean | Prisma.TrackingMasjid$logsArgs<ExtArgs>
+  _count?: boolean | Prisma.TrackingMasjidCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trackingMasjid"]>
 
 export type TrackingMasjidSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  idPengajuan?: boolean
+  masjidId?: boolean
   status?: boolean
-  persentasi?: boolean
+  persentase?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  masjid?: boolean | Prisma.MasjidDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trackingMasjid"]>
 
 export type TrackingMasjidSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  idPengajuan?: boolean
+  masjidId?: boolean
   status?: boolean
-  persentasi?: boolean
+  persentase?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  masjid?: boolean | Prisma.MasjidDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trackingMasjid"]>
 
 export type TrackingMasjidSelectScalar = {
   id?: boolean
-  idPengajuan?: boolean
+  masjidId?: boolean
   status?: boolean
-  persentasi?: boolean
+  persentase?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type TrackingMasjidOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "idPengajuan" | "status" | "persentasi", ExtArgs["result"]["trackingMasjid"]>
+export type TrackingMasjidOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "masjidId" | "status" | "persentase" | "createdAt" | "updatedAt", ExtArgs["result"]["trackingMasjid"]>
+export type TrackingMasjidInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  masjid?: boolean | Prisma.MasjidDefaultArgs<ExtArgs>
+  logs?: boolean | Prisma.TrackingMasjid$logsArgs<ExtArgs>
+  _count?: boolean | Prisma.TrackingMasjidCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type TrackingMasjidIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  masjid?: boolean | Prisma.MasjidDefaultArgs<ExtArgs>
+}
+export type TrackingMasjidIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  masjid?: boolean | Prisma.MasjidDefaultArgs<ExtArgs>
+}
 
 export type $TrackingMasjidPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TrackingMasjid"
-  objects: {}
+  objects: {
+    masjid: Prisma.$MasjidPayload<ExtArgs>
+    logs: Prisma.$TrackingMasjidLogPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    idPengajuan: string
-    status: string | null
-    persentasi: string
+    masjidId: string
+    status: $Enums.ProgresStatus
+    persentase: number | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["trackingMasjid"]>
   composites: {}
 }
@@ -717,6 +1036,8 @@ readonly fields: TrackingMasjidFieldRefs;
  */
 export interface Prisma__TrackingMasjidClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  masjid<T extends Prisma.MasjidDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MasjidDefaultArgs<ExtArgs>>): Prisma.Prisma__MasjidClient<runtime.Types.Result.GetResult<Prisma.$MasjidPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  logs<T extends Prisma.TrackingMasjid$logsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrackingMasjid$logsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrackingMasjidLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -747,9 +1068,11 @@ export interface Prisma__TrackingMasjidClient<T, Null = never, ExtArgs extends r
  */
 export interface TrackingMasjidFieldRefs {
   readonly id: Prisma.FieldRef<"TrackingMasjid", 'String'>
-  readonly idPengajuan: Prisma.FieldRef<"TrackingMasjid", 'String'>
-  readonly status: Prisma.FieldRef<"TrackingMasjid", 'String'>
-  readonly persentasi: Prisma.FieldRef<"TrackingMasjid", 'String'>
+  readonly masjidId: Prisma.FieldRef<"TrackingMasjid", 'String'>
+  readonly status: Prisma.FieldRef<"TrackingMasjid", 'ProgresStatus'>
+  readonly persentase: Prisma.FieldRef<"TrackingMasjid", 'Int'>
+  readonly createdAt: Prisma.FieldRef<"TrackingMasjid", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"TrackingMasjid", 'DateTime'>
 }
     
 
@@ -766,6 +1089,10 @@ export type TrackingMasjidFindUniqueArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the TrackingMasjid
    */
   omit?: Prisma.TrackingMasjidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidInclude<ExtArgs> | null
   /**
    * Filter, which TrackingMasjid to fetch.
    */
@@ -785,6 +1112,10 @@ export type TrackingMasjidFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Ex
    */
   omit?: Prisma.TrackingMasjidOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidInclude<ExtArgs> | null
+  /**
    * Filter, which TrackingMasjid to fetch.
    */
   where: Prisma.TrackingMasjidWhereUniqueInput
@@ -802,6 +1133,10 @@ export type TrackingMasjidFindFirstArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the TrackingMasjid
    */
   omit?: Prisma.TrackingMasjidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidInclude<ExtArgs> | null
   /**
    * Filter, which TrackingMasjid to fetch.
    */
@@ -851,6 +1186,10 @@ export type TrackingMasjidFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Ext
    */
   omit?: Prisma.TrackingMasjidOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidInclude<ExtArgs> | null
+  /**
    * Filter, which TrackingMasjid to fetch.
    */
   where?: Prisma.TrackingMasjidWhereInput
@@ -898,6 +1237,10 @@ export type TrackingMasjidFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the TrackingMasjid
    */
   omit?: Prisma.TrackingMasjidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidInclude<ExtArgs> | null
   /**
    * Filter, which TrackingMasjids to fetch.
    */
@@ -947,6 +1290,10 @@ export type TrackingMasjidCreateArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.TrackingMasjidOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidInclude<ExtArgs> | null
+  /**
    * The data needed to create a TrackingMasjid.
    */
   data: Prisma.XOR<Prisma.TrackingMasjidCreateInput, Prisma.TrackingMasjidUncheckedCreateInput>
@@ -980,6 +1327,10 @@ export type TrackingMasjidCreateManyAndReturnArgs<ExtArgs extends runtime.Types.
    */
   data: Prisma.TrackingMasjidCreateManyInput | Prisma.TrackingMasjidCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -994,6 +1345,10 @@ export type TrackingMasjidUpdateArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the TrackingMasjid
    */
   omit?: Prisma.TrackingMasjidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidInclude<ExtArgs> | null
   /**
    * The data needed to update a TrackingMasjid.
    */
@@ -1046,6 +1401,10 @@ export type TrackingMasjidUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.
    * Limit how many TrackingMasjids to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1060,6 +1419,10 @@ export type TrackingMasjidUpsertArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the TrackingMasjid
    */
   omit?: Prisma.TrackingMasjidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidInclude<ExtArgs> | null
   /**
    * The filter to search for the TrackingMasjid to update in case it exists.
    */
@@ -1087,6 +1450,10 @@ export type TrackingMasjidDeleteArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.TrackingMasjidOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidInclude<ExtArgs> | null
+  /**
    * Filter which TrackingMasjid to delete.
    */
   where: Prisma.TrackingMasjidWhereUniqueInput
@@ -1107,6 +1474,30 @@ export type TrackingMasjidDeleteManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
+ * TrackingMasjid.logs
+ */
+export type TrackingMasjid$logsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TrackingMasjidLog
+   */
+  select?: Prisma.TrackingMasjidLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TrackingMasjidLog
+   */
+  omit?: Prisma.TrackingMasjidLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidLogInclude<ExtArgs> | null
+  where?: Prisma.TrackingMasjidLogWhereInput
+  orderBy?: Prisma.TrackingMasjidLogOrderByWithRelationInput | Prisma.TrackingMasjidLogOrderByWithRelationInput[]
+  cursor?: Prisma.TrackingMasjidLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TrackingMasjidLogScalarFieldEnum | Prisma.TrackingMasjidLogScalarFieldEnum[]
+}
+
+/**
  * TrackingMasjid without action
  */
 export type TrackingMasjidDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1118,4 +1509,8 @@ export type TrackingMasjidDefaultArgs<ExtArgs extends runtime.Types.Extensions.I
    * Omit specific fields from the TrackingMasjid
    */
   omit?: Prisma.TrackingMasjidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidInclude<ExtArgs> | null
 }

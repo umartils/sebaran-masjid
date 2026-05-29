@@ -51,3 +51,12 @@ export function statusTone(status: StatusMasjid) {
   if (status === "REJECTED") return "badge--danger";
   return "badge--warning";
 }
+
+export function progresStatusLabel(status: string) {
+  const labels: Record<string, string> = {
+    ON_PROGRESS: "On Progres",
+    SELESAI: "Selesai",
+  };
+
+  return labels[status];
+}

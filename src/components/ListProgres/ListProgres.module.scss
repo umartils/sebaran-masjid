@@ -124,12 +124,14 @@ $info: #0ea5e9;
   width: 100%;
   border-collapse: collapse;
 
+
   th {
+    text-align: left;
     background: #f8fafc;
 
     padding: 16px 24px;
 
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
 
     color: $muted;
@@ -266,7 +268,7 @@ $info: #0ea5e9;
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  flex-wrap: wrap;
+//   flex-wrap: wrap;
 }
 
 .actionBtn {
@@ -312,32 +314,6 @@ $info: #0ea5e9;
   }
 }
 
-.actionBtnMaps {
-  background: var(--color-success-light, #f0fdf4);
-  color: var(--color-success, #16a34a);
-
-  &:hover {
-    background: #dcfce7;
-  }
-}
-
-.actionBtnApprove {
-  background: var(--color-success-light, #f0fdf4);
-  color: var(--color-success, #16a34a);
-
-  &:hover {
-    background: #dcfce7;
-  }
-}
-
-.actionBtnReject {
-  background: #fee8e8;
-  color: #ca0404;
-
-  &:hover {
-    background: #fee8e8;
-  }
-}
 
 /* Approval Modal */
 .modalOverlay {
@@ -549,4 +525,37 @@ $info: #0ea5e9;
   .actionBtn {
     width: 100%;
   }
+}
+
+.progressWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 140px;
+}
+
+.progressBar {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #22c55e,
+    #16a34a
+  );
+
+  transition: width 0.3s ease;
+}
+
+.progressText {
+  min-width: 40px;
+  font-size: 0.875rem;
+  font-weight: 600;
 }

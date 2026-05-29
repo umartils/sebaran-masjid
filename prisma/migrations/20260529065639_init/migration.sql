@@ -10,6 +10,9 @@ CREATE TYPE "BuildingStatus" AS ENUM ('APPROVED', 'PENDING', 'REJECTED', 'DELETE
 -- CreateEnum
 CREATE TYPE "Category" AS ENUM ('Pelosok_Pedalaman', 'Muslim_Minoritas', 'Kampung_Mualaf', 'Terdampak_Bencana');
 
+-- CreateEnum
+CREATE TYPE "ProgresStatus" AS ENUM ('ON_PROGRESS', 'SELESAI');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -159,6 +162,32 @@ CREATE TABLE "MasjidMNBaru" (
     CONSTRAINT "MasjidMNBaru_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "TrackingMasjid" (
+    "id" TEXT NOT NULL,
+    "masjidId" TEXT NOT NULL,
+    "status" "ProgresStatus" NOT NULL DEFAULT 'ON_PROGRESS',
+    "persentase" INTEGER,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "TrackingMasjid_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "TrackingMasjidLog" (
+    "id" TEXT NOT NULL,
+    "trackingId" TEXT NOT NULL,
+    "progres" TEXT,
+    "persentase" INTEGER,
+    "nextProgres" TEXT NOT NULL,
+    "imgUrls" TEXT[],
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "TrackingMasjidLog_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
@@ -186,8 +215,17 @@ CREATE INDEX "MasjidMNBaru_nama_idx" ON "MasjidMNBaru"("nama");
 -- CreateIndex
 CREATE INDEX "MasjidMNBaru_idProvinsi_idKota_idx" ON "MasjidMNBaru"("idProvinsi", "idKota");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "TrackingMasjid_masjidId_key" ON "TrackingMasjid"("masjidId");
+
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TrackingMasjid" ADD CONSTRAINT "TrackingMasjid_masjidId_fkey" FOREIGN KEY ("masjidId") REFERENCES "Masjid"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TrackingMasjidLog" ADD CONSTRAINT "TrackingMasjidLog_trackingId_fkey" FOREIGN KEY ("trackingId") REFERENCES "TrackingMasjid"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -7,6 +7,8 @@ export async function POST(req: NextRequest) {
     const file = formData.get('image') as File;
     const folder = formData.get("folder") as string | null;
 
+    console.log("📁 folder:", folder);
+
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
@@ -39,6 +41,8 @@ export async function POST(req: NextRequest) {
         { fetch_format: "auto" }, // format otomatis (webp jika browser support)
       ],
     });
+
+    console.log("✅ Cloudinary result:", result.secure_url, result.public_id);
 
     return NextResponse.json({
       url: result.secure_url,

@@ -96,10 +96,7 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
               </button>
             </div>
           ) : (
-            <Link
-              className="login-button"
-              href={`/login?redirect=${pathname === "/" ? "/input" : pathname}`}
-            >
+            <Link className="login-button" href={`/login?redirect=/`}>
               <LogIn size={18} />
 
               <span>Login Relawan</span>

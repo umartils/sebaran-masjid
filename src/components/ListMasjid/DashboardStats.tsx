@@ -8,26 +8,20 @@ interface DashboardStatsProps {
 export function DashboardStats({
   masjid,
 }: DashboardStatsProps) {
-  const totalRusakBerat = masjid.filter(
+  const masjidClean = masjid.filter((b) => b.statusPengajuan !== "DELETED");
+  const totalRusakBerat = masjidClean.filter(
     (b) => b.kondisi === "RUSAK_BERAT"
   ).length;
 
-  const totalPerluPerhatian = masjid.filter(
-    (b) =>
-      b.kondisi === "RUSAK_SEDANG" ||
-      b.kondisi === "RUSAK_RINGAN"
+  const totalPerluPerhatian = masjidClean.filter(
+    (b) => b.kondisi === "RUSAK_SEDANG" || b.kondisi === "RUSAK_RINGAN"
   ).length;
 
-  const totalLayak = masjid.filter(
-    (b) => b.kondisi === "LAYAK"
-  ).length;
+  const totalLayak = masjidClean.filter((b) => b.kondisi === "LAYAK").length;
 
   return (
     <div className="admin-stats">
-      <StatCard
-        value={masjid.length}
-        label="Total Masjid"
-      />
+      <StatCard value={masjidClean.length} label="Total Masjid" />
 
       <StatCard
         value={totalRusakBerat}
@@ -41,11 +35,7 @@ export function DashboardStats({
         variant="stat-card--warning"
       />
 
-      <StatCard
-        value={totalLayak}
-        label="Layak"
-        variant="stat-card--success"
-      />
+      <StatCard value={totalLayak} label="Layak" variant="stat-card--success" />
     </div>
   );
 }

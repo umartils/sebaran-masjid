@@ -28,19 +28,43 @@ export async function PATCH(
       );
     }
 
-    const updated = await prisma.masjid.update({
-      where: {
-        id,
-      },
-      data: {
-        statusPengajuan: status,
-        editedBy: body.approvedBy,
-      },
+    const result = await prisma.$transaction(async (tx) => {
+      const updated = await tx.masjid.update({
+        where: { id },
+        data: {
+          statusPengajuan: status,
+          editedBy: body.approvedBy,
+        },
+      });
+
+      if (status === "APPROVED") {
+        const existingTracking = await tx.trackingMasjid.findUnique({
+          where: {
+            masjidId: id,
+          },
+        });
+
+        if (!existingTracking) {
+          await tx.trackingMasjid.create({
+            data: {
+              masjidId: id,
+              status: "ON_PROGRESS",
+              persentase: 0,
+            },
+          });
+        }
+      }
+
+      return updated;
     });
 
     revalidatePath("/admin/masjid");
     revalidatePath("/admin");
-    return NextResponse.json(updated);
+    return NextResponse.json({
+      success: true,
+      message: "Status berhasil diperbarui",
+      data: result,
+    });
   } catch (error) {
     console.error(error);
 

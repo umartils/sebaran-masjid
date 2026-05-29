@@ -284,6 +284,23 @@ export type EnumConditionNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumConditionNullableFilter<$PrismaModel>
 }
 
+export type EnumProgresStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProgresStatus | Prisma.EnumProgresStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProgresStatus[] | Prisma.ListEnumProgresStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProgresStatus[] | Prisma.ListEnumProgresStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProgresStatusFilter<$PrismaModel> | $Enums.ProgresStatus
+}
+
+export type EnumProgresStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProgresStatus | Prisma.EnumProgresStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProgresStatus[] | Prisma.ListEnumProgresStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProgresStatus[] | Prisma.ListEnumProgresStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProgresStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProgresStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProgresStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProgresStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -565,6 +582,23 @@ export type NestedEnumConditionNullableWithAggregatesFilter<$PrismaModel = never
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumConditionNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumConditionNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumProgresStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProgresStatus | Prisma.EnumProgresStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProgresStatus[] | Prisma.ListEnumProgresStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProgresStatus[] | Prisma.ListEnumProgresStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProgresStatusFilter<$PrismaModel> | $Enums.ProgresStatus
+}
+
+export type NestedEnumProgresStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProgresStatus | Prisma.EnumProgresStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProgresStatus[] | Prisma.ListEnumProgresStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProgresStatus[] | Prisma.ListEnumProgresStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProgresStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProgresStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProgresStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProgresStatusFilter<$PrismaModel>
 }
 
 

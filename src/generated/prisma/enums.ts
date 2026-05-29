@@ -9,6 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
+export const Role = {
+  Relawan: 'Relawan',
+  Admin: 'Admin'
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]
+
+
 export const Condition = {
   RUSAK_BERAT: 'RUSAK_BERAT',
   RUSAK_SEDANG: 'RUSAK_SEDANG',
@@ -17,14 +25,6 @@ export const Condition = {
 } as const
 
 export type Condition = (typeof Condition)[keyof typeof Condition]
-
-
-export const Role = {
-  Relawan: 'Relawan',
-  Admin: 'Admin'
-} as const
-
-export type Role = (typeof Role)[keyof typeof Role]
 
 
 export const BuildingStatus = {
@@ -45,3 +45,11 @@ export const Category = {
 } as const
 
 export type Category = (typeof Category)[keyof typeof Category]
+
+
+export const ProgresStatus = {
+  ON_PROGRESS: 'ON_PROGRESS',
+  SELESAI: 'SELESAI'
+} as const
+
+export type ProgresStatus = (typeof ProgresStatus)[keyof typeof ProgresStatus]

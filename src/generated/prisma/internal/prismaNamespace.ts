@@ -1195,9 +1195,11 @@ export type MasjidMNBaruScalarFieldEnum = (typeof MasjidMNBaruScalarFieldEnum)[k
 
 export const TrackingMasjidScalarFieldEnum = {
   id: 'id',
-  idPengajuan: 'idPengajuan',
+  masjidId: 'masjidId',
   status: 'status',
-  persentasi: 'persentasi'
+  persentase: 'persentase',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type TrackingMasjidScalarFieldEnum = (typeof TrackingMasjidScalarFieldEnum)[keyof typeof TrackingMasjidScalarFieldEnum]
@@ -1205,9 +1207,13 @@ export type TrackingMasjidScalarFieldEnum = (typeof TrackingMasjidScalarFieldEnu
 
 export const TrackingMasjidLogScalarFieldEnum = {
   id: 'id',
-  idTracking: 'idTracking',
-  status: 'status',
-  persentasi: 'persentasi'
+  trackingId: 'trackingId',
+  progres: 'progres',
+  persentase: 'persentase',
+  nextProgres: 'nextProgres',
+  imgUrls: 'imgUrls',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type TrackingMasjidLogScalarFieldEnum = (typeof TrackingMasjidLogScalarFieldEnum)[keyof typeof TrackingMasjidLogScalarFieldEnum]
@@ -1352,6 +1358,20 @@ export type EnumBuildingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'BuildingStatus[]'
  */
 export type ListEnumBuildingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BuildingStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ProgresStatus'
+ */
+export type EnumProgresStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProgresStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ProgresStatus[]'
+ */
+export type ListEnumProgresStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProgresStatus[]'>
     
 
 /**
