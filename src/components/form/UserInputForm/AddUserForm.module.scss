@@ -11,7 +11,7 @@ $success-color: #10b981;
 .pageContainer {
   width: 100%;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 2em;
   background-color: #f8fafc; // Menyamakan background luar dengan dashboard
   display: flex;
   justify-content: center;
@@ -20,10 +20,10 @@ $success-color: #10b981;
 
 .formCard {
   width: 100%;
-  max-width: 850px;
+  max-width: 1000px;
   background-color: #ffffff;
   padding: 3rem 2.5rem;
-  border-radius: 16px; // Lengkungan sudut halus mirip container dashboard Anda
+  border-radius: 16px;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.02), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;

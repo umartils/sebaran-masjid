@@ -1,15 +1,23 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Search, Hammer, RotateCcw } from "lucide-react";
+import { Search, ChevronDown, RotateCcw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { kategoriLabel, kategoriTone } from "@/lib/format";
-import type { Masjid, KondisiMasjid, MasjidMNBaru, KategoriMasjid } from "@/lib/types";
+import type {
+  Masjid,
+  KondisiMasjid,
+  MasjidMNBaru,
+  KategoriMasjid,
+} from "@/lib/types";
 
-const LeafletMap = dynamic(() => import("@/components/SebaranMasjid/LeafletMap"), {
-  ssr: false,
-  loading: () => <div className="leaflet-container" />,
-});
+const LeafletMap = dynamic(
+  () => import("@/components/SebaranMasjid/LeafletMap"),
+  {
+    ssr: false,
+    loading: () => <div className="leaflet-container" />,
+  }
+);
 
 // const conditions: Array<{ value: "ALL" | KondisiMasjid; label: string }> = [
 //   { value: "ALL", label: "Semua Kondisi" },
@@ -25,7 +33,7 @@ const categories: Array<{ value: "ALL" | KategoriMasjid; label: string }> = [
   { value: "Muslim_Minoritas", label: "Muslim Minorits" },
   { value: "Kampung_Mualaf", label: "Kampung Mualaf" },
   { value: "Terdampak_Bencana", label: "Terdampak Bencana" },
-]
+];
 
 type MapMode = "renovasi" | "dibangun";
 
@@ -202,36 +210,43 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
         {mapMode === "renovasi" && (
           <label className="field hidden">
             <span className="label">Filter Kategori</span>
-            <select
-              className="control"
-              value={category}
-              onChange={(e) => setCategory(e.target.value as typeof category)}
-            >
-              {categories.map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.label}
-                </option>
-              ))}
-            </select>
+            <div className="select-wrapper">
+              <select
+                className="control"
+                value={category}
+                onChange={(e) => setCategory(e.target.value as typeof category)}
+              >
+                {categories.map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {item.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="select-icon" size={20} />
+            </div>
           </label>
         )}
         <label className="field">
           <span className="label">Provinsi</span>
-          <select
-            className="control"
-            value={province}
-            onChange={(e) => setProvince(e.target.value)}
-          >
-            <option value="ALL">Seluruh Indonesia</option>
-            {provinces.map(([id, nama]) => (
-              <option key={id} value={id}>
-                {nama}
-              </option>
-            ))}
-          </select>
+          <div className="select-wrapper">
+            <select
+              className="control"
+              value={province}
+              onChange={(e) => setProvince(e.target.value)}
+            >
+              <option value="ALL">Seluruh Indonesia</option>
+
+              {provinces.map(([id, nama]) => (
+                <option key={id} value={id}>
+                  {nama}
+                </option>
+              ))}
+            </select>
+
+            <ChevronDown className="select-icon" size={20} />
+          </div>
         </label>
         <div className="panel-actions">
-          {/* Reset — hanya tampil jika ada filter aktif */}
           {isDirty && (
             <button
               className="action-btn reset-btn"

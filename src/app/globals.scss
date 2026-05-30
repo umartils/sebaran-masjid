@@ -1833,3 +1833,22 @@ textarea.control {
     grid-template-columns: 1fr;
   }
 }
+
+.select-wrapper {
+  position: relative;
+}
+
+.control {
+  width: 100%;
+  padding-right: 48px;
+  appearance: none;
+}
+
+.select-icon {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #64748b;
+}

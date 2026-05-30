@@ -1,6 +1,7 @@
 "use client";
 
 import type { Region } from "@/lib/types";
+import { ChevronDown } from "lucide-react";
 
 interface RegionSelectProps {
   label: string;
@@ -20,27 +21,24 @@ export default function RegionSelect({
   return (
     <label className="field">
       <span className="label">{label}</span>
+      <div className="select-wrapper">
+        <select
+          className="control"
+          required={label.includes("*")}
+          value={value}
+          disabled={disabled}
+          onChange={(e) => onChange(e.target.value)}
+        >
+          <option value="">Pilih {label.replace("*", "")}</option>
 
-      <select
-        className="control"
-        required={label.includes("*")}
-        value={value}
-        disabled={disabled}
-        onChange={(e) => onChange(e.target.value)}
-      >
-        <option value="">
-          Pilih {label.replace("*", "")}
-        </option>
-
-        {regions.map((region) => (
-          <option
-            key={region.id}
-            value={region.id}
-          >
-            {region.name}
-          </option>
-        ))}
-      </select>
+          {regions.map((region) => (
+            <option key={region.id} value={region.id}>
+              {region.name}
+            </option>
+          ))}
+        </select>
+        <ChevronDown className="select-icon" size={18} />
+      </div>
     </label>
   );
 }

@@ -29,7 +29,7 @@ export default function ProgresActions({
     <div className={styles.tableActions}>
       {/* View */}
       <Link
-        href={`/masjid/detail/${progres.id}`}
+        href={`/admin/dashboard/tracking/detail/${progres.id}`}
         className={`${styles.actionBtn} ${styles.actionBtnView}`}
         title="Lihat detail"
       >

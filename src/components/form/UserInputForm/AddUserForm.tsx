@@ -92,143 +92,145 @@ export function AddUserForm() {
       setLoading(false);
     }
   }
-
+ 
   return (
-    <div className={styles.pageContainer}>
-      <form className={styles.formCard} onSubmit={submitForm}>
-        <header className={styles.formHeader}>
-          <h1 className={styles.formHeader__title}>Registrasi User Baru</h1>
-          <p className={styles.formHeader__subtitle}>
-            Tambahkan akun administrator atau relawan yang akan menggunakan sistem.
-          </p>
-        </header>
-
-        <div className={styles.formGrid}>
-          {/* Nama Lengkap */}
-          <label className={styles.formField}>
-            <span className={styles.formField__label}>Nama Lengkap *</span>
-            <div className={styles.formField__inputContainer}>
-              <User size={18} className={styles.formField__icon} />
-              <input
-                type="text"
-                className={styles.formField__input}
-                required
-                value={form.name}
-                onChange={(e) => updateField("name", e.target.value)}
-                placeholder="Masukkan nama lengkap"
-              />
-            </div>
-          </label>
-
-          {/* Email */}
-          <label className={styles.formField}>
-            <span className={styles.formField__label}>Email *</span>
-            <div className={styles.formField__inputContainer}>
-              <Mail size={18} className={styles.formField__icon} />
-              <input
-                type="email"
-                className={styles.formField__input}
-                required
-                value={form.email}
-                onChange={(e) => updateField("email", e.target.value)}
-                placeholder="email@example.com"
-              />
-            </div>
-          </label>
-
-          {/* Nomor Telepon */}
-          <label className={styles.formField}>
-            <span className={styles.formField__label}>Nomor Telepon *</span>
-            <div className={styles.formField__inputContainer}>
-              <Phone size={18} className={styles.formField__icon} />
-              <input
-                type="tel"
-                className={styles.formField__input}
-                required
-                value={form.nomorTelepon}
-                onChange={(e) => updateField("nomorTelepon", e.target.value)}
-                placeholder="08xxxxxxxxxx"
-              />
-            </div>
-          </label>
-
-          {/* Role */}
-          <label className={styles.formField}>
-            <span className={styles.formField__label}>Role *</span>
-            <div className={styles.formField__inputContainer}>
-              <Shield size={18} className={styles.formField__icon} />
-              <select
-                className={`${styles.formField__input} ${styles["formField__input--select"]}`}
-                required
-                value={form.role}
-                onChange={(e) => updateField("role", e.target.value)}
-              >
-                <option value="Admin">Admin</option>
-                <option value="Relawan">Relawan</option>
-              </select>
-            </div>
-          </label>
-
-          {/* Password */}
-          <label className={styles.formField}>
-            <span className={styles.formField__label}>Password *</span>
-            <div className={styles.formField__inputContainer}>
-              <Lock size={18} className={styles.formField__icon} />
-              <input
-                type="password"
-                className={styles.formField__input}
-                required
-                value={form.password}
-                onChange={(e) => updateField("password", e.target.value)}
-                placeholder="Minimal 8 karakter"
-              />
-            </div>
-          </label>
-
-          {/* Konfirmasi Password */}
-          <label className={styles.formField}>
-            <span className={styles.formField__label}>Konfirmasi Password *</span>
-            <div className={styles.formField__inputContainer}>
-              <Lock size={18} className={styles.formField__icon} />
-              <input
-                type="password"
-                className={styles.formField__input}
-                required
-                value={form.confirmPassword}
-                onChange={(e) => updateField("confirmPassword", e.target.value)}
-                placeholder="Masukkan ulang password"
-              />
-            </div>
-          </label>
-
-          {/* User Input (Read Only) */}
-          <label className={`${styles.formField} ${styles["formField--span2"]}`}>
-            <span className={styles.formField__label}>User Input</span>
-            <div className={`${styles.formField__inputContainer} ${styles["formField__inputContainer--readonly"]}`}>
-              <User size={18} className={styles.formField__icon} />
-              <input
-                type="text"
-                className={styles.formField__input}
-                value={form.userInput}
-                readOnly
-              />
-            </div>
-          </label>
-        </div>
-
-        {status && (
-          <div className={`${styles.formStatus} ${isError ? styles["formStatus--error"] : styles["formStatus--success"]}`}>
-            {status}
+    <form className="form-card" onSubmit={submitForm}>
+      <header className="form-header">
+        <h1 className={styles.formHeader__title}>Registrasi User Baru</h1>
+        <p className={styles.formHeader__subtitle}>
+          Tambahkan akun administrator atau relawan yang akan menggunakan
+          sistem.
+        </p>
+      </header>
+      <div className={styles.formGrid}>
+        {/* Nama Lengkap */}
+        <label className={styles.formField}>
+          <span className={styles.formField__label}>Nama Lengkap *</span>
+          <div className={styles.formField__inputContainer}>
+            <User size={18} className={styles.formField__icon} />
+            <input
+              type="text"
+              className={styles.formField__input}
+              required
+              value={form.name}
+              onChange={(e) => updateField("name", e.target.value)}
+              placeholder="Masukkan nama lengkap"
+            />
           </div>
-        )}
-
-        <div className={styles.formActions}>
-          <button className={styles.formActions__submitBtn} type="submit" disabled={loading}>
-            <Save size={18} />
-            {loading ? "Menyimpan..." : "Simpan User"}
-          </button>
+        </label>
+        {/* Email */}
+        <label className={styles.formField}>
+          <span className={styles.formField__label}>Email *</span>
+          <div className={styles.formField__inputContainer}>
+            <Mail size={18} className={styles.formField__icon} />
+            <input
+              type="email"
+              className={styles.formField__input}
+              required
+              value={form.email}
+              onChange={(e) => updateField("email", e.target.value)}
+              placeholder="email@example.com"
+            />
+          </div>
+        </label>
+        {/* Nomor Telepon */}
+        <label className={styles.formField}>
+          <span className={styles.formField__label}>Nomor Telepon *</span>
+          <div className={styles.formField__inputContainer}>
+            <Phone size={18} className={styles.formField__icon} />
+            <input
+              type="tel"
+              className={styles.formField__input}
+              required
+              value={form.nomorTelepon}
+              onChange={(e) => updateField("nomorTelepon", e.target.value)}
+              placeholder="08xxxxxxxxxx"
+            />
+          </div>
+        </label>
+        {/* Role */}
+        <label className={styles.formField}>
+          <span className={styles.formField__label}>Role *</span>
+          <div className={styles.formField__inputContainer}>
+            <Shield size={18} className={styles.formField__icon} />
+            <select
+              className={`${styles.formField__input} ${styles["formField__input--select"]}`}
+              required
+              value={form.role}
+              onChange={(e) => updateField("role", e.target.value)}
+            >
+              <option value="Admin">Admin</option>
+              <option value="Relawan">Relawan</option>
+            </select>
+          </div>
+        </label>
+        {/* Password */}
+        <label className={styles.formField}>
+          <span className={styles.formField__label}>Password *</span>
+          <div className={styles.formField__inputContainer}>
+            <Lock size={18} className={styles.formField__icon} />
+            <input
+              type="password"
+              className={styles.formField__input}
+              required
+              value={form.password}
+              onChange={(e) => updateField("password", e.target.value)}
+              placeholder="Minimal 8 karakter"
+            />
+          </div>
+        </label>
+        {/* Konfirmasi Password */}
+        <label className={styles.formField}>
+          <span className={styles.formField__label}>Konfirmasi Password *</span>
+          <div className={styles.formField__inputContainer}>
+            <Lock size={18} className={styles.formField__icon} />
+            <input
+              type="password"
+              className={styles.formField__input}
+              required
+              value={form.confirmPassword}
+              onChange={(e) => updateField("confirmPassword", e.target.value)}
+              placeholder="Masukkan ulang password"
+            />
+          </div>
+        </label>
+        {/* User Input (Read Only) */}
+        <label className={`${styles.formField} ${styles["formField--span2"]}`}>
+          <span className={styles.formField__label}>User Input</span>
+          <div
+            className={`${styles.formField__inputContainer} ${styles["formField__inputContainer--readonly"]}`}
+          >
+            <User size={18} className={styles.formField__icon} />
+            <input
+              type="text"
+              className={styles.formField__input}
+              value={form.userInput}
+              readOnly
+            />
+          </div>
+        </label>
+      </div>
+      {status && (
+        <div
+          className={`${styles.formStatus} ${
+            isError
+              ? styles["formStatus--error"]
+              : styles["formStatus--success"]
+          }`}
+        >
+          {status}
         </div>
-      </form>
-    </div>
+      )}
+      <div className={styles.formActions}>
+        <button
+          className={styles.formActions__submitBtn}
+          type="submit"
+          disabled={loading}
+        >
+          <Save size={18} />
+          {loading ? "Menyimpan..." : "Simpan User"}
+        </button>
+      </div>
+    </form>
   );
 }

@@ -2,8 +2,8 @@ export const dynamic = "force-dynamic";
 import { AppFrame } from "@/components/AppFrame";
 import { getTrackingMasjidList } from "@/lib/tracking";
 import { ProtectedPage } from "@/components/ProtectedPage";
-import { TablePengajuan } from "@/components/ListProgres/TableProgres";
-import { DashboardStats } from "@/components/ListMasjid/DashboardStats";
+import { TablePengajuan } from "@/components/Progres/ListProgres/TableProgres";
+// import { DashboardStats } from "@/components/ListMasjid/DashboardStats";
 
 export default async function AdminPage() {
   const masjid = await getTrackingMasjidList();
