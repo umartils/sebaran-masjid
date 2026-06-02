@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import ImageUploadField from "@/components/ImageUploadField/ImageUploadField";
 import { Save } from "lucide-react";
+
+// Local libraries
+import ImageUploadField from "@/components/ImageUploadField/ImageUploadField";
 import { TrackingMasjidDetail } from "@/lib/types";
-import { set } from "zod/v4";
-import { time } from "console";
+import { useToast } from "@/hooks/useToast";
 
 export function FormTambahLog({
   //   trackingId,
@@ -35,6 +36,7 @@ export function FormTambahLog({
   const [imgUrls, setImgUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
+  const { toast, showToast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,12 +62,14 @@ export function FormTambahLog({
 
       if (!res.ok) throw new Error();
 
-      setStatus("Progres berhasil ditambahkan");
+      // setStatus("Progres berhasil ditambahkan");
 
-      //   router.push(`/admin/dashboard/tracking/detail/${trackingId}`);
-      //   router.refresh();
+      showToast("Progres berhasil ditambahkan", "success");
+      setTimeout(() => {
+        router.push(`/admin/dashboard/tracking/detail/${trackingId}`);
+        router.refresh();
+      }, 1500);
     } catch (err) {
-      //   alert("Gagal menambah progres");
       setStatus("Gagal menambah progres");
     } finally {
       setLoading(false);
@@ -73,72 +77,87 @@ export function FormTambahLog({
   };
 
   return (
-    <form className="form-card" onSubmit={handleSubmit}>
-      <header className="form-header">
-        <h1>Tambah Progres</h1>
-      </header>
-      <div className="form-grid">
-        <label className="field span-2">
-          <span className="label">Progres</span>
-          <input
-            className="control"
-            value={progres}
-            onChange={(e) => setProgres(e.target.value)}
-            required
-          />
-        </label>
+    <>
+      <form className="form-card" onSubmit={handleSubmit}>
+        <header className="form-header">
+          <h1>Tambah Progres</h1>
+        </header>
+        <div className="form-grid">
+          <label className="field span-2">
+            <span className="label">Progres</span>
+            <input
+              className="control"
+              value={progres}
+              onChange={(e) => setProgres(e.target.value)}
+              required
+            />
+          </label>
 
-        <label className="field span-2">
-          <span className="label">Next Progres</span>
-          <input
-            className="control"
-            value={nextProgres}
-            onChange={(e) => setNextProgres(e.target.value)}
-            required
-          />
-        </label>
+          <label className="field span-2">
+            <span className="label">Next Progres</span>
+            <input
+              className="control"
+              value={nextProgres}
+              onChange={(e) => setNextProgres(e.target.value)}
+              required
+            />
+          </label>
 
-        <label className="field">
-          <span className="label">Persentase</span>
-          <input
-            className="control"
-            type="number"
-            value={persentase}
-            onChange={(e) => setPersentase(Number(e.target.value))}
-            min={0}
-            max={100}
-            required
-          />
-        </label>
+          <label className="field">
+            <span className="label">Persentase</span>
+            <input
+              className="control"
+              type="number"
+              value={persentase}
+              onChange={(e) => setPersentase(Number(e.target.value))}
+              min={0}
+              max={100}
+              required
+            />
+          </label>
 
-        <label className="field">
-          <span className="label">Waktu Progres</span>
-          <input
-            className="control"
-            value={waktuProgres}
-            onChange={(e) => setWaktuProgres(e.target.value)}
-            placeholder="Minggu ke - ..."
-            required
-          />
-        </label>
-      </div>
-      <br />
+          <label className="field">
+            <span className="label">Waktu Progres</span>
+            <input
+              className="control"
+              value={waktuProgres}
+              onChange={(e) => setWaktuProgres(e.target.value)}
+              placeholder="Minggu ke - ..."
+              required
+            />
+          </label>
+        </div>
+        <br />
 
-      {/* IMAGE UPLOAD FIELD */}
-      <ImageUploadField
-        label="Dokumentasi Progres"
-        onUrlsChange={setImgUrls}
-        folder={`masjid/${masjidId}/progres/${currentTime}`}
-      />
+        {/* IMAGE UPLOAD FIELD */}
+        <ImageUploadField
+          label="Dokumentasi Progres"
+          onUrlsChange={setImgUrls}
+          folder={`masjid/${masjidId}/progres/${currentTime}`}
+        />
 
-      {/* <button type="submit" disabled={loading}>
-        {loading ? "Menyimpan..." : "Simpan"}
-      </button> */}
-      <div>
-        <button className="primary-button" type="submit" disabled={loading}>
-          <Save size={18} /> {loading ? "Menyimpan..." : "Simpan Data"}
-        </button>
-      </div>
-    </form>
+        {/* <button type="submit" disabled={loading}>
+          {loading ? "Menyimpan..." : "Simpan"}
+        </button> */}
+        <div>
+          <button className="primary-button" type="submit" disabled={loading}>
+            <Save size={18} /> {loading ? "Menyimpan..." : "Simpan Data"}
+          </button>
+        </div>
+        {status && <p className="status-message">{status}</p>}
+      </form>
+
+      {toast.show && (
+        <div
+          className={`custom-toast ${
+            toast.type === "success"
+              ? "custom-toast--success"
+              : "custom-toast--error"
+          }`}
+        >
+          {toast.message}
+        </div>
+      )}
+    </>
   );
 }

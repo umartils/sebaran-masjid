@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 
 import { signOut, useSession } from "next-auth/react";
 import { Navbar } from "./navbar/navbar";
+import { useToast } from "@/hooks/useToast";
 
 export function AppFrame({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -28,6 +29,8 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
 
   const [mounted, setMounted] = useState(false);
 
+  const { toast, showToast } = useToast();
+
   useEffect(() => {
     setMounted(true);
 
@@ -37,10 +40,21 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
   }, []);
 
   async function handleLogout() {
+    sessionStorage.setItem("logoutSuccess", "true");
+
     await signOut({
       callbackUrl: "/",
     });
   }
+
+  useEffect(() => {
+    const logoutSuccess = sessionStorage.getItem("logoutSuccess");
+
+    if (logoutSuccess === "true") {
+      showToast("Berhasil keluar", "success");
+      sessionStorage.removeItem("logoutSuccess");
+    }
+  }, []);
 
   if (!mounted) {
     return null;
@@ -108,6 +122,18 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
       <main className={`content ${collapsed ? "expanded" : ""}`}>
         {children}
       </main>
+
+      {toast.show && (
+        <div
+          className={`custom-toast ${
+            toast.type === "success"
+              ? "custom-toast--success"
+              : "custom-toast--error"
+          }`}
+        >
+          {toast.message}
+        </div>
+      )}
     </div>
   );
 }

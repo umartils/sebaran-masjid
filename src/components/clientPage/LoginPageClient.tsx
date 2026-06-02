@@ -13,9 +13,39 @@ import {
   ArrowLeft,
 } from "lucide-react";
 
+import { useToast } from "@/hooks/useToast";
+
+// interface ToastState {
+//   show: boolean;
+//   type: "success" | "error";
+//   message: string;
+// }
+
 export default function LoginPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { toast, showToast } = useToast();
+
+  // const [toast, setToast] = useState<ToastState>({
+  //   show: false,
+  //   type: "success",
+  //   message: "",
+  // });
+
+  // function showToast(message: string, type: "success" | "error" = "success") {
+  //   setToast({
+  //     show: true,
+  //     type,
+  //     message,
+  //   });
+
+  //   setTimeout(() => {
+  //     setToast((prev) => ({
+  //       ...prev,
+  //       show: false,
+  //     }));
+  //   }, 2000);
+  // }
 
   const redirectTo = searchParams.get("redirect") ?? "/";
 
@@ -37,15 +67,17 @@ export default function LoginPageClient() {
       const result = await signIn("credentials", {
         email,
         password,
-        redirect: false, // Pastikan ini selalu false
+        redirect: false,
       });
 
       if (result?.ok) {
-        router.push(redirectTo);
+        showToast("Login berhasil", "success");
+        setTimeout(() => {
+          router.push(redirectTo);
+        }, 1500);
         return;
       }
 
-      // Tangani berbagai error dari NextAuth
       if (result?.error) {
         setError("Email atau password salah");
       } else {
@@ -154,6 +186,17 @@ export default function LoginPageClient() {
           </Link>
         </p>
       </div>
+      {toast.show && (
+        <div
+          className={`custom-toast ${
+            toast.type === "success"
+              ? "custom-toast--success"
+              : "custom-toast--error"
+          }`}
+        >
+          {toast.message}
+        </div>
+      )}
     </div>
   );
 }

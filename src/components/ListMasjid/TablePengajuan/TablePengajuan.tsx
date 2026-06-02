@@ -6,8 +6,9 @@ import { useSession } from "next-auth/react";
 
 // Import Hooks
 import { useApprovalPengajuan } from "./hooks/useApprovalPengajuan";
-import { useFilterMasjid } from "./hooks/useFilterMasjid";
-import { usePagination } from "./hooks/usePagination";
+import { useFilterMasjid } from "@/hooks/useFilterMasjid";
+import { useMasjidFilters } from "@/hooks/useMasjidFilters";
+import { usePagination } from "@/hooks/usePagination";
 
 import FilterMasjid from "./FilterMasjid";
 import MasjidRow from "./MasjidRow";
@@ -15,6 +16,7 @@ import ConfirmationModal from "./ConfirmationModal";
 
 import styles from "../ListMasjid.module.scss";
 
+// import { useState } from "react";
 
 type Props = {
   masjid: Masjid[];
@@ -22,6 +24,7 @@ type Props = {
 
 export function TablePengajuan({ masjid }: Props) {
   const { data: session } = useSession();
+
   const {
     selectedMasjid,
     actionType,
@@ -37,59 +40,46 @@ export function TablePengajuan({ masjid }: Props) {
     setQuery,
     categoryFilter,
     setCategoryFilter,
-    filtered,
-    hasFilter,
-  } = useFilterMasjid(
-    masjid
-  );
+    dateFilter,
+    setDateFilter,
+  } = useMasjidFilters();
 
-  const {
-    page,
-    pageSize,
-    totalPages,
-    paginatedData,
-    setPage,
-    setPageSize,
-    } = usePagination(filtered);
+  const filtered = useFilterMasjid(masjid, query, categoryFilter, dateFilter);
 
+  const { page, pageSize, totalPages, paginatedData, setPage, setPageSize } =
+    usePagination(filtered);
 
   return (
     <>
       {/* Search & Filter Bar */}
       <FilterMasjid
         query={query}
-        categoryFilter={
-            categoryFilter
-        }
-        totalCount={
-            masjid.length
-        }
-        filteredCount={
-            filtered.length
-        }
+        categoryFilter={categoryFilter}
+        dateFilter={dateFilter}
+        totalCount={masjid.length}
+        filteredCount={filtered.length}
         onQueryChange={setQuery}
-        onCategoryChange={
-            setCategoryFilter
-        }
-     />
+        onCategoryChange={setCategoryFilter}
+        onDateChange={setDateFilter}
+      />
 
       <div className={styles.adminTableWrap}>
         <div className={styles.paginationTop}>
-            <div className={styles.pageSize}>
-                <span>Tampilkan</span>
-                <select
-                value={pageSize}
-                onChange={(e) => {
-                    setPageSize(Number(e.target.value));
-                    setPage(1);
-                }}
-                >
-                <option value={10}>10</option>
-                <option value={50}>50</option>
-                <option value={100}>100</option>
-                </select>
-                <span>data</span>
-            </div>
+          <div className={styles.pageSize}>
+            <span>Tampilkan</span>
+            <select
+              value={pageSize}
+              onChange={(e) => {
+                setPageSize(Number(e.target.value));
+                setPage(1);
+              }}
+            >
+              <option value={10}>10</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+            <span>data</span>
+          </div>
         </div>
         <table className={styles.adminTable}>
           <thead>
@@ -112,41 +102,34 @@ export function TablePengajuan({ masjid }: Props) {
             ) : (
               paginatedData.map((building) => (
                 <MasjidRow
-                    key={building.id}
-                    building={building}
-                    onAction={openConfirmation}
+                  key={building.id}
+                  building={building}
+                  onAction={openConfirmation}
                 />
               ))
             )}
           </tbody>
         </table>
         <div className={styles.pagination}>
-        <button
+          <button
             type="button"
             disabled={page === 1}
-            onClick={() =>
-            setPage(page - 1)
-            }
-        >
+            onClick={() => setPage(page - 1)}
+          >
             Prev
-        </button>
+          </button>
 
-        <span className={styles.pageIndicator}>
-            Halaman {page} dari{" "}
-            {totalPages}
-        </span>
+          <span className={styles.pageIndicator}>
+            Halaman {page} dari {totalPages}
+          </span>
 
-        <button
+          <button
             type="button"
-            disabled={
-            page === totalPages
-            }
-            onClick={() =>
-            setPage(page + 1)
-            }
-        >
+            disabled={page === totalPages}
+            onClick={() => setPage(page + 1)}
+          >
             Next
-        </button>
+          </button>
         </div>
       </div>
 
@@ -158,6 +141,18 @@ export function TablePengajuan({ masjid }: Props) {
         onCancel={closeConfirmation}
         onConfirm={handleUpdateStatus}
       />
+
+      {toast.show && (
+        <div
+          className={`custom-toast ${
+            toast.type === "success"
+              ? "custom-toast--success"
+              : "custom-toast--error"
+          }`}
+        >
+          {toast.message}
+        </div>
+      )}
     </>
   );
 }

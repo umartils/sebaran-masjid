@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 // Import Hooks
 // import { useApprovalPengajuan } from "./hooks/useApprovalPengajuan";
 import { useFilterProgres } from "./hooks/useFilterProgres";
-import { usePagination } from "./hooks/usePagination";
+import { usePagination } from "@/hooks/usePagination";
 
 import FilterMasjid from "./FilterMasjid";
 import ProgresRow from "./ProgresRow";
