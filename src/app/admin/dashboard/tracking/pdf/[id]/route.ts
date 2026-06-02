@@ -84,6 +84,7 @@ export async function GET(
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/assets/cropped-logo-masjid-nusantara.png" />
   <title>Laporan Mingguan — ${tracking.masjid.nama}</title>
   <style>
     * {
