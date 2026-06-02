@@ -45,11 +45,19 @@ model Account {
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique
   userId       String
-  expires      DateTime
-
+  sessionToken        String   @unique
+  ipAddress    String?
+  userAgent    String?
+  lastActivity DateTime @default(now())
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([sessionToken])
+  @@index([userId])
+  @@index([expiresAt])
 }
 
 model VerificationToken {
@@ -178,7 +186,8 @@ model TrackingMasjidLog {
   tracking      TrackingMasjid @relation(fields: [trackingId], references: [id])
   progres       String?
   persentase    Int?
-  nextProgres   String
+  nextProgres   String?
+  waktuProgres  String?
   imgUrls       String[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt

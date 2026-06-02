@@ -1077,9 +1077,13 @@ export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeo
 
 export const SessionScalarFieldEnum = {
   id: 'id',
-  sessionToken: 'sessionToken',
   userId: 'userId',
-  expires: 'expires'
+  sessionToken: 'sessionToken',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  lastActivity: 'lastActivity',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
 } as const
 
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
@@ -1211,6 +1215,7 @@ export const TrackingMasjidLogScalarFieldEnum = {
   progres: 'progres',
   persentase: 'persentase',
   nextProgres: 'nextProgres',
+  waktuProgres: 'waktuProgres',
   imgUrls: 'imgUrls',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

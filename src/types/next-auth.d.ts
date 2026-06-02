@@ -8,6 +8,7 @@ declare module "next-auth" {
       role: string;
       nomorTelepon?: string | null;
     } & DefaultSession["user"];
+    expired?: boolean; // flag dari server jika sesi idle timeout
   }
 
   interface User extends DefaultUser {
@@ -21,5 +22,7 @@ declare module "next-auth/jwt" {
     id?: string;
     role?: string;
     nomorTelepon?: string | null;
+    lastActivity?: number; // Unix timestamp (detik) aktivitas terakhir
+    expired?: boolean; // flag idle timeout dari JWT callback
   }
 }

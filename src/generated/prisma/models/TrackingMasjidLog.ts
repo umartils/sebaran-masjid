@@ -40,6 +40,7 @@ export type TrackingMasjidLogMinAggregateOutputType = {
   progres: string | null
   persentase: number | null
   nextProgres: string | null
+  waktuProgres: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -50,6 +51,7 @@ export type TrackingMasjidLogMaxAggregateOutputType = {
   progres: string | null
   persentase: number | null
   nextProgres: string | null
+  waktuProgres: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -60,6 +62,7 @@ export type TrackingMasjidLogCountAggregateOutputType = {
   progres: number
   persentase: number
   nextProgres: number
+  waktuProgres: number
   imgUrls: number
   createdAt: number
   updatedAt: number
@@ -81,6 +84,7 @@ export type TrackingMasjidLogMinAggregateInputType = {
   progres?: true
   persentase?: true
   nextProgres?: true
+  waktuProgres?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -91,6 +95,7 @@ export type TrackingMasjidLogMaxAggregateInputType = {
   progres?: true
   persentase?: true
   nextProgres?: true
+  waktuProgres?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -101,6 +106,7 @@ export type TrackingMasjidLogCountAggregateInputType = {
   progres?: true
   persentase?: true
   nextProgres?: true
+  waktuProgres?: true
   imgUrls?: true
   createdAt?: true
   updatedAt?: true
@@ -198,7 +204,8 @@ export type TrackingMasjidLogGroupByOutputType = {
   trackingId: string
   progres: string | null
   persentase: number | null
-  nextProgres: string
+  nextProgres: string | null
+  waktuProgres: string | null
   imgUrls: string[]
   createdAt: Date
   updatedAt: Date
@@ -232,7 +239,8 @@ export type TrackingMasjidLogWhereInput = {
   trackingId?: Prisma.StringFilter<"TrackingMasjidLog"> | string
   progres?: Prisma.StringNullableFilter<"TrackingMasjidLog"> | string | null
   persentase?: Prisma.IntNullableFilter<"TrackingMasjidLog"> | number | null
-  nextProgres?: Prisma.StringFilter<"TrackingMasjidLog"> | string
+  nextProgres?: Prisma.StringNullableFilter<"TrackingMasjidLog"> | string | null
+  waktuProgres?: Prisma.StringNullableFilter<"TrackingMasjidLog"> | string | null
   imgUrls?: Prisma.StringNullableListFilter<"TrackingMasjidLog">
   createdAt?: Prisma.DateTimeFilter<"TrackingMasjidLog"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TrackingMasjidLog"> | Date | string
@@ -244,7 +252,8 @@ export type TrackingMasjidLogOrderByWithRelationInput = {
   trackingId?: Prisma.SortOrder
   progres?: Prisma.SortOrderInput | Prisma.SortOrder
   persentase?: Prisma.SortOrderInput | Prisma.SortOrder
-  nextProgres?: Prisma.SortOrder
+  nextProgres?: Prisma.SortOrderInput | Prisma.SortOrder
+  waktuProgres?: Prisma.SortOrderInput | Prisma.SortOrder
   imgUrls?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -259,7 +268,8 @@ export type TrackingMasjidLogWhereUniqueInput = Prisma.AtLeast<{
   trackingId?: Prisma.StringFilter<"TrackingMasjidLog"> | string
   progres?: Prisma.StringNullableFilter<"TrackingMasjidLog"> | string | null
   persentase?: Prisma.IntNullableFilter<"TrackingMasjidLog"> | number | null
-  nextProgres?: Prisma.StringFilter<"TrackingMasjidLog"> | string
+  nextProgres?: Prisma.StringNullableFilter<"TrackingMasjidLog"> | string | null
+  waktuProgres?: Prisma.StringNullableFilter<"TrackingMasjidLog"> | string | null
   imgUrls?: Prisma.StringNullableListFilter<"TrackingMasjidLog">
   createdAt?: Prisma.DateTimeFilter<"TrackingMasjidLog"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TrackingMasjidLog"> | Date | string
@@ -271,7 +281,8 @@ export type TrackingMasjidLogOrderByWithAggregationInput = {
   trackingId?: Prisma.SortOrder
   progres?: Prisma.SortOrderInput | Prisma.SortOrder
   persentase?: Prisma.SortOrderInput | Prisma.SortOrder
-  nextProgres?: Prisma.SortOrder
+  nextProgres?: Prisma.SortOrderInput | Prisma.SortOrder
+  waktuProgres?: Prisma.SortOrderInput | Prisma.SortOrder
   imgUrls?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -290,7 +301,8 @@ export type TrackingMasjidLogScalarWhereWithAggregatesInput = {
   trackingId?: Prisma.StringWithAggregatesFilter<"TrackingMasjidLog"> | string
   progres?: Prisma.StringNullableWithAggregatesFilter<"TrackingMasjidLog"> | string | null
   persentase?: Prisma.IntNullableWithAggregatesFilter<"TrackingMasjidLog"> | number | null
-  nextProgres?: Prisma.StringWithAggregatesFilter<"TrackingMasjidLog"> | string
+  nextProgres?: Prisma.StringNullableWithAggregatesFilter<"TrackingMasjidLog"> | string | null
+  waktuProgres?: Prisma.StringNullableWithAggregatesFilter<"TrackingMasjidLog"> | string | null
   imgUrls?: Prisma.StringNullableListFilter<"TrackingMasjidLog">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TrackingMasjidLog"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TrackingMasjidLog"> | Date | string
@@ -300,7 +312,8 @@ export type TrackingMasjidLogCreateInput = {
   id?: string
   progres?: string | null
   persentase?: number | null
-  nextProgres: string
+  nextProgres?: string | null
+  waktuProgres?: string | null
   imgUrls?: Prisma.TrackingMasjidLogCreateimgUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -312,7 +325,8 @@ export type TrackingMasjidLogUncheckedCreateInput = {
   trackingId: string
   progres?: string | null
   persentase?: number | null
-  nextProgres: string
+  nextProgres?: string | null
+  waktuProgres?: string | null
   imgUrls?: Prisma.TrackingMasjidLogCreateimgUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -322,7 +336,8 @@ export type TrackingMasjidLogUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   progres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  nextProgres?: Prisma.StringFieldUpdateOperationsInput | string
+  nextProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  waktuProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imgUrls?: Prisma.TrackingMasjidLogUpdateimgUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -334,7 +349,8 @@ export type TrackingMasjidLogUncheckedUpdateInput = {
   trackingId?: Prisma.StringFieldUpdateOperationsInput | string
   progres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  nextProgres?: Prisma.StringFieldUpdateOperationsInput | string
+  nextProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  waktuProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imgUrls?: Prisma.TrackingMasjidLogUpdateimgUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -345,7 +361,8 @@ export type TrackingMasjidLogCreateManyInput = {
   trackingId: string
   progres?: string | null
   persentase?: number | null
-  nextProgres: string
+  nextProgres?: string | null
+  waktuProgres?: string | null
   imgUrls?: Prisma.TrackingMasjidLogCreateimgUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -355,7 +372,8 @@ export type TrackingMasjidLogUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   progres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  nextProgres?: Prisma.StringFieldUpdateOperationsInput | string
+  nextProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  waktuProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imgUrls?: Prisma.TrackingMasjidLogUpdateimgUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -366,7 +384,8 @@ export type TrackingMasjidLogUncheckedUpdateManyInput = {
   trackingId?: Prisma.StringFieldUpdateOperationsInput | string
   progres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  nextProgres?: Prisma.StringFieldUpdateOperationsInput | string
+  nextProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  waktuProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imgUrls?: Prisma.TrackingMasjidLogUpdateimgUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -388,6 +407,7 @@ export type TrackingMasjidLogCountOrderByAggregateInput = {
   progres?: Prisma.SortOrder
   persentase?: Prisma.SortOrder
   nextProgres?: Prisma.SortOrder
+  waktuProgres?: Prisma.SortOrder
   imgUrls?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -403,6 +423,7 @@ export type TrackingMasjidLogMaxOrderByAggregateInput = {
   progres?: Prisma.SortOrder
   persentase?: Prisma.SortOrder
   nextProgres?: Prisma.SortOrder
+  waktuProgres?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -413,6 +434,7 @@ export type TrackingMasjidLogMinOrderByAggregateInput = {
   progres?: Prisma.SortOrder
   persentase?: Prisma.SortOrder
   nextProgres?: Prisma.SortOrder
+  waktuProgres?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -476,7 +498,8 @@ export type TrackingMasjidLogCreateWithoutTrackingInput = {
   id?: string
   progres?: string | null
   persentase?: number | null
-  nextProgres: string
+  nextProgres?: string | null
+  waktuProgres?: string | null
   imgUrls?: Prisma.TrackingMasjidLogCreateimgUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -486,7 +509,8 @@ export type TrackingMasjidLogUncheckedCreateWithoutTrackingInput = {
   id?: string
   progres?: string | null
   persentase?: number | null
-  nextProgres: string
+  nextProgres?: string | null
+  waktuProgres?: string | null
   imgUrls?: Prisma.TrackingMasjidLogCreateimgUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -526,7 +550,8 @@ export type TrackingMasjidLogScalarWhereInput = {
   trackingId?: Prisma.StringFilter<"TrackingMasjidLog"> | string
   progres?: Prisma.StringNullableFilter<"TrackingMasjidLog"> | string | null
   persentase?: Prisma.IntNullableFilter<"TrackingMasjidLog"> | number | null
-  nextProgres?: Prisma.StringFilter<"TrackingMasjidLog"> | string
+  nextProgres?: Prisma.StringNullableFilter<"TrackingMasjidLog"> | string | null
+  waktuProgres?: Prisma.StringNullableFilter<"TrackingMasjidLog"> | string | null
   imgUrls?: Prisma.StringNullableListFilter<"TrackingMasjidLog">
   createdAt?: Prisma.DateTimeFilter<"TrackingMasjidLog"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TrackingMasjidLog"> | Date | string
@@ -536,7 +561,8 @@ export type TrackingMasjidLogCreateManyTrackingInput = {
   id?: string
   progres?: string | null
   persentase?: number | null
-  nextProgres: string
+  nextProgres?: string | null
+  waktuProgres?: string | null
   imgUrls?: Prisma.TrackingMasjidLogCreateimgUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -546,7 +572,8 @@ export type TrackingMasjidLogUpdateWithoutTrackingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   progres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  nextProgres?: Prisma.StringFieldUpdateOperationsInput | string
+  nextProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  waktuProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imgUrls?: Prisma.TrackingMasjidLogUpdateimgUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -556,7 +583,8 @@ export type TrackingMasjidLogUncheckedUpdateWithoutTrackingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   progres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  nextProgres?: Prisma.StringFieldUpdateOperationsInput | string
+  nextProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  waktuProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imgUrls?: Prisma.TrackingMasjidLogUpdateimgUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -566,7 +594,8 @@ export type TrackingMasjidLogUncheckedUpdateManyWithoutTrackingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   progres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   persentase?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  nextProgres?: Prisma.StringFieldUpdateOperationsInput | string
+  nextProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  waktuProgres?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imgUrls?: Prisma.TrackingMasjidLogUpdateimgUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -580,6 +609,7 @@ export type TrackingMasjidLogSelect<ExtArgs extends runtime.Types.Extensions.Int
   progres?: boolean
   persentase?: boolean
   nextProgres?: boolean
+  waktuProgres?: boolean
   imgUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -592,6 +622,7 @@ export type TrackingMasjidLogSelectCreateManyAndReturn<ExtArgs extends runtime.T
   progres?: boolean
   persentase?: boolean
   nextProgres?: boolean
+  waktuProgres?: boolean
   imgUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -604,6 +635,7 @@ export type TrackingMasjidLogSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   progres?: boolean
   persentase?: boolean
   nextProgres?: boolean
+  waktuProgres?: boolean
   imgUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -616,12 +648,13 @@ export type TrackingMasjidLogSelectScalar = {
   progres?: boolean
   persentase?: boolean
   nextProgres?: boolean
+  waktuProgres?: boolean
   imgUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TrackingMasjidLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "trackingId" | "progres" | "persentase" | "nextProgres" | "imgUrls" | "createdAt" | "updatedAt", ExtArgs["result"]["trackingMasjidLog"]>
+export type TrackingMasjidLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "trackingId" | "progres" | "persentase" | "nextProgres" | "waktuProgres" | "imgUrls" | "createdAt" | "updatedAt", ExtArgs["result"]["trackingMasjidLog"]>
 export type TrackingMasjidLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tracking?: boolean | Prisma.TrackingMasjidDefaultArgs<ExtArgs>
 }
@@ -642,7 +675,8 @@ export type $TrackingMasjidLogPayload<ExtArgs extends runtime.Types.Extensions.I
     trackingId: string
     progres: string | null
     persentase: number | null
-    nextProgres: string
+    nextProgres: string | null
+    waktuProgres: string | null
     imgUrls: string[]
     createdAt: Date
     updatedAt: Date
@@ -1075,6 +1109,7 @@ export interface TrackingMasjidLogFieldRefs {
   readonly progres: Prisma.FieldRef<"TrackingMasjidLog", 'String'>
   readonly persentase: Prisma.FieldRef<"TrackingMasjidLog", 'Int'>
   readonly nextProgres: Prisma.FieldRef<"TrackingMasjidLog", 'String'>
+  readonly waktuProgres: Prisma.FieldRef<"TrackingMasjidLog", 'String'>
   readonly imgUrls: Prisma.FieldRef<"TrackingMasjidLog", 'String[]'>
   readonly createdAt: Prisma.FieldRef<"TrackingMasjidLog", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TrackingMasjidLog", 'DateTime'>

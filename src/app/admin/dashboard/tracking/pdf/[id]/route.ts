@@ -475,7 +475,7 @@ export async function GET(
 <body>
 
   <button class="print-btn" onclick="window.print()">
-    🖨️ Cetak / Simpan PDF
+    Cetak / Simpan PDF
   </button>
 
   <div class="page">
@@ -502,7 +502,9 @@ export async function GET(
 
       <div class="progress-wrap">
         <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width: ${log.persentase}%;"></div>
+          <div class="progress-bar-fill" style="width: ${
+            log.persentase
+          }%;"></div>
         </div>
         <div class="progress-labels">
           <span>0%</span>
@@ -519,7 +521,7 @@ export async function GET(
       <div class="info-grid">
         <div class="info-card full amber">
           <p class="info-label"><span class="dot"></span>Progres yang Dilakukan</p>
-          <p class="info-value">${log.progres ?? 'Belum diisi'}</p>
+          <p class="info-value">${log.progres ?? "Belum diisi"}</p>
         </div>
 
         ${
@@ -528,7 +530,7 @@ export async function GET(
                 <p class="info-label"><span class="dot"></span>Rencana Progres Selanjutnya</p>
                 <p class="info-value orange">${log.nextProgres}</p>
               </div>`
-            : ''
+            : ""
         }
 
         <div class="info-card">
@@ -556,7 +558,7 @@ export async function GET(
         <div class="footer-logo">
           <img src="/assets/cropped-logo-masjid-nusantara.png" width="22" height="22">
         </div>
-        <span class="footer-name">SEIMAN</span>
+        <span class="footer-name">Se-iMaN - Sistem Informasi Masjid Nusantara</span>
       </div>
       <div class="footer-right">
         Dicetak: ${tanggalCetak}<br>

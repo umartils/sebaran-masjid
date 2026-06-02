@@ -121,10 +121,12 @@ $info: #0ea5e9;
 }
 
 .adminTable {
+  // align-items: start;
   width: 100%;
   border-collapse: collapse;
 
   th {
+    text-align: left;
     background: #f8fafc;
 
     padding: 16px 24px;
