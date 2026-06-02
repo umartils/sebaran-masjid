@@ -1,20 +1,24 @@
-import { useState, useEffect } from "react";
-
-// interface usePaginationProps {
-//     filtered: any[];
-// }
+import { useMemo, useState } from "react";
 
 export function usePagination(filtered: any[]) {
-    const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
-    const [totalPages, setTotalPages] = useState(0);
-    const [paginatedData, setPaginatedData] = useState(filtered.slice(0, pageSize));
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
-    useEffect(() => {
-        const total = Math.ceil(filtered.length / pageSize);
-        setTotalPages(total);
-        setPaginatedData(filtered.slice(0, pageSize));
-    }, [filtered, pageSize]);
+  const totalPages = Math.ceil(filtered.length / pageSize);
 
-    return { page, pageSize, totalPages, paginatedData, setPage, setPageSize };
+  const paginatedData = useMemo(() => {
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    return filtered.slice(startIndex, endIndex);
+  }, [filtered, page, pageSize]);
+
+  return {
+    page,
+    pageSize,
+    totalPages,
+    paginatedData,
+    setPage,
+    setPageSize,
+  };
 }
