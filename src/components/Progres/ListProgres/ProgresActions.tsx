@@ -38,7 +38,7 @@ export default function ProgresActions({
       </Link>
 
       <Link
-        href={`/masjid/edit/${progres.id}`}
+        href={`/masjid/edit/${progres.masjid.id}`}
         className={`${styles.actionBtn} ${styles.actionBtnEdit}`}
         title="Edit data"
       >

@@ -13,15 +13,12 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <AppFrame>
-      <SessionGuard>
-        <ProtectedPage>
-          <section className="admin-page">
-            {/* <h1>Tambah Progres</h1> */}
-
-            <FormTambahLog tracking={tracking} />
-          </section>
-        </ProtectedPage>
-      </SessionGuard>
+      <ProtectedPage>
+        <section className="admin-page">
+          {/* <h1>Tambah Progres</h1> */}
+          <FormTambahLog tracking={tracking} />
+        </section>
+      </ProtectedPage>
     </AppFrame>
   );
 }

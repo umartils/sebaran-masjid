@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
       nextProgres,
       persentase,
       imgUrls,
+      waktuProgres,
     } = body;
 
     const log = await prisma.trackingMasjidLog.create({
@@ -20,6 +21,7 @@ export async function POST(req: NextRequest) {
         nextProgres,
         persentase,
         imgUrls,
+        waktuProgres,
       },
     });
 

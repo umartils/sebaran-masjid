@@ -31,6 +31,7 @@ export function FormTambahLog({
   const [progres, setProgres] = useState("");
   const [nextProgres, setNextProgres] = useState("");
   const [persentase, setPersentase] = useState<number>(0);
+  const [waktuProgres, setWaktuProgres] = useState("");
   const [imgUrls, setImgUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
@@ -53,6 +54,7 @@ export function FormTambahLog({
           nextProgres,
           persentase,
           imgUrls,
+          waktuProgres,
         }),
       });
 
@@ -113,8 +115,8 @@ export function FormTambahLog({
           <span className="label">Waktu Progres</span>
           <input
             className="control"
-            value={nextProgres}
-            onChange={(e) => setNextProgres(e.target.value)}
+            value={waktuProgres}
+            onChange={(e) => setWaktuProgres(e.target.value)}
             placeholder="Minggu ke - ..."
             required
           />
