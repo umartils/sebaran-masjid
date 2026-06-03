@@ -4,17 +4,19 @@ import type {
 } from "@/lib/types";
 import { useSession } from "next-auth/react";
 
-// Import Hooks
-// import { useApprovalPengajuan } from "./hooks/useApprovalPengajuan";
-import { useFilterProgres } from "./hooks/useFilterProgres";
 import { usePagination } from "@/hooks/usePagination";
-
-import FilterMasjid from "./FilterMasjid";
 import ProgresRow from "./ProgresRow";
-// import ConfirmationModal from "./ConfirmationModal";
 
 import styles from "./ListProgres.module.scss";
 
+// Global Filter
+import FilterBar from "@/components/UI/FilterBar/FilterBar";
+import { useTableFilters } from "@/hooks/useTableFilters";
+import { useFilteredData } from "@/hooks/useFilteredData";
+import { progresFilterFn } from "@/lib/filters/progresFilterFn";
+
+import { CATEGORY_OPTIONS } from "./constants/categories";
+import { ProgresStatus } from "@/lib/types";
 
 type Props = {
   progres: TrackingMasjidList[];
@@ -22,75 +24,65 @@ type Props = {
 
 export function TablePengajuan({ progres }: Props) {
   const { data: session } = useSession();
-  // const {
-  //   selectedMasjid,
-  //   actionType,
-  //   loading,
-  //   toast,
-  //   openConfirmation,
-  //   closeConfirmation,
-  //   handleUpdateStatus,
-  // } = useApprovalPengajuan(session?.user?.name ?? "");
-
   const {
     query,
     setQuery,
     categoryFilter,
     setCategoryFilter,
-    filtered,
-    hasFilter,
-  } = useFilterProgres(
-    progres
-  );
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+  } = useTableFilters<"ALL" | ProgresStatus>({ defaultCategory: "ALL" });
 
-  const {
-    page,
-    pageSize,
-    totalPages,
-    paginatedData,
-    setPage,
-    setPageSize,
-    } = usePagination(filtered);
+  const filtered = useFilteredData({
+    data: progres,
+    query,
+    categoryFilter,
+    startDate,
+    endDate,
+    filterFn: progresFilterFn,
+  });
 
+  const { page, pageSize, totalPages, paginatedData, setPage, setPageSize } =
+    usePagination(filtered);
 
   return (
     <>
-      {/* Search & Filter Bar */}
-      <FilterMasjid
+      <FilterBar
         query={query}
-        categoryFilter={
-            categoryFilter
-        }
-        totalCount={
-            progres.length
-        }
-        filteredCount={
-            filtered.length
-        }
         onQueryChange={setQuery}
-        onCategoryChange={
-            setCategoryFilter
-        }
-     />
+        searchPlaceholder="Cari nama, alamat, kota, provinsi..."
+        startDate={startDate}
+        endDate={endDate}
+        onStartDateChange={setStartDate}
+        onEndDateChange={setEndDate}
+        selectOptions={CATEGORY_OPTIONS}
+        selectValue={categoryFilter}
+        onSelectChange={(v) => setCategoryFilter(v as ProgresStatus)}
+        filteredCount={filtered.length}
+        totalCount={progres.length}
+        entityLabel="masjid"
+      />
 
       <div className={styles.adminTableWrap}>
-          <div className={styles.paginationTop}>
-              <div className={styles.pageSize}>
-                  <span>Tampilkan</span>
-                  <select
-                  value={pageSize}
-                  onChange={(e) => {
-                      setPageSize(Number(e.target.value));
-                      setPage(1);
-                  }}
-                  >
-                  <option value={10}>10</option>
-                  <option value={50}>50</option>
-                  <option value={100}>100</option>
-                  </select>
-                  <span>data</span>
-              </div>
+        <div className={styles.paginationTop}>
+          <div className={styles.pageSize}>
+            <span>Tampilkan</span>
+            <select
+              value={pageSize}
+              onChange={(e) => {
+                setPageSize(Number(e.target.value));
+                setPage(1);
+              }}
+            >
+              <option value={10}>10</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+            <span>data</span>
           </div>
+        </div>
         <table className={styles.adminTable}>
           <thead>
             <tr>
@@ -111,41 +103,34 @@ export function TablePengajuan({ progres }: Props) {
             ) : (
               paginatedData.map((progres) => (
                 <ProgresRow
-                    key={progres.id}
-                    progres={progres}
-                    // onAction={openConfirmation}
+                  key={progres.id}
+                  progres={progres}
+                  // onAction={openConfirmation}
                 />
               ))
             )}
           </tbody>
         </table>
         <div className={styles.pagination}>
-        <button
+          <button
             type="button"
             disabled={page === 1}
-            onClick={() =>
-            setPage(page - 1)
-            }
-        >
+            onClick={() => setPage(page - 1)}
+          >
             Prev
-        </button>
+          </button>
 
-        <span className={styles.pageIndicator}>
-            Halaman {page} dari{" "}
-            {totalPages}
-        </span>
+          <span className={styles.pageIndicator}>
+            Halaman {page} dari {totalPages}
+          </span>
 
-        <button
+          <button
             type="button"
-            disabled={
-            page === totalPages
-            }
-            onClick={() =>
-            setPage(page + 1)
-            }
-        >
+            disabled={page === totalPages}
+            onClick={() => setPage(page + 1)}
+          >
             Next
-        </button>
+          </button>
         </div>
       </div>
 

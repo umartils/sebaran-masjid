@@ -1,21 +1,17 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { kategoriLabel } from "@/lib/format";
 
-import type {
-  Masjid,
-  KategoriMasjid,
-} from "@/lib/types";
-
-import type { DateRangeFilter } from "./useMasjidFilters";
+import type { Masjid, KategoriMasjid } from "@/lib/types";
 
 export function useFilterMasjid(
   buildings: Masjid[],
   query: string,
   categoryFilter: "ALL" | KategoriMasjid,
-  dateFilter: DateRangeFilter
+  startDate: string,
+  endDate: string
 ) {
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim();
@@ -27,72 +23,35 @@ export function useFilterMasjid(
         building.alamat.toLowerCase().includes(q) ||
         building.namaKota.toLowerCase().includes(q) ||
         building.namaProvinsi.toLowerCase().includes(q) ||
-        kategoriLabel(building.kategori)
-          .toLowerCase()
-          .includes(q) ||
-        building.statusPengajuan
-          .toLowerCase()
-          .includes(q);
+        kategoriLabel(building.kategori).toLowerCase().includes(q) ||
+        building.statusPengajuan.toLowerCase().includes(q);
 
       const matchesCategory =
-        categoryFilter === "ALL" ||
-        building.kategori === categoryFilter;
-
-      const updatedAt = new Date(
-        building.updatedAt
-      );
-
-      const now = new Date();
+        categoryFilter === "ALL" || building.kategori === categoryFilter;
 
       let matchesDate = true;
 
-      switch (dateFilter) {
-        case "TODAY":
-          matchesDate =
-            updatedAt.toDateString() ===
-            now.toDateString();
-          break;
+      if (startDate || endDate) {
+        const updatedAt = new Date(building.updatedAt);
 
-        case "WEEK":
-          const weekAgo = new Date();
-          weekAgo.setDate(
-            now.getDate() - 7
-          );
+        if (startDate) {
+          const start = new Date(startDate);
+          start.setHours(0, 0, 0, 0);
 
-          matchesDate =
-            updatedAt >= weekAgo;
-          break;
+          matchesDate = matchesDate && updatedAt >= start;
+        }
 
-        case "MONTH":
-          matchesDate =
-            updatedAt.getMonth() ===
-              now.getMonth() &&
-            updatedAt.getFullYear() ===
-              now.getFullYear();
-          break;
+        if (endDate) {
+          const end = new Date(endDate);
+          end.setHours(23, 59, 59, 999);
 
-        case "YEAR":
-          matchesDate =
-            updatedAt.getFullYear() ===
-            now.getFullYear();
-          break;
-
-        default:
-          matchesDate = true;
+          matchesDate = matchesDate && updatedAt <= end;
+        }
       }
 
-      return (
-        matchesQuery &&
-        matchesCategory &&
-        matchesDate
-      );
+      return matchesQuery && matchesCategory && matchesDate;
     });
-  }, [
-    buildings,
-    query,
-    categoryFilter,
-    dateFilter,
-  ]);
+  }, [buildings, query, categoryFilter, startDate, endDate]);
 
   return filtered;
 }

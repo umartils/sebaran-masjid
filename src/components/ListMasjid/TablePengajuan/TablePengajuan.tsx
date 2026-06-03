@@ -6,17 +6,20 @@ import { useSession } from "next-auth/react";
 
 // Import Hooks
 import { useApprovalPengajuan } from "./hooks/useApprovalPengajuan";
-import { useFilterMasjid } from "@/hooks/useFilterMasjid";
-import { useMasjidFilters } from "@/hooks/useMasjidFilters";
 import { usePagination } from "@/hooks/usePagination";
 
-import FilterMasjid from "./FilterMasjid";
 import MasjidRow from "./MasjidRow";
 import ConfirmationModal from "./ConfirmationModal";
 
 import styles from "../ListMasjid.module.scss";
+import { CATEGORY_OPTIONS } from "./constants/categories";
+import type { KategoriMasjid } from "@/lib/types";
 
-// import { useState } from "react";
+// Global Filter
+import FilterBar from "@/components/UI/FilterBar/FilterBar";
+import { useTableFilters } from "@/hooks/useTableFilters";
+import { useFilteredData } from "@/hooks/useFilteredData";
+import { masjidFilterFn } from "@/lib/filters/masjidFilterFn";
 
 type Props = {
   masjid: Masjid[];
@@ -40,27 +43,40 @@ export function TablePengajuan({ masjid }: Props) {
     setQuery,
     categoryFilter,
     setCategoryFilter,
-    dateFilter,
-    setDateFilter,
-  } = useMasjidFilters();
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+  } = useTableFilters<"ALL" | KategoriMasjid>({ defaultCategory: "ALL" });
 
-  const filtered = useFilterMasjid(masjid, query, categoryFilter, dateFilter);
+  const filtered = useFilteredData({
+    data: masjid,
+    query,
+    categoryFilter,
+    startDate,
+    endDate,
+    filterFn: masjidFilterFn,
+  });
 
   const { page, pageSize, totalPages, paginatedData, setPage, setPageSize } =
     usePagination(filtered);
 
   return (
     <>
-      {/* Search & Filter Bar */}
-      <FilterMasjid
+      <FilterBar
         query={query}
-        categoryFilter={categoryFilter}
-        dateFilter={dateFilter}
-        totalCount={masjid.length}
-        filteredCount={filtered.length}
         onQueryChange={setQuery}
-        onCategoryChange={setCategoryFilter}
-        onDateChange={setDateFilter}
+        searchPlaceholder="Cari nama, alamat, kota, provinsi..."
+        startDate={startDate}
+        endDate={endDate}
+        onStartDateChange={setStartDate}
+        onEndDateChange={setEndDate}
+        selectOptions={CATEGORY_OPTIONS}
+        selectValue={categoryFilter}
+        onSelectChange={(v) => setCategoryFilter(v as KategoriMasjid)}
+        filteredCount={filtered.length}
+        totalCount={masjid.length}
+        entityLabel="masjid"
       />
 
       <div className={styles.adminTableWrap}>

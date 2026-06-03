@@ -552,3 +552,167 @@ $info: #0ea5e9;
     width: 100%;
   }
 }
+
+// Date range dropdown wrapper
+.dropdownWrap {
+  position: relative;
+}
+
+// Tombol trigger date picker
+.filterBtn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 12px;
+  background: var(--color-background-primary, #fff);
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #374151;
+  white-space: nowrap;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #f9fafb;
+  }
+
+  &Active {
+    border-color: #6b7280;
+  }
+}
+
+.filterBtnIcon {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.filterBtnLabel {
+  flex: 1;
+}
+
+.filterBtnChevron {
+  color: #9ca3af;
+}
+
+// Panel dropdown
+.datePanel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 50;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  min-width: 268px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.datePanelTitle {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  margin: 0 0 12px;
+}
+
+.dateFields {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dateField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  label {
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  input[type="date"] {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 13px;
+    color: #111827;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    outline: none;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: #9ca3af;
+      background: #fff;
+    }
+  }
+}
+
+.dateSeparator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #d1d5db;
+  margin: 2px 0;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #f3f4f6;
+  }
+}
+
+.datePanelActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.btnReset {
+  font-size: 13px;
+  padding: 5px 14px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+
+  &:hover {
+    background: #f3f4f6;
+  }
+}
+
+.btnApply {
+  font-size: 13px;
+  padding: 5px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #1d4ed8;
+  color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    background: #1e40af;
+  }
+}
+
+// Result count pill
+.resultCount {
+  font-size: 13px;
+  color: #6b7280;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 4px 12px;
+  border-radius: 10px;
+  white-space: nowrap;
+}

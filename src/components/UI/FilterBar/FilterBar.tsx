@@ -8,21 +8,35 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
-import type { KategoriMasjid } from "@/lib/types";
-import { CATEGORY_OPTIONS } from "./constants/categories";
-import styles from "../ListMasjid.module.scss";
+import styles from "./FilterBar.module.scss";
 
-interface FilterMasjidProps {
+export interface SelectOption {
+  value: string;
+  label: string;
+}
+
+interface FilterBarProps {
+  // Search
   query: string;
-  categoryFilter: "ALL" | KategoriMasjid;
-  totalCount: number;
-  filteredCount: number;
+  onQueryChange: (value: string) => void;
+  searchPlaceholder?: string;
+
+  // Date range
   startDate: string;
   endDate: string;
-  onQueryChange: (value: string) => void;
-  onCategoryChange: (value: "ALL" | KategoriMasjid) => void;
   onStartDateChange: (value: string) => void;
   onEndDateChange: (value: string) => void;
+
+  // Select (opsional)
+  selectOptions?: SelectOption[];
+  selectValue?: string;
+  onSelectChange?: (value: string) => void;
+  selectPlaceholder?: string;
+
+  // Result count (opsional)
+  totalCount?: number;
+  filteredCount?: number;
+  entityLabel?: string;
 }
 
 function formatDate(dateStr: string) {
@@ -42,32 +56,39 @@ function getDateLabel(startDate: string, endDate: string) {
   return "Semua tanggal";
 }
 
-export default function FilterMasjid({
+export default function FilterBar({
   query,
-  categoryFilter,
-  totalCount,
-  filteredCount,
   onQueryChange,
-  onCategoryChange,
+  searchPlaceholder = "Cari...",
   startDate,
   endDate,
   onStartDateChange,
   onEndDateChange,
-}: FilterMasjidProps) {
-  const hasFilter = query.trim() !== "" || categoryFilter !== "ALL";
+  selectOptions,
+  selectValue,
+  onSelectChange,
+  totalCount,
+  filteredCount,
+  entityLabel = "data",
+}: FilterBarProps) {
+  const hasSelect = Boolean(selectOptions && onSelectChange);
   const hasDateFilter = startDate !== "" || endDate !== "";
+  const hasQueryFilter = query.trim() !== "";
+  const hasSelectFilter = Boolean(
+    selectValue && selectOptions?.find((o) => o.value === selectValue && o.value !== selectOptions[0].value)
+  );
+  const showCount =
+    totalCount !== undefined &&
+    filteredCount !== undefined &&
+    (hasQueryFilter || hasDateFilter || hasSelectFilter);
 
   const [panelOpen, setPanelOpen] = useState(false);
   const [localStart, setLocalStart] = useState(startDate);
   const [localEnd, setLocalEnd] = useState(endDate);
   const panelRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setLocalStart(startDate);
-  }, [startDate]);
-  useEffect(() => {
-    setLocalEnd(endDate);
-  }, [endDate]);
+  useEffect(() => { setLocalStart(startDate); }, [startDate]);
+  useEffect(() => { setLocalEnd(endDate); }, [endDate]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -93,7 +114,8 @@ export default function FilterMasjid({
   }
 
   return (
-    <div className={styles.tableControls}>
+    <div className={styles.filterBar}>
+      {/* Search */}
       <label className={styles.searchField}>
         <Search size={18} className={styles.searchIcon} />
         <input
@@ -101,16 +123,15 @@ export default function FilterMasjid({
           className={styles.searchInput}
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
-          placeholder="Cari nama, alamat, kota, provinsi, kategori..."
+          placeholder={searchPlaceholder}
         />
       </label>
 
+      {/* Date range dropdown */}
       <div className={styles.dropdownWrap} ref={panelRef}>
         <button
           type="button"
-          className={`${styles.filterBtn} ${
-            hasDateFilter ? styles.filterBtnActive : ""
-          }`}
+          className={`${styles.filterBtn} ${hasDateFilter ? styles.filterBtnActive : ""}`}
           onClick={() => setPanelOpen((v) => !v)}
           aria-haspopup="true"
           aria-expanded={panelOpen}
@@ -119,11 +140,10 @@ export default function FilterMasjid({
           <span className={styles.filterBtnLabel}>
             {getDateLabel(startDate, endDate)}
           </span>
-          {panelOpen ? (
-            <ChevronUp size={14} className={styles.filterBtnChevron} />
-          ) : (
-            <ChevronDown size={14} className={styles.filterBtnChevron} />
-          )}
+          {panelOpen
+            ? <ChevronUp size={14} className={styles.filterBtnChevron} />
+            : <ChevronDown size={14} className={styles.filterBtnChevron} />
+          }
         </button>
 
         {panelOpen && (
@@ -136,9 +156,9 @@ export default function FilterMasjid({
 
             <div className={styles.dateFields}>
               <div className={styles.dateField}>
-                <label htmlFor="startDate">Dari</label>
+                <label htmlFor="filterbar-start">Dari</label>
                 <input
-                  id="startDate"
+                  id="filterbar-start"
                   type="date"
                   value={localStart}
                   max={localEnd || undefined}
@@ -149,9 +169,9 @@ export default function FilterMasjid({
               <div className={styles.dateSeparator}>sampai</div>
 
               <div className={styles.dateField}>
-                <label htmlFor="endDate">Sampai</label>
+                <label htmlFor="filterbar-end">Sampai</label>
                 <input
-                  id="endDate"
+                  id="filterbar-end"
                   type="date"
                   value={localEnd}
                   min={localStart || undefined}
@@ -161,18 +181,10 @@ export default function FilterMasjid({
             </div>
 
             <div className={styles.datePanelActions}>
-              <button
-                type="button"
-                className={styles.btnReset}
-                onClick={handleReset}
-              >
+              <button type="button" className={styles.btnReset} onClick={handleReset}>
                 Reset
               </button>
-              <button
-                type="button"
-                className={styles.btnApply}
-                onClick={handleApply}
-              >
+              <button type="button" className={styles.btnApply} onClick={handleApply}>
                 Terapkan
               </button>
             </div>
@@ -180,27 +192,31 @@ export default function FilterMasjid({
         )}
       </div>
 
-      {/* Category filter */}
-      <div className={styles.filterField}>
-        <SlidersHorizontal size={18} className={styles.filterIcon} />
-        <select
-          className={styles.filterSelect}
-          value={categoryFilter}
-          onChange={(e) =>
-            onCategoryChange(e.target.value as "ALL" | KategoriMasjid)
-          }
-        >
-          {CATEGORY_OPTIONS.map((item) => (
-            <option key={item.value} value={item.value}>
-              {item.label}
-            </option>
-          ))}
-        </select>
-      </div>
+      {/* Select (opsional) */}
+      {hasSelect && (
+        <div className={styles.filterField}>
+          <SlidersHorizontal size={18} className={styles.filterIcon} />
+          <select
+            className={styles.filterSelect}
+            value={selectValue}
+            onChange={(e) => onSelectChange!(e.target.value)}
+          >
+            {/* {selectPlaceholder && (
+              <option value="ALL">{selectPlaceholder}</option>
+            )} */}
+            {selectOptions!.map((item) => (
+              <option key={item.value} value={item.value}>
+                {item.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
-      {(hasFilter || hasDateFilter) && (
+      {/* Result count */}
+      {showCount && (
         <span className={styles.resultCount}>
-          {filteredCount} dari {totalCount} masjid
+          {filteredCount} dari {totalCount} {entityLabel}
         </span>
       )}
     </div>

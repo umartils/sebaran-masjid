@@ -5,21 +5,14 @@
 import { useState } from "react";
 import type { KategoriMasjid } from "@/lib/types";
 
-export type DateRangeFilter =
-  | "ALL"
-  | "TODAY"
-  | "WEEK"
-  | "MONTH"
-  | "YEAR";
-
 export function useMasjidFilters() {
   const [query, setQuery] = useState("");
 
   const [categoryFilter, setCategoryFilter] =
     useState<"ALL" | KategoriMasjid>("ALL");
 
-  const [dateFilter, setDateFilter] =
-    useState<DateRangeFilter>("ALL");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   return {
     query,
@@ -28,7 +21,10 @@ export function useMasjidFilters() {
     categoryFilter,
     setCategoryFilter,
 
-    dateFilter,
-    setDateFilter,
+    startDate,
+    setStartDate,
+
+    endDate,
+    setEndDate,
   };
 }
