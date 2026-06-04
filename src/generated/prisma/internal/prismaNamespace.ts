@@ -1164,7 +1164,8 @@ export const MasjidScalarFieldEnum = {
   noTelpRelawan: 'noTelpRelawan',
   editedBy: 'editedBy',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId'
 } as const
 
 export type MasjidScalarFieldEnum = (typeof MasjidScalarFieldEnum)[keyof typeof MasjidScalarFieldEnum]

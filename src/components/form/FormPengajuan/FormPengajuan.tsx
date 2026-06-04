@@ -1,18 +1,6 @@
 "use client";
 
-import {
-  Info,
-  Landmark,
-  MapPinned,
-  MapPinnedIcon,
-  Save,
-  Users,
-  Navigation,
-  Sun,
-  UserCircle,
-  AlertTriangle,
-  Camera,
-} from "lucide-react";
+import { Save, Camera } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import ImageUploadField from "@/components/ImageUploadField/ImageUploadField";
 import { useSession } from "next-auth/react";
@@ -85,6 +73,7 @@ export function FormPengajuan() {
       longitude: Number(form.longitude),
       namaRelawan: form.namaRelawan,
       noTelpRelawan: form.noTelpRelawan,
+      userId: form.userId,
     };
 
     const response = await fetch("/api/pengajuan", {

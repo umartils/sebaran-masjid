@@ -11,7 +11,7 @@ import { usePagination } from "@/hooks/usePagination";
 import MasjidRow from "./MasjidRow";
 import ConfirmationModal from "./ConfirmationModal";
 
-import styles from "../ListMasjid.module.scss";
+import styles from "./HistoryPengajuan.module.scss";
 import { CATEGORY_OPTIONS } from "./constants/categories";
 import type { KategoriMasjid } from "@/lib/types";
 
@@ -21,13 +21,16 @@ import { useTableFilters } from "@/hooks/useTableFilters";
 import { useFilteredData } from "@/hooks/useFilteredData";
 import { masjidFilterFn } from "@/lib/filters/masjidFilterFn";
 
+import { usePathname } from "next/navigation";
 
 type Props = {
   masjid: Masjid[];
 };
 
-export function TablePengajuan({ masjid }: Props) {
+export function HistoryPengajuan({ masjid }: Props) {
   const { data: session } = useSession();
+
+  const pathname = usePathname();
 
   const {
     selectedMasjid,
@@ -122,6 +125,7 @@ export function TablePengajuan({ masjid }: Props) {
                   key={building.id}
                   building={building}
                   onAction={openConfirmation}
+                  pathname={pathname}
                 />
               ))
             )}
@@ -151,13 +155,13 @@ export function TablePengajuan({ masjid }: Props) {
       </div>
 
       {/* Confirmation Modal */}
-      <ConfirmationModal
+      {/* <ConfirmationModal
         building={selectedMasjid}
         actionType={actionType}
         loading={loading}
         onCancel={closeConfirmation}
         onConfirm={handleUpdateStatus}
-      />
+      /> */}
 
       {toast.show && (
         <div

@@ -3,7 +3,6 @@ import { AppFrame } from "@/components/AppFrame";
 import { getTrackingMasjidList } from "@/lib/tracking";
 import { ProtectedPage } from "@/components/ProtectedPage";
 import { TablePengajuan } from "@/components/Progres/ListProgres/TableProgres";
-import { Session } from "inspector/promises";
 import { SessionGuard } from "@/components/SessionGuard";
 
 export default async function AdminPage() {

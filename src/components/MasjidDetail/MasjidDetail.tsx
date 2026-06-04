@@ -5,50 +5,93 @@ import DocumentGallery from './DocumentGallery';
 import MasjidMap from './MasjidMap';
 import styles from './MasjidDetail.module.scss';
 import {
-  Info, Building2, MapPin, Users, Sun,
-  FileText, User, StickyNote, CheckCircle, Map, UserCheck
-} from 'lucide-react';
+  Info,
+  Building2,
+  MapPin,
+  Users,
+  Sun,
+  FileText,
+  User,
+  StickyNote,
+  CheckCircle,
+  Map,
+  UserCheck,
+  ArrowLeft,
+} from "lucide-react";
 
-const KONDISI_LABEL: Record<string, { label: string; tone: 'rusak' | 'sedang' | 'baik' }> = {
-  RUSAK_BERAT:  { label: 'Rusak Berat',  tone: 'rusak' },
-  RUSAK_SEDANG: { label: 'Rusak Sedang', tone: 'sedang' },
-  RUSAK_RINGAN: { label: 'Rusak Ringan', tone: 'sedang' },
-  LAYAK:        { label: 'Layak',        tone: 'baik' },
+import Link from "next/link";
+
+const KONDISI_LABEL: Record<
+  string,
+  { label: string; tone: "rusak" | "sedang" | "baik" }
+> = {
+  RUSAK_BERAT: { label: "Rusak Berat", tone: "rusak" },
+  RUSAK_SEDANG: { label: "Rusak Sedang", tone: "sedang" },
+  RUSAK_RINGAN: { label: "Rusak Ringan", tone: "sedang" },
+  LAYAK: { label: "Layak", tone: "baik" },
 };
 
 const STATUS_LABEL: Record<string, { label: string; cls: string }> = {
-  PENDING:  { label: '⏳ Menunggu Verifikasi', cls: 'pending' },
-  VERIFIED: { label: '✓ Terverifikasi',        cls: 'verified' },
-  REJECTED: { label: '✕ Ditolak',              cls: 'rejected' },
+  PENDING: { label: "⏳ Menunggu Verifikasi", cls: "pending" },
+  VERIFIED: { label: "✓ Terverifikasi", cls: "verified" },
+  REJECTED: { label: "✕ Ditolak", cls: "rejected" },
 };
 
 function formatRupiah(val?: string | null) {
-  if (!val) return '-';
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency', currency: 'IDR', maximumFractionDigits: 0,
+  if (!val) return "-";
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
   }).format(Number(val));
 }
 
-function Row({ label, value }: { label: string; value?: string | number | null }) {
+function Row({
+  label,
+  value,
+}: {
+  label: string;
+  value?: string | number | null;
+}) {
   return (
     <div className={styles.rowItem}>
       <span className={styles.rowLabel}>{label}</span>
-      <span className={`${styles.rowValue} ${!value ? styles.empty : ''}`}>
-        {value || '-'}
+      <span className={`${styles.rowValue} ${!value ? styles.empty : ""}`}>
+        {value || "-"}
       </span>
     </div>
   );
 }
 
-export default function MasjidDetail({ masjid }: { masjid: Masjid }) {
-  const kondisi = KONDISI_LABEL[masjid.kondisi] ?? { label: masjid.kondisi, tone: 'sedang' };
-  const status  = STATUS_LABEL[masjid.statusPengajuan] ?? { label: masjid.statusPengajuan, cls: 'pending' };
+interface Props {
+  masjid: Masjid;
+  from: String;
+}
+export default function MasjidDetail({ masjid, from }: Props) {
+  const kondisi = KONDISI_LABEL[masjid.kondisi] ?? {
+    label: masjid.kondisi,
+    tone: "sedang",
+  };
+  const status = STATUS_LABEL[masjid.statusPengajuan] ?? {
+    label: masjid.statusPengajuan,
+    cls: "pending",
+  };
 
-  const wilayah = [masjid.namaDesa, masjid.namaKecamatan, masjid.namaKota, masjid.namaProvinsi]
-    .filter(Boolean).join(', ');
+  const wilayah = [
+    masjid.namaDesa,
+    masjid.namaKecamatan,
+    masjid.namaKota,
+    masjid.namaProvinsi,
+  ]
+    .filter(Boolean)
+    .join(", ");
 
   return (
     <div className={styles.root}>
+      <Link className="login-back" href={`${from}`}>
+        <ArrowLeft size={16} />
+        Kembali
+      </Link>
       {/* ── Hero ── */}
       <div className={styles.hero}>
         <h1 className={styles.heroTitle}>{masjid.nama}</h1>

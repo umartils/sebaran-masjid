@@ -5,18 +5,16 @@ import {
   Eye,
   Pencil,
   MapPin,
-  Check,
-  X,
-  Trash,
 } from "lucide-react";
 
 import type { Masjid } from "@/lib/types";
 import type { BuildingAction } from "./hooks/useApprovalPengajuan";
 
-import styles from "../ListMasjid.module.scss";
+import styles from "./HistoryPengajuan.module.scss";
 
 interface MasjidActionsProps {
   building: Masjid;
+  pathname: string;
 
   onAction: (
     building: Masjid,
@@ -27,13 +25,14 @@ interface MasjidActionsProps {
 export default function MasjidActions({
   building,
   onAction,
+  pathname
 }: MasjidActionsProps) {
   return (
     <div className={styles.tableActions}>
       {/* View */}
       <Link
-        href={`/masjid/detail/${building.id}?from=/admin/dashboard/masjid`}
-        className={`${styles.actionBtn} ${styles.actionBtnView}`}
+        href={`/masjid/detail/${building.id}`}
+        className={`${styles.actionBtn} ${styles.actionBtnView}`} 
         title="Lihat detail"
       >
         <Eye size={15} />
@@ -41,11 +40,16 @@ export default function MasjidActions({
       </Link>
 
       {/* Pending Actions */}
-      {building.statusPengajuan === "PENDING" && (
+      {/* {building.statusPengajuan === "PENDING" && (
         <>
           <button
             type="button"
-            onClick={() => onAction(building, "APPROVED")}
+            onClick={() =>
+              onAction(
+                building,
+                "APPROVED"
+              )
+            }
             className={`${styles.actionBtn} ${styles.actionBtnApprove}`}
             title="Setujui masjid ini"
           >
@@ -55,7 +59,12 @@ export default function MasjidActions({
 
           <button
             type="button"
-            onClick={() => onAction(building, "REJECTED")}
+            onClick={() =>
+              onAction(
+                building,
+                "REJECTED"
+              )
+            }
             className={`${styles.actionBtn} ${styles.actionBtnReject}`}
             title="Tolak masjid ini"
           >
@@ -63,13 +72,14 @@ export default function MasjidActions({
             <span>Reject</span>
           </button>
         </>
-      )}
+      )} */}
 
       {/* Approved Actions */}
-      {building.statusPengajuan === "APPROVED" && (
+      {building.statusPengajuan ===
+        "APPROVED" && (
         <>
           <Link
-            href={`/masjid/edit/${building.id}?from=/admin/dashboard/masjid`}
+            href={`/masjid/edit/${building.id}?from=/history/pengajuan`}
             className={`${styles.actionBtn} ${styles.actionBtnEdit}`}
             title="Edit data"
           >
@@ -88,15 +98,20 @@ export default function MasjidActions({
             <span>Maps</span>
           </a>
 
-          <button
+          {/* <button
             type="button"
-            onClick={() => onAction(building, "DELETED")}
+            onClick={() =>
+              onAction(
+                building,
+                "DELETED"
+              )
+            }
             className={`${styles.actionBtn} ${styles.actionBtnReject}`}
             title="Hapus Data"
           >
             <Trash size={15} />
             <span>Hapus</span>
-          </button>
+          </button> */}
         </>
       )}
     </div>

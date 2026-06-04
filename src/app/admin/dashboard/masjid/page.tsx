@@ -1,13 +1,19 @@
 export const dynamic = "force-dynamic";
 import { AppFrame } from "@/components/AppFrame";
-import { getMasjid } from "@/lib/masjid";
+import { getMasjid, getMasjidByRelawan } from "@/lib/masjid";
 import { ProtectedPage } from "@/components/ProtectedPage";
 import { TablePengajuan } from "@/components/ListMasjid/TablePengajuan/TablePengajuan";
 import { DashboardStats } from "@/components/ListMasjid/DashboardStats";
 import { SessionGuard } from "@/components/SessionGuard";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export default async function AdminPage() {
-  const masjid = await getMasjid();
+  const session = await getServerSession(authOptions);
+  const masjid =
+    session?.user?.role == "Admin"
+      ? await getMasjid()
+      : await getMasjidByRelawan(session?.user?.id as string);
 
   return (
     <AppFrame>

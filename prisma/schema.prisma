@@ -19,6 +19,7 @@ model User {
   image         String?
   password      String?
   userInput     String?
+  masjid        Masjid[]
 
   accounts Account[]
   sessions Session[]
@@ -137,6 +138,10 @@ model Masjid {
   createdAt                   DateTime @default(now())
   updatedAt                   DateTime @updatedAt
   tracking                    TrackingMasjid?
+
+  // relation to user
+  userId                      String?
+  user                        User?     @relation(fields: [userId], references: [id])
 
   @@index([nama])
   @@index([idProvinsi, idKota])

@@ -15,37 +15,16 @@ import {
 
 import { useToast } from "@/hooks/useToast";
 
-// interface ToastState {
-//   show: boolean;
-//   type: "success" | "error";
-//   message: string;
-// }
+const reasonMessages: Record<string, string> = {
+  idle: "Sesi Anda berakhir karena tidak aktif.",
+  expired: "Sesi Anda telah habis. Silakan login kembali.",
+  closed: "Anda telah logout.",
+};
 
 export default function LoginPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { toast, showToast } = useToast();
-
-  // const [toast, setToast] = useState<ToastState>({
-  //   show: false,
-  //   type: "success",
-  //   message: "",
-  // });
-
-  // function showToast(message: string, type: "success" | "error" = "success") {
-  //   setToast({
-  //     show: true,
-  //     type,
-  //     message,
-  //   });
-
-  //   setTimeout(() => {
-  //     setToast((prev) => ({
-  //       ...prev,
-  //       show: false,
-  //     }));
-  //   }, 2000);
-  // }
 
   const redirectTo = searchParams.get("redirect") ?? "/";
 
@@ -57,6 +36,10 @@ export default function LoginPageClient() {
   const [error, setError] = useState("");
 
   const [loading, setLoading] = useState(false);
+
+  const params = useSearchParams();
+  const reason = params.get("reason");
+  const message = reason ? reasonMessages[reason] : null;
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -115,8 +98,12 @@ export default function LoginPageClient() {
           </div>
 
           <h1 className="login-title">Masuk Akun</h1>
+          {message && (
+            <div className="login-session-expired" role="alert">
+              {message}
+            </div>
+          )}
         </div>
-
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="login-field">
             <label className="login-label" htmlFor="email">

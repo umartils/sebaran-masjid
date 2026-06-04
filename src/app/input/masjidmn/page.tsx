@@ -1,15 +1,18 @@
 import { AppFrame } from "@/components/AppFrame";
 import { FormMasjidMN } from "@/components/form/FormMasjidMN";
 import { ProtectedPage } from "@/components/ProtectedPage";
+import { SessionGuard } from "@/components/SessionGuard";
 
 export default function InputMasjidMN() {
   return (
-    <AppFrame>
-      <ProtectedPage redirectTo="/input/masjidmn">
-        <section className="form-page">
-          <FormMasjidMN />
-        </section>
-      </ProtectedPage>
-    </AppFrame>
+    <SessionGuard>
+      <AppFrame>
+        <ProtectedPage redirectTo="/input/masjidmn">
+          <section className="form-page">
+            <FormMasjidMN />
+          </section>
+        </ProtectedPage>
+      </AppFrame>
+    </SessionGuard>
   );
 }

@@ -39,3 +39,21 @@ export async function getMasjidById(id: string): Promise<Masjid | null> {
     return null;
   }
 }
+export async function getMasjidByRelawan(userId: string): Promise<Masjid[]> {
+  noStore();
+
+  try {
+    const records = await prisma.masjid.findMany({
+      where: { userId },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return records.map((record) => ({
+      ...record,
+      budgetAwal: record.budgetAwal?.toString() ?? null,
+    }));
+  } catch (error) {
+    console.error("[getMasjidByRelawan] Prisma error:", error);
+    return [];
+  }
+}
