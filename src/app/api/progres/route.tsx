@@ -41,3 +41,39 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+export async function PUT(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const {
+      id,
+      trackingId,
+      progres,
+      nextProgres,
+      persentase,
+      imgUrls,
+      waktuProgres,
+    } = body;
+    const log = await prisma.trackingMasjidLog.update({
+      where: { id },
+      data: {
+        trackingId,
+        progres,
+        nextProgres,
+        persentase,
+        imgUrls,
+        waktuProgres,
+      },
+    });
+
+    await prisma.trackingMasjid.update({
+      where: { id: trackingId },
+      data: {
+        persentase,
+      },
+    });
+    return NextResponse.json(log);
+  } catch (err) {
+    return NextResponse.json({ message: "Failed" }, { status: 500 });
+  }
+}

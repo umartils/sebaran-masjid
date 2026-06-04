@@ -31,8 +31,8 @@ export default function MasjidActions({
     <div className={styles.tableActions}>
       {/* View */}
       <Link
-        href={`/masjid/detail/${building.id}`}
-        className={`${styles.actionBtn} ${styles.actionBtnView}`} 
+        href={`/masjid/detail/${building.id}?from=${pathname}`}
+        className={`${styles.actionBtn} ${styles.actionBtnView}`}
         title="Lihat detail"
       >
         <Eye size={15} />
@@ -75,11 +75,10 @@ export default function MasjidActions({
       )} */}
 
       {/* Approved Actions */}
-      {building.statusPengajuan ===
-        "APPROVED" && (
+      {building.statusPengajuan === "APPROVED" && (
         <>
           <Link
-            href={`/masjid/edit/${building.id}?from=/history/pengajuan`}
+            href={`/masjid/edit/${building.id}?from=${pathname}`}
             className={`${styles.actionBtn} ${styles.actionBtnEdit}`}
             title="Edit data"
           >

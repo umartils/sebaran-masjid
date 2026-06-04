@@ -1,22 +1,38 @@
 'use client';
 
 import Link from 'next/link';
-import { Plus, FileDown, ClipboardList, ArrowRight } from 'lucide-react';
-import type { TrackingMasjidDetail } from '@/lib/types';
-import styles from './DetailProgres.module.scss';
+import {
+  Plus,
+  FileDown,
+  ClipboardList,
+  ArrowRight,
+  ArrowLeft,
+  Pencil,
+} from "lucide-react";
+import type { TrackingMasjidDetail } from "@/lib/types";
+import styles from "./DetailProgres.module.scss";
 
-export function DetailProgres({ tracking }: { tracking: TrackingMasjidDetail }) {
+interface Props {
+  tracking: TrackingMasjidDetail;
+  from?: string;
+}
+
+export function DetailProgres({ tracking, from }: Props) {
   const wilayah = [tracking.masjid.namaKota, tracking.masjid.namaProvinsi]
-    .filter(Boolean).join(', ');
+    .filter(Boolean)
+    .join(", ");
 
   function handleDownloadPDF() {
-    window.open(`/admin/dashboard/tracking/pdf/${tracking.id}`, '_blank');
+    window.open(`/admin/dashboard/tracking/pdf/${tracking.id}`, "_blank");
   }
 
   return (
     <div className={styles.container}>
-
       {/* ── Header Card ── */}
+      <Link className="button-back" href={`${from}`}>
+        <ArrowLeft size={16} />
+        Kembali
+      </Link>
       <div className={styles.summaryCard}>
         <h2>{tracking.masjid.nama}</h2>
         <p className={styles.address}>{tracking.masjid.alamat}</p>
@@ -74,42 +90,59 @@ export function DetailProgres({ tracking }: { tracking: TrackingMasjidDetail }) 
                 )}
 
                 {/* Dot */}
-                <div className={styles.timelineDot}>
-                  {log.persentase}%
-                </div>
+                <div className={styles.timelineDot}>{log.persentase}%</div>
 
                 {/* Card */}
                 <div className={styles.logCard}>
                   <div className={styles.logHeader}>
-                    <span className={styles.badge}>{log.persentase}% Selesai</span>
+                    <span className={styles.badge}>
+                      {log.persentase}% Selesai
+                    </span>
                     <div className={styles.logHeaderRight}>
-                        <span className={styles.logDate}>
-                        {new Date(log.createdAt).toLocaleDateString('id-ID', {
-                            day: 'numeric', month: 'long', year: 'numeric'
+                      <span className={styles.logDate}>
+                        {new Date(log.createdAt).toLocaleDateString("id-ID", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
                         })}
-                        </span>
-                        <button
-                            className={styles.pdfBtnSm}
-                            onClick={() => window.open(
-                                `/admin/dashboard/tracking/pdf/${tracking.id}?logId=${log.id}`,
-                                '_blank'
-                            )}
-                            title="Download PDF progres ini"
-                            >
-                            <FileDown size={13} />
-                            PDF
-                        </button>
+                      </span>
+                      <button
+                        className={styles.pdfBtnSm}
+                        onClick={() =>
+                          window.open(
+                            `/admin/dashboard/tracking/pdf/${tracking.id}?logId=${log.id}`,
+                            "_blank"
+                          )
+                        }
+                        title="Download PDF progres ini"
+                      >
+                        <FileDown size={13} />
+                        PDF
+                      </button>
+                      <Link
+                        className={styles.editBtnSm}
+                        href={`/admin/dashboard/tracking/edit/${log.id}?from=/admin/dashboard/tracking/detail/${tracking.id}`}
+                        title="Edit progres ini"
+                      >
+                        <Pencil size={13} />
+                        Edit
+                      </Link>
                     </div>
                   </div>
 
                   <h4 className={styles.logTitle}>
-                    {log.progres ?? 'Progres belum diisi'}
+                    {log.progres ?? "Progres belum diisi"}
                   </h4>
 
                   {log.nextProgres && (
                     <p className={styles.logNext}>
-                      <ArrowRight size={14} style={{ marginTop: 2, flexShrink: 0 }} />
-                      <span><strong>Tahap Selanjutnya:</strong> {log.nextProgres}</span>
+                      <ArrowRight
+                        size={14}
+                        style={{ marginTop: 2, flexShrink: 0 }}
+                      />
+                      <span>
+                        <strong>Tahap Selanjutnya:</strong> {log.nextProgres}
+                      </span>
                     </p>
                   )}
 
@@ -119,8 +152,8 @@ export function DetailProgres({ tracking }: { tracking: TrackingMasjidDetail }) 
                         <img
                           key={url}
                           src={url}
-                          alt={log.progres ?? 'Dokumentasi'}
-                          onClick={() => window.open(url, '_blank')}
+                          alt={log.progres ?? "Dokumentasi"}
+                          onClick={() => window.open(url, "_blank")}
                         />
                       ))}
                     </div>

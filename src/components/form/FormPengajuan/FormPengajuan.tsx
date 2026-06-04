@@ -85,9 +85,10 @@ export function FormPengajuan() {
     if (response.ok) {
       setStatus("Data " + masjidId + " berhasil disimpan.");
       return;
+    } else {
+      setStatus("Gagal menyimpan data.");
+      return;
     }
-    const data = await response.json().catch(() => ({}));
-    setStatus(data.message ?? "Data " + masjidId + " belum bisa disimpan.");
   }
 
   return (

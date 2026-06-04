@@ -108,13 +108,19 @@ export type TrackingMasjidDetail = Prisma.TrackingMasjidGetPayload<{
   };
 }>;
 
-export type TrackingMasjidLog = {
-  id: string;
-  trackingId: string;
-  progres: string | null;
-  persentase: number;
-  nextProgres: string | null;
-  imgUrls: string[];
-  createdAt: Date;
-  updatedAt: Date;
-};
+// export type TrackingMasjidLog = {
+//   id: string;
+//   trackingId: string;
+//   progres: string | null;
+//   persentase: number;
+//   nextProgres: string | null;
+//   imgUrls: string[];
+//   createdAt: Date;
+//   updatedAt: Date;
+// };
+
+export type TrackingMasjidLog = Prisma.TrackingMasjidLogGetPayload<{
+  include: {
+    tracking: true;
+  };
+}>;

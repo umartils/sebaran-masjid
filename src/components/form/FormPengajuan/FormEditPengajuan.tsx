@@ -128,15 +128,17 @@ export function FormEditPengajuan({ masjid, from }: Props) {
         router.push(from);
         router.refresh();
       }, 1500);
-      // return;
+    } else {
+      setStatus("Gagal menyimpan data.");
+      showToast("Gagal menyimpan data", "error");
     }
-    const data = await response.json().catch(() => ({}));
-    setStatus(data.message ?? "Data " + masjidId + " belum bisa disimpan.");
+    // const data = await response.json().catch(() => ({}));
+    // setStatus(data.message ?? "Data belum bisa disimpan.");
   }
 
   return (
     <form className="form-card" onSubmit={submitForm}>
-      <Link className="login-back" href={from}>
+      <Link className="button-back" href={from}>
         <ArrowLeft size={16} />
         Kembali
       </Link>

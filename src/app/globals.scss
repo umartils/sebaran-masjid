@@ -1292,6 +1292,21 @@ textarea.control {
   }
 }
 
+.button-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 32px;
+  color: $muted;
+  font-size: 16px;
+  font-weight: 600;
+  transition: color 150ms ease;
+
+  &:hover {
+    color: $ink;
+  }
+}
+
 .login-header {
   text-align: center;
   margin-bottom: 26px;

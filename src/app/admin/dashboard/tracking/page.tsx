@@ -7,7 +7,6 @@ import { SessionGuard } from "@/components/SessionGuard";
 
 export default async function AdminPage() {
   const masjid = await getTrackingMasjidList();
-
   return (
     <AppFrame>
       <SessionGuard>

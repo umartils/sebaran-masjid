@@ -29,7 +29,7 @@ export default function ProgresActions({
     <div className={styles.tableActions}>
       {/* View */}
       <Link
-        href={`/admin/dashboard/tracking/detail/${progres.id}`}
+        href={`/admin/dashboard/tracking/detail/${progres.id}?from=/admin/dashboard/tracking`}
         className={`${styles.actionBtn} ${styles.actionBtnView}`}
         title="Lihat detail"
       >
@@ -38,7 +38,7 @@ export default function ProgresActions({
       </Link>
 
       <Link
-        href={`/masjid/edit/${progres.masjid.id}`}
+        href={`/masjid/edit/${progres.masjid.id}?from=/admin/dashboard/tracking`}
         className={`${styles.actionBtn} ${styles.actionBtnEdit}`}
         title="Edit data"
       >

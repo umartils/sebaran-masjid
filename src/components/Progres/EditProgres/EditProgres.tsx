@@ -1,25 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Save } from "lucide-react";
 
 // Local libraries
 import ImageUploadField from "@/components/ImageUploadField/ImageUploadField";
-import { TrackingMasjidDetail } from "@/lib/types";
+import { TrackingMasjidLog } from "@/lib/types";
 import { useToast } from "@/hooks/useToast";
 
-export function FormTambahLog({
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+
+interface Props {
+  log: TrackingMasjidLog;
+  from: string;
+  masjid: any;
+}
+export function EditProgresLog({
   //   trackingId,
-  tracking,
-}: {
-  //   trackingId: string;
-  tracking: TrackingMasjidDetail;
-}) {
+  log,
+  from,
+  masjid
+}: Props ) {
+  // console.log(log.tracking.persentase);
   const router = useRouter();
-  const trackingId = tracking.id;
-  const masjidId = tracking.masjidId;
-  const persentaseTracking = tracking.persentase ?? 0;
+  const logId = log.id;
+  const trackingId = log.tracking.id;
+  const persentaseTracking = log.tracking.persentase ?? 0;
 
   const now = new Date();
   const currentTime = `${now.getFullYear()}-${String(
@@ -39,15 +47,20 @@ export function FormTambahLog({
   const [status, setStatus] = useState("");
   const { toast, showToast } = useToast();
 
+  useEffect(() => {
+    setProgres(log.progres ?? "");
+    setNextProgres(log.nextProgres ?? "");
+    setPersentase(log.persentase ?? 0);
+    setWaktuProgres(log.waktuProgres ?? "");
+    setImgUrls(log.imgUrls ?? []);
+  },[log])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (persentase < persentaseTracking) {
       // setStatus(`Persentase tidak boleh kurang dari ${persentaseTracking}%`);
-      showToast(
-        `Persentase tidak boleh kurang dari ${persentaseTracking}%`,
-        "error"
-      );
+      showToast(`Persentase tidak boleh kurang dari ${persentaseTracking}%`, "error");
       return;
     }
     setStatus("Menyimpan data...");
@@ -56,11 +69,12 @@ export function FormTambahLog({
       setLoading(true);
 
       const res = await fetch("/api/progres", {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          id: logId, 
           trackingId,
           progres,
           nextProgres,
@@ -74,7 +88,7 @@ export function FormTambahLog({
 
       // setStatus("Progres berhasil ditambahkan");
 
-      showToast("Progres berhasil ditambahkan", "success");
+      showToast("Progres berhasil diupdate", "success");
       setTimeout(() => {
         router.push(`/admin/dashboard/tracking/detail/${trackingId}`);
         router.refresh();
@@ -84,13 +98,17 @@ export function FormTambahLog({
     } finally {
       setLoading(false);
     }
-  };
+  }; 
 
-  return (
+  return ( 
     <>
       <form className="form-card" onSubmit={handleSubmit}>
+        <Link className="button-back" href={from}>
+          <ArrowLeft size={16} />
+          Kembali
+        </Link>
         <header className="form-header">
-          <h1>Tambah Progres</h1>
+          <h1>Edit Progres {masjid.nama}</h1>
         </header>
         <div className="form-grid">
           <label className="field span-2">
@@ -143,7 +161,9 @@ export function FormTambahLog({
         <ImageUploadField
           label="Dokumentasi Progres"
           onUrlsChange={setImgUrls}
-          folder={`masjid/${masjidId}/progres/${currentTime}`}
+          folder={`masjid/${masjid.id}/progres/${currentTime}`}
+          maxFiles={5}
+          existingUrls={imgUrls}
         />
 
         {/* <button type="submit" disabled={loading}>

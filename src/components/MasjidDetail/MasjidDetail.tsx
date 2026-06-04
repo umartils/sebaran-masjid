@@ -88,8 +88,8 @@ export default function MasjidDetail({ masjid, from }: Props) {
 
   return (
     <div className={styles.root}>
-      <Link className="login-back" href={`${from}`}>
-        <ArrowLeft size={16} />
+      <Link className="button-back" href={`${from}`}>
+        <ArrowLeft size={20} />
         Kembali
       </Link>
       {/* ── Hero ── */}

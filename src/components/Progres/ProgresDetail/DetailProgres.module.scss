@@ -12,6 +12,17 @@ $gray-400:   #94A3B8;
 $gray-500:   #64748B;
 $gray-700:   #334155;
 $gray-900:   #0F172A;
+$blue:       #3B82F6;
+$blue-50:    #EFF6FF;
+$blue-100:   #DBEAFE;
+$blue-200:   #BFDBFE;
+$blue-300:   #93C5FD;
+$blue-400:   #60A5FA;
+$blue-500:   #3B82F6;
+$blue-600:   #2563EB;
+$blue-700:   #1D4ED8;
+$blue-800:   #1E40AF;
+$blue-900:   #1E3A8A;
 $radius:     14px;
 $shadow:     0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
 
@@ -340,3 +351,23 @@ $shadow:     0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
   }
 }
 
+.editBtnSm {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 7px;
+  background: $blue-50;
+  color: $blue-500;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1.5px solid $blue-200;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: $blue-100;
+    border-color: $blue-400;
+    color: $blue-700;
+  }
+}
