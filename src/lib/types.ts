@@ -22,6 +22,24 @@ export type Masjid = Omit<MasjidDb, "budgetAwal"> & {
   budgetAwal: string | null;
 };
 
+export type MapMasjid = Pick<
+  Masjid,
+  | "id"
+  | "nama"
+  | "alamat"
+  | "idProvinsi"
+  | "namaProvinsi"
+  | "namaKota"
+  | "namaKecamatan"
+  | "namaDesa"
+  | "latitude"
+  | "longitude"
+  | "kategori"
+  | "kapasitas"
+  | "tahunDibangun"
+  | "statusPengajuan"
+>;
+
 export type Region = {
   id: string;
   name: string;
@@ -59,6 +77,23 @@ export type MasjidMNBaru = {
   updatedAt: Date;
   catatan?: string | null;
 };
+
+export type MapMasjidMNBaru = Pick<
+  MasjidMNBaru,
+  | "id"
+  | "nama"
+  | "alamat"
+  | "idProvinsi"
+  | "namaProvinsi"
+  | "namaKota"
+  | "namaKecamatan"
+  | "namaDesa"
+  | "latitude"
+  | "longitude"
+  | "kategori"
+  | "kapasitas"
+  | "tahunDibangun"
+>;
 
 export type TrackingMasjidList = Prisma.TrackingMasjidGetPayload<{
   include: {

@@ -1,12 +1,14 @@
 import { AppFrame } from "@/components/AppFrame";
 import { MapExperience } from "@/components/SebaranMasjid/MapExperience";
-import { getMasjid } from "@/lib/masjid";
-import { getMasjidMN } from "@/lib/masjid-mn";
+import { getMapMasjid } from "@/lib/masjid";
+import { getMapMasjidMN } from "@/lib/masjid-mn";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const buildingsRenovasi = await getMasjid();
-  const buildingsDibangun = await getMasjidMN();
+  const [buildingsRenovasi, buildingsDibangun] = await Promise.all([
+    getMapMasjid(),
+    getMapMasjidMN(),
+  ]);
 
   return (
     <AppFrame>

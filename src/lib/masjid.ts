@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { unstable_noStore as noStore } from "next/cache";
-import type { Masjid } from "@/lib/types";
+import type { MapMasjid, Masjid } from "@/lib/types";
 
 export async function getMasjid(): Promise<Masjid[]> {
   noStore();
@@ -54,6 +54,34 @@ export async function getMasjidByRelawan(userId: string): Promise<Masjid[]> {
     }));
   } catch (error) {
     console.error("[getMasjidByRelawan] Prisma error:", error);
+    return [];
+  }
+}
+
+export async function getMapMasjid(): Promise<MapMasjid[]> {
+  try {
+    return await prisma.masjid.findMany({
+      where: { statusPengajuan: "APPROVED" },
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        nama: true,
+        alamat: true,
+        idProvinsi: true,
+        namaProvinsi: true,
+        namaKota: true,
+        namaKecamatan: true,
+        namaDesa: true,
+        latitude: true,
+        longitude: true,
+        kategori: true,
+        kapasitas: true,
+        tahunDibangun: true,
+        statusPengajuan: true,
+      },
+    });
+  } catch (error) {
+    console.error("[getMapMasjid] Prisma error:", error);
     return [];
   }
 }

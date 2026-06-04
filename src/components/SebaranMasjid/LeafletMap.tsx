@@ -1,6 +1,7 @@
 "use client";
 
-import L, { map } from "leaflet";
+import L from "leaflet";
+import Link from "next/link";
 import {
   MapContainer,
   Marker,
@@ -9,9 +10,9 @@ import {
   useMap,
   ZoomControl,
 } from "react-leaflet";
-import { use, useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { kategoriLabel, kategoriTone } from "@/lib/format";
-import type { Masjid, MasjidMNBaru } from "@/lib/types";
+import type { MapMasjid, MapMasjidMNBaru } from "@/lib/types";
 import { ExternalLink } from "lucide-react";
 const markerIcon = L.divIcon({
   className: "",
@@ -23,7 +24,7 @@ const markerIcon = L.divIcon({
 
 type MapMode = "renovasi" | "dibangun";
 
-type DataMasjid = Masjid | MasjidMNBaru;
+type DataMasjid = MapMasjid | MapMasjidMNBaru;
 
 function MapFocus({
   building,
@@ -124,14 +125,13 @@ function BuildingMarker({
             </div>
           </div>
           <div className="popup-footer">
-            <a
+            <Link
               href={`/masjid/detail/${building.id}?from=/`}
               className="popup-detail-btn"
-              rel="noopener noreferrer"
             >
               <ExternalLink size={14} />
               Lihat Detail
-            </a>
+            </Link>
           </div>
         </div>
       </Popup>
@@ -167,8 +167,8 @@ export default function LeafletMap({
         attribution="Tiles &copy; Esri"
         url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
       />
-      <MapFocus building={selected} shouldFocus={shouldFocus ?? false} /> ;
-      <MapReset trigger={resetView ?? 0} />;{/* ← teruskan */}
+      <MapFocus building={selected} shouldFocus={shouldFocus ?? false} />
+      <MapReset trigger={resetView ?? 0} />
       {buildings.map((building) => (
         <BuildingMarker
           key={building.id}

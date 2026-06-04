@@ -27,13 +27,9 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
 
   const [collapsed, setCollapsed] = useState(false);
 
-  const [mounted, setMounted] = useState(false);
-
   const { toast, showToast } = useToast();
 
   useEffect(() => {
-    setMounted(true);
-
     if (window.innerWidth <= 900) {
       setCollapsed(true);
     }
@@ -55,10 +51,6 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
       sessionStorage.removeItem("logoutSuccess");
     }
   }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <div className="app-shell">

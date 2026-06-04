@@ -5,10 +5,9 @@ import { Search, ChevronDown, RotateCcw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { kategoriLabel, kategoriTone } from "@/lib/format";
 import type {
-  Masjid,
-  KondisiMasjid,
-  MasjidMNBaru,
   KategoriMasjid,
+  MapMasjid,
+  MapMasjidMNBaru,
 } from "@/lib/types";
 
 const LeafletMap = dynamic(
@@ -38,8 +37,8 @@ const categories: Array<{ value: "ALL" | KategoriMasjid; label: string }> = [
 type MapMode = "renovasi" | "dibangun";
 
 interface Props {
-  buildingsRenovasi: Masjid[];
-  buildingsDibangun: MasjidMNBaru[];
+  buildingsRenovasi: MapMasjid[];
+  buildingsDibangun: MapMasjidMNBaru[];
 }
 
 export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
@@ -49,7 +48,7 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   const [province, setProvince] = useState("ALL");
 
   // Pilih dataset aktif berdasarkan mode
-  const activeBuildings: (Masjid | MasjidMNBaru)[] =
+  const activeBuildings: (MapMasjid | MapMasjidMNBaru)[] =
     mapMode === "renovasi" ? buildingsRenovasi : buildingsDibangun;
 
   const [geoStatus, setGeoStatus] = useState<"idle" | "loading" | "error">(
