@@ -14,6 +14,7 @@ import { useEffect, useRef } from "react";
 import { kategoriLabel, kategoriTone } from "@/lib/format";
 import type { MapMasjid, MapMasjidMNBaru } from "@/lib/types";
 import { ExternalLink } from "lucide-react";
+
 const markerIcon = L.divIcon({
   className: "",
   html: '<div class="marker-dot"></div>',
@@ -41,10 +42,6 @@ function MapFocus({
       map.flyTo([building.latitude ?? 0, building.longitude ?? 0], 17, {
         duration: 0.8,
       });
-
-      // map.once("moveend", () => {
-      //   map.panBy([-panelWidth / 2, 0], { animate: true, duration: 0.3 });
-      // });
     }
   }, [building, shouldFocus, map]);
 
