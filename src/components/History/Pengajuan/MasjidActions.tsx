@@ -39,43 +39,8 @@ export default function MasjidActions({
         <span>View</span>
       </Link>
 
-      {/* Pending Actions */}
-      {/* {building.statusPengajuan === "PENDING" && (
-        <>
-          <button
-            type="button"
-            onClick={() =>
-              onAction(
-                building,
-                "APPROVED"
-              )
-            }
-            className={`${styles.actionBtn} ${styles.actionBtnApprove}`}
-            title="Setujui masjid ini"
-          >
-            <Check size={15} />
-            <span>Approve</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() =>
-              onAction(
-                building,
-                "REJECTED"
-              )
-            }
-            className={`${styles.actionBtn} ${styles.actionBtnReject}`}
-            title="Tolak masjid ini"
-          >
-            <X size={15} />
-            <span>Reject</span>
-          </button>
-        </>
-      )} */}
-
       {/* Approved Actions */}
-      {building.statusPengajuan === "APPROVED" && (
+      {building.statusPengajuan === "PENDING" && (
         <>
           <Link
             href={`/masjid/edit/${building.id}?from=${pathname}`}

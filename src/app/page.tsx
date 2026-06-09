@@ -3,12 +3,18 @@ import { MapExperience } from "@/components/SebaranMasjid/MapExperience";
 import { getMapMasjid } from "@/lib/masjid";
 import { getMapMasjidMN } from "@/lib/masjid-mn";
 export const dynamic = "force-dynamic";
+// import { useState } from "react";
+import Loading from "@/app/Loading";
 
 export default async function HomePage() {
   const [buildingsRenovasi, buildingsDibangun] = await Promise.all([
     getMapMasjid(),
     getMapMasjidMN(),
   ]);
+
+  // const [data, setData] = useState(null);
+
+  // if (!data) return <Loading />;
 
   return (
     <AppFrame>

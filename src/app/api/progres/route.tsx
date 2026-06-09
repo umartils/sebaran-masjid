@@ -33,6 +33,16 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    await prisma.trackingMasjid.updateMany({
+      where: {
+        id: trackingId,
+        firstUpdate: null,
+      },
+      data: {
+        firstUpdate: new Date(),
+      },
+    });
+
     return NextResponse.json(log);
   } catch (err) {
     return NextResponse.json(

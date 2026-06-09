@@ -27,6 +27,7 @@ export function FormPengajuan() {
   const { data: session } = useSession();
   const [documentUrls, setDocumentUrls] = useState<string[]>([]);
   const [buildingImageUrls, setBuildingImageUrls] = useState<string[]>([]);
+  const userId = session?.user?.id ?? "";
 
   const { form, setField, resetForm } = useFormPengajuan({ session });
 
@@ -83,7 +84,7 @@ export function FormPengajuan() {
     });
 
     if (response.ok) {
-      setStatus("Data " + masjidId + " berhasil disimpan.");
+      setStatus("Data yang diinput oleh " + userId + " berhasil disimpan.");
       return;
     } else {
       setStatus("Gagal menyimpan data.");

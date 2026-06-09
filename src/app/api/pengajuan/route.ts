@@ -104,6 +104,7 @@ const masjidSchema = z.object({
   catatan: optionalString,
   namaRelawan: optionalString,
   noTelpRelawan: optionalString,
+  userId: optionalString,
 
   // ── Gambar ─────────────────────────────────────
   documentImgUrl: z.array(z.string().url()).default([]),

@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Info,
-  Landmark,
-  MapPinned,
-  MapPinnedIcon,
-  Save,
-} from "lucide-react";
+import { MapPinnedIcon, Save } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import type { Region } from "@/lib/types";
 

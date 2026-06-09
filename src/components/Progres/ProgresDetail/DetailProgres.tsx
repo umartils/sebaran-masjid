@@ -26,6 +26,10 @@ export function DetailProgres({ tracking, from }: Props) {
     window.open(`/admin/dashboard/tracking/pdf/${tracking.id}`, "_blank");
   }
 
+  function handleDownloadAllPDF() {
+    window.open(`/admin/dashboard/tracking/pdf/${tracking.id}/all`, "_blank");
+  }
+
   return (
     <div className={styles.container}>
       {/* ── Header Card ── */}
@@ -62,10 +66,10 @@ export function DetailProgres({ tracking, from }: Props) {
           Tambah Progres
         </Link>
 
-        {/* <button className={styles.pdfBtn} onClick={handleDownloadPDF}>
+        <button className={styles.pdfBtn} onClick={handleDownloadAllPDF}>
           <FileDown size={15} />
           Download PDF
-        </button> */}
+        </button>
       </div>
 
       {/* ── Logs ── */}

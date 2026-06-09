@@ -238,6 +238,7 @@ export const TrackingMasjidScalarFieldEnum = {
   masjidId: 'masjidId',
   status: 'status',
   persentase: 'persentase',
+  firstUpdate: 'firstUpdate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
