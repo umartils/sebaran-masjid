@@ -43,24 +43,20 @@ function ProgresRow({
         <br />
 
         <span className={styles.tableAddress}>
-          <MapPinned size={13} /> {progres.masjid.alamat}
+          <MapPinned className={styles.iconAddress} /> {progres.masjid.alamat}
         </span>
       </td>
 
       <td>
         {progres.masjid.namaKota},
-
         <br />
-
         <span className={styles.tableProvince}>
           {progres.masjid.namaProvinsi}
         </span>
       </td>
 
       <td>
-        <span>
-          {progresStatusLabel(progres.status)}
-        </span>
+        <span>{progresStatusLabel(progres.status)}</span>
       </td>
 
       <td>
@@ -70,16 +66,12 @@ function ProgresRow({
               className={styles.progressFill}
               style={{
                 width: `${progres.persentase}%`,
-                backgroundColor: getProgressColor(
-                  progres.persentase??0
-                ),
+                backgroundColor: getProgressColor(progres.persentase ?? 0),
               }}
             />
           </div>
 
-          <span className={styles.progressText}>
-            {progres.persentase}%
-          </span>
+          <span className={styles.progressText}>{progres.persentase}%</span>
         </div>
       </td>
 

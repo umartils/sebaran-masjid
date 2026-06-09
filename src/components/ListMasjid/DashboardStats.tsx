@@ -9,33 +9,39 @@ export function DashboardStats({
   masjid,
 }: DashboardStatsProps) {
   const masjidClean = masjid.filter((b) => b.statusPengajuan !== "DELETED");
-  const totalRusakBerat = masjidClean.filter(
-    (b) => b.kondisi === "RUSAK_BERAT"
+  const totalRejected = masjidClean.filter(
+    (b) => b.statusPengajuan === "REJECTED"
   ).length;
 
-  const totalPerluPerhatian = masjidClean.filter(
-    (b) => b.kondisi === "RUSAK_SEDANG" || b.kondisi === "RUSAK_RINGAN"
+  const totalPending = masjidClean.filter(
+    (b) => b.statusPengajuan === "PENDING"
   ).length;
 
-  const totalLayak = masjidClean.filter((b) => b.kondisi === "LAYAK").length;
+  const totalApproved = masjidClean.filter(
+    (b) => b.statusPengajuan === "APPROVED"
+  ).length;
 
   return (
     <div className="admin-stats">
       <StatCard value={masjidClean.length} label="Total Masjid" />
 
       <StatCard
-        value={totalRusakBerat}
-        label="Rusak Berat"
+        value={totalRejected}
+        label="REJECTED"
         variant="stat-card--danger"
       />
 
       <StatCard
-        value={totalPerluPerhatian}
-        label="Perlu Perhatian"
+        value={totalPending}
+        label="PENDING"
         variant="stat-card--warning"
       />
 
-      <StatCard value={totalLayak} label="Layak" variant="stat-card--success" />
+      <StatCard
+        value={totalApproved}
+        label="APPROVED"
+        variant="stat-card--success"
+      />
     </div>
   );
 }

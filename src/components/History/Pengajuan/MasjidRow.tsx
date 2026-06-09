@@ -35,38 +35,22 @@ function BuildingRow({
         <br />
 
         <span className={styles.tableAddress}>
-          <MapPinned size={13} /> {building.alamat}
+          <MapPinned className={styles.iconAddress} /> {building.alamat}
         </span>
       </td>
 
       <td>
         {building.namaKota},
-
         <br />
-
-        <span className={styles.tableProvince}>
-          {building.namaProvinsi}
-        </span>
+        <span className={styles.tableProvince}>{building.namaProvinsi}</span>
       </td>
 
-      <td>
-        {kategoriLabel(
-          building.kategori
-        )}
-      </td>
+      <td>{kategoriLabel(building.kategori)}</td>
+
+      <td>{building.kapasitas ? `${building.kapasitas} Jamaah` : "-"}</td>
 
       <td>
-        {building.kapasitas
-          ? `${building.kapasitas} Jamaah`
-          : "-"}
-      </td>
-
-      <td>
-        <span
-          className={`badge ${statusTone(
-            building.statusPengajuan
-          )}`}
-        >
+        <span className={`badge ${statusTone(building.statusPengajuan)}`}>
           {building.statusPengajuan}
         </span>
       </td>

@@ -32,15 +32,9 @@ export function HistoryPengajuan({ masjid }: Props) {
 
   const pathname = usePathname();
 
-  const {
-    selectedMasjid,
-    actionType,
-    loading,
-    toast,
-    openConfirmation,
-    closeConfirmation,
-    handleUpdateStatus,
-  } = useApprovalPengajuan(session?.user?.name ?? "");
+  const { toast, openConfirmation } = useApprovalPengajuan(
+    session?.user?.name ?? ""
+  );
 
   const {
     query,

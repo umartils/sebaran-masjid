@@ -23,7 +23,7 @@ export default async function AdminPage() {
             <h1>Dashboard Admin - Daftar Pengajuan Pembangunan</h1>
 
             <p className="subtitle">
-              Ringkasan data bangunan yang masuk ke sistem.
+              Ringkasan data pengajuan masjid yang masuk ke sistem.
             </p>
 
             <DashboardStats masjid={masjid} />
