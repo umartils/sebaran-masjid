@@ -99,9 +99,7 @@ export function DetailProgres({ tracking, from }: Props) {
                 {/* Card */}
                 <div className={styles.logCard}>
                   <div className={styles.logHeader}>
-                    <span className={styles.badge}>
-                      {log.persentase}% Selesai
-                    </span>
+                    <span className={styles.badge}>{log.persentase}%</span>
                     <div className={styles.logHeaderRight}>
                       <span className={styles.logDate}>
                         {new Date(log.createdAt).toLocaleDateString("id-ID", {

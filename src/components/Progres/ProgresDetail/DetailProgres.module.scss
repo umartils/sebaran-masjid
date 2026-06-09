@@ -25,6 +25,13 @@ $blue-800:   #1E40AF;
 $blue-900:   #1E3A8A;
 $radius:     14px;
 $shadow:     0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+$breakpoint-mobile: 900px;
+
+@mixin mobile {
+  @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
 
 
 // ── Container ─────────────────────────────────────
@@ -208,6 +215,10 @@ $shadow:     0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
   position: relative;
+  
+  @include mobile {
+    // display: none;
+  }
 }
 
 .timelineItem {
@@ -218,19 +229,23 @@ $shadow:     0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
   // garis vertikal
   &:not(:last-child) .timelineLine {
     position: absolute;
-    left: 19px;
+    left: 21px;
     top: 38px;
     bottom: -1rem;
     width: 2px;
     background: $gray-200;
     z-index: 0;
+
+    @include mobile {
+      display: none;
+    }
   }
 }
 
 .timelineDot {
   flex-shrink: 0;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: $amber-100;
   border: 3px solid $amber;
@@ -242,6 +257,15 @@ $shadow:     0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
   color: $amber-dark;
   z-index: 1;
   position: relative;
+
+  @include mobile {
+    // width: 32px;
+    // height: 32px;
+    // font-size: 1px;
+    // font-weight: 600;
+    // border: 1px solid $amber;
+    display: none;
+  }
 }
 
 .timelineLine {
@@ -271,16 +295,26 @@ $shadow:     0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
 .badge {
   background: $green-light;
   color: $green;
-  padding: 3px 10px;
-  border-radius: 999px;
+  padding: 7px 11px;
+  border-radius: 50px;
   font-weight: 700;
   font-size: 12px;
+
+  @include mobile {
+    // display: none;
+    font-size: 10px;
+    padding: 5px 10px;
+  }
 }
 
 .logDate {
   font-size: 12px;
   color: $gray-400;
   font-weight: 500;
+
+  @include mobile {
+    font-size: 11px;
+  }
 }
 
 .logTitle {
