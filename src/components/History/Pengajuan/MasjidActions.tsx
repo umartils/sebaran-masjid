@@ -51,17 +51,6 @@ export default function MasjidActions({
             <span>Edit</span>
           </Link>
 
-          <a
-            href={`https://www.google.com/maps/search/?api=1&query=${building.latitude},${building.longitude}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${styles.actionBtn} ${styles.actionBtnMaps}`}
-            title="Buka di Google Maps"
-          >
-            <MapPin size={15} />
-            <span>Maps</span>
-          </a>
-
           {/* <button
             type="button"
             onClick={() =>

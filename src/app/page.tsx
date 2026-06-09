@@ -12,10 +12,6 @@ export default async function HomePage() {
     getMapMasjidMN(),
   ]);
 
-  // const [data, setData] = useState(null);
-
-  // if (!data) return <Loading />;
-
   return (
     <AppFrame>
       <MapExperience

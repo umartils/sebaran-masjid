@@ -51,55 +51,64 @@ export async function GET(
       }) + ` (Minggu ke-${sortedLogs.length})`
     : "-";
 
-  // ── Render tiap log sebagai satu halaman ──
-  function renderLogPage(
-    log: (typeof sortedLogs)[0],
-    index: number,
-    isLast: boolean
-  ): string {
-    const tanggalLog = new Date(log.createdAt).toLocaleDateString("id-ID", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
+    const statusProject =
+      tracking.status === "SELESAI" ? "Selesai" : "On Progress";
 
-    const images = (log.imgUrls ?? []).slice(0, 4);
-    const count = images.length;
+    const statusColor = tracking.status === "SELESAI" ? "green" : "#F59E0B";
 
-    let gridCols: string;
-    let imgHeight: string;
+    // ── Render tiap log sebagai satu halaman ──
+    function renderLogPage(
+      log: (typeof sortedLogs)[0],
+      index: number,
+      isLast: boolean
+    ): string {
+      const tanggalLog = new Date(log.createdAt).toLocaleDateString("id-ID", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
 
-    if (count === 1) {
-      gridCols = "1fr";
-      imgHeight = "300px";
-    } else if (count === 2) {
-      gridCols = "1fr 1fr";
-      imgHeight = "250px";
-    } else if (count === 3) {
-      gridCols = "1fr 1fr";
-      imgHeight = "200px";
-    } else {
-      gridCols = "1fr 1fr";
-      imgHeight = "190px";
-    }
+      const images = (log.imgUrls ?? []).slice(0, 4);
+      const count = images.length;
 
-    const imagesHtml =
-      count > 0
-        ? `<div class="img-grid" style="grid-template-columns: ${gridCols};">
+      let gridCols: string;
+      let imgHeight: string;
+
+      if (count === 1) {
+        gridCols = "1fr";
+        imgHeight = "300px";
+      } else if (count === 2) {
+        gridCols = "1fr 1fr";
+        imgHeight = "250px";
+      } else if (count === 3) {
+        gridCols = "1fr 1fr";
+        imgHeight = "200px";
+      } else {
+        gridCols = "1fr 1fr";
+        imgHeight = "190px";
+      }
+
+      const imagesHtml =
+        count > 0
+          ? `<div class="img-grid" style="grid-template-columns: ${gridCols};">
             ${images
               .map(
                 (url, i) => `
-              <div class="img-wrap ${count === 3 && i === 2 ? "span-full" : ""}">
-                <img src="${url}" alt="Dokumentasi ${i + 1}" style="height: ${imgHeight};" />
+              <div class="img-wrap ${
+                count === 3 && i === 2 ? "span-full" : ""
+              }">
+                <img src="${url}" alt="Dokumentasi ${
+                  i + 1
+                }" style="height: ${imgHeight};" />
                 <span class="img-caption">Dokumentasi ${i + 1}</span>
               </div>`
               )
               .join("")}
           </div>`
-        : `<div class="no-img">Tidak ada dokumentasi foto</div>`;
+          : `<div class="no-img">Tidak ada dokumentasi foto</div>`;
 
-    return `
+      return `
     <div class="page log-page${isLast ? " last-page" : ""}">
 
       <!-- Header -->
@@ -123,7 +132,9 @@ export async function GET(
         </div>
         <div class="progress-wrap">
           <div class="progress-bar-bg">
-            <div class="progress-bar-fill" style="width:${log.persentase ?? 0}%;"></div>
+            <div class="progress-bar-fill" style="width:${
+              log.persentase ?? 0
+            }%;"></div>
           </div>
           <div class="progress-labels">
             <span>0%</span>
@@ -180,14 +191,14 @@ export async function GET(
       </div>
 
     </div>`;
-  }
+    }
 
-  const logPages = sortedLogs
-    .map((log, i) => renderLogPage(log, i, i === sortedLogs.length - 1))
-    .join("\n");
+    const logPages = sortedLogs
+      .map((log, i) => renderLogPage(log, i, i === sortedLogs.length - 1))
+      .join("\n");
 
-  // ── Masjid illustration SVG (minimalist, matches image style) ──
-  const masjidSvg = `
+    // ── Masjid illustration SVG (minimalist, matches image style) ──
+    const masjidSvg = `
   <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" class="cover-illustration">
     <!-- Ground -->
     <rect x="10" y="168" width="300" height="6" rx="3" fill="#E5E7EB"/>
@@ -226,7 +237,7 @@ export async function GET(
     <text x="148" y="87" font-size="9" fill="rgba(255,255,255,0.5)" text-anchor="middle">✦ ✦ ✦</text>
   </svg>`;
 
-  const html = `<!DOCTYPE html>
+    const html = `<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="utf-8" />
@@ -622,7 +633,9 @@ export async function GET(
       <table class="cover-meta-table">
         <tr>
           <td>Project Name</td>
-          <td>${tracking.masjid.nama}<br/><span style="font-size:10px;color:#64748B;">${wilayah}</span></td>
+          <td>${
+            tracking.masjid.nama
+          }<br/><span style="font-size:10px;color:#64748B;">${wilayah}</span></td>
         </tr>
         <tr>
           <td>Project Start Date</td>
@@ -633,12 +646,18 @@ export async function GET(
           <td>${tanggalSelesai}</td>
         </tr>
         <tr>
+          <td>Porject Status</td>
+          <td style="color: ${statusColor}; font-weight: 700; font-size: 13px;">${statusProject}</td>
+        </tr>
+        <tr>
           <td>Report Date</td>
           <td>${tanggalCetak}</td>
         </tr>
         <tr>
           <td>Project Progress</td>
-          <td style="color: #F59E0B; font-weight: 800; font-size: 13px;">${tracking.persentase ?? 0}% (Minggu ke-${sortedLogs.length})</td>
+          <td style="color: #F59E0B; font-weight: 800; font-size: 13px;">${
+            tracking.persentase ?? 0
+          }% (Minggu ke-${sortedLogs.length})</td>
         </tr>
       </table>
 
@@ -648,7 +667,9 @@ export async function GET(
           <span>${tracking.persentase ?? 0}%</span>
         </div>
         <div class="cover-pb-bg">
-          <div class="cover-pb-fill" style="width: ${tracking.persentase ?? 0}%;"></div>
+          <div class="cover-pb-fill" style="width: ${
+            tracking.persentase ?? 0
+          }%;"></div>
         </div>
         <div class="cover-stats">
           <div class="cover-stat">

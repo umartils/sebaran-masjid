@@ -25,7 +25,15 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // OPTIONAL: update progress utama
+    if (persentase == 100) {
+      await prisma.trackingMasjid.update({
+        where: { id: trackingId },
+        data: {
+          status: "SELESAI",
+        },
+      });
+    }
+
     await prisma.trackingMasjid.update({
       where: { id: trackingId },
       data: {
