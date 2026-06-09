@@ -8,11 +8,9 @@ const userSchema = z.object({
 
   email: z.string().email("Format email tidak valid"),
 
-  nomorTelepon: z.string().min(10, "Nomor telepon minimal 10 digit"),
+  nomorTelepon: z.string().optional(),
 
-  role: z.enum(["Admin", "Relawan"], {
-    message: "Role tidak valid",
-  }),
+  role: z.string().optional(),
 
   password: z.string().min(8, "Password minimal 8 karakter"),
 
