@@ -148,6 +148,8 @@ $breakpoint-mobile: 900px;
   transition: background 0.15s, transform 0.1s;
   box-shadow: 0 2px 8px rgba($amber, 0.35);
 
+  border: none;
+
   &:hover {
     background: $amber-dark;
     transform: translateY(-1px);

@@ -31,7 +31,7 @@ export type MasjidAvgAggregateOutputType = {
   longitude: number | null
   kapasitas: number | null
   tahunDibangun: number | null
-  budgetAwal: runtime.Decimal | null
+  budgetAwal: number | null
   kkMuslim: number | null
 }
 
@@ -40,7 +40,7 @@ export type MasjidSumAggregateOutputType = {
   longitude: number | null
   kapasitas: number | null
   tahunDibangun: number | null
-  budgetAwal: runtime.Decimal | null
+  budgetAwal: number | null
   kkMuslim: number | null
 }
 
@@ -62,7 +62,7 @@ export type MasjidMinAggregateOutputType = {
   kategori: $Enums.Category | null
   kapasitas: number | null
   tahunDibangun: number | null
-  budgetAwal: runtime.Decimal | null
+  budgetAwal: number | null
   luasSekarang: string | null
   materialUtama: string | null
   statusPerluasan: string | null
@@ -130,7 +130,7 @@ export type MasjidMaxAggregateOutputType = {
   kategori: $Enums.Category | null
   kapasitas: number | null
   tahunDibangun: number | null
-  budgetAwal: runtime.Decimal | null
+  budgetAwal: number | null
   luasSekarang: string | null
   materialUtama: string | null
   statusPerluasan: string | null
@@ -581,7 +581,7 @@ export type MasjidGroupByOutputType = {
   kategori: $Enums.Category
   kapasitas: number | null
   tahunDibangun: number | null
-  budgetAwal: runtime.Decimal | null
+  budgetAwal: number | null
   luasSekarang: string | null
   materialUtama: string | null
   statusPerluasan: string | null
@@ -674,7 +674,7 @@ export type MasjidWhereInput = {
   kategori?: Prisma.EnumCategoryFilter<"Masjid"> | $Enums.Category
   kapasitas?: Prisma.IntNullableFilter<"Masjid"> | number | null
   tahunDibangun?: Prisma.IntNullableFilter<"Masjid"> | number | null
-  budgetAwal?: Prisma.DecimalNullableFilter<"Masjid"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.FloatNullableFilter<"Masjid"> | number | null
   luasSekarang?: Prisma.StringNullableFilter<"Masjid"> | string | null
   materialUtama?: Prisma.StringNullableFilter<"Masjid"> | string | null
   statusPerluasan?: Prisma.StringNullableFilter<"Masjid"> | string | null
@@ -821,7 +821,7 @@ export type MasjidWhereUniqueInput = Prisma.AtLeast<{
   kategori?: Prisma.EnumCategoryFilter<"Masjid"> | $Enums.Category
   kapasitas?: Prisma.IntNullableFilter<"Masjid"> | number | null
   tahunDibangun?: Prisma.IntNullableFilter<"Masjid"> | number | null
-  budgetAwal?: Prisma.DecimalNullableFilter<"Masjid"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.FloatNullableFilter<"Masjid"> | number | null
   luasSekarang?: Prisma.StringNullableFilter<"Masjid"> | string | null
   materialUtama?: Prisma.StringNullableFilter<"Masjid"> | string | null
   statusPerluasan?: Prisma.StringNullableFilter<"Masjid"> | string | null
@@ -971,7 +971,7 @@ export type MasjidScalarWhereWithAggregatesInput = {
   kategori?: Prisma.EnumCategoryWithAggregatesFilter<"Masjid"> | $Enums.Category
   kapasitas?: Prisma.IntNullableWithAggregatesFilter<"Masjid"> | number | null
   tahunDibangun?: Prisma.IntNullableWithAggregatesFilter<"Masjid"> | number | null
-  budgetAwal?: Prisma.DecimalNullableWithAggregatesFilter<"Masjid"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.FloatNullableWithAggregatesFilter<"Masjid"> | number | null
   luasSekarang?: Prisma.StringNullableWithAggregatesFilter<"Masjid"> | string | null
   materialUtama?: Prisma.StringNullableWithAggregatesFilter<"Masjid"> | string | null
   statusPerluasan?: Prisma.StringNullableWithAggregatesFilter<"Masjid"> | string | null
@@ -1041,7 +1041,7 @@ export type MasjidCreateInput = {
   kategori?: $Enums.Category
   kapasitas?: number | null
   tahunDibangun?: number | null
-  budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: number | null
   luasSekarang?: string | null
   materialUtama?: string | null
   statusPerluasan?: string | null
@@ -1112,7 +1112,7 @@ export type MasjidUncheckedCreateInput = {
   kategori?: $Enums.Category
   kapasitas?: number | null
   tahunDibangun?: number | null
-  budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: number | null
   luasSekarang?: string | null
   materialUtama?: string | null
   statusPerluasan?: string | null
@@ -1183,7 +1183,7 @@ export type MasjidUpdateInput = {
   kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   luasSekarang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   materialUtama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   statusPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1254,7 +1254,7 @@ export type MasjidUncheckedUpdateInput = {
   kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   luasSekarang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   materialUtama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   statusPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1325,7 +1325,7 @@ export type MasjidCreateManyInput = {
   kategori?: $Enums.Category
   kapasitas?: number | null
   tahunDibangun?: number | null
-  budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: number | null
   luasSekarang?: string | null
   materialUtama?: string | null
   statusPerluasan?: string | null
@@ -1395,7 +1395,7 @@ export type MasjidUpdateManyMutationInput = {
   kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   luasSekarang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   materialUtama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   statusPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1464,7 +1464,7 @@ export type MasjidUncheckedUpdateManyInput = {
   kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   luasSekarang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   materialUtama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   statusPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1829,12 +1829,12 @@ export type EnumCategoryFieldUpdateOperationsInput = {
   set?: $Enums.Category
 }
 
-export type NullableDecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type EnumBuildingStatusFieldUpdateOperationsInput = {
@@ -1883,7 +1883,7 @@ export type MasjidCreateWithoutUserInput = {
   kategori?: $Enums.Category
   kapasitas?: number | null
   tahunDibangun?: number | null
-  budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: number | null
   luasSekarang?: string | null
   materialUtama?: string | null
   statusPerluasan?: string | null
@@ -1953,7 +1953,7 @@ export type MasjidUncheckedCreateWithoutUserInput = {
   kategori?: $Enums.Category
   kapasitas?: number | null
   tahunDibangun?: number | null
-  budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: number | null
   luasSekarang?: string | null
   materialUtama?: string | null
   statusPerluasan?: string | null
@@ -2052,7 +2052,7 @@ export type MasjidScalarWhereInput = {
   kategori?: Prisma.EnumCategoryFilter<"Masjid"> | $Enums.Category
   kapasitas?: Prisma.IntNullableFilter<"Masjid"> | number | null
   tahunDibangun?: Prisma.IntNullableFilter<"Masjid"> | number | null
-  budgetAwal?: Prisma.DecimalNullableFilter<"Masjid"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.FloatNullableFilter<"Masjid"> | number | null
   luasSekarang?: Prisma.StringNullableFilter<"Masjid"> | string | null
   materialUtama?: Prisma.StringNullableFilter<"Masjid"> | string | null
   statusPerluasan?: Prisma.StringNullableFilter<"Masjid"> | string | null
@@ -2122,7 +2122,7 @@ export type MasjidCreateWithoutTrackingInput = {
   kategori?: $Enums.Category
   kapasitas?: number | null
   tahunDibangun?: number | null
-  budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: number | null
   luasSekarang?: string | null
   materialUtama?: string | null
   statusPerluasan?: string | null
@@ -2192,7 +2192,7 @@ export type MasjidUncheckedCreateWithoutTrackingInput = {
   kategori?: $Enums.Category
   kapasitas?: number | null
   tahunDibangun?: number | null
-  budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: number | null
   luasSekarang?: string | null
   materialUtama?: string | null
   statusPerluasan?: string | null
@@ -2278,7 +2278,7 @@ export type MasjidUpdateWithoutTrackingInput = {
   kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   luasSekarang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   materialUtama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   statusPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2348,7 +2348,7 @@ export type MasjidUncheckedUpdateWithoutTrackingInput = {
   kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   luasSekarang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   materialUtama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   statusPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2418,7 +2418,7 @@ export type MasjidCreateManyUserInput = {
   kategori?: $Enums.Category
   kapasitas?: number | null
   tahunDibangun?: number | null
-  budgetAwal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: number | null
   luasSekarang?: string | null
   materialUtama?: string | null
   statusPerluasan?: string | null
@@ -2487,7 +2487,7 @@ export type MasjidUpdateWithoutUserInput = {
   kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   luasSekarang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   materialUtama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   statusPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2557,7 +2557,7 @@ export type MasjidUncheckedUpdateWithoutUserInput = {
   kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   luasSekarang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   materialUtama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   statusPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2627,7 +2627,7 @@ export type MasjidUncheckedUpdateManyWithoutUserInput = {
   kategori?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
   kapasitas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tahunDibangun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  budgetAwal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  budgetAwal?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   luasSekarang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   materialUtama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   statusPerluasan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3000,7 +3000,7 @@ export type $MasjidPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     kategori: $Enums.Category
     kapasitas: number | null
     tahunDibangun: number | null
-    budgetAwal: runtime.Decimal | null
+    budgetAwal: number | null
     luasSekarang: string | null
     materialUtama: string | null
     statusPerluasan: string | null
@@ -3492,7 +3492,7 @@ export interface MasjidFieldRefs {
   readonly kategori: Prisma.FieldRef<"Masjid", 'Category'>
   readonly kapasitas: Prisma.FieldRef<"Masjid", 'Int'>
   readonly tahunDibangun: Prisma.FieldRef<"Masjid", 'Int'>
-  readonly budgetAwal: Prisma.FieldRef<"Masjid", 'Decimal'>
+  readonly budgetAwal: Prisma.FieldRef<"Masjid", 'Float'>
   readonly luasSekarang: Prisma.FieldRef<"Masjid", 'String'>
   readonly materialUtama: Prisma.FieldRef<"Masjid", 'String'>
   readonly statusPerluasan: Prisma.FieldRef<"Masjid", 'String'>

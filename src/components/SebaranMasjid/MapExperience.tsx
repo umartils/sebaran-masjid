@@ -14,7 +14,11 @@ const LeafletMap = dynamic(
   () => import("@/components/SebaranMasjid/LeafletMap"),
   {
     ssr: false,
-    loading: () => <div className="leaflet-container" />,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center bg-muted rounded-lg animate-pulse">
+        <p className="text-muted-foreground text-sm">Memuat peta...</p>
+      </div>
+    ),
   }
 );
 

@@ -87,7 +87,7 @@ model Masjid {
   kategori                    Category @default(Pelosok_Pedalaman)
   kapasitas                   Int?
   tahunDibangun               Int?
-  budgetAwal                  Decimal? @db.Decimal(14, 2)
+  budgetAwal                  Float?
   luasSekarang                String?
   materialUtama               String?
   statusPerluasan             String?

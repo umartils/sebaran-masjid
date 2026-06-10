@@ -23,7 +23,7 @@ export function DashboardStats({
 
   return (
     <div className="admin-stats">
-      <StatCard value={masjidClean.length} label="Total Masjid" />
+      <StatCard value={masjidClean.length} label="Total Pengajuan" />
 
       <StatCard
         value={totalRejected}

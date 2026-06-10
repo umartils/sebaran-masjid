@@ -146,9 +146,6 @@ export function FormTambahLog({
           folder={`masjid/${masjidId}/progres/${currentTime}`}
         />
 
-        {/* <button type="submit" disabled={loading}>
-          {loading ? "Menyimpan..." : "Simpan"}
-        </button> */}
         <div>
           <button className="primary-button" type="submit" disabled={loading}>
             <Save size={18} /> {loading ? "Menyimpan..." : "Simpan Data"}

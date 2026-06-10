@@ -74,7 +74,7 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
               />
             </div>
 
-            <span className="brand-text">Se-iMaN</span>
+            <span className="brand-text">Se-IMaN</span>
           </Link>
         </div>
         <Navbar collapsed={collapsed} />

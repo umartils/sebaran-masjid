@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import type { TrackingMasjidDetail } from "@/lib/types";
 import styles from "./DetailProgres.module.scss";
+import { useRouter } from "next/navigation";
 
 interface Props {
   tracking: TrackingMasjidDetail;
@@ -18,16 +19,19 @@ interface Props {
 }
 
 export function DetailProgres({ tracking, from }: Props) {
+  const router = useRouter();
+  const finished = tracking.status === "SELESAI";
+
   const wilayah = [tracking.masjid.namaKota, tracking.masjid.namaProvinsi]
     .filter(Boolean)
     .join(", ");
 
-  function handleDownloadPDF() {
-    window.open(`/admin/dashboard/tracking/pdf/${tracking.id}`, "_blank");
-  }
-
   function handleDownloadAllPDF() {
     window.open(`/admin/dashboard/tracking/pdf/${tracking.id}/all`, "_blank");
+  }
+
+  function handleAddLogs() {
+    router.push(`/admin/dashboard/tracking/tambah/${tracking.id}`);
   }
 
   return (
@@ -58,13 +62,14 @@ export function DetailProgres({ tracking, from }: Props) {
 
       {/* ── Toolbar ── */}
       <div className={styles.toolbar}>
-        <Link
-          href={`/admin/dashboard/tracking/tambah/${tracking.id}`}
+        <button
+          onClick={handleAddLogs}
           className={styles.addBtn}
+          disabled={finished}
         >
           <Plus size={15} />
           Tambah Progres
-        </Link>
+        </button>
 
         <button className={styles.pdfBtn} onClick={handleDownloadAllPDF}>
           <FileDown size={15} />
