@@ -142,7 +142,7 @@ export function TablePengajuan({ masjid }: Props) {
 
           <button
             type="button"
-            disabled={page === totalPages}
+            disabled={page === totalPages || totalPages === 0}
             onClick={() => setPage(page + 1)}
           >
             Next
