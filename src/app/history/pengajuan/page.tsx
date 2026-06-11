@@ -8,26 +8,18 @@ import { SessionGuard } from "@/components/SessionGuard";
 import { HistoryPengajuan } from "@/components/History/Pengajuan/HistoryPengajuan";
 
 export default async function HistoryPengajuanPage() {
-    const session = await getServerSession(authOptions);
-    const masjid = await getMasjidByRelawan(session?.user?.id as string);
+  const session = await getServerSession(authOptions);
+  const masjid = await getMasjidByRelawan(session?.user?.id as string);
 
-    // console.log(session);
-    if (!session) {
-        await signOut({
-          callbackUrl: "/",
-        });
-    }
-
-    return (
-        <AppFrame>
-          <SessionGuard>
-            <ProtectedPage redirectTo="/history/pengajuan">
-              <section className="admin-page">
-
-                <HistoryPengajuan masjid={masjid} />
-              </section>
-            </ProtectedPage>
-          </SessionGuard>
-        </AppFrame>
-    )
+  return (
+    <AppFrame>
+      <SessionGuard>
+        <ProtectedPage redirectTo="/history/pengajuan">
+          <section className="admin-page">
+            <HistoryPengajuan masjid={masjid} />
+          </section>
+        </ProtectedPage>
+      </SessionGuard>
+    </AppFrame>
+  );
 }

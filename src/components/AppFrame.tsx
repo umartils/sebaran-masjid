@@ -3,8 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { usePathname, useRouter } from "next/navigation";
-
 import { ChevronLeft, ChevronRight, LogIn, LogOut, User } from "lucide-react";
 
 import { useEffect, useState } from "react";
@@ -14,10 +12,6 @@ import { Navbar } from "./navbar/navbar";
 import { useToast } from "@/hooks/useToast";
 
 export function AppFrame({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-
-  const router = useRouter();
-
   const { data: session, status } = useSession();
 
   const isLoggedIn = status === "authenticated";

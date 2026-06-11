@@ -7,6 +7,7 @@ import { DashboardStats } from "@/components/ListMasjid/DashboardStats";
 import { SessionGuard } from "@/components/SessionGuard";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { notFound } from "next/navigation";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
@@ -15,10 +16,12 @@ export default async function AdminPage() {
       ? await getMasjid()
       : await getMasjidByRelawan(session?.user?.id as string);
 
+  if (session?.user.role !== "Admin") return notFound();
+
   return (
     <AppFrame>
       <SessionGuard>
-        <ProtectedPage redirectTo="/admin">
+        <ProtectedPage redirectTo="/admin/dashboard/masjid">
           <section className="admin-page">
             <h1>Dashboard Admin - Daftar Pengajuan Pembangunan</h1>
 
