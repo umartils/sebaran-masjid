@@ -44,7 +44,7 @@ export async function GET(
     : "-";
 
   const tanggalSelesai = lastLog
-    ? new Date(lastLog.createdAt).toLocaleDateString("id-ID", {
+    ? new Date(lastLog.updatedAt).toLocaleDateString("id-ID", {
         day: "numeric",
         month: "long",
         year: "numeric",

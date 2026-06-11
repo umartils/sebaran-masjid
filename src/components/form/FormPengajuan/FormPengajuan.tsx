@@ -84,7 +84,7 @@ export function FormPengajuan() {
     });
 
     if (response.ok) {
-      setStatus("Data yang diinput oleh " + userId + " berhasil disimpan.");
+      setStatus("Data berhasil disimpan.");
       return;
     } else {
       setStatus("Gagal menyimpan data.");
