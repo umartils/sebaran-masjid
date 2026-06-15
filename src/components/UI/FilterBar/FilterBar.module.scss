@@ -106,7 +106,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 16px;
-  min-width: 268px;
+  min-width: 210px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -214,14 +214,41 @@
 // ── Category select ───────────────────────────────────────
 
 .filterField {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
   height: 38px;
+  min-width: 180px;
   padding: 0 12px;
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+  }
+
+  &:focus-within {
+    border-color: #6b7280;
+    background: #f9fafb;
+    box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.08);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: 12px;
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid #9ca3af;
+    border-bottom: 1.5px solid #9ca3af;
+    transform: rotate(45deg) translateY(-2px);
+    pointer-events: none;
+  }
 }
 
 .filterIcon {
@@ -230,12 +257,76 @@
 }
 
 .filterSelect {
+  flex: 1;
+  height: 100%;
   border: none;
   outline: none;
   background: transparent;
   font-size: 14px;
+  font-weight: 500;
   color: #374151;
   cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding-right: 18px;
+
+  option {
+    color: #111827;
+    background: #fff;
+  }
+}
+
+.selectWrap {
+  position: relative;
+}
+
+.selectPanel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 50;
+  min-width: 150px;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.selectOption {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 38px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: #f3f4f6;
+  }
+}
+
+.selectOptionActive {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 600;
+
+  &:hover {
+    background: #dbeafe;
+  }
 }
 
 // ── Result count ──────────────────────────────────────────

@@ -63,7 +63,10 @@ const navItems: NavItem[] = [
     icon: UserRoundCog,
     protected: true,
     adminOnly: true,
-    children: [{ href: "/admin/user/form", label: "Add User" }],
+    children: [
+      { href: "/admin/user/form", label: "Add User" },
+      { href: "/admin/user/list", label: "List User" },
+    ],
   },
 ];
 

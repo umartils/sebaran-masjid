@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getTrackingMasjidById } from "@/lib/tracking";
-
+ 
 export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
@@ -138,13 +138,15 @@ export async function GET(
       .info-card.amber { background: #FFFBEB !important; border-color: #FDE68A !important; }
       .info-card.orange { background: #FFF7ED !important; border-color: #FDBA74 !important; }
       .dot { background: #F59E0B !important; }
-      @page { size: A4; margin: 0; }
+      @page { size: A4; margin: 0 !important; }
     }
 
     /* ── Page ── */
     .page {
       width: 210mm;
       min-height: 297mm;
+      max-height: 297mm;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
     }

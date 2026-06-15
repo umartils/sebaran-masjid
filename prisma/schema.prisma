@@ -23,6 +23,8 @@ model User {
 
   accounts Account[]
   sessions Session[]
+
+  createdAt     DateTime? @default(now())
 }
 
 model Account {

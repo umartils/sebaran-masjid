@@ -22,14 +22,6 @@ const LeafletMap = dynamic(
   }
 );
 
-// const conditions: Array<{ value: "ALL" | KondisiMasjid; label: string }> = [
-//   { value: "ALL", label: "Semua Kondisi" },
-//   { value: "RUSAK_BERAT", label: "Rusak Berat" },
-//   { value: "RUSAK_SEDANG", label: "Rusak Sedang" },
-//   { value: "RUSAK_RINGAN", label: "Rusak Ringan" },
-//   { value: "LAYAK", label: "Layak" },
-// ];
-
 const categories: Array<{ value: "ALL" | KategoriMasjid; label: string }> = [
   { value: "ALL", label: "Semua Kategori" },
   { value: "Pelosok_Pedalaman", label: "Pelosok Pedalaman" },
@@ -131,7 +123,6 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
     selectedBuilding == null;
   }
 
-  /** Haversine — jarak dua koordinat dalam km */
   function haversineKm(
     lat1: number,
     lng1: number,
@@ -171,7 +162,7 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
         shouldFocus={userSelected}
         resetView={resetViewTrigger}
       />
-      {/* ── Floating Toggle Button ── */}
+
       <div className="map-mode-toggle">
         <button
           className={`toggle-btn ${mapMode === "renovasi" ? "active" : ""}`}

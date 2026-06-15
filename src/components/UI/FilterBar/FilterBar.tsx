@@ -87,8 +87,14 @@ export default function FilterBar({
   const [localEnd, setLocalEnd] = useState(endDate);
   const panelRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { setLocalStart(startDate); }, [startDate]);
-  useEffect(() => { setLocalEnd(endDate); }, [endDate]);
+  const [selectOpen, setSelectOpen] = useState(false);
+
+  useEffect(() => {
+    setLocalStart(startDate);
+  }, [startDate]);
+  useEffect(() => {
+    setLocalEnd(endDate);
+  }, [endDate]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -127,11 +133,12 @@ export default function FilterBar({
         />
       </label>
 
-      {/* Date range dropdown */}
       <div className={styles.dropdownWrap} ref={panelRef}>
         <button
           type="button"
-          className={`${styles.filterBtn} ${hasDateFilter ? styles.filterBtnActive : ""}`}
+          className={`${styles.filterBtn} ${
+            hasDateFilter ? styles.filterBtnActive : ""
+          }`}
           onClick={() => setPanelOpen((v) => !v)}
           aria-haspopup="true"
           aria-expanded={panelOpen}
@@ -140,10 +147,11 @@ export default function FilterBar({
           <span className={styles.filterBtnLabel}>
             {getDateLabel(startDate, endDate)}
           </span>
-          {panelOpen
-            ? <ChevronUp size={14} className={styles.filterBtnChevron} />
-            : <ChevronDown size={14} className={styles.filterBtnChevron} />
-          }
+          {panelOpen ? (
+            <ChevronUp size={14} className={styles.filterBtnChevron} />
+          ) : (
+            <ChevronDown size={14} className={styles.filterBtnChevron} />
+          )}
         </button>
 
         {panelOpen && (
@@ -181,10 +189,18 @@ export default function FilterBar({
             </div>
 
             <div className={styles.datePanelActions}>
-              <button type="button" className={styles.btnReset} onClick={handleReset}>
+              <button
+                type="button"
+                className={styles.btnReset}
+                onClick={handleReset}
+              >
                 Reset
               </button>
-              <button type="button" className={styles.btnApply} onClick={handleApply}>
+              <button
+                type="button"
+                className={styles.btnApply}
+                onClick={handleApply}
+              >
                 Terapkan
               </button>
             </div>
@@ -194,29 +210,52 @@ export default function FilterBar({
 
       {/* Select (opsional) */}
       {hasSelect && (
-        <div className={styles.filterField}>
-          <SlidersHorizontal size={18} className={styles.filterIcon} />
-          <select
-            className={styles.filterSelect}
-            value={selectValue}
-            onChange={(e) => onSelectChange!(e.target.value)}
+        <div className={styles.selectWrap}>
+          <button
+            type="button"
+            className={`${styles.filterBtn} ${
+              hasSelectFilter ? styles.filterBtnActive : ""
+            }`}
+            onClick={() => setSelectOpen((v) => !v)}
           >
-            {/* {selectPlaceholder && (
-              <option value="ALL">{selectPlaceholder}</option>
-            )} */}
-            {selectOptions!.map((item) => (
-              <option key={item.value} value={item.value}>
-                {item.label}
-              </option>
-            ))}
-          </select>
+            <SlidersHorizontal size={17} className={styles.filterBtnIcon} />
+
+            <span className={styles.filterBtnLabel}>
+              {selectOptions?.find((o) => o.value === selectValue)?.label}
+            </span>
+
+            {selectOpen ? (
+              <ChevronUp size={14} className={styles.filterBtnChevron} />
+            ) : (
+              <ChevronDown size={14} className={styles.filterBtnChevron} />
+            )}
+          </button>
+
+          {selectOpen && (
+            <div className={styles.selectPanel}>
+              {selectOptions!.map((item) => (
+                <button
+                  key={item.value}
+                  type="button"
+                  className={`${styles.selectOption} ${
+                    selectValue === item.value ? styles.selectOptionActive : ""
+                  }`}
+                  onClick={() => {
+                    onSelectChange!(item.value);
+                    setSelectOpen(false);
+                  }}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
-
-      {/* Result count */}
       {showCount && (
         <span className={styles.resultCount}>
-          {filteredCount} dari {totalCount} {entityLabel}
+          {" "}
+          {filteredCount} dari {totalCount} {entityLabel}{" "}
         </span>
       )}
     </div>

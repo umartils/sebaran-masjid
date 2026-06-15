@@ -273,6 +273,8 @@ export async function GET(
       .page {
         width: 210mm;
         min-height: 297mm;
+        max-height: 297mm;
+        overflow: hidden;
         margin: 2rem auto;
         box-shadow: 0 4px 32px rgba(0,0,0,0.18);
         border-radius: 4px;
@@ -287,6 +289,8 @@ export async function GET(
       .page {
         width: 210mm;
         min-height: 297mm;
+        max-height: 297mm;
+        overflow: hidden;
         margin: 0;
         box-shadow: none;
         border-radius: 0;
@@ -307,7 +311,7 @@ export async function GET(
       .info-card.amber { background: #FFFBEB !important; border-color: #FDE68A !important; }
       .info-card.orange { background: #FFF7ED !important; border-color: #FDBA74 !important; }
       .dot { background: #F59E0B !important; }
-      @page { size: A4; margin: 0; }
+      @page { size: A4; margin: 0 !important; }
     }
 
     /* ══════════════════════════════

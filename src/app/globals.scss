@@ -11,9 +11,16 @@ $warning: #d97706;
 $success: #15803d;
 $info: #0ea5e9;
 $breakpoint-mobile: 900px;
+$breakpoint-slim-mobile: 5150px;
 
 @mixin mobile {
   @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin slim-mobile {
+  @media (max-width: $breakpoint-slim-mobile) {
     @content;
   }
 }
@@ -810,7 +817,7 @@ textarea.control {
   gap: 0.5rem;
   background: white;
   border-radius: 999px;
-  padding: 0.25rem;
+  padding: 0.3rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
 
   @include mobile {
@@ -832,9 +839,13 @@ textarea.control {
   background: transparent;
   color: #555;
   transition: background 0.2s, color 0.2s;
+  
   @include mobile {
     padding: 7px 20px;
     font-size: 12px;
+  }
+  @include slim-mobile {
+    font-size: 11px;
   }
 }
 
@@ -1122,7 +1133,7 @@ textarea.control {
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-
+ 
 .admin-table-wrap {
   overflow-x: auto;
   border-radius: 14px;
@@ -1160,7 +1171,7 @@ textarea.control {
     &:last-child {
       font-size: 12px;
       color: $muted;
-      font-family: monospace;
+      // font-family: monospace;
     }
   }
 
@@ -1178,6 +1189,17 @@ textarea.control {
   color: $muted;
 }
 
+.icon-address {
+  width: 13px;
+  height: 13px;
+  margin-right: 3px;
+
+  @include mobile {
+    width: 12px;
+    height: 12px;
+  }
+}
+
 .table-province {
   font-size: 12px;
   color: $muted;
@@ -1185,6 +1207,177 @@ textarea.control {
 
 .table-coords {
   white-space: nowrap;
+}
+
+/* ─── Table Controls (Search + Filter) ─────────────────────────── */
+.table-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+/* Search field */
+.search-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 220px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  color: var(--color-muted, #9ca3af);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.55rem 0.75rem 0.55rem 2.5rem;
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: var(--color-surface, #fff);
+  color: var(--color-text, #111);
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary, #2563eb);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+}
+
+/* Filter dropdown */
+.filter-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.filter-icon {
+  position: absolute;
+  left: 0.75rem;
+  color: var(--color-muted, #9ca3af);
+  pointer-events: none;
+}
+
+.filter-select {
+  padding: 0.55rem 2rem 0.55rem 2.4rem;
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: var(--color-surface, #fff);
+  color: var(--color-text, #111);
+  cursor: pointer;
+  appearance: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary, #2563eb);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+}
+
+//  ─── Pagination Style ─────────────────────────── 
+
+.pagination-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem 1.25rem;
+  background: $surface;
+
+  border-bottom: 1px solid $line;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .75rem;
+  }
+
+  select {
+    height: 40px;
+    min-width: 80px;
+
+    padding: 0 12px;
+
+    border: 1px solid $line;
+    border-radius: 10px;
+
+    background: white;
+
+    font-weight: 500;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+  }
+}
+
+.page-size {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 14px;
+  font-weight: 500;
+  color: $ink;
+
+  select {
+    min-width: 80px;
+    height: 40px;
+
+    border: 1px solid $line;
+    border-radius: 10px;
+
+    padding: 0 12px;
+
+    background: white;
+
+    font-weight: 600;
+
+    &:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 20px;
+
+  background: #f8fafc;
+
+  border-top: 1px solid $line;
+}
+
+.page-indicator {
+  min-width: 150px;
+  text-align: center;
+
+  font-weight: 700;
+  color: $ink;
+}
+
+.result-info {
+  font-size: 14px;
+  color: $muted;
+  font-weight: 500;
 }
 
 // ─── Protected Loading ────────────────────────────────────────────────────────

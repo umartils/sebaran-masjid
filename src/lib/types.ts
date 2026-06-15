@@ -12,6 +12,8 @@ export type KategoriMasjid =
   | "Kampung_Mualaf"
   | "Terdampak_Bencana";
 
+export type UserRole = "Admin" | "Relawan";
+
 export type StatusMasjid = "APPROVED" | "PENDING" | "REJECTED" | "DELETED";
 
 export type ProgresStatus = "ON_PROGRESS" | "SELESAI";
@@ -107,6 +109,8 @@ export type TrackingMasjidDetail = Prisma.TrackingMasjidGetPayload<{
     logs: true;
   };
 }>;
+
+export type User = Prisma.UserGetPayload<{}>;
 
 // export type TrackingMasjidLog = {
 //   id: string;

@@ -1,8 +1,7 @@
 "use client";
 import { AppFrame } from "@/components/AppFrame";
-import { AddUserForm } from "@/components/form/UserInputForm/AddUserForm";
+import { AddUserForm } from "@/components/User/UserInputForm/AddUserForm";
 import { ProtectedPage } from "@/components/ProtectedPage";
-import { SessionGuard } from "@/components/SessionGuard";
 import { useSession } from "next-auth/react";
 import { notFound } from "next/navigation";
 
