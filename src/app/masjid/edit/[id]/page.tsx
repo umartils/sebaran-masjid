@@ -23,7 +23,7 @@ export default async function MasjidEditPage({
 
   return (
     <AppFrame>
-      <ProtectedPage redirectTo="/">
+      <ProtectedPage redirectTo="/admin/dashboard/pengajuan">
         <section className="form-page">
           <FormEditPengajuan masjid={masjid} from={from} />
         </section>

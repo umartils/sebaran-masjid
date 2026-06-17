@@ -1,20 +1,36 @@
 import { prisma } from "@/lib/prisma";
 import { unstable_noStore as noStore } from "next/cache";
-import type { User } from "@/lib/types";
+import type { DataUser } from "@/lib/types";
 
-export async function getAllUser(): Promise<User[]> {
-    noStore();
- 
-    try {
-        const user = await prisma.user.findMany({
-            orderBy: {
-                createdAt: "desc",
-            },
-        });
+export async function getAllUser(): Promise<DataUser[]> {
+  noStore();
 
-        return user;
-    } catch(error) {
-        console.error("[getMasjid] Prisma error:", error);
-        return [];
-    }
+  try {
+    const user = await prisma.user.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return user;
+  } catch (error) {
+    console.error("[getAllUser] Prisma error:", error);
+    return [];
+  }
+}
+
+export async function getUserById(id: string): Promise<DataUser | null> {
+  noStore();
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return user;
+  } catch (error) {
+    return null;
+  }
 }

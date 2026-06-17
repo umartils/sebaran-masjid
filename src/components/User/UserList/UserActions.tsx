@@ -10,24 +10,24 @@ import {
   Trash,
 } from "lucide-react";
 
-import type { Masjid } from "@/lib/types";
+import type { DataUser } from "@/lib/types";
 import type { BuildingAction } from "./hooks/useApprovalPengajuan";
 
 import styles from "./ListMasjid.module.scss";
 
 interface UserActionsProps {
-  building: Masjid;
+  user: DataUser;
 
-  onAction: (
-    building: Masjid,
-    action: BuildingAction
-  ) => void;
+  // onAction: (
+  //   building: Masjid,
+  //   action: BuildingAction
+  // ) => void;
 }
 
 export default function UserActions({
-  building,
-  onAction,
-}: UserActionsProps) {
+  user,
+}: // onAction,
+UserActionsProps) {
   return (
     <div className={styles.tableActions}>
       {/* View */}
@@ -42,14 +42,14 @@ export default function UserActions({
 
       {/* Approved Actions */}
       <Link
-        href={`/admin/user/${building.id}/edit?from=/admin/user/list`}
+        href={`/admin/user/${user.id}/edit?from=/admin/user/list`}
         className={`${styles.actionBtn} ${styles.actionBtnEdit}`}
         title="Edit data"
       >
         <Pencil size={15} />
         <span>Edit</span>
       </Link>
-      <button
+      {/* <button
         type="button"
         onClick={() => onAction(building, "DELETED")}
         className={`${styles.actionBtn} ${styles.actionBtnReject}`}
@@ -57,7 +57,7 @@ export default function UserActions({
       >
         <Trash size={15} />
         <span>Hapus</span>
-      </button>
+      </button> */}
     </div>
   );
 }

@@ -13,13 +13,13 @@ import ConfirmationModal from "./ConfirmationModal";
 
 import styles from "./HistoryPengajuan.module.scss";
 import { CATEGORY_OPTIONS } from "./constants/categories";
-import type { KategoriMasjid } from "@/lib/types";
+import type { StatusMasjid } from "@/lib/types";
 
 // Global Filter
 import FilterBar from "@/components/UI/FilterBar/FilterBar";
 import { useTableFilters } from "@/hooks/useTableFilters";
 import { useFilteredData } from "@/hooks/useFilteredData";
-import { masjidFilterFn } from "@/lib/filters/masjidFilterFn";
+import { historyFilterFn } from "@/lib/filters/historyFilterFn";
 
 import { usePathname } from "next/navigation";
 
@@ -45,7 +45,7 @@ export function HistoryPengajuan({ masjid }: Props) {
     setStartDate,
     endDate,
     setEndDate,
-  } = useTableFilters<"ALL" | KategoriMasjid>({ defaultCategory: "ALL" });
+  } = useTableFilters<"ALL" | StatusMasjid>({ defaultCategory: "ALL" });
 
   const filtered = useFilteredData({
     data: masjid,
@@ -53,7 +53,7 @@ export function HistoryPengajuan({ masjid }: Props) {
     categoryFilter,
     startDate,
     endDate,
-    filterFn: masjidFilterFn,
+    filterFn: historyFilterFn,
   });
 
   const { page, pageSize, totalPages, paginatedData, setPage, setPageSize } =
@@ -71,7 +71,7 @@ export function HistoryPengajuan({ masjid }: Props) {
         onEndDateChange={setEndDate}
         selectOptions={CATEGORY_OPTIONS}
         selectValue={categoryFilter}
-        onSelectChange={(v) => setCategoryFilter(v as KategoriMasjid)}
+        onSelectChange={(v) => setCategoryFilter(v as StatusMasjid)}
         filteredCount={filtered.length}
         totalCount={masjid.length}
         entityLabel="masjid"

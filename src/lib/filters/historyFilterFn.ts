@@ -1,7 +1,7 @@
-// lib/filters/masjidFilterFn.ts — logika filter dipisah agar testable
+// lib/filters/historyFilterFn.ts — logika filter dipisah agar testable
 import type { Masjid } from "@/lib/types";
 
-export function masjidFilterFn(
+export function historyFilterFn(
   item: Masjid,
   { query, categoryFilter, startDate, endDate }: {
     query: string;
@@ -15,7 +15,7 @@ export function masjidFilterFn(
   if (q && ![item.nama, item.alamat, item.namaKota, item.namaProvinsi, item.kategori]
     .some((f) => f?.toLowerCase().includes(q))) return false;
 
-  if (categoryFilter && categoryFilter !== "ALL" && item.kategori !== categoryFilter)
+  if (categoryFilter && categoryFilter !== "ALL" && item.statusPengajuan !== categoryFilter)
     return false;
 
    if (startDate || endDate) {

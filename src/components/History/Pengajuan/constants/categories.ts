@@ -1,27 +1,27 @@
-import type { KategoriMasjid } from "@/lib/types";
+import type { StatusMasjid } from "@/lib/types";
 
 export const CATEGORY_OPTIONS: Array<{
-  value: "ALL" | KategoriMasjid;
+  value: "ALL" | StatusMasjid;
   label: string;
 }> = [
   {
     value: "ALL",
-    label: "Semua Kategori",
+    label: "Semua Status",
   },
   {
-    value: "Pelosok_Pedalaman",
-    label: "Pelosok Pedalaman",
+    value: "APPROVED",
+    label: "APPROVED",
   },
   {
-    value: "Muslim_Minoritas",
-    label: "Muslim Minoritas",
+    value: "PENDING",
+    label: "PENDING",
   },
   {
-    value: "Kampung_Mualaf",
-    label: "Kampung Mualaf",
+    value: "REJECTED",
+    label: "REJECTED",
   },
-  {
-    value: "Terdampak_Bencana",
-    label: "Terdampak Bencana",
-  },
+  // {
+  //   value: "Terdampak_Bencana",
+  //   label: "Terdampak Bencana",
+  // },
 ];

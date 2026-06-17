@@ -14,7 +14,7 @@ const userSchema = z.object({
 
   role: z.string().optional(),
 
-  password: z.string().min(8, "Password minimal 8 karakter"),
+  password: z.string().min(8, "Password minimal 8 karakter").optional(),
 
   userInput: z.string().min(1, "User input wajib diisi"),
 });
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password ?? "", 10);
 
     const newUser = await prisma.user.create({
       data: {
@@ -55,7 +55,7 @@ export async function POST(req: Request) {
         email,
         nomorTelepon,
         role,
-        password: hashedPassword,
+        password: hashedPassword || "",
         userInput,
       },
     });
@@ -103,13 +103,11 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
   try {
-
     const body = await req.json();
 
     const validatedData = userSchema.parse(body);
 
-    const { id, name, email, nomorTelepon, role, password, userInput } =
-      validatedData;
+    const { id, name, email, nomorTelepon, role, userInput } = validatedData;
 
     const existingUser = await prisma.user.findUnique({
       where: {
@@ -117,7 +115,7 @@ export async function PUT(req: Request) {
       },
     });
 
-    if (existingUser) {
+    if (existingUser && existingUser.id !== id) {
       return NextResponse.json(
         {
           success: false,
@@ -137,20 +135,19 @@ export async function PUT(req: Request) {
         email,
         nomorTelepon,
         role,
-        userInput,
       },
       where: {
-        id
-      }
+        id,
+      },
     });
 
     return NextResponse.json({
       success: true,
       message: "User updated successfully",
-      user: updatedUser
-    })
-
+      user: updatedUser,
+    });
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       {
         success: false,

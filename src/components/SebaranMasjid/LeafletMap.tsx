@@ -39,7 +39,7 @@ function MapFocus({
   useEffect(() => {
     if (building && shouldFocus) {
       const panelWidth = window.innerWidth > 900 ? 380 : 0;
-      map.flyTo([building.latitude ?? 0, building.longitude ?? 0], 17, {
+      map.flyTo([building.latitude ?? 0, building.longitude ?? 0], 12, {
         duration: 0.8,
       });
     }

@@ -123,7 +123,7 @@ export function FormEditPengajuan({ masjid, from }: Props) {
 
     if (response.ok) {
       setStatus("Data berhasil diupdate.");
-      showToast("Progres berhasil ditambahkan", "success");
+      showToast("Data Pengajuan berhasil disimpan", "success");
       setTimeout(() => {
         router.push(from);
         router.refresh();

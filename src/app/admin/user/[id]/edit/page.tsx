@@ -1,10 +1,7 @@
 import { AppFrame } from "@/components/AppFrame";
 import { notFound } from 'next/navigation';
-import {
-  getTrackingMasjidLogById,
-  getMasjidIdByTrackingId,
-} from "@/lib/tracking";
-import { EditProgresLog } from "@/components/Progres/EditProgres/EditProgres";
+import { getUserById } from "@/lib/user";
+import { EditUserForm } from "@/components/User/UserInputForm/EditUserForm";
 import { ProtectedPage } from "@/components/ProtectedPage";
 
 export default async function MasjidEditPage({
@@ -14,18 +11,17 @@ export default async function MasjidEditPage({
   params: { id: string };
   searchParams: { from?: string };
 }) {
-  const log = await getTrackingMasjidLogById(params.id);
-  const trackingId = log?.trackingId;
-  const masjid = await getMasjidIdByTrackingId(trackingId || "");
-  if (!log || !masjid) notFound();
+  const user = await getUserById(params.id);
+  if (!user) notFound();
+  console.log("user id: ", user.id);
   const from = searchParams.from || "/";
   return (
     <AppFrame>
-      <ProtectedPage redirectTo="/input/pengajuan">
+      <ProtectedPage redirectTo="/admin/user/list">
         <section className="form-page">
-          <EditProgresLog log={log} from={from} masjid={masjid} />
+          <EditUserForm user={user} from={from} />
         </section>
       </ProtectedPage>
     </AppFrame>
   );
-}
+} 

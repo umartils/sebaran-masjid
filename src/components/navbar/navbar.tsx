@@ -9,6 +9,7 @@ import {
   PlusCircle,
   UserRoundCog,
   History,
+  Wrench,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState, useMemo } from "react";
@@ -66,6 +67,16 @@ const navItems: NavItem[] = [
     children: [
       { href: "/admin/user/form", label: "Add User" },
       { href: "/admin/user/list", label: "List User" },
+    ],
+  },
+  {
+    label: "Tools",
+    icon: Wrench,
+    protected: true,
+    adminOnly: true,
+    children: [
+      { href: "https://data-clean-ymn.vercel.app/", label: "Data Cleaning" },
+      // { href: "/admin/user/list", label: "List User" },
     ],
   },
 ];

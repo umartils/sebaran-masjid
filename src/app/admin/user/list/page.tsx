@@ -7,7 +7,7 @@ import { SessionGuard } from "@/components/SessionGuard";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
-
+ 
 export default async function AdminPage() {
   const user = await getAllUser();
   if (!user) {
@@ -18,7 +18,7 @@ export default async function AdminPage() {
   return (
     <AppFrame>
       <SessionGuard>
-        <ProtectedPage redirectTo="/admin/dashboard/tracking">
+        <ProtectedPage redirectTo="/admin/user/list">
           <section className="admin-page">
             <h1>Dashboard Admin - Daftar User Se-IMaN</h1>
 

@@ -1,7 +1,5 @@
 "use client";
-import type {
-  User,
-} from "@/lib/types";
+import type { DataUser } from "@/lib/types";
 import { useSession } from "next-auth/react";
 
 // Import Hooks
@@ -21,9 +19,8 @@ import { useTableFilters } from "@/hooks/useTableFilters";
 import { useFilteredData } from "@/hooks/useFilteredData";
 import { userFilterFn } from "@/lib/filters/userFilterFn";
 
-
 type Props = {
-  user: User[];
+  user: DataUser[];
 };
 
 export function TableUser({ user }: Props) {
@@ -106,7 +103,7 @@ export function TableUser({ user }: Props) {
               <th>Nomor Telepon</th>
               <th>Role</th>
               <th>User Input</th>
-              {/* <th>Aksi</th> */}
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
