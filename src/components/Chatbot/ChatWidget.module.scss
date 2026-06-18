@@ -132,6 +132,37 @@ $brand-dark: #d88906;
   border: 1px solid #e5e7eb;
 }
 
+.markdown {
+  p {
+    margin: 0;
+  }
+
+  p + p {
+    margin-top: 8px;
+  }
+
+  ul,
+  ol {
+    margin: 8px 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin: 4px 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 8px 0;
+  }
+
+  pre {
+    overflow-x: auto;
+  }
+}
+
 /* ===== Tool Result: Download Button ===== */
 .downloadBtn {
   display: inline-flex;

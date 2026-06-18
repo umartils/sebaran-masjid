@@ -5,40 +5,46 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
+
+import { Download } from "lucide-react";
+
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
 import styles from "./ChatWidget.module.scss";
 
-const HIDDEN_PATHS = ['/login', '/register', '/signup'];
+const HIDDEN_PATHS = ["/login", "/register", "/signup"];
 
 export default function ChatWidget() {
   const pathname = usePathname();
   const { status: authStatus } = useSession(); // 'loading' | 'authenticated' | 'unauthenticated'
 
   const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // v5: useChat tidak lagi mengelola state input maupun parameter `api` langsung —
   // konfigurasi endpoint sekarang lewat transport object.
   const { messages, sendMessage, status } = useChat({
-    transport: new DefaultChatTransport({ api: '/api/chat' }),
+    transport: new DefaultChatTransport({ api: "/api/chat" }),
   });
 
-  const isLoading = status === 'submitted' || status === 'streaming';
+  const isLoading = status === "submitted" || status === "streaming";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
     sendMessage({ text: input });
-    setInput('');
+    setInput("");
   };
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const isHiddenPath = HIDDEN_PATHS.some((path) => pathname?.startsWith(path));
-  const isLoggedIn = authStatus === 'authenticated';
- 
+  const isLoggedIn = authStatus === "authenticated";
+
   if (isHiddenPath || !isLoggedIn) return null;
 
   return (
@@ -105,7 +111,11 @@ export default function ChatWidget() {
               className={styles.input}
               disabled={isLoading}
             />
-            <button type="submit" className={styles.sendBtn} disabled={isLoading || !input.trim()}>
+            <button
+              type="submit"
+              className={styles.sendBtn}
+              disabled={isLoading || !input.trim()}
+            >
               <SendIcon />
             </button>
           </form>
@@ -118,18 +128,27 @@ export default function ChatWidget() {
 /* ---------- Message Bubble — v5 menggunakan message.parts, bukan message.content ---------- */
 
 function MessageBubble({ message }: { message: any }) {
-  const isUser = message.role === 'user';
+  const isUser = message.role === "user";
 
   return (
     <div className={isUser ? styles.bubbleUser : styles.bubbleAssistant}>
       {message.parts?.map((part: any, idx: number) => {
         // Bagian teks biasa
-        if (part.type === 'text') {
-          return <div key={idx}>{part.text}</div>;
+        if (part.type === "text") {
+          return (
+            <div key={idx} className={styles.markdown}>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {part.text}
+              </ReactMarkdown>
+            </div>
+          );
         }
 
         // Bagian tool call — di v5 bertipe `tool-${toolName}`, hasil tersedia saat state 'output-available'
-        if (part.type?.startsWith('tool-') && part.state === 'output-available') {
+        if (
+          part.type?.startsWith("tool-") &&
+          part.state === "output-available"
+        ) {
           const result = part.output;
 
           if (result?.downloadUrl) {
@@ -140,7 +159,8 @@ function MessageBubble({ message }: { message: any }) {
                 download
                 className={styles.downloadBtn}
               >
-                ⬇️ {result.label ?? 'Download Laporan'}
+                <Download />
+                {result.label ?? "Download Laporan"}
               </a>
             );
           }
@@ -150,8 +170,10 @@ function MessageBubble({ message }: { message: any }) {
               <div key={idx} className={styles.progresList}>
                 {result.logs.map((log: any, i: number) => (
                   <div key={i} className={styles.progresItem}>
-                    <span className={styles.progresPercent}>{log.persentase ?? '-'}%</span>
-                    <span>{log.progres ?? 'Tidak ada catatan'}</span>
+                    <span className={styles.progresPercent}>
+                      {log.persentase ?? "-"}%
+                    </span>
+                    <span>{log.progres ?? "Tidak ada catatan"}</span>
                   </div>
                 ))}
               </div>
