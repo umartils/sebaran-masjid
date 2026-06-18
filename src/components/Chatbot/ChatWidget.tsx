@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
-import styles from './Chatwidget.module.scss';
+import styles from "./ChatWidget.module.scss";
 
 const HIDDEN_PATHS = ['/login', '/register', '/signup'];
 
