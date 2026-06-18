@@ -8,8 +8,8 @@ export const maxDuration = 30;
 
 export async function POST(req: Request) {
   const myGoogleGenAI = createGoogleGenerativeAI({
-    apiKey: process.env.GOOLE_API_KEY,
-  })
+    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+  });
   try {
     const { messages }: { messages: UIMessage[] } = await req.json();
 
