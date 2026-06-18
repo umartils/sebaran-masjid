@@ -2072,3 +2072,34 @@ textarea.control {
   pointer-events: none;
   color: #64748b;
 }
+
+// Chatbot Styling
+
+// ChatWidget.module.scss
+.chat-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.chat-window {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 360px;
+  height: 480px;
+  z-index: 999;
+  
+  // Responsive: full screen di mobile
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+  }
+}

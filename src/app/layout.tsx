@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.scss";
 import "leaflet/dist/leaflet.css";
 import Providers from "./providers";
+import ChatWidget from "@/components/Chatbot/ChatWidget";
 // import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
@@ -23,7 +24,10 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <ChatWidget />
+        </Providers>
       </body>
     </html>
   );
