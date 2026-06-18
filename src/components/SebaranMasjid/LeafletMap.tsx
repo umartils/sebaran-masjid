@@ -159,7 +159,7 @@ export default function LeafletMap({
       zoomControl={false}
       className="leaflet-container"
     >
-      <ZoomControl position="bottomright" />
+      {/* <ZoomControl position="bottomright" /> */}
       <TileLayer
         attribution="Tiles &copy; Esri"
         url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"

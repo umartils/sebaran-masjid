@@ -11,7 +11,7 @@ $warning: #d97706;
 $success: #15803d;
 $info: #0ea5e9;
 $breakpoint-mobile: 900px;
-$breakpoint-slim-mobile: 5150px;
+$breakpoint-slim-mobile: 545px;
 
 @mixin mobile {
   @media (max-width: $breakpoint-mobile) {
@@ -833,12 +833,14 @@ textarea.control {
   padding: 8px 20px;
   border-radius: 999px;
   border: none;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   background: transparent;
   color: #555;
   transition: background 0.2s, color 0.2s;
+
+  white-space: nowrap;
   
   @include mobile {
     padding: 7px 20px;
