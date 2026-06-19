@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./ChatWidget.module.scss";
+import { useMobileOverlay } from "@/context/MobileOverlayContext";
 
 export function ToolResultRenderer({ result }: { result: any }) {
   if (!result) return null;
@@ -72,7 +73,14 @@ export function ToolResultRenderer({ result }: { result: any }) {
 
 /* ---------- Photo Gallery untuk hasil getFotoMasjid ---------- */
 
-function PhotoGallery({ nama, imageUrl }: { nama: string; imageUrl: string[] }) {
+function PhotoGallery({
+  nama,
+  imageUrl,
+}: {
+  nama: string;
+  imageUrl: string[];
+}) {
+  const { isMobile, setIsMobile } = useMobileOverlay();
   const [activeIdx, setActiveIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -85,7 +93,7 @@ function PhotoGallery({ nama, imageUrl }: { nama: string; imageUrl: string[] }) 
         src={imageUrl[activeIdx]}
         alt={`${nama} - foto ${activeIdx + 1}`}
         className={styles.photoGalleryMain}
-        onClick={() => setLightboxOpen(true)}
+        onClick={() => [setLightboxOpen(true), setIsMobile(true)]}
         loading="lazy"
       />
 
@@ -98,9 +106,7 @@ function PhotoGallery({ nama, imageUrl }: { nama: string; imageUrl: string[] }) 
               src={url}
               alt={`thumbnail ${idx + 1}`}
               className={
-                idx === activeIdx
-                  ? styles.photoThumbActive
-                  : styles.photoThumb
+                idx === activeIdx ? styles.photoThumbActive : styles.photoThumb
               }
               onClick={() => setActiveIdx(idx)}
               loading="lazy"
@@ -113,7 +119,7 @@ function PhotoGallery({ nama, imageUrl }: { nama: string; imageUrl: string[] }) 
       {lightboxOpen && (
         <div
           className={styles.lightboxOverlay}
-          onClick={() => setLightboxOpen(false)}
+          onClick={() => [setLightboxOpen(false), setIsMobile(false)]}
         >
           <img
             src={imageUrl[activeIdx]}
@@ -123,7 +129,7 @@ function PhotoGallery({ nama, imageUrl }: { nama: string; imageUrl: string[] }) 
           />
           <button
             className={styles.lightboxClose}
-            onClick={() => setLightboxOpen(false)}
+            onClick={() => [setLightboxOpen(false), setIsMobile(false)]}
             aria-label="Tutup"
           >
             ✕

@@ -11,9 +11,12 @@ type MobileOverlayContextType = {
   isChatOpen: boolean;
   setIsChatOpen: (open: boolean) => void;
   isMobile: boolean;
+  setIsMobile: (isMobile: boolean) => void;
 };
 
-const MobileOverlayContext = createContext<MobileOverlayContextType | undefined>(undefined);
+const MobileOverlayContext = createContext<
+  MobileOverlayContextType | undefined
+>(undefined);
 
 export function MobileOverlayProvider({ children }: { children: ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -21,7 +24,9 @@ export function MobileOverlayProvider({ children }: { children: ReactNode }) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+    const mediaQuery = window.matchMedia(
+      `(max-width: ${MOBILE_BREAKPOINT - 1}px)`
+    );
 
     const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
       setIsMobile(e.matches);
@@ -32,13 +37,20 @@ export function MobileOverlayProvider({ children }: { children: ReactNode }) {
     setIsSidebarOpen(!mediaQuery.matches);
 
     // Pantau perubahan ukuran viewport (misal resize browser atau rotate device)
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
   return (
     <MobileOverlayContext.Provider
-      value={{ isSidebarOpen, setIsSidebarOpen, isChatOpen, setIsChatOpen, isMobile }}
+      value={{
+        isSidebarOpen,
+        setIsSidebarOpen,
+        isChatOpen,
+        setIsChatOpen,
+        isMobile,
+        setIsMobile,
+      }}
     >
       {children}
     </MobileOverlayContext.Provider>

@@ -691,15 +691,15 @@ textarea.control {
   @include mobile {
     width: min(240px, calc(100vw - 88px));
   }
-}
+} 
 
 .popup-head {
-  padding: 18px 18px 10px;
+  padding: 18px 18px 5px;
   color: #ffffff;
   background: linear-gradient(135deg, $brand, $brand-dark);
 
   h3 {
-    margin: 1px 0 4px;
+    margin: 1px 0 2px;
     font-size: 20px;
     font-weight: 700;
     // line-height: 1.1;
@@ -730,7 +730,7 @@ textarea.control {
 }
 
 .popup-row {
-  min-height: 20px;
+  min-height: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;

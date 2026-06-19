@@ -11,7 +11,6 @@ import {
   ZoomControl,
 } from "react-leaflet";
 import { useEffect, useRef } from "react";
-import { kategoriLabel, kategoriTone } from "@/lib/format";
 import type { MapMasjid, MapMasjidMNBaru } from "@/lib/types";
 import { ExternalLink } from "lucide-react";
 
@@ -98,14 +97,14 @@ function BuildingMarker({
             <p>{building.alamat}</p>
           </div>
           <div className="popup-body">
-            {mapMode === "renovasi" && (
+            {/* {mapMode === "renovasi" && (
               <div className="popup-row">
                 <p>Status</p>
                 <span className={`badge ${kategoriTone(building.kategori)}`}>
                   {kategoriLabel(building.kategori)}
                 </span>
               </div>
-            )}
+            )} */}
             <div className="popup-row">
               <p>Kapasitas</p>
               <strong>

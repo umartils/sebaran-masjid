@@ -1,9 +1,11 @@
 'use client';
-import type { Masjid } from '@/lib/types';
-import ImageSlider from './ImageSlider';
-import DocumentGallery from './DocumentGallery';
-import MasjidMap from './MasjidMap';
-import styles from './MasjidDetail.module.scss';
+
+import { useSession } from "next-auth/react";
+import type { Masjid } from "@/lib/types";
+import ImageSlider from "./ImageSlider";
+import DocumentGallery from "./DocumentGallery";
+import MasjidMap from "./MasjidMap";
+import styles from "./MasjidDetail.module.scss";
 import {
   Info,
   Building2,
@@ -68,6 +70,7 @@ interface Props {
   from: String;
 }
 export default function MasjidDetail({ masjid, from }: Props) {
+  const { status: authStatus } = useSession();
   const kondisi = KONDISI_LABEL[masjid.kondisi] ?? {
     label: masjid.kondisi,
     tone: "sedang",
@@ -76,6 +79,8 @@ export default function MasjidDetail({ masjid, from }: Props) {
     label: masjid.statusPengajuan,
     cls: "pending",
   };
+
+  const isLoggedIn = authStatus === "authenticated";
 
   const wilayah = [
     masjid.namaDesa,
@@ -300,37 +305,43 @@ export default function MasjidDetail({ masjid, from }: Props) {
           </div>
 
           {/* PIC */}
-          <div className={styles.card}>
-            <div className={styles.cardHeader}>
-              <User size={18} />
-              <h2>Narahubung (PIC)</h2>
-            </div>
-            <div className={styles.cardBody}>
-              <div className={styles.rowList}>
-                <Row label="Nama" value={masjid.namaPic} />
-                <Row label="Jabatan" value={masjid.jabatanPic} />
-                <Row label="Kontak" value={masjid.kontakPic} />
-              </div>
-            </div>
-          </div>
-
-          {/* Relawan */}
-          {(masjid.namaRelawan || masjid.noTelpRelawan) && (
-            <div className={styles.card}>
-              <div className={styles.cardHeader}>
-                <UserCheck size={18} />
-                <h2>Relawan Pendamping</h2>
-              </div>
-              <div className={styles.cardBody}>
-                <div className={styles.rowList}>
-                  <Row label="Nama Relawan" value={masjid.namaRelawan} />
-                  <Row label="Kontak Relawan" value={masjid.noTelpRelawan} />
-                  {masjid.editedBy && (
-                    <Row label="Disetujui Oleh" value={masjid.editedBy} />
-                  )}
+          {isLoggedIn && (
+            <>
+              <div className={styles.card}>
+                <div className={styles.cardHeader}>
+                  <User size={18} />
+                  <h2>Narahubung (PIC)</h2>
+                </div>
+                <div className={styles.cardBody}>
+                  <div className={styles.rowList}>
+                    <Row label="Nama" value={masjid.namaPic} />
+                    <Row label="Jabatan" value={masjid.jabatanPic} />
+                    <Row label="Kontak" value={masjid.kontakPic} />
+                  </div>
                 </div>
               </div>
-            </div>
+
+              {(masjid.namaRelawan || masjid.noTelpRelawan) && (
+                <div className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <UserCheck size={18} />
+                    <h2>Relawan Pendamping</h2>
+                  </div>
+                  <div className={styles.cardBody}>
+                    <div className={styles.rowList}>
+                      <Row label="Nama Relawan" value={masjid.namaRelawan} />
+                      <Row
+                        label="Kontak Relawan"
+                        value={masjid.noTelpRelawan}
+                      />
+                      {masjid.editedBy && (
+                        <Row label="Disetujui Oleh" value={masjid.editedBy} />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           )}
 
           {/* Catatan */}

@@ -19,11 +19,10 @@ const HIDDEN_PATHS = ["/login", "/register", "/signup"];
 
 export default function ChatWidget() {
   const { isChatOpen, setIsChatOpen } = useMobileOverlay();
-
+ 
   const pathname = usePathname();
   const { status: authStatus } = useSession(); // 'loading' | 'authenticated' | 'unauthenticated'
 
-  const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -45,9 +44,9 @@ export default function ChatWidget() {
   }, [messages]);
 
   const isHiddenPath = HIDDEN_PATHS.some((path) => pathname?.startsWith(path));
-  const isLoggedIn = authStatus === "authenticated";
+  // const isLoggedIn = authStatus === "authenticated";
 
-  if (isHiddenPath || !isLoggedIn) return null;
+  if (isHiddenPath) return null;
 
   return (
     <>

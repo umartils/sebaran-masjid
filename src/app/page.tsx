@@ -1,7 +1,6 @@
 import { MapExperience } from "@/components/SebaranMasjid/MapExperience";
 import { getMapMasjid } from "@/lib/masjid";
 import { getMapMasjidMN } from "@/lib/masjid-mn";
-import ChatWidget from "@/components/Chatbot/ChatWidget";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {

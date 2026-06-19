@@ -12,9 +12,14 @@ import { Navbar } from "./navbar/navbar";
 import { useToast } from "@/hooks/useToast";
 import { useMobileOverlay } from "@/context/MobileOverlayContext";
 
-export function SideBar({ children }: { children: React.ReactNode }) {
+type SideBarProps = {
+  children: React.ReactNode;
+  callBackUrl?: string;
+};
+
+export function SideBar({ children, callBackUrl = "/" }: SideBarProps) {
   const { isSidebarOpen, setIsSidebarOpen } = useMobileOverlay();
-  
+
   const { data: session, status } = useSession();
 
   const isLoggedIn = status === "authenticated";
@@ -27,17 +32,11 @@ export function SideBar({ children }: { children: React.ReactNode }) {
 
   const { toast, showToast } = useToast();
 
-  // useEffect(() => {
-  //   if (window.innerWidth <= 900) {
-  //     setCollapsed(true);
-  //   }
-  // }, []);
-
   async function handleLogout() {
     sessionStorage.setItem("logoutSuccess", "true");
 
     await signOut({
-      callbackUrl: "/",
+      callbackUrl: `${callBackUrl}?reason=closed`,
     });
   }
 
@@ -100,7 +99,10 @@ export function SideBar({ children }: { children: React.ReactNode }) {
               </button>
             </div>
           ) : (
-            <Link className="login-button" href={`/login?redirect=/`}>
+            <Link
+              className="login-button"
+              href={`/login?redirect=${callBackUrl}`}
+            >
               <LogIn size={18} />
 
               <span>Login Relawan</span>
