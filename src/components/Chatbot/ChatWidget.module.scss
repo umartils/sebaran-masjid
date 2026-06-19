@@ -19,10 +19,17 @@ $brand-dark: #d88906;
   cursor: pointer;
   z-index: 999;
   transition: transform 0.2s ease;
+  background: linear-gradient(
+    135deg,
+    #f6a313,
+    #d88906
+  );
+  box-shadow: 0 8px 25px rgba(246,163,19,0.4);
+  transition: all 0.25s ease;
 }
 
 .fab:hover {
-  transform: scale(1.08);
+  transform: scale(1.1) rotate(10deg);
 }
 
 /* ===== Chat Window ===== */
@@ -94,11 +101,18 @@ $brand-dark: #d88906;
 .messages {
   flex: 1;
   overflow-y: auto;
-  padding: 16px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  background: #f9fafb;
+  gap: 14px;
+
+  background:
+    radial-gradient(circle at 20px 20px,
+      rgba(246, 163, 19, 0.04) 2px,
+      transparent 2px),
+    #fafafa;
+
+  background-size: 40px 40px;
 }
 
 .emptyState {
@@ -111,13 +125,19 @@ $brand-dark: #d88906;
 
 .bubbleUser {
   align-self: flex-end;
-  background: $brand;
+  background: linear-gradient(
+    135deg,
+    #f6a313,
+    #ffb938
+  );
   color: white;
-  padding: 10px 14px;
-  border-radius: 14px 14px 2px 14px;
+  padding: 12px 16px;
+  border-radius: 18px 18px 4px 18px;
   max-width: 80%;
   font-size: 14px;
-  line-height: 1.4;
+  box-shadow:
+    0 4px 12px rgba(246, 163, 19, 0.25);
+  animation: slideInRight 0.2s ease;
 }
 
 .bubbleAssistant {
@@ -125,11 +145,13 @@ $brand-dark: #d88906;
   background: #fff;
   color: #111827;
   padding: 10px 14px;
-  border-radius: 14px 14px 14px 2px;
+  border-radius: 18px 18px 18px 4px;
   max-width: 85%;
   font-size: 14px;
   line-height: 1.5;
   border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  animation: slideInLeft 0.2s ease;
 }
 
 .markdown {
@@ -169,8 +191,14 @@ $brand-dark: #d88906;
   align-items: center;
   gap: 6px;
   margin-top: 8px;
+  margin-bottom: 8px;
   padding: 8px 12px;
   background: #f0fdfa;
+  background: linear-gradient(
+    135deg,
+    #fff8e6,
+    #fff3cd
+  );
   color: $brand;
   border: 1px solid $brand;
   border-radius: 8px;
@@ -181,12 +209,14 @@ $brand-dark: #d88906;
 }
 
 .downloadBtn:hover {
-  background: #ccfbf1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(246,163,19,0.2);
 }
 
 /* ===== Tool Result: Progress List ===== */
 .progresList {
   margin-top: 8px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   gap: 6px;

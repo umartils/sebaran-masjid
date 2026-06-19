@@ -128,7 +128,10 @@ export default function ChatWidget() {
     </>
   );
 }
-
+ 
+function handleDownloadButton(result: any) {
+  window.open(`${result.downloadUrl}`, "_blank");
+}
 /* ---------- Message Bubble — v5 menggunakan message.parts, bukan message.content ---------- */
 
 function MessageBubble({ message }: { message: any }) {
@@ -158,15 +161,14 @@ function MessageBubble({ message }: { message: any }) {
 
           if (result?.downloadUrl) {
             return (
-              <a
+              <button
                 key={idx}
-                href={result.downloadUrl}
-                download
+                onClick={() => handleDownloadButton(result)}
                 className={styles.downloadBtn}
               >
                 <Download />
                 {result.label ?? "Download Laporan"}
-              </a>
+              </button>
             );
           }
 

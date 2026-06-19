@@ -2,7 +2,7 @@ import { streamText, convertToModelMessages, stepCountIs, UIMessage } from 'ai';
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
 import { masjidTools } from "@/lib/ai/tools";
-import { SEIMAN_SYSTEM_PROMPT } from "@/lib/ai/system-prompt";
+import { SEIMAN_SYSTEM_PROMPT } from "@/lib/ai/systme-prompt";
 
 // Streaming response butuh runtime edge/node yang mendukung stream — default Node.js sudah cukup
 export const maxDuration = 30;
@@ -17,6 +17,10 @@ export async function POST(req: Request) {
     apiKey: process.env.OPENAI_API_KEY,
   });
 
+  const myGoogleGenAI = createGoogleGenerativeAI({
+    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+  });
+
   try {
     const { messages }: { messages: UIMessage[] } = await req.json();
 
@@ -27,7 +31,7 @@ export async function POST(req: Request) {
     const trimmedMessages = messages.slice(-MAX_HISTORY_MESSAGES);
 
     const result = streamText({
-      // model: google("gemini-2.5-flash"),
+      // model: myGoogleGenAI("gemini-2.5-flash"),
       model: myOpenAI("gpt-4.1-nano"),
       system: SEIMAN_SYSTEM_PROMPT,
       messages: await convertToModelMessages(trimmedMessages),

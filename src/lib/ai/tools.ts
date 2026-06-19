@@ -276,15 +276,15 @@ export const masjidTools = {
 
       // Sesuaikan path ini dengan route handler PDF yang sudah ada di SEIMAN
       const downloadUrl = semuaLaporan
-        ? `/admin/dashboard/tracking/pdf/${masjid.id}/all`
-        : `/admin/dashboard/tracking/pdf/${masjid.id}`;
+        ? `/admin/dashboard/tracking/pdf/${masjid.tracking.id}/all`
+        : `/admin/dashboard/tracking/pdf/${masjid.tracking.id}`;
 
       return {
         found: true,
         hasReport: true,
         nama: masjid.nama,
         label: semuaLaporan
-          ? "Semua Laporan Progres"
+          ? `Laporan Progres ${masjid.nama}`
           : "Laporan Progres Terbaru",
         downloadUrl,
       };
