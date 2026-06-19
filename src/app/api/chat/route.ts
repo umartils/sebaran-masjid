@@ -10,7 +10,7 @@ export const maxDuration = 30;
 // Jumlah pesan terakhir yang dikirim ke LLM. Chatbot SEIMAN sifatnya pencarian
 // informasi per-topik (cari masjid X, progress Y) — jarang butuh konteks jauh ke belakang,
 // jadi sliding window kecil ini tetap menjaga relevansi tanpa membengkakkan token.
-const MAX_HISTORY_MESSAGES = 8;
+const MAX_HISTORY_MESSAGES = 5;
 
 export async function POST(req: Request) {
   const myOpenAI = createOpenAI({
@@ -31,8 +31,8 @@ export async function POST(req: Request) {
     const trimmedMessages = messages.slice(-MAX_HISTORY_MESSAGES);
 
     const result = streamText({
-      // model: myGoogleGenAI("gemini-2.5-flash"),
-      model: myOpenAI("gpt-4.1-nano"),
+      model: myGoogleGenAI("gemini-2.5-flash-lites"),
+      // model: myOpenAI("gpt-4o"),
       system: SEIMAN_SYSTEM_PROMPT,
       messages: await convertToModelMessages(trimmedMessages),
       tools: masjidTools,

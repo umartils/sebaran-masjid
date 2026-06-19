@@ -27,9 +27,7 @@ export default function ChatWidget() {
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // v5: useChat tidak lagi mengelola state input maupun parameter `api` langsung —
-  // konfigurasi endpoint sekarang lewat transport object.
-  const { messages, sendMessage, status } = useChat({
+  const { messages, sendMessage, status, error } = useChat({
     transport: new DefaultChatTransport({ api: "/api/chat" }),
   });
 
@@ -103,6 +101,14 @@ export default function ChatWidget() {
               </div>
             )}
 
+            {error && (
+              <div className={styles.bubbleAssistant}>
+                <div className={styles.errorText}>
+                  {"Terjadi kesalahan pada sistem AI."}
+                </div>
+              </div>
+            )}
+
             <div ref={messagesEndRef} />
           </div>
 
@@ -128,7 +134,7 @@ export default function ChatWidget() {
     </>
   );
 }
- 
+
 function handleDownloadButton(result: any) {
   window.open(`${result.downloadUrl}`, "_blank");
 }
