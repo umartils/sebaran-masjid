@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import { AppFrame } from "@/components/AppFrame";
+import { SideBar } from "@/components/SideBar";
 import { getTrackingMasjidList } from "@/lib/tracking";
 import { ProtectedPage } from "@/components/ProtectedPage";
 import { TablePengajuan } from "@/components/Progres/ListProgres/TableProgres";
@@ -13,7 +13,7 @@ export default async function AdminPage() {
   const session = await getServerSession(authOptions);
   if (session?.user.role !== "Admin") return notFound();
   return (
-    <AppFrame>
+    <SideBar>
       <SessionGuard>
         <ProtectedPage redirectTo="/admin/dashboard/tracking">
           <section className="admin-page">
@@ -27,6 +27,6 @@ export default async function AdminPage() {
           </section>
         </ProtectedPage>
       </SessionGuard>
-    </AppFrame>
+    </SideBar>
   );
 }

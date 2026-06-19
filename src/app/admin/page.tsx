@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import { AppFrame } from "@/components/AppFrame";
+import { SideBar } from "@/components/SideBar";
 import { getMasjid } from "@/lib/masjid";
 import { ProtectedPage } from "@/components/ProtectedPage";
 import { BuildingTable } from "@/components/ListMasjid/BuildingTable";
@@ -16,7 +16,7 @@ export default async function AdminPage() {
   const totalLayak = masjid.filter((b) => b.kondisi === "LAYAK").length;
 
   return (
-    <AppFrame>
+    <SideBar>
       <ProtectedPage redirectTo="/admin">
         <section className="admin-page">
           <h1>Dashboard Admin</h1>
@@ -47,6 +47,6 @@ export default async function AdminPage() {
           <BuildingTable buildings={masjid} />
         </section>
       </ProtectedPage>
-    </AppFrame>
+    </SideBar>
   );
 }

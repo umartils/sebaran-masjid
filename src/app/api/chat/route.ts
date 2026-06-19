@@ -1,48 +1,59 @@
 import { streamText, convertToModelMessages, stepCountIs, UIMessage } from 'ai';
-import { google, createGoogleGenerativeAI } from '@ai-sdk/google';
-import { masjidTools } from '@/lib/ai/tools';
-import { SEIMAN_SYSTEM_PROMPT } from '@/lib/ai/systme-prompt';
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { createOpenAI } from "@ai-sdk/openai";
+import { masjidTools } from "@/lib/ai/tools";
+import { SEIMAN_SYSTEM_PROMPT } from "@/lib/ai/system-prompt";
 
 // Streaming response butuh runtime edge/node yang mendukung stream — default Node.js sudah cukup
 export const maxDuration = 30;
 
+// Jumlah pesan terakhir yang dikirim ke LLM. Chatbot SEIMAN sifatnya pencarian
+// informasi per-topik (cari masjid X, progress Y) — jarang butuh konteks jauh ke belakang,
+// jadi sliding window kecil ini tetap menjaga relevansi tanpa membengkakkan token.
+const MAX_HISTORY_MESSAGES = 8;
+
 export async function POST(req: Request) {
-  const myGoogleGenAI = createGoogleGenerativeAI({
-    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+  const myOpenAI = createOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
   });
+
   try {
     const { messages }: { messages: UIMessage[] } = await req.json();
 
+    // Pangkas history: hanya kirim N pesan terakhir ke model.
+    // useChat di client tetap menyimpan full history untuk ditampilkan ke user,
+    // tapi yang dikirim ke Gemini dibatasi supaya token tidak terus membesar
+    // seiring panjangnya percakapan.
+    const trimmedMessages = messages.slice(-MAX_HISTORY_MESSAGES);
+
     const result = streamText({
-      model: myGoogleGenAI('gemini-2.5-flash-lite'),
+      // model: google("gemini-2.5-flash"),
+      model: myOpenAI("gpt-4.1-nano"),
       system: SEIMAN_SYSTEM_PROMPT,
-      messages: await convertToModelMessages(messages), // v5: UIMessage[] dari client -> ModelMessage[] untuk LLM
+      messages: await convertToModelMessages(trimmedMessages),
       tools: masjidTools,
       // v5: maxSteps dihapus dari useChat; kontrol multi-step kini di server lewat stopWhen.
-      // stepCountIs(4) mengizinkan AI memanggil beberapa tool berurutan
-      // (misal: getProgresMasjid -> getLaporanProgresPdf) sebelum berhenti.
-      stopWhen: stepCountIs(4),
-      onStepFinish: (step) => {
-        console.log('--- STEP FINISH ---');
-        console.log('toolCalls:', JSON.stringify(step.toolCalls, null, 2));
-        console.log('toolResults:', JSON.stringify(step.toolResults, null, 2));
-        console.log('text:', step.text);
-        console.log('finishReason:', step.finishReason);
-      },
+      // stepCountIs(3) cukup untuk kasus terpanjang SEIMAN: cari masjid -> getProgresMasjid -> getLaporanProgresPdf.
+      // Dibatasi rendah agar tidak ada tool-calling loop berlebihan yang boros token.
+      stopWhen: stepCountIs(3),
     });
+
     result.usage.then((usage) => {
-        console.log({
-            inputToken: usage.inputTokens,
-            outputToken: usage.outputTokens,
-            totalToken: usage.totalTokens
-        });
+      console.log({
+        inputToken: usage.inputTokens,
+        outputToken: usage.outputTokens,
+        totalToken: usage.totalTokens,
+      });
     });
+
     return result.toUIMessageStreamResponse();
   } catch (error) {
-    console.error('Chat API error:', error);
+    console.error("Chat API error:", error);
     return new Response(
-      JSON.stringify({ error: 'Terjadi kesalahan saat memproses permintaan chat.' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      JSON.stringify({
+        error: "Terjadi kesalahan saat memproses permintaan chat.",
+      }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 }

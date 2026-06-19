@@ -1,14 +1,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { SideBar } from "@/components/SideBar";
 import { Search, ChevronDown, RotateCcw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { kategoriLabel, kategoriTone } from "@/lib/format";
-import type {
-  KategoriMasjid,
-  MapMasjid,
-  MapMasjidMNBaru,
-} from "@/lib/types";
+import type { KategoriMasjid, MapMasjid, MapMasjidMNBaru } from "@/lib/types";
+
+import { useMobileOverlay } from "@/context/MobileOverlayContext";
 
 const LeafletMap = dynamic(
   () => import("@/components/SebaranMasjid/LeafletMap"),
@@ -42,6 +41,11 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"ALL" | KategoriMasjid>("ALL");
   const [province, setProvince] = useState("ALL");
+
+  const { isSidebarOpen, isChatOpen, isMobile } = useMobileOverlay();
+  const isOverlayActive = isMobile && (isSidebarOpen || isChatOpen);
+
+  // const isOverlayActive = isSidebarOpen || isChatOpen;
 
   // Pilih dataset aktif berdasarkan mode
   const activeBuildings: (MapMasjid | MapMasjidMNBaru)[] =
@@ -123,23 +127,6 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
     selectedBuilding == null;
   }
 
-  function haversineKm(
-    lat1: number,
-    lng1: number,
-    lat2: number,
-    lng2: number
-  ): number {
-    const R = 6371;
-    const dLat = ((lat2 - lat1) * Math.PI) / 180;
-    const dLng = ((lng2 - lng1) * Math.PI) / 180;
-    const a =
-      Math.sin(dLat / 2) ** 2 +
-      Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        Math.sin(dLng / 2) ** 2;
-    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  }
-
   // Reset filter & selected saat ganti mode
   function switchMode(mode: MapMode) {
     setMapMode(mode);
@@ -153,131 +140,139 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   }
 
   return (
-    <section className="map-page">
-      <LeafletMap
-        buildings={filteredBuildings}
-        selected={selectedBuilding}
-        onSelect={handleSelectFromMap}
-        mapMode={mapMode}
-        shouldFocus={userSelected}
-        resetView={resetViewTrigger}
-      />
+    <SideBar>
+      <section className="map-page">
+        <LeafletMap
+          buildings={filteredBuildings}
+          selected={selectedBuilding}
+          onSelect={handleSelectFromMap}
+          mapMode={mapMode}
+          shouldFocus={userSelected}
+          resetView={resetViewTrigger}
+        />
 
-      <div className="map-mode-toggle">
-        <button
-          className={`toggle-btn ${mapMode === "renovasi" ? "active" : ""}`}
-          onClick={() => switchMode("renovasi")}
-          title="Masjid Butuh Renovasi"
+        <div
+          className={`map-mode-toggle ${
+            isOverlayActive ? "map-mode-toggle--hidden" : ""
+          }`}
         >
-          {/* <Hammer size={18} /> */}
-          <span>Butuh Renovasi</span>
-        </button>
-        <button
-          className={`toggle-btn ${mapMode === "dibangun" ? "active" : ""}`}
-          onClick={() => switchMode("dibangun")}
-          title="Masjid Sudah Dibangun"
-        >
-          {/* <CheckCircle size={18} /> */}
-          <span>Sudah Dibangun</span>
-        </button>
-      </div>
-      <aside className="map-panel" aria-label="Panel pencarian bangunan">
-        <h1>Cari Masjid</h1>
-        <p className="subtitle">
-          Temukan masjid{" "}
-          {mapMode == "renovasi"
-            ? "yang membutuhkan bantuan"
-            : "yang sudah dibangun"}{" "}
-        </p>
-        <label className="field">
-          <span className="search-control">
-            <Search size={22} />
-            <input
-              className="control"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Cari nama atau desa..."
-              type="search"
-            />
-          </span>
-        </label>
-        {mapMode === "renovasi" && (
-          <label className="field hidden">
-            <span className="label">Filter Kategori</span>
+          <button
+            className={`toggle-btn ${mapMode === "renovasi" ? "active" : ""}`}
+            onClick={() => switchMode("renovasi")}
+            title="Masjid Butuh Renovasi"
+          >
+            {/* <Hammer size={18} /> */}
+            <span>Butuh Renovasi</span>
+          </button>
+          <button
+            className={`toggle-btn ${mapMode === "dibangun" ? "active" : ""}`}
+            onClick={() => switchMode("dibangun")}
+            title="Masjid Sudah Dibangun"
+          >
+            {/* <CheckCircle size={18} /> */}
+            <span>Sudah Dibangun</span>
+          </button>
+        </div>
+        <aside className="map-panel" aria-label="Panel pencarian bangunan">
+          <h1>Cari Masjid</h1>
+          <p className="subtitle">
+            Temukan masjid{" "}
+            {mapMode == "renovasi"
+              ? "yang membutuhkan bantuan"
+              : "yang sudah dibangun"}{" "}
+          </p>
+          <label className="field">
+            <span className="search-control">
+              <Search size={22} />
+              <input
+                className="control"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Cari nama atau desa..."
+                type="search"
+              />
+            </span>
+          </label>
+          {mapMode === "renovasi" && (
+            <label className="field hidden">
+              <span className="label">Filter Kategori</span>
+              <div className="select-wrapper">
+                <select
+                  className="control"
+                  value={category}
+                  onChange={(e) =>
+                    setCategory(e.target.value as typeof category)
+                  }
+                >
+                  {categories.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="select-icon" size={20} />
+              </div>
+            </label>
+          )}
+          <label className="field">
+            <span className="label">Provinsi</span>
             <div className="select-wrapper">
               <select
                 className="control"
-                value={category}
-                onChange={(e) => setCategory(e.target.value as typeof category)}
+                value={province}
+                onChange={(e) => setProvince(e.target.value)}
               >
-                {categories.map((item) => (
-                  <option key={item.value} value={item.value}>
-                    {item.label}
+                <option value="ALL">Seluruh Indonesia</option>
+
+                {provinces.map(([id, nama]) => (
+                  <option key={id} value={id}>
+                    {nama}
                   </option>
                 ))}
               </select>
+
               <ChevronDown className="select-icon" size={20} />
             </div>
           </label>
-        )}
-        <label className="field">
-          <span className="label">Provinsi</span>
-          <div className="select-wrapper">
-            <select
-              className="control"
-              value={province}
-              onChange={(e) => setProvince(e.target.value)}
-            >
-              <option value="ALL">Seluruh Indonesia</option>
-
-              {provinces.map(([id, nama]) => (
-                <option key={id} value={id}>
-                  {nama}
-                </option>
-              ))}
-            </select>
-
-            <ChevronDown className="select-icon" size={20} />
+          <div className="panel-actions">
+            {isDirty && (
+              <button
+                className="action-btn reset-btn"
+                onClick={handleReset}
+                title="Reset pencarian"
+              >
+                <RotateCcw size={15} />
+                <span>Reset</span>
+              </button>
+            )}
           </div>
-        </label>
-        <div className="panel-actions">
-          {isDirty && (
-            <button
-              className="action-btn reset-btn"
-              onClick={handleReset}
-              title="Reset pencarian"
-            >
-              <RotateCcw size={15} />
-              <span>Reset</span>
-            </button>
-          )}
-        </div>
 
-        <div className="divider" />
-        <div className="result-count">
-          Hasil Pencarian ({filteredBuildings.length})
-        </div>
-        <div className="result-list">
-          {filteredBuildings.map((building) => (
-            <button
-              className={`result-card ${
-                building.id === selectedBuilding?.id ? "active" : ""
-              }`}
-              key={building.id}
-              type="button"
-              onClick={() => handleSelectFromList(building.id)}
-            >
-              <h2>{building.nama}</h2>
-              <p>{building.alamat}</p>
-              {mapMode === "renovasi" && (
-                <span className={`badge ${kategoriTone(building.kategori)}`}>
-                  {kategoriLabel(building.kategori)}
-                </span>
-              )}
-            </button>
-          ))}
-        </div>
-      </aside>
-    </section>
+          <div className="divider" />
+          <div className="result-count">
+            Hasil Pencarian ({filteredBuildings.length})
+          </div>
+          <div className="result-list">
+            {filteredBuildings.map((building) => (
+              <button
+                className={`result-card ${
+                  building.id === selectedBuilding?.id ? "active" : ""
+                }`}
+                key={building.id}
+                type="button"
+                onClick={() => handleSelectFromList(building.id)}
+              >
+                <h2>{building.nama}</h2>
+                <p>{building.alamat}</p>
+                {mapMode === "renovasi" && (
+                  <span className={`badge ${kategoriTone(building.kategori)}`}>
+                    {kategoriLabel(building.kategori)}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        </aside>
+      </section>
+    </SideBar>
   );
 }

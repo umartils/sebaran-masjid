@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import { AppFrame } from "@/components/AppFrame";
+import { SideBar } from "@/components/SideBar";
 import { getAllUser } from "@/lib/user";
 import { ProtectedPage } from "@/components/ProtectedPage";
 import { TableUser } from "@/components/User/UserList/TableUser";
@@ -7,7 +7,7 @@ import { SessionGuard } from "@/components/SessionGuard";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
- 
+
 export default async function AdminPage() {
   const user = await getAllUser();
   if (!user) {
@@ -16,7 +16,7 @@ export default async function AdminPage() {
   const session = await getServerSession(authOptions);
   if (session?.user.role !== "Admin") return notFound();
   return (
-    <AppFrame>
+    <SideBar>
       <SessionGuard>
         <ProtectedPage redirectTo="/admin/user/list">
           <section className="admin-page">
@@ -26,6 +26,6 @@ export default async function AdminPage() {
           </section>
         </ProtectedPage>
       </SessionGuard>
-    </AppFrame>
+    </SideBar>
   );
 }

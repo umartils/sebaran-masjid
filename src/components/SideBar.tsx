@@ -10,8 +10,11 @@ import { useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { Navbar } from "./navbar/navbar";
 import { useToast } from "@/hooks/useToast";
+import { useMobileOverlay } from "@/context/MobileOverlayContext";
 
-export function AppFrame({ children }: { children: React.ReactNode }) {
+export function SideBar({ children }: { children: React.ReactNode }) {
+  const { isSidebarOpen, setIsSidebarOpen } = useMobileOverlay();
+  
   const { data: session, status } = useSession();
 
   const isLoggedIn = status === "authenticated";
@@ -19,15 +22,16 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
   const username = session?.user?.name ?? session?.user?.email ?? "Relawan";
   const userRole = session?.user?.role ?? "Relawan";
 
-  const [collapsed, setCollapsed] = useState(false);
+  // const [collapsed, setCollapsed] = useState(false);
+  const collapsed = !isSidebarOpen;
 
   const { toast, showToast } = useToast();
 
-  useEffect(() => {
-    if (window.innerWidth <= 900) {
-      setCollapsed(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (window.innerWidth <= 900) {
+  //     setCollapsed(true);
+  //   }
+  // }, []);
 
   async function handleLogout() {
     sessionStorage.setItem("logoutSuccess", "true");
@@ -52,7 +56,7 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
         <button
           className="sidebar-toggle"
           type="button"
-          onClick={() => setCollapsed((value) => !value)}
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           aria-label={collapsed ? "Tampilkan sidebar" : "Sembunyikan sidebar"}
         >
           {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}

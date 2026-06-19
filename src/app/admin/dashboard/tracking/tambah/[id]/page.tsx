@@ -1,8 +1,8 @@
-import { AppFrame } from "@/components/AppFrame";
+import { SideBar } from "@/components/SideBar";
 import { ProtectedPage } from "@/components/ProtectedPage";
 import { getTrackingMasjidById } from "@/lib/tracking";
 import { FormTambahLog } from "@/components/Progres/TambahLog/FormTambahLog";
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation";
 import { SessionGuard } from "@/components/SessionGuard";
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -12,13 +12,13 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (!tracking) return notFound();
 
   return (
-    <AppFrame>
+    <SideBar>
       <ProtectedPage>
         <section className="admin-page">
           {/* <h1>Tambah Progres</h1> */}
           <FormTambahLog tracking={tracking} />
         </section>
       </ProtectedPage>
-    </AppFrame>
+    </SideBar>
   );
 }

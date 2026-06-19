@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
-import { AppFrame } from "@/components/AppFrame";
-import { notFound } from 'next/navigation';
-import { getTrackingMasjidById} from "@/lib/tracking";
+import { SideBar } from "@/components/SideBar";
+import { notFound } from "next/navigation";
+import { getTrackingMasjidById } from "@/lib/tracking";
 import { ProtectedPage } from "@/components/ProtectedPage";
 import { DetailProgres } from "@/components/Progres/ProgresDetail/DetailProgres";
 import { SessionGuard } from "@/components/SessionGuard";
@@ -18,7 +18,7 @@ export default async function DetilTrackingPage({
   const from = searchParams.from || "/";
 
   return (
-    <AppFrame>
+    <SideBar>
       <SessionGuard>
         <ProtectedPage redirectTo="/admin/dashboard/tracking">
           <section className="admin-page">
@@ -32,6 +32,6 @@ export default async function DetilTrackingPage({
           </section>
         </ProtectedPage>
       </SessionGuard>
-    </AppFrame>
+    </SideBar>
   );
 }

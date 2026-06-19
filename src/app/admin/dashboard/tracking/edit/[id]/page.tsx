@@ -1,5 +1,5 @@
-import { AppFrame } from "@/components/AppFrame";
-import { notFound } from 'next/navigation';
+import { SideBar } from "@/components/SideBar";
+import { notFound } from "next/navigation";
 import {
   getTrackingMasjidLogById,
   getMasjidIdByTrackingId,
@@ -20,12 +20,12 @@ export default async function MasjidEditPage({
   if (!log || !masjid) notFound();
   const from = searchParams.from || "/";
   return (
-    <AppFrame>
+    <SideBar>
       <ProtectedPage redirectTo="/input/pengajuan">
         <section className="form-page">
           <EditProgresLog log={log} from={from} masjid={masjid} />
         </section>
       </ProtectedPage>
-    </AppFrame>
+    </SideBar>
   );
 }

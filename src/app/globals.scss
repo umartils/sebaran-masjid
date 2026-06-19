@@ -10,7 +10,7 @@ $danger: #f04438;
 $warning: #d97706;
 $success: #15803d;
 $info: #0ea5e9;
-$breakpoint-mobile: 900px;
+$breakpoint-mobile: 800px;
 $breakpoint-slim-mobile: 545px;
 
 @mixin mobile {
@@ -819,10 +819,18 @@ textarea.control {
   border-radius: 999px;
   padding: 0.3rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
 
   @include mobile {
     bottom: auto;
     top: 1rem;
+  }
+
+  &--hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(-10px);
   }
 }
 

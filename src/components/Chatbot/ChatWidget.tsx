@@ -12,10 +12,14 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 import styles from "./ChatWidget.module.scss";
+import { ToolResultRenderer } from "./ToolResultRender";
+import { useMobileOverlay } from "@/context/MobileOverlayContext";
 
 const HIDDEN_PATHS = ["/login", "/register", "/signup"];
 
 export default function ChatWidget() {
+  const { isChatOpen, setIsChatOpen } = useMobileOverlay();
+
   const pathname = usePathname();
   const { status: authStatus } = useSession(); // 'loading' | 'authenticated' | 'unauthenticated'
 
@@ -50,10 +54,10 @@ export default function ChatWidget() {
   return (
     <>
       {/* Floating Action Button */}
-      {!isOpen && (
+      {!isChatOpen && (
         <button
           className={styles.fab}
-          onClick={() => setIsOpen(true)}
+          onClick={() => setIsChatOpen(true)}
           aria-label="Buka chat asisten Se-IMaN"
         >
           <ChatIcon />
@@ -61,7 +65,7 @@ export default function ChatWidget() {
       )}
 
       {/* Chat Window */}
-      {isOpen && (
+      {isChatOpen && (
         <div className={styles.chatWindow}>
           {/* Header */}
           <div className={styles.header}>
@@ -71,7 +75,7 @@ export default function ChatWidget() {
             </div>
             <button
               className={styles.closeBtn}
-              onClick={() => setIsOpen(false)}
+              onClick={() => setIsChatOpen(false)}
               aria-label="Tutup chat"
             >
               ✕
@@ -179,6 +183,7 @@ function MessageBubble({ message }: { message: any }) {
               </div>
             );
           }
+          return <ToolResultRenderer key={idx} result={result} />;
         }
 
         return null;

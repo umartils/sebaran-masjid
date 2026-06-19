@@ -1,5 +1,5 @@
 "use client";
-import { AppFrame } from "@/components/AppFrame";
+import { SideBar } from "@/components/SideBar";
 import { FormMasjidMN } from "@/components/form/FormMasjidMN";
 import { ProtectedPage } from "@/components/ProtectedPage";
 import { SessionGuard } from "@/components/SessionGuard";
@@ -7,13 +7,13 @@ import { SessionGuard } from "@/components/SessionGuard";
 export default function InputMasjidMN() {
   return (
     <SessionGuard>
-      <AppFrame>
+      <SideBar>
         <ProtectedPage redirectTo="/input/masjidmn">
           <section className="form-page">
             <FormMasjidMN />
           </section>
         </ProtectedPage>
-      </AppFrame>
+      </SideBar>
     </SessionGuard>
   );
 }

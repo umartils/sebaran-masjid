@@ -1,4 +1,3 @@
-import { AppFrame } from "@/components/AppFrame";
 import { MapExperience } from "@/components/SebaranMasjid/MapExperience";
 import { getMapMasjid } from "@/lib/masjid";
 import { getMapMasjidMN } from "@/lib/masjid-mn";
@@ -12,12 +11,9 @@ export default async function HomePage() {
   ]);
 
   return (
-    <AppFrame>
-      <MapExperience
-        buildingsRenovasi={buildingsRenovasi}
-        buildingsDibangun={buildingsDibangun}
-      />
-    </AppFrame>
+    <MapExperience
+      buildingsRenovasi={buildingsRenovasi}
+      buildingsDibangun={buildingsDibangun}
+    />
   );
 }
-

@@ -3,6 +3,7 @@ import "./globals.scss";
 import "leaflet/dist/leaflet.css";
 import Providers from "./providers";
 import ChatWidget from "@/components/Chatbot/ChatWidget";
+import { MobileOverlayProvider } from "@/context/MobileOverlayContext";
 // import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
@@ -25,8 +26,10 @@ export default function RootLayout({
     <html lang="id">
       <body>
         <Providers>
-          {children}
-          <ChatWidget />
+          <MobileOverlayProvider>
+            {children}
+            <ChatWidget />
+          </MobileOverlayProvider>
         </Providers>
       </body>
     </html>

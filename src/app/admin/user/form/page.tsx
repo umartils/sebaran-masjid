@@ -1,5 +1,5 @@
 "use client";
-import { AppFrame } from "@/components/AppFrame";
+import { SideBar } from "@/components/SideBar";
 import { AddUserForm } from "@/components/User/UserInputForm/AddUserForm";
 import { ProtectedPage } from "@/components/ProtectedPage";
 import { useSession } from "next-auth/react";
@@ -10,12 +10,12 @@ export default function InputUser() {
 
   if (session?.user.role !== "Admin") return notFound();
   return (
-    <AppFrame>
+    <SideBar>
       <ProtectedPage redirectTo="/admin/user/form">
         <section className="form-page">
           <AddUserForm />
         </section>
       </ProtectedPage>
-    </AppFrame>
+    </SideBar>
   );
 }

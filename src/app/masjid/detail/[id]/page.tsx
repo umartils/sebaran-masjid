@@ -1,7 +1,7 @@
 import { getMasjidById } from '@/lib/masjid';
 import { notFound } from 'next/navigation';
 import MasjidDetail from '@/components/MasjidDetail/MasjidDetail';
-import { AppFrame } from '@/components/AppFrame';
+import { SideBar } from "@/components/SideBar";
 
 export default async function BuildingDetailPage({
   params,
@@ -14,10 +14,10 @@ export default async function BuildingDetailPage({
   if (!masjid) notFound();
   const from = searchParams.from || "/";
   return (
-    <AppFrame>
+    <SideBar>
       <section className="form-page">
         <MasjidDetail masjid={masjid} from={from} />
       </section>
-    </AppFrame>
+    </SideBar>
   );
 }
