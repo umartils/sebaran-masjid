@@ -133,10 +133,11 @@ export default function ChatWidget() {
 
 function MessageBubble({ message }: { message: any }) {
   const isUser = message.role === "user";
+  const parts = dedupeToolParts(message.parts ?? []);
 
   return (
     <div className={isUser ? styles.bubbleUser : styles.bubbleAssistant}>
-      {message.parts?.map((part: any, idx: number) => {
+      {parts?.map((part: any, idx: number) => {
         // Bagian teks biasa
         if (part.type === "text") {
           return (
@@ -220,4 +221,33 @@ function SendIcon() {
       />
     </svg>
   );
+}
+
+function dedupeToolParts(parts: any[]): any[] {
+  const seen = new Set<string>();
+  const result: any[] = [];
+
+  for (const part of parts) {
+    const isToolPart =
+      part.type?.startsWith("tool-") && part.state === "output-available";
+
+    if (!isToolPart) {
+      result.push(part);
+      continue;
+    }
+
+    // Buat fingerprint dari nama tool + input-nya.
+    // toolCallId TIDAK dipakai sebagai fingerprint karena setiap tool call —
+    // walau dengan input identik — selalu punya toolCallId unik.
+    const fingerprint = `${part.type}:${JSON.stringify(part.input)}`;
+
+    if (seen.has(fingerprint)) {
+      continue; // skip — ini duplikat dari tool call sebelumnya dengan input sama
+    }
+
+    seen.add(fingerprint);
+    result.push(part);
+  }
+
+  return result;
 }

@@ -32,9 +32,7 @@ export async function POST(req: Request) {
       system: SEIMAN_SYSTEM_PROMPT,
       messages: await convertToModelMessages(trimmedMessages),
       tools: masjidTools,
-      // v5: maxSteps dihapus dari useChat; kontrol multi-step kini di server lewat stopWhen.
-      // stepCountIs(3) cukup untuk kasus terpanjang SEIMAN: cari masjid -> getProgresMasjid -> getLaporanProgresPdf.
-      // Dibatasi rendah agar tidak ada tool-calling loop berlebihan yang boros token.
+      temperature: 0.2,
       stopWhen: stepCountIs(3),
     });
 
