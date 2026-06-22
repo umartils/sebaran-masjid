@@ -1,6 +1,6 @@
 "use client";
 
-import { Save, User, Mail, Phone, Shield, Lock } from "lucide-react";
+import { Save, User, Mail, Phone, Shield, Lock, ArrowLeft } from "lucide-react";
 import { FormEvent, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { DataUser } from "@/lib/types";
@@ -8,13 +8,14 @@ import styles from "./AddUserForm.module.scss";
 
 import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface Props {
   user: DataUser;
   from: string;
 }
 
-export function EditUserForm({user, from}: Props) {
+export function EditUserForm({ user, from }: Props) {
   const router = useRouter();
   const { toast, showToast } = useToast();
   const [form, setForm] = useState({
@@ -23,13 +24,13 @@ export function EditUserForm({user, from}: Props) {
     nomorTelepon: user.nomorTelepon || "",
     role: user.role || "Relawan",
     userInput: user.userInput || "",
-  }); 
+  });
 
   const [status, setStatus] = useState("");
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [userId] = useState(user.id)
-  const [ selectedField, setSelectedField ] = useState(false);
+  const [userId] = useState(user.id);
+  const [selectedField, setSelectedField] = useState(false);
 
   const { data: session } = useSession();
 
@@ -73,32 +74,32 @@ export function EditUserForm({user, from}: Props) {
 
       const result = await response.json();
 
-    //   if (!response.ok) {
-    //     setIsError(true);
-    //     setStatus(result.message ?? "Registrasi gagal dilakukan.");
-    //     return;
-    //   }
+      //   if (!response.ok) {
+      //     setIsError(true);
+      //     setStatus(result.message ?? "Registrasi gagal dilakukan.");
+      //     return;
+      //   }
 
-    //   setStatus("User berhasil diupdate.");
-    //   setForm({
-    //     name: "",
-    //     email: "",
-    //     nomorTelepon: "",
-    //     role: "Relawan",
-    //     userInput: session?.user?.name ?? "",
-    //   });
+      //   setStatus("User berhasil diupdate.");
+      //   setForm({
+      //     name: "",
+      //     email: "",
+      //     nomorTelepon: "",
+      //     role: "Relawan",
+      //     userInput: session?.user?.name ?? "",
+      //   });
 
-    if(response.ok){
+      if (response.ok) {
         showToast("User berhasil diupdate", "success");
         setTimeout(() => {
-            router.push(from);
-            router.refresh();
+          router.push(from);
+          router.refresh();
         }, 1500);
-    } else {
+      } else {
         setIsError(true);
         setStatus(result.message ?? "Registrasi gagal dilakukan.");
         showToast("Registrasi gagal dilakukan", "error");
-    }
+      }
     } catch (error) {
       console.error(error);
       setIsError(true);
@@ -107,15 +108,21 @@ export function EditUserForm({user, from}: Props) {
       setLoading(false);
     }
   }
- 
+
   return (
     <form className="form-card" onSubmit={submitForm}>
+      <Link className="button-back" href={`${from}`}>
+        <ArrowLeft size={20} />
+        Kembali
+      </Link>
       <header className="form-header">
-        <h1 className={styles.formHeader__title}>Registrasi User Baru</h1>
-        <p className={styles.formHeader__subtitle}>
+        <h1 className={styles.formHeader__title}>
+          Update Data User {user.name}
+        </h1>
+        {/* <p className={styles.formHeader__subtitle}>
           Tambahkan akun administrator atau relawan yang akan menggunakan
           sistem.
-        </p>
+        </p> */}
       </header>
       <div className={styles.formGrid}>
         {/* Nama Lengkap */}
@@ -195,13 +202,7 @@ export function EditUserForm({user, from}: Props) {
           </div>
         </label>
       </div>
-      {status && (
-        <div
-          className="status-message"
-        > 
-          {status}
-        </div>
-      )}
+      {status && <div className="status-message">{status}</div>}
       <div className={styles.formActions}>
         <button
           className={styles.formActions__submitBtn}
