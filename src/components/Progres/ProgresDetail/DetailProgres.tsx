@@ -12,6 +12,7 @@ import {
 import type { TrackingMasjidDetail } from "@/lib/types";
 import styles from "./DetailProgres.module.scss";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface Props {
   tracking: TrackingMasjidDetail;
@@ -21,6 +22,9 @@ interface Props {
 export function DetailProgres({ tracking, from }: Props) {
   const router = useRouter();
   const finished = tracking.status === "SELESAI";
+
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [activateUrl, setActivateUrl] = useState("");
 
   const wilayah = [tracking.masjid.namaKota, tracking.masjid.namaProvinsi]
     .filter(Boolean)
@@ -160,7 +164,10 @@ export function DetailProgres({ tracking, from }: Props) {
                           key={url}
                           src={url}
                           alt={log.progres ?? "Dokumentasi"}
-                          onClick={() => window.open(url, "_blank")}
+                          onClick={() => {
+                            setActivateUrl(url);
+                            setLightboxOpen(true);
+                          }}
                         />
                       ))}
                     </div>
@@ -171,6 +178,27 @@ export function DetailProgres({ tracking, from }: Props) {
           </div>
         )}
       </div>
+
+      {lightboxOpen && (
+        <div
+          className={styles.lightboxOverlay}
+          onClick={() => setLightboxOpen(false)}
+        >
+          <img
+            src={activateUrl}
+            alt={tracking.masjid.nama}
+            className={styles.lightboxImage}
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            className={styles.lightboxClose}
+            onClick={() => setLightboxOpen(false)}
+            aria-label="Tutup"
+          >
+            ✕
+          </button>
+        </div>
+      )}
     </div>
   );
 }

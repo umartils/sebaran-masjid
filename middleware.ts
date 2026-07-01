@@ -40,7 +40,7 @@ export default withAuth(
 
         if (isPublicPath(pathname)) return true;
 
-        return !!token;
+        return !!token && !token.expired;
       },
     },
   }

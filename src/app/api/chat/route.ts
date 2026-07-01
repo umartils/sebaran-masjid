@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     const trimmedMessages = messages.slice(-MAX_HISTORY_MESSAGES);
 
     const result = streamText({
-      model: myGoogleGenAI("gemini-2.5-flash-lite"),
+      model: myGoogleGenAI("gemini-2.5-flash"),
       // model: myOpenAI("gpt-4o"),
       system: SEIMAN_SYSTEM_PROMPT,
       messages: await convertToModelMessages(trimmedMessages),
