@@ -8,6 +8,7 @@ export async function getAllUser(): Promise<DataUser[]> {
   try {
     const user = await prisma.user.findMany({
       select: {
+        id: true,
         name: true,
         email: true,
         role: true,
