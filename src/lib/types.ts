@@ -110,7 +110,16 @@ export type TrackingMasjidDetail = Prisma.TrackingMasjidGetPayload<{
   };
 }>;
 
-export type DataUser = Prisma.UserGetPayload<{}>;
+export type DataUser = Prisma.UserGetPayload<{
+  select: {
+    name: true;
+    email: true;
+    role: true;
+    nomorTelepon: true;
+    userInput: true;
+    createdAt: true;
+  };
+}>;
 
 // export type TrackingMasjidLog = {
 //   id: string;

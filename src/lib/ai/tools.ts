@@ -296,7 +296,8 @@ export const masjidTools = {
       "Mengambil foto/gambar masjid berdasarkan nama masjid." +
       "Ambil url foto masjid untuk ditampilkan kepada user" +
       "Gunakan saat user meminta foto atau gambar masjid atau bertanya mengenai kondisi masjid" +
-      "Selalu gunakan tool getFotoMasjid jika user meminta foto atau gambar masjid",
+      "Selalu gunakan tool getFotoMasjid jika user meminta foto atau gambar masjid" +
+      "JANGAN KIRIM URL FOTO KEPADA USER dan selalu gunakan tool ini untuk mengambil foto masjid yang sesuai dengan nama masjid yang diminta oleh users",
 
     inputSchema: z.object({
       nama: z.string(),

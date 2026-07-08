@@ -11,12 +11,13 @@ import { notFound } from "next/navigation";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
+  if (session?.user.role !== "Admin") return notFound();
+  
   const masjid =
     session?.user?.role == "Admin"
       ? await getMasjid()
       : await getMasjidByRelawan(session?.user?.id as string);
 
-  if (session?.user.role !== "Admin") return notFound();
 
   return (
     <SideBar>
