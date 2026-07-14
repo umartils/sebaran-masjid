@@ -64,16 +64,23 @@ export default function VideoSection({ videos }: Props) {
                 />
               </div>
             ))}
-          </div>
+          </div> 
 
           {videos.length > 1 && canScrollRight && (
-            <button
-              className={`${styles.videoSliderBtn} ${styles.videoSliderBtnRight}`}
-              onClick={() => scrollByCard(1)}
-              aria-label="Berikutnya"
-            >
-              <ChevronRight size={18} />
-            </button>
+            <>
+              <button
+                className={`${styles.videoSliderBtn} ${styles.videoSliderBtnRight}`}
+                onClick={() => scrollByCard(1)}
+                aria-label="Berikutnya"
+              >
+                <ChevronRight size={18} />
+              </button>
+
+              {/* <span className={styles.sliderCounter}>
+                {current + 1} / {images.length}
+              </span> */}
+            </>
+            
           )}
         </div>
       </div>

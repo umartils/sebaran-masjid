@@ -263,22 +263,29 @@ $shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
 }
 
 .videoSliderBtn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: $amber;
-  border: none;
-  border-radius: 50%;
-  width: 32px; height: 32px;
-  color: #fff;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: $shadow;
-  z-index: 2;
-  transition: background 0.15s;
+  // position: absolute;
+  // top: 50%;
+  // transform: translateY(-50%);
+  // background: $amber;
+  // border: none;
+  // border-radius: 50%;
+  // width: 32px; height: 32px;
+  // color: #fff;
+  // cursor: pointer;
+  // display: flex; align-items: center; justify-content: center;
+  // box-shadow: $shadow;
+  // z-index: 2;
+  // transition: background 0.15s;
 
-  &:hover { background: $amber-dark; }
-  &:disabled { opacity: 0.35; cursor: default; pointer-events: none; }
+  // &:hover { background: $amber-dark; }
+  // &:disabled { opacity: 0.35; cursor: default; pointer-events: none; }
+
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(0,0,0,0.45); border: none; border-radius: 50%;
+  width: 34px; height: 34px; color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s; z-index: 1;
+  &:hover { background: rgba(0,0,0,0.72); }
 }
 
 .videoSliderBtnLeft  { left: -14px; }
