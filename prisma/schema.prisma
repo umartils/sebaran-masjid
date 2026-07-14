@@ -134,6 +134,7 @@ model Masjid {
   statusPengajuan             BuildingStatus @default(PENDING)
   documentImgUrl              String[]
   imageUrl                    String[]
+  videoUrl                    String[]
   namaRelawan                 String?
   noTelpRelawan               String?
   editedBy                    String?

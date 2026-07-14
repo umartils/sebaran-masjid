@@ -1161,6 +1161,7 @@ export const MasjidScalarFieldEnum = {
   statusPengajuan: 'statusPengajuan',
   documentImgUrl: 'documentImgUrl',
   imageUrl: 'imageUrl',
+  videoUrl: 'videoUrl',
   namaRelawan: 'namaRelawan',
   noTelpRelawan: 'noTelpRelawan',
   editedBy: 'editedBy',

@@ -242,6 +242,7 @@ export type MasjidCountAggregateOutputType = {
   statusPengajuan: number
   documentImgUrl: number
   imageUrl: number
+  videoUrl: number
   namaRelawan: number
   noTelpRelawan: number
   editedBy: number
@@ -468,6 +469,7 @@ export type MasjidCountAggregateInputType = {
   statusPengajuan?: true
   documentImgUrl?: true
   imageUrl?: true
+  videoUrl?: true
   namaRelawan?: true
   noTelpRelawan?: true
   editedBy?: true
@@ -625,6 +627,7 @@ export type MasjidGroupByOutputType = {
   statusPengajuan: $Enums.BuildingStatus
   documentImgUrl: string[]
   imageUrl: string[]
+  videoUrl: string[]
   namaRelawan: string | null
   noTelpRelawan: string | null
   editedBy: string | null
@@ -718,6 +721,7 @@ export type MasjidWhereInput = {
   statusPengajuan?: Prisma.EnumBuildingStatusFilter<"Masjid"> | $Enums.BuildingStatus
   documentImgUrl?: Prisma.StringNullableListFilter<"Masjid">
   imageUrl?: Prisma.StringNullableListFilter<"Masjid">
+  videoUrl?: Prisma.StringNullableListFilter<"Masjid">
   namaRelawan?: Prisma.StringNullableFilter<"Masjid"> | string | null
   noTelpRelawan?: Prisma.StringNullableFilter<"Masjid"> | string | null
   editedBy?: Prisma.StringNullableFilter<"Masjid"> | string | null
@@ -790,6 +794,7 @@ export type MasjidOrderByWithRelationInput = {
   statusPengajuan?: Prisma.SortOrder
   documentImgUrl?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  videoUrl?: Prisma.SortOrder
   namaRelawan?: Prisma.SortOrderInput | Prisma.SortOrder
   noTelpRelawan?: Prisma.SortOrderInput | Prisma.SortOrder
   editedBy?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -865,6 +870,7 @@ export type MasjidWhereUniqueInput = Prisma.AtLeast<{
   statusPengajuan?: Prisma.EnumBuildingStatusFilter<"Masjid"> | $Enums.BuildingStatus
   documentImgUrl?: Prisma.StringNullableListFilter<"Masjid">
   imageUrl?: Prisma.StringNullableListFilter<"Masjid">
+  videoUrl?: Prisma.StringNullableListFilter<"Masjid">
   namaRelawan?: Prisma.StringNullableFilter<"Masjid"> | string | null
   noTelpRelawan?: Prisma.StringNullableFilter<"Masjid"> | string | null
   editedBy?: Prisma.StringNullableFilter<"Masjid"> | string | null
@@ -937,6 +943,7 @@ export type MasjidOrderByWithAggregationInput = {
   statusPengajuan?: Prisma.SortOrder
   documentImgUrl?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  videoUrl?: Prisma.SortOrder
   namaRelawan?: Prisma.SortOrderInput | Prisma.SortOrder
   noTelpRelawan?: Prisma.SortOrderInput | Prisma.SortOrder
   editedBy?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1015,6 +1022,7 @@ export type MasjidScalarWhereWithAggregatesInput = {
   statusPengajuan?: Prisma.EnumBuildingStatusWithAggregatesFilter<"Masjid"> | $Enums.BuildingStatus
   documentImgUrl?: Prisma.StringNullableListFilter<"Masjid">
   imageUrl?: Prisma.StringNullableListFilter<"Masjid">
+  videoUrl?: Prisma.StringNullableListFilter<"Masjid">
   namaRelawan?: Prisma.StringNullableWithAggregatesFilter<"Masjid"> | string | null
   noTelpRelawan?: Prisma.StringNullableWithAggregatesFilter<"Masjid"> | string | null
   editedBy?: Prisma.StringNullableWithAggregatesFilter<"Masjid"> | string | null
@@ -1085,6 +1093,7 @@ export type MasjidCreateInput = {
   statusPengajuan?: $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidCreatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidCreatevideoUrlInput | string[]
   namaRelawan?: string | null
   noTelpRelawan?: string | null
   editedBy?: string | null
@@ -1156,6 +1165,7 @@ export type MasjidUncheckedCreateInput = {
   statusPengajuan?: $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidCreatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidCreatevideoUrlInput | string[]
   namaRelawan?: string | null
   noTelpRelawan?: string | null
   editedBy?: string | null
@@ -1227,6 +1237,7 @@ export type MasjidUpdateInput = {
   statusPengajuan?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidUpdatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidUpdatevideoUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1298,6 +1309,7 @@ export type MasjidUncheckedUpdateInput = {
   statusPengajuan?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidUpdatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidUpdatevideoUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1369,6 +1381,7 @@ export type MasjidCreateManyInput = {
   statusPengajuan?: $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidCreatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidCreatevideoUrlInput | string[]
   namaRelawan?: string | null
   noTelpRelawan?: string | null
   editedBy?: string | null
@@ -1439,6 +1452,7 @@ export type MasjidUpdateManyMutationInput = {
   statusPengajuan?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidUpdatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidUpdatevideoUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1508,6 +1522,7 @@ export type MasjidUncheckedUpdateManyInput = {
   statusPengajuan?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidUpdatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidUpdatevideoUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1596,6 +1611,7 @@ export type MasjidCountOrderByAggregateInput = {
   statusPengajuan?: Prisma.SortOrder
   documentImgUrl?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  videoUrl?: Prisma.SortOrder
   namaRelawan?: Prisma.SortOrder
   noTelpRelawan?: Prisma.SortOrder
   editedBy?: Prisma.SortOrder
@@ -1813,6 +1829,10 @@ export type MasjidCreateimageUrlInput = {
   set: string[]
 }
 
+export type MasjidCreatevideoUrlInput = {
+  set: string[]
+}
+
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -1847,6 +1867,11 @@ export type MasjidUpdatedocumentImgUrlInput = {
 }
 
 export type MasjidUpdateimageUrlInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type MasjidUpdatevideoUrlInput = {
   set?: string[]
   push?: string | string[]
 }
@@ -1927,6 +1952,7 @@ export type MasjidCreateWithoutUserInput = {
   statusPengajuan?: $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidCreatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidCreatevideoUrlInput | string[]
   namaRelawan?: string | null
   noTelpRelawan?: string | null
   editedBy?: string | null
@@ -1997,6 +2023,7 @@ export type MasjidUncheckedCreateWithoutUserInput = {
   statusPengajuan?: $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidCreatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidCreatevideoUrlInput | string[]
   namaRelawan?: string | null
   noTelpRelawan?: string | null
   editedBy?: string | null
@@ -2096,6 +2123,7 @@ export type MasjidScalarWhereInput = {
   statusPengajuan?: Prisma.EnumBuildingStatusFilter<"Masjid"> | $Enums.BuildingStatus
   documentImgUrl?: Prisma.StringNullableListFilter<"Masjid">
   imageUrl?: Prisma.StringNullableListFilter<"Masjid">
+  videoUrl?: Prisma.StringNullableListFilter<"Masjid">
   namaRelawan?: Prisma.StringNullableFilter<"Masjid"> | string | null
   noTelpRelawan?: Prisma.StringNullableFilter<"Masjid"> | string | null
   editedBy?: Prisma.StringNullableFilter<"Masjid"> | string | null
@@ -2166,6 +2194,7 @@ export type MasjidCreateWithoutTrackingInput = {
   statusPengajuan?: $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidCreatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidCreatevideoUrlInput | string[]
   namaRelawan?: string | null
   noTelpRelawan?: string | null
   editedBy?: string | null
@@ -2236,6 +2265,7 @@ export type MasjidUncheckedCreateWithoutTrackingInput = {
   statusPengajuan?: $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidCreatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidCreatevideoUrlInput | string[]
   namaRelawan?: string | null
   noTelpRelawan?: string | null
   editedBy?: string | null
@@ -2322,6 +2352,7 @@ export type MasjidUpdateWithoutTrackingInput = {
   statusPengajuan?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidUpdatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidUpdatevideoUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2392,6 +2423,7 @@ export type MasjidUncheckedUpdateWithoutTrackingInput = {
   statusPengajuan?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidUpdatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidUpdatevideoUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2462,6 +2494,7 @@ export type MasjidCreateManyUserInput = {
   statusPengajuan?: $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidCreatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidCreateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidCreatevideoUrlInput | string[]
   namaRelawan?: string | null
   noTelpRelawan?: string | null
   editedBy?: string | null
@@ -2531,6 +2564,7 @@ export type MasjidUpdateWithoutUserInput = {
   statusPengajuan?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidUpdatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidUpdatevideoUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2601,6 +2635,7 @@ export type MasjidUncheckedUpdateWithoutUserInput = {
   statusPengajuan?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidUpdatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidUpdatevideoUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2671,6 +2706,7 @@ export type MasjidUncheckedUpdateManyWithoutUserInput = {
   statusPengajuan?: Prisma.EnumBuildingStatusFieldUpdateOperationsInput | $Enums.BuildingStatus
   documentImgUrl?: Prisma.MasjidUpdatedocumentImgUrlInput | string[]
   imageUrl?: Prisma.MasjidUpdateimageUrlInput | string[]
+  videoUrl?: Prisma.MasjidUpdatevideoUrlInput | string[]
   namaRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noTelpRelawan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2742,6 +2778,7 @@ export type MasjidSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   statusPengajuan?: boolean
   documentImgUrl?: boolean
   imageUrl?: boolean
+  videoUrl?: boolean
   namaRelawan?: boolean
   noTelpRelawan?: boolean
   editedBy?: boolean
@@ -2814,6 +2851,7 @@ export type MasjidSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   statusPengajuan?: boolean
   documentImgUrl?: boolean
   imageUrl?: boolean
+  videoUrl?: boolean
   namaRelawan?: boolean
   noTelpRelawan?: boolean
   editedBy?: boolean
@@ -2885,6 +2923,7 @@ export type MasjidSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   statusPengajuan?: boolean
   documentImgUrl?: boolean
   imageUrl?: boolean
+  videoUrl?: boolean
   namaRelawan?: boolean
   noTelpRelawan?: boolean
   editedBy?: boolean
@@ -2956,6 +2995,7 @@ export type MasjidSelectScalar = {
   statusPengajuan?: boolean
   documentImgUrl?: boolean
   imageUrl?: boolean
+  videoUrl?: boolean
   namaRelawan?: boolean
   noTelpRelawan?: boolean
   editedBy?: boolean
@@ -2964,7 +3004,7 @@ export type MasjidSelectScalar = {
   userId?: boolean
 }
 
-export type MasjidOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nama" | "alamat" | "idProvinsi" | "namaProvinsi" | "idKota" | "namaKota" | "idKecamatan" | "namaKecamatan" | "idDesa" | "namaDesa" | "latitude" | "longitude" | "kondisi" | "kategori" | "kapasitas" | "tahunDibangun" | "budgetAwal" | "luasSekarang" | "materialUtama" | "statusPerluasan" | "riwayatRenovasi" | "targetPerluasan" | "statusTanah" | "statusListrik" | "waktuKerusakan" | "alasan" | "detail" | "dampakKerusakan" | "hambatanAktivitas" | "kondisiHujan" | "riwayatRoboh" | "usahaPerbaikan" | "riwayatMenerimaBantuan" | "kkMuslim" | "jumlahJamaah" | "avgProfesiJamaah" | "avgGajiJamaah" | "usahaJamaah" | "jarakKeKota" | "waktuTempuhKeKota" | "kondisiAksesKota" | "kondisiAksesDesa" | "jenisKendaraan" | "hambatanAkses" | "gantiNama" | "masjidTerdekat" | "aksesMasjidTerdekat" | "jarakKeMasjidTerdekat" | "alasanTidakPilihTerdekat" | "kelayakan" | "aktivitasMasjid" | "jamaahSubuh" | "jumlahSantri" | "namaPic" | "jabatanPic" | "kontakPic" | "catatan" | "statusPengajuan" | "documentImgUrl" | "imageUrl" | "namaRelawan" | "noTelpRelawan" | "editedBy" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["masjid"]>
+export type MasjidOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nama" | "alamat" | "idProvinsi" | "namaProvinsi" | "idKota" | "namaKota" | "idKecamatan" | "namaKecamatan" | "idDesa" | "namaDesa" | "latitude" | "longitude" | "kondisi" | "kategori" | "kapasitas" | "tahunDibangun" | "budgetAwal" | "luasSekarang" | "materialUtama" | "statusPerluasan" | "riwayatRenovasi" | "targetPerluasan" | "statusTanah" | "statusListrik" | "waktuKerusakan" | "alasan" | "detail" | "dampakKerusakan" | "hambatanAktivitas" | "kondisiHujan" | "riwayatRoboh" | "usahaPerbaikan" | "riwayatMenerimaBantuan" | "kkMuslim" | "jumlahJamaah" | "avgProfesiJamaah" | "avgGajiJamaah" | "usahaJamaah" | "jarakKeKota" | "waktuTempuhKeKota" | "kondisiAksesKota" | "kondisiAksesDesa" | "jenisKendaraan" | "hambatanAkses" | "gantiNama" | "masjidTerdekat" | "aksesMasjidTerdekat" | "jarakKeMasjidTerdekat" | "alasanTidakPilihTerdekat" | "kelayakan" | "aktivitasMasjid" | "jamaahSubuh" | "jumlahSantri" | "namaPic" | "jabatanPic" | "kontakPic" | "catatan" | "statusPengajuan" | "documentImgUrl" | "imageUrl" | "videoUrl" | "namaRelawan" | "noTelpRelawan" | "editedBy" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["masjid"]>
 export type MasjidInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tracking?: boolean | Prisma.Masjid$trackingArgs<ExtArgs>
   user?: boolean | Prisma.Masjid$userArgs<ExtArgs>
@@ -3044,6 +3084,7 @@ export type $MasjidPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     statusPengajuan: $Enums.BuildingStatus
     documentImgUrl: string[]
     imageUrl: string[]
+    videoUrl: string[]
     namaRelawan: string | null
     noTelpRelawan: string | null
     editedBy: string | null
@@ -3536,6 +3577,7 @@ export interface MasjidFieldRefs {
   readonly statusPengajuan: Prisma.FieldRef<"Masjid", 'BuildingStatus'>
   readonly documentImgUrl: Prisma.FieldRef<"Masjid", 'String[]'>
   readonly imageUrl: Prisma.FieldRef<"Masjid", 'String[]'>
+  readonly videoUrl: Prisma.FieldRef<"Masjid", 'String[]'>
   readonly namaRelawan: Prisma.FieldRef<"Masjid", 'String'>
   readonly noTelpRelawan: Prisma.FieldRef<"Masjid", 'String'>
   readonly editedBy: Prisma.FieldRef<"Masjid", 'String'>

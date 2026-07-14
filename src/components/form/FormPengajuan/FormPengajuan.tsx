@@ -3,6 +3,7 @@
 import { Save, Camera } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import ImageUploadField from "@/components/ImageUploadField/ImageUploadField";
+import VideoUploadField from "@/components/VideoUploadField/VideoUploadField";
 import { useSession } from "next-auth/react";
 
 import { createId } from "@paralleldrive/cuid2";
@@ -27,6 +28,7 @@ export function FormPengajuan() {
   const { data: session } = useSession();
   const [documentUrls, setDocumentUrls] = useState<string[]>([]);
   const [buildingImageUrls, setBuildingImageUrls] = useState<string[]>([]);
+  const [videoUrls, setVideoUrls] = useState<string[]>([]);
   const userId = session?.user?.id ?? "";
 
   const { form, setField, resetForm } = useFormPengajuan({ session });
@@ -63,6 +65,7 @@ export function FormPengajuan() {
       ...selectedNames,
       documentImgUrl: documentUrls,
       imageUrl: buildingImageUrls,
+      videoUrl: videoUrls,
       // coerce numerics
       kapasitas: form.kapasitas ? Number(form.kapasitas) : undefined,
       tahunDibangun: form.tahunDibangun
@@ -94,42 +97,35 @@ export function FormPengajuan() {
 
   return (
     <form className="form-card" onSubmit={submitForm}>
-      <header className="form-header">
-        <h1>Formulir Pendataan Masjid</h1>
-        <p>
-          Masukkan data masjid yang membutuhkan bantuan renovasi atau
-          pembangunan.
-        </p>
-      </header>
-
-      {/* ── 1. Informasi Umum ── */}
-      <InfoUmumSection
-        form={form}
-        regions={regions}
-        coordinateInput={coordinateInput}
-        loadingPosition={loadingPosition}
-        setField={setField}
-        setCoordinateInput={setCoordinateInput}
-        parseCoordinates={parseCoordinates}
-        onLocatePosition={handleLocatePosition}
-      />
-
-      {/* ── 2. Fisik & Bangunan ── */}
-      <FisikBangunanSection form={form} setField={setField} />
-
-      {/* ── 3. Legalitas & Kondisi Kerusakan ── */}
-      <KondisiKerusakanSection form={form} setField={setField} />
-
-      {/* ── 4. Data Masyarakat ── */}
-      <DataMasyarakatSection form={form} setField={setField} />
-
-      {/* ── 5. Akses & Lingkungan ── */}
-      <AksesLingunganSection form={form} setField={setField} />
-
-      {/* ── 6. Aktivitas Ibadah ── */}
-      <AktivitasIbadahSection form={form} setField={setField} />
-
-      {/* ── 7. PIC & Dokumen ── */}
+      <header className="form-header">        
+        <h1>Formulir Pendataan Masjid</h1>        
+        <p>          
+          Masukkan data masjid yang membutuhkan bantuan renovasi atau          
+          pembangunan.        
+        </p>      
+      </header>       
+      {/* ── 1. Informasi Umum ── */}      
+      <InfoUmumSection        
+        form={form}        
+        regions={regions}        
+        coordinateInput={coordinateInput}        
+        loadingPosition={loadingPosition}        
+        setField={setField}        
+        setCoordinateInput={setCoordinateInput}        
+        parseCoordinates={parseCoordinates}        
+        onLocatePosition={handleLocatePosition}      
+      />       
+      {/* ── 2. Fisik & Bangunan ── */}      
+      <FisikBangunanSection form={form} setField={setField} />       
+      {/* ── 3. Legalitas & Kondisi Kerusakan ── */}      
+      <KondisiKerusakanSection form={form} setField={setField} />       
+      {/* ── 4. Data Masyarakat ── */}      
+      <DataMasyarakatSection form={form} setField={setField} />       
+      {/* ── 5. Akses & Lingkungan ── */}      
+      <AksesLingunganSection form={form} setField={setField} />       
+      {/* ── 6. Aktivitas Ibadah ── */}      
+      <AktivitasIbadahSection form={form} setField={setField} />       
+      {/* ── 7. PIC & Dokumen ── */}      
       <PicDokumenSection form={form} setField={setField} />
 
       <h2 className="section-title">
@@ -147,6 +143,12 @@ export function FormPengajuan() {
           folder={`masjid/${masjidId}/bangunan`}
           maxFiles={5}
           onUrlsChange={setBuildingImageUrls}
+        />
+        <VideoUploadField
+          label="Video Kondisi Masjid"
+          folder={`masjid/${masjidId}/video`}
+          maxFiles={2}
+          onUrlsChange={setVideoUrls}
         />
       </div>
 

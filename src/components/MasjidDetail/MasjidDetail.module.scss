@@ -227,6 +227,70 @@ $shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
   &:hover:not(.thumbActive) { border-color: $gray-300; }
 }
 
+// ── Video Slider ──────────────────────────────────
+.videoSlider { position: relative; }
+
+.videoTrack {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 2px 2px 4px;
+
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+.videoCard {
+  flex: 0 0 calc(50% - 6px);
+  scroll-snap-align: start;
+  border-radius: 10px;
+  overflow: hidden;
+  background: $gray-900;
+  aspect-ratio: 16 / 9;
+
+  @media (max-width: 640px) {
+    flex-basis: 100%;
+  }
+}
+
+.videoPlayer {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: $gray-900;
+}
+
+.videoSliderBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: $amber;
+  border: none;
+  border-radius: 50%;
+  width: 32px; height: 32px;
+  color: #fff;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: $shadow;
+  z-index: 2;
+  transition: background 0.15s;
+
+  &:hover { background: $amber-dark; }
+  &:disabled { opacity: 0.35; cursor: default; pointer-events: none; }
+}
+
+.videoSliderBtnLeft  { left: -14px; }
+.videoSliderBtnRight { right: -14px; }
+
+.emptyVideo {
+  height: 200px;
+  display: flex; align-items: center; justify-content: center;
+  color: $gray-400; font-size: 14px; background: $gray-100;
+  border-radius: 10px;
+}
+
 // ── Peta ─────────────────────────────────────────
 .map {
   width: 100%;

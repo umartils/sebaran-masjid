@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import type { Masjid } from "@/lib/types";
 import ImageSlider from "./ImageSlider";
+import VideoSection from "./VideoSection";
 import DocumentGallery from "./DocumentGallery";
 import MasjidMap from "./MasjidMap";
 import styles from "./MasjidDetail.module.scss";
@@ -19,6 +20,8 @@ import {
   Map,
   UserCheck,
   ArrowLeft,
+  Camera,
+  Film
 } from "lucide-react";
 
 import Link from "next/link";
@@ -114,13 +117,25 @@ export default function MasjidDetail({ masjid, from }: Props) {
           {/* Foto Bangunan */}
           <div className={styles.card}>
             <div className={styles.cardHeader}>
-              <Building2 size={18} />
+              <Camera size={18} />
               <h2>Foto Bangunan</h2>
             </div>
             {masjid.imageUrl.length > 0 ? (
               <ImageSlider images={masjid.imageUrl} />
             ) : (
               <div className={styles.emptySlider}>Belum ada foto bangunan</div>
+            )}
+          </div>
+
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <Film size={18} />
+              <h2>Video Bangunan</h2>
+            </div>
+            {masjid.videoUrl.length > 0 ? (
+              <VideoSection videos={masjid.videoUrl} />
+            ) : (
+              <div className={styles.emptySlider}>Belum ada video bangunan</div>
             )}
           </div>
 

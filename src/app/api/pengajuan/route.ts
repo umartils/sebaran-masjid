@@ -109,6 +109,7 @@ const masjidSchema = z.object({
   // ── Gambar ─────────────────────────────────────
   documentImgUrl: z.array(z.string().url()).default([]),
   imageUrl: z.array(z.string().url()).default([]),
+  videoUrl: z.array(z.string().url()).default([]),
 });
 
 export async function GET() {
