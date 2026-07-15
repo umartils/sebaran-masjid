@@ -21,9 +21,17 @@ export function DashboardStats({
     (b) => b.statusPengajuan === "APPROVED"
   ).length;
 
+  const totalAOnAir = masjidClean.filter(
+    (b) => b.statusPengajuan === "ON_AIR"
+  ).length;
+
   return (
     <div className="admin-stats">
-      <StatCard value={masjidClean.length} label="Total Pengajuan" />
+      <StatCard 
+        value={totalAOnAir} 
+        label="ON AIR" 
+        variant="stat-card--info"
+      />
 
       <StatCard
         value={totalRejected}
