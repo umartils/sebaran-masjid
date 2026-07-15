@@ -17,7 +17,7 @@ export async function PATCH(
 
     const { status } = body;
 
-    if (!["APPROVED", "REJECTED", "DELETED"].includes(status)) {
+    if (!["APPROVED", "REJECTED", "DELETED", "ON_AIR"].includes(status)) {
       return NextResponse.json(
         {
           message: "Status tidak valid",
@@ -35,9 +35,9 @@ export async function PATCH(
           statusPengajuan: status,
           editedBy: body.approvedBy,
         },
-      });
+      }); 
 
-      if (status === "APPROVED") {
+      if (status === "ON_AIR") {
         const existingTracking = await tx.trackingMasjid.findUnique({
           where: {
             masjidId: id,

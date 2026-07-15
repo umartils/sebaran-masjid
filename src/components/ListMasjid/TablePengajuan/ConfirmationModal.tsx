@@ -28,6 +28,8 @@ export default function BuildingConfirmationModal({
       ? "Approve Masjid"
       : actionType === "REJECTED"
       ? "Reject Masjid"
+      : actionType === "ON_AIR"
+      ? "Mulai Pembangunan Masjid"
       : "Hapus Masjid";
 
   const actionText =
@@ -35,6 +37,8 @@ export default function BuildingConfirmationModal({
       ? "menyetujui"
       : actionType === "REJECTED"
       ? "menolak"
+      : actionType === "ON_AIR"
+      ? "mulai pembangunan"
       : "menghapus";
 
   const buttonText =
@@ -42,10 +46,12 @@ export default function BuildingConfirmationModal({
       ? "Approve"
       : actionType === "REJECTED"
       ? "Reject"
+      : actionType === "ON_AIR"
+      ? "Start"
       : "Delete";
 
   const buttonClass =
-    actionType === "APPROVED"
+    actionType === "APPROVED" || actionType === "ON_AIR"
       ? "btn-confirm--approve"
       : "btn-confirm--reject";
 

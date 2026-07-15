@@ -14,7 +14,7 @@ export type KategoriMasjid =
 
 export type UserRole = "Admin" | "Relawan";
 
-export type StatusMasjid = "APPROVED" | "PENDING" | "REJECTED" | "DELETED";
+export type StatusMasjid = "APPROVED" | "PENDING" | "REJECTED" | "DELETED" | "ON_AIR";
 
 export type ProgresStatus = "ON_PROGRESS" | "SELESAI";
 

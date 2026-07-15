@@ -13,7 +13,7 @@ interface Props {
 
 export default function VideoUploadField({
   label,
-  maxFiles = 2,
+  maxFiles = 5,
   folder = "masjid-video",
   onUrlsChange,
   existingUrls = [],
@@ -88,7 +88,7 @@ export default function VideoUploadField({
         </label>
       )}
 
-      {error && <p className={styles.errorMsg}>❌ {error}</p>}
+      {error && <p className={styles.errorMsg}>{error}</p>}
 
       {(existingUrls.length > 0 || videos.length > 0) && (
         <div className={styles.previewGrid}>

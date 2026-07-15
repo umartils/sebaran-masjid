@@ -147,7 +147,7 @@ export function FormPengajuan() {
         <VideoUploadField
           label="Video Kondisi Masjid"
           folder={`masjid/${masjidId}/video`}
-          maxFiles={2}
+          maxFiles={5}
           onUrlsChange={setVideoUrls}
         />
       </div>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import {
   Eye,
   Pencil,
-  MapPin,
+  Hammer,
   Check,
   X,
   Trash,
@@ -68,6 +68,16 @@ export default function MasjidActions({
       {/* Approved Actions */}
       {building.statusPengajuan === "APPROVED" && (
         <>
+          <button
+            type="button"
+            onClick={() => onAction(building, "ON_AIR")}
+            className={`${styles.actionBtn} ${styles.actionBtnMaps}`}
+            title="Mulai Pembangunan"
+          >
+            <Hammer size={15} />
+            <span>Mulai</span>
+          </button>
+
           <Link
             href={`/masjid/edit/${building.id}?from=/admin/dashboard/masjid`}
             className={`${styles.actionBtn} ${styles.actionBtnEdit}`}
@@ -77,7 +87,7 @@ export default function MasjidActions({
             <span>Edit</span>
           </Link>
 
-          <a
+          {/* <a
             href={`https://www.google.com/maps/search/?api=1&query=${building.latitude},${building.longitude}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -86,7 +96,7 @@ export default function MasjidActions({
           >
             <MapPin size={15} />
             <span>Maps</span>
-          </a>
+          </a> */}
 
           <button
             type="button"

@@ -216,6 +216,7 @@ enum Condition {
 
 enum BuildingStatus {
   APPROVED
+  ON_AIR
   PENDING
   REJECTED
   DELETED

@@ -7,7 +7,8 @@ import type { Masjid } from "@/lib/types";
 export type BuildingAction =
   | "APPROVED"
   | "REJECTED"
-  | "DELETED";
+  | "DELETED"
+  | "ON_AIR";
 
 interface ToastState {
   show: boolean;
@@ -102,6 +103,8 @@ export function useApprovalPengajuan( approvedBy?: string) {
           ? "Masjid berhasil disetujui"
           : actionType === "REJECTED"
           ? "Masjid berhasil ditolak"
+          : actionType === "ON_AIR"
+          ? "Pembangunan Masjid Dimulai"
           : "Masjid berhasil dihapus";
 
       showToast(successMessage);

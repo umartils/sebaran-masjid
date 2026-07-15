@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import ImageUploadField from "@/components/ImageUploadField/ImageUploadField";
+import VideoUploadField from "@/components/VideoUploadField/VideoUploadField";
 import { useSession } from "next-auth/react";
 import { Masjid } from "@/lib/types";
 
@@ -46,6 +47,7 @@ export function FormEditPengajuan({ masjid, from }: Props) {
 
   const [documentUrls, setDocumentUrls] = useState<string[]>([]);
   const [buildingImageUrls, setBuildingImageUrls] = useState<string[]>([]);
+  const [videoUrls, setVideoUrls] = useState<string[]>([]);
 
   const { form, setField, resetForm, setForm } = useFormPengajuan({ session });
 
@@ -61,6 +63,7 @@ export function FormEditPengajuan({ masjid, from }: Props) {
     setCoordinateInput(`${masjid.latitude}, ${masjid.longitude}`);
     setDocumentUrls(masjid.documentImgUrl ?? []);
     setBuildingImageUrls(masjid.imageUrl ?? []);
+    setVideoUrls(masjid.videoUrl ?? []);
   }, [masjid, setForm]);
 
   const [status, setStatus] = useState("");
@@ -102,6 +105,7 @@ export function FormEditPengajuan({ masjid, from }: Props) {
       namaDesa: selectedNames.namaDesa?.trim() || masjid.namaDesa,
       documentImgUrl: documentUrls,
       imageUrl: buildingImageUrls,
+      videoUrl: videoUrls,
       // coerce numerics
       kapasitas: form.kapasitas ? Number(form.kapasitas) : undefined,
       tahunDibangun: form.tahunDibangun
@@ -190,14 +194,21 @@ export function FormEditPengajuan({ masjid, from }: Props) {
           maxFiles={5}
           onUrlsChange={setDocumentUrls}
           existingUrls={documentUrls}
-        />
+        /> 
         <ImageUploadField
           label="Foto Bangunan"
           folder={`masjid/${masjidId}/bangunan`}
           maxFiles={5}
           onUrlsChange={setBuildingImageUrls}
           existingUrls={buildingImageUrls}
-        />
+        /> 
+        <VideoUploadField
+          label="Video Bangunan Masjid"
+          folder={`masjid/${masjidId}/video`}
+          onUrlsChange={setVideoUrls}
+          existingUrls={videoUrls}
+
+           />
       </div>
 
       <div className="form-actions">

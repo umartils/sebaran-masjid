@@ -17,6 +17,7 @@ export function statusLabel(status: StatusMasjid) {
     PENDING: "Menunggu",
     REJECTED: "Ditolak",
     DELETED: "Dihapus",
+    ON_AIR: "Dalam Pembangunan"
   };
 
   return labels[status];
@@ -48,7 +49,8 @@ export function kategoriTone(category: KategoriMasjid) {
 
 export function statusTone(status: StatusMasjid) {
   if (status === "APPROVED") return "badge--success";
-  if (status === "REJECTED") return "badge--danger";
+  if (status === "REJECTED" || status === "DELETED") return "badge--danger";
+  if (status === "ON_AIR") return "badge--info"
   return "badge--warning";
 }
 

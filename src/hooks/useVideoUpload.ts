@@ -15,7 +15,7 @@ const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 const ALLOWED_TYPES = ['video/mp4', 'video/webm', 'video/quicktime'];
 const MAX_SIZE = 50 * 1024 * 1024; // 50MB, sesuaikan sama limit preset Cloudinary
 
-export function useMultiVideoUpload(maxFiles = 2, folder = 'masjid-video') {
+export function useMultiVideoUpload(maxFiles = 5, folder = 'masjid-video') {
   const [videos, setVideos] = useState<UploadedVideo[]>([]);
   const [error, setError] = useState('');
 

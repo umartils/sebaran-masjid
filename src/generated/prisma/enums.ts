@@ -29,6 +29,7 @@ export type Condition = (typeof Condition)[keyof typeof Condition]
 
 export const BuildingStatus = {
   APPROVED: 'APPROVED',
+  ON_AIR: 'ON_AIR',
   PENDING: 'PENDING',
   REJECTED: 'REJECTED',
   DELETED: 'DELETED'
