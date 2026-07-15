@@ -61,7 +61,14 @@ export async function getMasjidByRelawan(userId: string): Promise<Masjid[]> {
 export async function getMapMasjid(): Promise<MapMasjid[]> {
   try {
     return await prisma.masjid.findMany({
-      where: { statusPengajuan: "APPROVED" },
+      where: { 
+        statusPengajuan: {
+          in: [
+            "APPROVED",
+            "ON_AIR"
+          ]
+        }
+      },
       orderBy: { updatedAt: "desc" },
       select: {
         id: true,

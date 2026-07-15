@@ -82,7 +82,7 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
       const matchStatus =
         mapMode !== "renovasi" ||
         ("statusPengajuan" in building &&
-          building.statusPengajuan === "APPROVED");
+          building.statusPengajuan === "APPROVED" || "ON_AIR");
 
       return (
         matchStatus &&
