@@ -13,6 +13,7 @@ import {
 import { useEffect, useRef } from "react";
 import type { MapMasjid, MapMasjidMNBaru } from "@/lib/types";
 import { ExternalLink } from "lucide-react";
+import { statusTone, statusLabel } from "@/lib/format";
 
 const markerIcon = L.divIcon({
   className: "",
@@ -83,6 +84,10 @@ function BuildingMarker({
     }
   }, [selected]);
 
+  const statusPengajuan = 'statusPengajuan' in building 
+    ? building.statusPengajuan
+    : undefined;
+
   return (
     <Marker
       ref={markerRef}
@@ -112,13 +117,19 @@ function BuildingMarker({
               </strong>
             </div>
             <div className="popup-row">
-              <p>Berdiri</p>
-              <strong>{building.tahunDibangun ?? "-"}</strong>
-            </div>
-            <div className="popup-row">
               <p>Wilayah</p>
               <strong>{building.namaKota}</strong>
             </div>
+
+            <div className="popup-row">
+              <p>Status</p>
+              {statusPengajuan && (
+                <span className={`badge ${statusTone(statusPengajuan)}`}>
+                  {statusLabel(statusPengajuan)}
+                </span>
+              )}
+            </div>
+            
           </div>
           <div className="popup-footer">
             <Link
