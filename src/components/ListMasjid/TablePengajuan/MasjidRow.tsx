@@ -13,6 +13,7 @@ import type { BuildingAction } from "./hooks/useApprovalPengajuan";
 import styles from "../ListMasjid.module.scss";
 
 interface BuildingRowProps {
+  no: number;
   building: Masjid;
 
   onAction: (
@@ -22,11 +23,19 @@ interface BuildingRowProps {
 }
 
 function BuildingRow({
+  no,
   building,
   onAction,
 }: BuildingRowProps) {
   return (
     <tr>
+      <td>
+        <center>
+          <strong>
+            {no}
+          </strong>
+        </center>
+      </td>
       <td>
         <strong>{building.nama}</strong>
 

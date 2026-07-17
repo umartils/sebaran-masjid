@@ -47,6 +47,8 @@ export function TablePengajuan({ progres }: Props) {
   const { page, pageSize, totalPages, paginatedData, setPage, setPageSize } =
     usePagination(filtered);
 
+  const startNumber = (page - 1) * pageSize
+
   return (
     <>
       <FilterBar
@@ -77,6 +79,7 @@ export function TablePengajuan({ progres }: Props) {
               }}
             >
               <option value={10}>10</option>
+              <option value={20}>20</option>
               <option value={50}>50</option>
               <option value={100}>100</option>
             </select>
@@ -86,6 +89,7 @@ export function TablePengajuan({ progres }: Props) {
         <table className={styles.adminTable}>
           <thead>
             <tr>
+              <th>No.</th>
               <th>Nama Masjid</th>
               <th>Wilayah</th>
               <th>Status</th>
@@ -101,9 +105,10 @@ export function TablePengajuan({ progres }: Props) {
                 </td>
               </tr>
             ) : (
-              paginatedData.map((progres) => (
+              paginatedData.map((progres, index) => (
                 <ProgresRow
                   key={progres.id}
+                  no={startNumber + index + 1}
                   progres={progres}
                   // onAction={openConfirmation}
                 />

@@ -62,6 +62,8 @@ export function TablePengajuan({ masjid }: Props) {
   const { page, pageSize, totalPages, paginatedData, setPage, setPageSize } =
     usePagination(filtered);
 
+  const startNumber = (page - 1) * pageSize;
+
   return (
     <>
       <FilterBar
@@ -92,6 +94,7 @@ export function TablePengajuan({ masjid }: Props) {
               }}
             >
               <option value={10}>10</option>
+              <option value={20}>20</option>
               <option value={50}>50</option>
               <option value={100}>100</option>
             </select>
@@ -101,6 +104,7 @@ export function TablePengajuan({ masjid }: Props) {
         <table className={styles.adminTable}>
           <thead>
             <tr>
+              <th>No.</th>
               <th>Nama Masjid</th>
               <th>Wilayah</th>
               <th>Kategori</th>
@@ -117,9 +121,10 @@ export function TablePengajuan({ masjid }: Props) {
                 </td>
               </tr>
             ) : (
-              paginatedData.map((building) => (
+              paginatedData.map((building, index) => (
                 <MasjidRow
                   key={building.id}
+                  no={startNumber + index + 1}
                   building={building}
                   onAction={openConfirmation}
                 />

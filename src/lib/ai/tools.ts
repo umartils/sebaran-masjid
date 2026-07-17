@@ -66,7 +66,12 @@ export const masjidTools = {
     execute: async ({ namaProvinsi, namaKota, kategori, kondisi, limit }) => {
       const masjidList = await prisma.masjid.findMany({
         where: {
-          statusPengajuan: "APPROVED",
+          statusPengajuan: {
+            in: [
+              "APPROVED",
+              "ON_AIR"
+            ]
+          },
           ...(namaProvinsi && {
             namaProvinsi: { contains: namaProvinsi, mode: "insensitive" },
           }),
@@ -121,7 +126,12 @@ export const masjidTools = {
 
       const masjid = await prisma.masjid.findFirst({
         where: {
-          statusPengajuan: "APPROVED",
+          statusPengajuan: {
+            in: [
+              "APPROVED",
+              "ON_AIR"
+            ]
+          },
           ...(masjidId && { id: masjidId }),
           ...(nama && { nama: { contains: nama, mode: "insensitive" } }),
         },
@@ -173,7 +183,12 @@ export const masjidTools = {
 
       const masjid = await prisma.masjid.findFirst({
         where: {
-          statusPengajuan: "APPROVED",
+          statusPengajuan: {
+            in: [
+              "APPROVED",
+              "ON_AIR"
+            ]
+          },
           ...(masjidId && { id: masjidId }),
           ...(nama && { nama: { contains: nama, mode: "insensitive" } }),
         },
@@ -252,7 +267,12 @@ export const masjidTools = {
     execute: async ({ nama, masjidId, semuaLaporan }) => {
       const masjid = await prisma.masjid.findFirst({
         where: {
-          statusPengajuan: "APPROVED",
+          statusPengajuan: {
+            in: [
+              "APPROVED",
+              "ON_AIR"
+            ]
+          },
           ...(masjidId && { id: masjidId }),
           ...(nama && { nama: { contains: nama, mode: "insensitive" } }),
         },
@@ -306,7 +326,12 @@ export const masjidTools = {
     execute: async ({ nama }) => {
       const masjid = await prisma.masjid.findFirst({
         where: {
-          statusPengajuan: "APPROVED",
+          statusPengajuan: {
+            in: [
+              "APPROVED",
+              "ON_AIR"
+            ]
+          },
           nama: {
             contains: nama,
             mode: "insensitive",

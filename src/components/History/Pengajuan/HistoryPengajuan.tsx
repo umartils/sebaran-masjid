@@ -22,6 +22,7 @@ import { useFilteredData } from "@/hooks/useFilteredData";
 import { historyFilterFn } from "@/lib/filters/historyFilterFn";
 
 import { usePathname } from "next/navigation";
+import { pages } from "next/dist/build/templates/app-page";
 
 type Props = {
   masjid: Masjid[];
@@ -59,6 +60,7 @@ export function HistoryPengajuan({ masjid }: Props) {
   const { page, pageSize, totalPages, paginatedData, setPage, setPageSize } =
     usePagination(filtered);
 
+  const startNumber = (page - 1) * pageSize
   return (
     <>
       <FilterBar
@@ -89,6 +91,7 @@ export function HistoryPengajuan({ masjid }: Props) {
               }}
             >
               <option value={10}>10</option>
+              <option value={20}>20</option>
               <option value={50}>50</option>
               <option value={100}>100</option>
             </select>
@@ -98,6 +101,7 @@ export function HistoryPengajuan({ masjid }: Props) {
         <table className={styles.adminTable}>
           <thead>
             <tr>
+              <th>No.</th>
               <th>Nama Masjid</th>
               <th>Wilayah</th>
               <th>Kategori</th>
@@ -114,9 +118,10 @@ export function HistoryPengajuan({ masjid }: Props) {
                 </td>
               </tr>
             ) : (
-              paginatedData.map((building) => (
+              paginatedData.map((building, index) => (
                 <MasjidRow
                   key={building.id}
+                  no={startNumber + index + 1}
                   building={building}
                   onAction={openConfirmation}
                   pathname={pathname}

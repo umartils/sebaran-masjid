@@ -14,6 +14,7 @@ import styles from "./ListProgres.module.scss";
 
 interface ProgresRowProps {
   progres: TrackingMasjidList;
+  no: number;
 
   // onAction: (
   //   progres: TrackingMasjidList,
@@ -33,10 +34,18 @@ const getProgressColor = (
 
 function ProgresRow({
   progres,
+  no
   // onAction,
 }: ProgresRowProps) {
   return (
     <tr>
+      <td>
+        <center>
+          <strong>
+            {no}
+          </strong>
+        </center>
+      </td>
       <td>
         <strong>{progres.masjid.nama}</strong>
 

@@ -15,6 +15,7 @@ import styles from "./HistoryPengajuan.module.scss";
 interface BuildingRowProps {
   building: Masjid;
   pathname: string;
+  no: number;
 
   onAction: (
     building: Masjid,
@@ -24,11 +25,20 @@ interface BuildingRowProps {
 
 function BuildingRow({
   building,
+  no,
   onAction,
   pathname
 }: BuildingRowProps) {
   return (
     <tr>
+      <td>
+        <center>
+          <strong>
+            {no}
+          </strong>
+        </center>
+      </td>
+
       <td>
         <strong>{building.nama}</strong>
 
