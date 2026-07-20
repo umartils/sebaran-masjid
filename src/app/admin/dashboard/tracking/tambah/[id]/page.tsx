@@ -5,10 +5,17 @@ import { FormTambahLog } from "@/components/Progres/TambahLog/FormTambahLog";
 import { notFound } from "next/navigation";
 import { SessionGuard } from "@/components/SessionGuard";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ 
+  params, 
+  searchParams 
+}: { 
+  params: { id: string },
+  searchParams: { from: string } 
+}) {
   const tracking = await getTrackingMasjidById(params.id);
   //   console.log(tracking);
-
+  const from = searchParams.from || "/";
+ 
   if (!tracking) return notFound();
 
   return (
@@ -16,7 +23,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       <ProtectedPage>
         <section className="admin-page">
           {/* <h1>Tambah Progres</h1> */}
-          <FormTambahLog tracking={tracking} />
+          <FormTambahLog tracking={tracking} from= {from} />
         </section>
       </ProtectedPage>
     </SideBar>

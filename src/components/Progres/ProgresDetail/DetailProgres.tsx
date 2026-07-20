@@ -35,13 +35,13 @@ export function DetailProgres({ tracking, from }: Props) {
   }
 
   function handleAddLogs() {
-    router.push(`/admin/dashboard/tracking/tambah/${tracking.id}`);
+    router.push(`/admin/dashboard/tracking/tambah/${tracking.id}?from=/admin/dashboard/tracking/detail/${tracking.id}`);
   }
 
   return (
     <div className={styles.container}>
       {/* ── Header Card ── */}
-      <Link className="button-back" href={`${from}`}>
+      <Link className="button-back" href="/admin/dashboard/tracking">
         <ArrowLeft size={16} />
         Kembali
       </Link>

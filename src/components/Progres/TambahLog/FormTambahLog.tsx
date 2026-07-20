@@ -9,13 +9,21 @@ import ImageUploadField from "@/components/ImageUploadField/ImageUploadField";
 import { TrackingMasjidDetail } from "@/lib/types";
 import { useToast } from "@/hooks/useToast";
 
-export function FormTambahLog({
-  //   trackingId,
-  tracking,
-}: {
-  //   trackingId: string;
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+
+import { createProgres } from "@/lib/api/progres";
+import { executeRequest } from "@/lib/api/request";
+
+interface Props {
   tracking: TrackingMasjidDetail;
-}) {
+  from: string;
+}
+
+export function FormTambahLog({
+  tracking,
+  from
+}: Props ) {
   const router = useRouter();
   const trackingId = tracking.id;
   const masjidId = tracking.masjidId;
@@ -42,35 +50,50 @@ export function FormTambahLog({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (persentase < persentaseTracking) {
-      // setStatus(`Persentase tidak boleh kurang dari ${persentaseTracking}%`);
-      showToast(
-        `Persentase tidak boleh kurang dari ${persentaseTracking}%`,
-        "error"
-      );
-      return;
-    }
+    // if (persentase < persentaseTracking) {
+    //   // setStatus(`Persentase tidak boleh kurang dari ${persentaseTracking}%`);
+    //   showToast(
+    //     `Persentase tidak boleh kurang dari ${persentaseTracking}%`,
+    //     "error"
+    //   );
+    //   return;
+    // }
     setStatus("Menyimpan data...");
 
     try {
       setLoading(true);
 
-      const res = await fetch("/api/progres", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          trackingId,
-          progres,
-          nextProgres,
-          persentase,
-          imgUrls,
-          waktuProgres,
-        }),
-      });
+      const payload = {
+        trackingId,
+        progres,
+        nextProgres,
+        persentase,
+        imgUrls,
+        waktuProgres,
+      }
+      const result = await executeRequest(
+          createProgres(payload),
+          showToast
+      );
 
-      if (!res.ok) throw new Error();
+      if (!result) return;
+
+      // const res = await fetch("/api/progres", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     trackingId,
+      //     progres,
+      //     nextProgres,
+      //     persentase,
+      //     imgUrls,
+      //     waktuProgres,
+      //   }),
+      // });
+
+      // if (!res.ok) throw new Error();
 
       // setStatus("Progres berhasil ditambahkan");
 
@@ -89,6 +112,10 @@ export function FormTambahLog({
   return (
     <>
       <form className="form-card" onSubmit={handleSubmit}>
+        <Link className="button-back" href={from}>
+          <ArrowLeft size={16} />
+          Kembali
+        </Link>
         <header className="form-header">
           <h1>Tambah Progres</h1>
         </header>

@@ -12,11 +12,14 @@ import { useToast } from "@/hooks/useToast";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
+import { updateProgres } from "@/lib/api/progres";
+import { executeRequest } from "@/lib/api/request";
+
 interface Props {
   log: TrackingMasjidLog;
   from: string;
   masjid: any;
-}
+} 
 export function EditProgresLog({
   //   trackingId,
   log,
@@ -28,6 +31,7 @@ export function EditProgresLog({
   const logId = log.id;
   const trackingId = log.tracking.id;
   const persentaseTracking = log.tracking.persentase ?? 0;
+  const persentaseLog = log.persentase ?? 0;
 
   const now = new Date();
   const currentTime = `${now.getFullYear()}-${String(
@@ -58,37 +62,33 @@ export function EditProgresLog({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (persentase < persentaseTracking) {
-      // setStatus(`Persentase tidak boleh kurang dari ${persentaseTracking}%`);
-      showToast(`Persentase tidak boleh kurang dari ${persentaseTracking}%`, "error");
-      return;
-    }
     setStatus("Menyimpan data...");
 
     try {
       setLoading(true);
 
-      const res = await fetch("/api/progres", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: logId, 
-          trackingId,
-          progres,
-          nextProgres,
-          persentase,
-          imgUrls,
-          waktuProgres,
-        }),
-      });
+      const payload = {
+        id: logId, 
+        trackingId,
+        progres,
+        nextProgres,
+        persentase,
+        imgUrls,
+        waktuProgres,
+      }
 
-      if (!res.ok) throw new Error();
+      console.log(payload);
 
-      // setStatus("Progres berhasil ditambahkan");
+      const result = await executeRequest(
+          updateProgres(payload),
+          showToast
+      );
 
-      showToast("Progres berhasil diupdate", "success");
+      if (!result) {
+        setStatus("Terjadi error")
+        return;
+      }
+
       setTimeout(() => {
         router.push(`/admin/dashboard/tracking/detail/${trackingId}`);
         router.refresh();
