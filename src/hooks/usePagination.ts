@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 
 export function usePagination(filtered: any[]) {
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(5);
 
   const totalPages = Math.ceil(filtered.length / pageSize);
 
