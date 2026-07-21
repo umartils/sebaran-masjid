@@ -1,7 +1,15 @@
 "use client";
 
-import { useState, FormEvent } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { 
+  useState, 
+  FormEvent 
+} from "react";
+
+import { 
+  useRouter, 
+  useSearchParams 
+} from "next/navigation";
+
 import Image from "next/image";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
@@ -91,7 +99,7 @@ export default function LoginPageClient() {
           <div className="login-logo">
             <Image
               src="/assets/cropped-logo-masjid-nusantara.png"
-              alt="Logo MasjidCare"
+              alt="Logo Masjid Nusantara"
               width={72}
               height={72}
             />

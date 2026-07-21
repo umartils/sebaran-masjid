@@ -16,7 +16,9 @@ export async function POST(request: Request) {
         message:
           "DATABASE_URL belum diatur. Data belum disimpan ke PostgreSQL.",
       },
-      { status: 503 }
+      { 
+        status: 503 
+      }
     );
   }
 
@@ -29,16 +31,25 @@ export async function POST(request: Request) {
     parsed.data?.userId === ""
   ) {
     return NextResponse.json(
-      { message: "Session not detected" },
-      { status: 422 }
+      { 
+        message: "Session not detected" 
+      },
+      { 
+        status: 422 
+      }
     );
   }
 
   if (!parsed.success) {
     console.error(parsed.error);
     return NextResponse.json(
-      { message: "Data tidak valid", errors: parsed.error.flatten() },
-      { status: 422 }
+      { 
+        message: "Data tidak valid", 
+        errors: parsed.error.flatten() 
+      },
+      { 
+        status: 422 
+      }
     );
   }
 
@@ -53,8 +64,12 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Prisma error:", error);
     return NextResponse.json(
-      { message: "Gagal menyimpan data masjid." },
-      { status: 500 }
+      { 
+        message: "Gagal menyimpan data masjid." 
+      },
+      { 
+        status: 500 
+      }
     );
   }
 }
@@ -69,16 +84,25 @@ export async function PUT(request: Request) {
     parsed.data?.userId === ""
   ) {
     return NextResponse.json(
-      { message: "Session not detected" },
-      { status: 422 }
+      { 
+        message: "Session not detected" 
+      },
+      { 
+        status: 422 
+      }
     );
   }
 
   if (!parsed.success) {
     console.error(parsed.error);
     return NextResponse.json(
-      { message: "Data tidak valid", errors: parsed.error.flatten() },
-      { status: 422 }
+      { 
+        message: "Data tidak valid", 
+        errors: parsed.error.flatten() 
+      },
+      { 
+        status: 422 
+      }
     );
   }
 
@@ -95,8 +119,12 @@ export async function PUT(request: Request) {
   } catch (error) {
     console.error("Prisma error:", error);
     return NextResponse.json(
-      { message: "Gagal memperbarui data masjid." },
-      { status: 500 }
+      { 
+        message: "Gagal memperbarui data masjid." 
+      },
+      { 
+        status: 500 
+      }
     );
   }
 }
