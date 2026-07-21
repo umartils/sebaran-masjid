@@ -18,9 +18,10 @@ interface ToastState {
 
 interface UpdateStatusParams {
   approvedBy?: string;
-}
+  idApproval?: string;
+} 
 
-export function useApprovalPengajuan( approvedBy?: string) {
+export function useApprovalPengajuan( approvedBy?: string, idApproval?: string) {
   const router = useRouter();
 
   const [selectedMasjid, setSelectedMasjid] =
@@ -55,7 +56,7 @@ export function useApprovalPengajuan( approvedBy?: string) {
         show: false,
       }));
     }, 3000);
-  }
+  } 
 
   function openConfirmation(
     masjid: Masjid,
@@ -87,6 +88,7 @@ export function useApprovalPengajuan( approvedBy?: string) {
           body: JSON.stringify({
             status: actionType,
             approvedBy,
+            idApproval
           }),
           cache: "no-store",
         }

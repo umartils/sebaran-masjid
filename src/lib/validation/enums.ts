@@ -13,3 +13,10 @@ export const kategoriSchema = z.enum([
   "Muslim_Minoritas",
   "Terdampak_Bencana",
 ]);
+
+export const pengajuanSchema = z.enum([
+  "APPROVED",
+  "REJECTED",
+  "DELETED",
+  "ON_AIR",
+])

@@ -1207,7 +1207,9 @@ export const TrackingMasjidScalarFieldEnum = {
   persentase: 'persentase',
   firstUpdate: 'firstUpdate',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  editedBy: 'editedBy'
 } as const
 
 export type TrackingMasjidScalarFieldEnum = (typeof TrackingMasjidScalarFieldEnum)[keyof typeof TrackingMasjidScalarFieldEnum]
@@ -1222,7 +1224,8 @@ export const TrackingMasjidLogScalarFieldEnum = {
   waktuProgres: 'waktuProgres',
   imgUrls: 'imgUrls',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  editedBy: 'editedBy'
 } as const
 
 export type TrackingMasjidLogScalarFieldEnum = (typeof TrackingMasjidLogScalarFieldEnum)[keyof typeof TrackingMasjidLogScalarFieldEnum]

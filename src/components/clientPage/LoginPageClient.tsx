@@ -168,8 +168,8 @@ export default function LoginPageClient() {
 
         <p className="login-hint">
           Belum punya akun?{" "}
-          <Link href="/register" className="login-link">
-            Daftar sekarang
+          <Link href="#" className="login-link">
+            Hubungi Tim Program
           </Link>
         </p>
       </div>

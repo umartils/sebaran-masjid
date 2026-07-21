@@ -223,6 +223,7 @@ export type UserWhereInput = {
   userInput?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   masjid?: Prisma.MasjidListRelationFilter
+  tracking?: Prisma.TrackingMasjidListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
 }
@@ -239,6 +240,7 @@ export type UserOrderByWithRelationInput = {
   userInput?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   masjid?: Prisma.MasjidOrderByRelationAggregateInput
+  tracking?: Prisma.TrackingMasjidOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
 }
@@ -258,6 +260,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   userInput?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   masjid?: Prisma.MasjidListRelationFilter
+  tracking?: Prisma.TrackingMasjidListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
 }, "id" | "email">
@@ -306,6 +309,7 @@ export type UserCreateInput = {
   userInput?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidCreateNestedManyWithoutUserInput
+  tracking?: Prisma.TrackingMasjidCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
@@ -322,6 +326,7 @@ export type UserUncheckedCreateInput = {
   userInput?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidUncheckedCreateNestedManyWithoutUserInput
+  tracking?: Prisma.TrackingMasjidUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
@@ -338,6 +343,7 @@ export type UserUpdateInput = {
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUpdateManyWithoutUserNestedInput
+  tracking?: Prisma.TrackingMasjidUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
@@ -354,6 +360,7 @@ export type UserUncheckedUpdateInput = {
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUncheckedUpdateManyWithoutUserNestedInput
+  tracking?: Prisma.TrackingMasjidUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -502,6 +509,22 @@ export type UserUpdateOneWithoutMasjidNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMasjidInput, Prisma.UserUpdateWithoutMasjidInput>, Prisma.UserUncheckedUpdateWithoutMasjidInput>
 }
 
+export type UserCreateNestedOneWithoutTrackingInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTrackingInput, Prisma.UserUncheckedCreateWithoutTrackingInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTrackingInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutTrackingNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTrackingInput, Prisma.UserUncheckedCreateWithoutTrackingInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTrackingInput
+  upsert?: Prisma.UserUpsertWithoutTrackingInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTrackingInput, Prisma.UserUpdateWithoutTrackingInput>, Prisma.UserUncheckedUpdateWithoutTrackingInput>
+}
+
 export type UserCreateWithoutAccountsInput = {
   id?: string
   name?: string | null
@@ -514,6 +537,7 @@ export type UserCreateWithoutAccountsInput = {
   userInput?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidCreateNestedManyWithoutUserInput
+  tracking?: Prisma.TrackingMasjidCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
@@ -529,6 +553,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   userInput?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidUncheckedCreateNestedManyWithoutUserInput
+  tracking?: Prisma.TrackingMasjidUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -560,6 +585,7 @@ export type UserUpdateWithoutAccountsInput = {
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUpdateManyWithoutUserNestedInput
+  tracking?: Prisma.TrackingMasjidUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
@@ -575,6 +601,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUncheckedUpdateManyWithoutUserNestedInput
+  tracking?: Prisma.TrackingMasjidUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -590,6 +617,7 @@ export type UserCreateWithoutSessionsInput = {
   userInput?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidCreateNestedManyWithoutUserInput
+  tracking?: Prisma.TrackingMasjidCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
 
@@ -605,6 +633,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   userInput?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidUncheckedCreateNestedManyWithoutUserInput
+  tracking?: Prisma.TrackingMasjidUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -636,6 +665,7 @@ export type UserUpdateWithoutSessionsInput = {
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUpdateManyWithoutUserNestedInput
+  tracking?: Prisma.TrackingMasjidUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
 
@@ -651,6 +681,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUncheckedUpdateManyWithoutUserNestedInput
+  tracking?: Prisma.TrackingMasjidUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -665,6 +696,7 @@ export type UserCreateWithoutMasjidInput = {
   password?: string | null
   userInput?: string | null
   createdAt?: Date | string | null
+  tracking?: Prisma.TrackingMasjidCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
@@ -680,6 +712,7 @@ export type UserUncheckedCreateWithoutMasjidInput = {
   password?: string | null
   userInput?: string | null
   createdAt?: Date | string | null
+  tracking?: Prisma.TrackingMasjidUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
@@ -711,6 +744,7 @@ export type UserUpdateWithoutMasjidInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tracking?: Prisma.TrackingMasjidUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
@@ -726,6 +760,87 @@ export type UserUncheckedUpdateWithoutMasjidInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tracking?: Prisma.TrackingMasjidUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutTrackingInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  nomorTelepon?: string | null
+  role?: string
+  image?: string | null
+  password?: string | null
+  userInput?: string | null
+  createdAt?: Date | string | null
+  masjid?: Prisma.MasjidCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTrackingInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  nomorTelepon?: string | null
+  role?: string
+  image?: string | null
+  password?: string | null
+  userInput?: string | null
+  createdAt?: Date | string | null
+  masjid?: Prisma.MasjidUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTrackingInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTrackingInput, Prisma.UserUncheckedCreateWithoutTrackingInput>
+}
+
+export type UserUpsertWithoutTrackingInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTrackingInput, Prisma.UserUncheckedUpdateWithoutTrackingInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTrackingInput, Prisma.UserUncheckedCreateWithoutTrackingInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTrackingInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTrackingInput, Prisma.UserUncheckedUpdateWithoutTrackingInput>
+}
+
+export type UserUpdateWithoutTrackingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nomorTelepon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  masjid?: Prisma.MasjidUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTrackingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nomorTelepon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  masjid?: Prisma.MasjidUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -737,12 +852,14 @@ export type UserUncheckedUpdateWithoutMasjidInput = {
 
 export type UserCountOutputType = {
   masjid: number
+  tracking: number
   accounts: number
   sessions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   masjid?: boolean | UserCountOutputTypeCountMasjidArgs
+  tracking?: boolean | UserCountOutputTypeCountTrackingArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
 }
@@ -762,6 +879,13 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
  */
 export type UserCountOutputTypeCountMasjidArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.MasjidWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTrackingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TrackingMasjidWhereInput
 }
 
 /**
@@ -791,6 +915,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   userInput?: boolean
   createdAt?: boolean
   masjid?: boolean | Prisma.User$masjidArgs<ExtArgs>
+  tracking?: boolean | Prisma.User$trackingArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -838,6 +963,7 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "nomorTelepon" | "role" | "image" | "password" | "userInput" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   masjid?: boolean | Prisma.User$masjidArgs<ExtArgs>
+  tracking?: boolean | Prisma.User$trackingArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -849,6 +975,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     masjid: Prisma.$MasjidPayload<ExtArgs>[]
+    tracking: Prisma.$TrackingMasjidPayload<ExtArgs>[]
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
   }
@@ -1258,6 +1385,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   masjid<T extends Prisma.User$masjidArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$masjidArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MasjidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tracking<T extends Prisma.User$trackingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$trackingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrackingMasjidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1713,6 +1841,30 @@ export type User$masjidArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.MasjidScalarFieldEnum | Prisma.MasjidScalarFieldEnum[]
+}
+
+/**
+ * User.tracking
+ */
+export type User$trackingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TrackingMasjid
+   */
+  select?: Prisma.TrackingMasjidSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TrackingMasjid
+   */
+  omit?: Prisma.TrackingMasjidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackingMasjidInclude<ExtArgs> | null
+  where?: Prisma.TrackingMasjidWhereInput
+  orderBy?: Prisma.TrackingMasjidOrderByWithRelationInput | Prisma.TrackingMasjidOrderByWithRelationInput[]
+  cursor?: Prisma.TrackingMasjidWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TrackingMasjidScalarFieldEnum | Prisma.TrackingMasjidScalarFieldEnum[]
 }
 
 /**

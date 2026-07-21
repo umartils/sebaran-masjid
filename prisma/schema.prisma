@@ -20,6 +20,7 @@ model User {
   password      String?
   userInput     String?
   masjid        Masjid[]
+  tracking      TrackingMasjid[]
 
   accounts Account[]
   sessions Session[]
@@ -187,6 +188,8 @@ model TrackingMasjid {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   logs          TrackingMasjidLog[]
+  userId        String?
+  user          User?    @relation(fields: [userId], references: [id])
   editedBy      String?
 }
 

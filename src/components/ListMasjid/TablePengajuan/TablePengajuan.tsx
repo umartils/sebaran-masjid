@@ -28,6 +28,10 @@ type Props = {
 
 export function TablePengajuan({ masjid }: Props) {
   const { data: session } = useSession();
+  const userName = session?.user?.name ?? "";
+  const userId = session?.user?.id ?? "";
+
+  console.log(userId);
 
   const {
     selectedMasjid,
@@ -37,7 +41,7 @@ export function TablePengajuan({ masjid }: Props) {
     openConfirmation,
     closeConfirmation,
     handleUpdateStatus,
-  } = useApprovalPengajuan(session?.user?.name ?? "");
+  } = useApprovalPengajuan(userName, userId);
 
   const {
     query,
