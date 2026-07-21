@@ -168,7 +168,7 @@ export default function LoginPageClient() {
 
         <p className="login-hint">
           Belum punya akun?{" "}
-          <Link href="#" className="login-link">
+          <Link href="/login" className="login-link">
             Hubungi Tim Program
           </Link>
         </p>
