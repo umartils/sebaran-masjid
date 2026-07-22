@@ -15,7 +15,7 @@ const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 const ALLOWED_TYPES = ['video/mp4', 'video/webm', 'video/quicktime'];
 const MAX_SIZE = 50 * 1024 * 1024; // 50MB, sesuaikan sama limit preset Cloudinary
 
-export function useMultiVideoUpload(maxFiles = 5, folder = 'masjid-video') {
+export function useMultiVideoUpload(maxFiles = 5, folder = 'masjid-video', existingCount = 0) {
   const [videos, setVideos] = useState<UploadedVideo[]>([]);
   const [error, setError] = useState('');
 
@@ -83,7 +83,7 @@ export function useMultiVideoUpload(maxFiles = 5, folder = 'masjid-video') {
   const uploadFiles = async (files: File[]): Promise<string[]> => {
     const current = videosRef.current;
 
-    if (current.length + files.length > maxFiles) {
+    if (existingCount + current.length + files.length > maxFiles) {
       setError(`Maksimal ${maxFiles} video`);
       return current.filter((v) => v.status === 'done').map((v) => v.url);
     }
@@ -122,18 +122,24 @@ export function useMultiVideoUpload(maxFiles = 5, folder = 'masjid-video') {
       })
     );
 
-    const existingUrls = current.filter((v) => v.status === 'done').map((v) => v.url);
-    const newUrls = results.filter((url): url is string => url !== null);
+    // const existingUrls = current.filter((v) => v.status === 'done').map((v) => v.url);
+    // const newUrls = results.filter((url): url is string => url !== null);
 
-    return [...existingUrls, ...newUrls];
+    // return [...existingUrls, ...newUrls];
+
+    return results.filter((url): url is string => url !== null);
   };
 
   const removeVideo = (index: number) => {
     updateVideos((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const isUploading = videos.some((v) => v.status === 'uploading');
-  const isFull = videos.length >= maxFiles;
+  const clearDone = () => {
+    updateVideos((prev) => prev.filter((v) => v.status !== 'done'))
+  }
 
-  return { videos, error, uploadFiles, removeVideo, isUploading, isFull };
+  const isUploading = videos.some((v) => v.status === 'uploading');
+  const isFull = existingCount + videos.length >= maxFiles;
+
+  return { videos, error, uploadFiles, removeVideo, clearDone, isUploading, isFull };
 }

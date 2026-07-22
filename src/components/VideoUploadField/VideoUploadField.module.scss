@@ -236,3 +236,31 @@ $red-500: #EF4444;
   text-align: right;
   margin: 0;
 }
+
+.progressRing {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progressRing svg {
+  transform: rotate(-90deg); // supaya progres mulai dari jam 12
+}
+
+.progressRingTrack {
+  stroke: rgba(255, 255, 255, 0.3);
+}
+
+.progressRingBar {
+  stroke: #fff;
+  transition: stroke-dasharray 0.2s ease;
+}
+
+.progressText {
+  position: absolute;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+}

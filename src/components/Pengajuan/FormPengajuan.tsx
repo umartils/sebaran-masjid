@@ -2,8 +2,8 @@
 
 import { Save, Camera } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import ImageUploadField from "@/components/ImageUploadField/ImageUploadField";
-import VideoUploadField from "@/components/VideoUploadField/VideoUploadField";
+import ImageUploadField from "@/components/ImageUploadField/ImageUploadFieldInput";
+import VideoUploadField from "@/components/VideoUploadField/VideoUploadFieldInput";
 import { useSession } from "next-auth/react";
 
 import { createId } from "@paralleldrive/cuid2";
@@ -22,19 +22,19 @@ import DataMasyarakatSection from "./sections/DataMasyarakatSection";
 import AksesLingunganSection from "./sections/AksesLingunganSection";
 import AktivitasIbadahSection from "./sections/AktivitasIbadahSection";
 import PicDokumenSection from "./sections/PicDokumenSection";
-
+ 
 export function FormPengajuan() {
   const [masjidId] = useState(() => createId());
-  const { data: session } = useSession();
+  const [videoUrls, setVideoUrls] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
   const [documentUrls, setDocumentUrls] = useState<string[]>([]);
   const [buildingImageUrls, setBuildingImageUrls] = useState<string[]>([]);
-  const [videoUrls, setVideoUrls] = useState<string[]>([]);
-  const userId = session?.user?.id ?? "";
-
-  const { form, setField, resetForm } = useFormPengajuan({ session });
-
   const [status, setStatus] = useState("");
   const [coordinateInput, setCoordinateInput] = useState("");
+
+  const { data: session } = useSession();
+  const userId = session?.user?.id ?? "";
+  const { form, setField, resetForm } = useFormPengajuan({ session });
 
   const { locatePosition, loadingPosition, locationError } = useGeolocation();
   const handleLocatePosition = async () => {
@@ -56,9 +56,11 @@ export function FormPengajuan() {
   );
 
   async function submitForm(event: FormEvent<HTMLFormElement>) {
+    console.log(userId);
     event.preventDefault();
+    setLoading(true);
     setStatus("Menyimpan data...");
-
+ 
     const payload = {
       id: masjidId,
       ...form,
@@ -77,7 +79,7 @@ export function FormPengajuan() {
       longitude: Number(form.longitude),
       namaRelawan: form.namaRelawan,
       noTelpRelawan: form.noTelpRelawan,
-      userId: form.userId,
+      userId: userId,
     };
 
     const response = await fetch("/api/pengajuan", {
@@ -87,9 +89,11 @@ export function FormPengajuan() {
     });
 
     if (response.ok) {
+      setLoading(false);
       setStatus("Data berhasil disimpan.");
       return;
     } else {
+      setLoading(false);
       setStatus("Gagal menyimpan data.");
       return;
     }
@@ -153,8 +157,8 @@ export function FormPengajuan() {
       </div>
 
       <div className="form-actions">
-        <button className="primary-button" type="submit">
-          <Save size={18} /> Simpan Data
+        <button className="primary-button" type="submit" disabled={loading}>
+          <Save size={18} /> {loading ? "Menyimpan..." : "Simpan Data"}
         </button>
       </div>
       {status && <p className="status-message">{status}</p>}

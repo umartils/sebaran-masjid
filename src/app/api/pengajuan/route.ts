@@ -78,33 +78,34 @@ export async function PUT(request: Request) {
   const body = await request.json();
   const parsed = masjidSchema.safeParse(body);
 
-  if (
-    parsed.data?.userId === null ||
-    parsed.data?.userId === undefined ||
-    parsed.data?.userId === ""
-  ) {
-    return NextResponse.json(
-      { 
-        message: "Session not detected" 
-      },
-      { 
-        status: 422 
-      }
-    );
-  }
-
   if (!parsed.success) {
     console.error(parsed.error);
     return NextResponse.json(
-      { 
-        message: "Data tidak valid", 
-        errors: parsed.error.flatten() 
-      },
-      { 
-        status: 422 
-      }
+      { message: "Data tidak valid", errors: parsed.error.flatten() },
+      { status: 422 }
     );
   }
+
+  if (!parsed.data.userId) {
+    return NextResponse.json(
+      { message: "Session not detected" },
+      { status: 422 }
+    );
+  }
+
+  // if (!parsed.success) {
+  //   console.error(parsed.error);
+  //   console.log(parsed.error);
+  //   return NextResponse.json(
+  //     { 
+  //       message: "Data tidak valid", 
+  //       errors: parsed.error.flatten() 
+  //     },
+  //     { 
+  //       status: 422 
+  //     }
+  //   );
+  // }
 
   try {
     const masjid = await prisma.masjid.update({

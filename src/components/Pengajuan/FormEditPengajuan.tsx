@@ -1,6 +1,6 @@
 "use client";
 
-import {
+import { 
   Save,
   Pencil,
   Camera,
@@ -43,11 +43,14 @@ export function FormEditPengajuan({ masjid, from }: Props) {
   const [masjidId] = useState(masjid.id);
   const { data: session } = useSession();
 
+  const userId = session?.user?.id ?? "";
+
   // console.log(returnTo);
 
   const [documentUrls, setDocumentUrls] = useState<string[]>([]);
   const [buildingImageUrls, setBuildingImageUrls] = useState<string[]>([]);
   const [videoUrls, setVideoUrls] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false); 
 
   const { form, setField, resetForm, setForm } = useFormPengajuan({ session });
 
@@ -89,6 +92,7 @@ export function FormEditPengajuan({ masjid, from }: Props) {
 
   async function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setLoading(true);
     setStatus("Menyimpan data...");
 
     const payload = {
@@ -117,6 +121,7 @@ export function FormEditPengajuan({ masjid, from }: Props) {
       longitude: Number(form.longitude),
       namaRelawan: form.namaRelawan,
       noTelpRelawan: form.noTelpRelawan,
+      userId: userId
     };
     console.log(payload);
     const response = await fetch("/api/pengajuan", {
@@ -126,6 +131,7 @@ export function FormEditPengajuan({ masjid, from }: Props) {
     });
 
     if (response.ok) {
+      setLoading(false);
       setStatus("Data berhasil diupdate.");
       showToast("Data Pengajuan berhasil disimpan", "success");
       setTimeout(() => {
@@ -133,6 +139,8 @@ export function FormEditPengajuan({ masjid, from }: Props) {
         router.refresh();
       }, 1500);
     } else {
+      setLoading(false);
+      console.log(payload);
       setStatus("Gagal menyimpan data.");
       showToast("Gagal menyimpan data", "error");
     }
@@ -212,8 +220,8 @@ export function FormEditPengajuan({ masjid, from }: Props) {
       </div>
 
       <div className="form-actions">
-        <button className="primary-button" type="submit">
-          <Pencil size={18} /> Update Data
+        <button className="primary-button" type="submit" disabled={loading}>
+          <Pencil size={18} /> {loading ? "Menyimpan Data..." : "Update Data"}
         </button>
       </div>
       {status && <p className="status-message">{status}</p>}

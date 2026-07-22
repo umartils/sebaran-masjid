@@ -16,50 +16,27 @@ export default function VideoUploadField({
   maxFiles = 5,
   folder = "masjid-video",
   onUrlsChange,
-  existingUrls = [], 
+  existingUrls = [],
 }: Props) {
-  const { 
-    videos, 
-    error, 
-    uploadFiles, 
-    removeVideo, 
-    clearDone,
-    isUploading, 
-    isFull 
-  } =
-    useMultiVideoUpload(maxFiles, folder, existingUrls.length);
-
-    const syncUploaded = (newUrls: string[]) => {
-      if (!newUrls) return;
-      onUrlsChange([...existingUrls, ...newUrls]);
-      clearDone();
-    }
+  const { videos, error, uploadFiles, removeVideo, isUploading, isFull } =
+    useMultiVideoUpload(maxFiles, folder);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     if (!files.length) return;
     e.target.value = "";
 
-    // const uploadedUrls = await uploadFiles(files);
-    // onUrlsChange([...existingUrls, ...uploadedUrls]);
-    syncUploaded(await uploadFiles(files));
+    const uploadedUrls = await uploadFiles(files);
+    onUrlsChange([...existingUrls, ...uploadedUrls]);
   };
-
-  // const handleDrop = useCallback(async (e: React.DragEvent) => {
-  //   e.preventDefault();
-  //   e.currentTarget.classList.remove(styles.dragover);
-  //   const files = Array.from(e.dataTransfer.files);
-  //   const uploadedUrls = await uploadFiles(files);
-  //   onUrlsChange(uploadedUrls);
-  // }, []);
 
   const handleDrop = useCallback(async (e: React.DragEvent) => {
     e.preventDefault();
     e.currentTarget.classList.remove(styles.dragover);
     const files = Array.from(e.dataTransfer.files);
-    if (!files.length) return;
-    syncUploaded(await uploadFiles(files));
-  }, [existingUrls, uploadFiles]);
+    const uploadedUrls = await uploadFiles(files);
+    onUrlsChange(uploadedUrls);
+  }, []);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -70,20 +47,16 @@ export default function VideoUploadField({
     e.currentTarget.classList.remove(styles.dragover);
   };
 
-  // const handleRemove = (index: number) => {
-  //   removeVideo(index);
-  //   const remaining = videos
-  //     .filter((_, i) => i !== index)
-  //     .filter((v) => v.status === "done")
-  //     .map((v) => v.url);
-  //   onUrlsChange(remaining);
-  // };
+  const handleRemove = (index: number) => {
+    removeVideo(index);
+    const remaining = videos
+      .filter((_, i) => i !== index)
+      .filter((v) => v.status === "done")
+      .map((v) => v.url);
+    onUrlsChange(remaining);
+  };
 
-  const handleRemoveExisting = (index: number) => {
-    onUrlsChange(existingUrls.filter((_, i) => i !== index));
-  }
-
-  // const doneCount = videos.filter((v) => v.status === "done").length;
+  const doneCount = videos.filter((v) => v.status === "done").length;
 
   return (
     <div className={styles.field}>
@@ -125,7 +98,11 @@ export default function VideoUploadField({
               <button
                 type="button"
                 className={styles.removeBtn}
-                onClick={() => handleRemoveExisting(index)}
+                onClick={() => {
+                  const updated = existingUrls.filter((_, i) => i !== index);
+                  const uploadedUrls = videos.filter((v) => v.status === "done").map((v) => v.url);
+                  onUrlsChange([...updated, ...uploadedUrls]);
+                }}
               >
                 ✕
               </button>
@@ -139,29 +116,9 @@ export default function VideoUploadField({
                 style={{ opacity: v.status === "uploading" ? 0.5 : 1 }}
                 muted
               />
-              <div className={styles.previewOverlay} style={{ opacity: v.status === "uploading" ? 0.55 : undefined }} />
+              <div className={styles.previewOverlay} />
               <div className={styles.statusBadge}>
-                {v.status === "uploading" && (
-                  <div className={styles.progressRing}>
-                    <svg viewBox="0 0 36 36" width={44} height={44}>
-                      <path
-                        className={styles.progressRingTrack}
-                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        strokeWidth="3"
-                      />
-                      <path
-                        className={styles.progressRingBar}
-                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeDasharray={`${v.progress}, 100`}
-                      />
-                    </svg>
-                    <span className={styles.progressText}>{v.progress}%</span>
-                  </div>
-                )}
+                {v.status === "uploading" && <span>{v.progress}%</span>}
                 {v.status === "done" && (
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -176,7 +133,7 @@ export default function VideoUploadField({
               <button
                 type="button"
                 className={styles.removeBtn}
-                onClick={() => handleRemoveExisting(index)}
+                onClick={() => handleRemove(index)}
                 disabled={v.status === "uploading"}
                 aria-label="Hapus video"
               >
@@ -189,9 +146,7 @@ export default function VideoUploadField({
         </div>
       )}
 
-      {/* <p className={styles.counter}>{doneCount} / {maxFiles} video terupload</p>
-       */}
-       <p className={styles.counter}>{existingUrls.length} / {maxFiles} video terupload</p>
+      <p className={styles.counter}>{doneCount} / {maxFiles} video terupload</p>
     </div>
   );
 }
