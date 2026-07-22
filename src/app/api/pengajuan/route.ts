@@ -60,7 +60,18 @@ export async function POST(request: Request) {
         id: parsed.data.id,
       },
     });
-    return NextResponse.json({ masjid }, { status: 201 });
+    return NextResponse.json(
+      { 
+        message: "Data Berhasil Ditambah",
+        data: {
+          nama: masjid.nama,
+          alamat: masjid.alamat,
+        }, 
+      }, 
+      { 
+        status: 201 
+      }
+    );
   } catch (error) {
     console.error("Prisma error:", error);
     return NextResponse.json(
@@ -93,20 +104,6 @@ export async function PUT(request: Request) {
     );
   }
 
-  // if (!parsed.success) {
-  //   console.error(parsed.error);
-  //   console.log(parsed.error);
-  //   return NextResponse.json(
-  //     { 
-  //       message: "Data tidak valid", 
-  //       errors: parsed.error.flatten() 
-  //     },
-  //     { 
-  //       status: 422 
-  //     }
-  //   );
-  // }
-
   try {
     const masjid = await prisma.masjid.update({
       where: {
@@ -116,7 +113,19 @@ export async function PUT(request: Request) {
         ...parsed.data,
       },
     });
-    return NextResponse.json({ masjid }, { status: 200 });
+    
+    return NextResponse.json(
+      { 
+        message: "Data Berhasil Diperbarui",
+        data: {
+          nama: masjid.nama,
+          alamat: masjid.alamat,
+        },
+      }, 
+      { 
+        status: 200 
+      }
+    );
   } catch (error) {
     console.error("Prisma error:", error);
     return NextResponse.json(

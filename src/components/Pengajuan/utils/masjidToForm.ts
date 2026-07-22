@@ -1,4 +1,5 @@
 import { Masjid } from "@/lib/types";
+// import { KondisiMasjid, KategoriMasjid } from "@/lib/validation";
 
 export function mapMasjidToForm(masjid: Masjid) {
   return {
@@ -14,7 +15,7 @@ export function mapMasjidToForm(masjid: Masjid) {
     latitude: masjid.latitude?.toString() ?? "",
     longitude: masjid.longitude?.toString() ?? "",
 
-    kondisi: masjid.kondisi ?? "",
+    // kondisi: masjid.kondisi ?? "",
     kategori: masjid.kategori ?? "",
 
     // Fisik bangunan

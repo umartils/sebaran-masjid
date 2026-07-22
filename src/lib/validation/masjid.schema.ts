@@ -45,7 +45,7 @@ export const masjidSchema = z.object({
   targetPerluasan: optionalString,
 
   // ── Legalitas & Kondisi Kerusakan ─────────────
-  kondisi: kondisiSchema,
+  // kondisi: kondisiSchema,
   kategori: kategoriSchema,
   statusTanah: optionalString,
   statusListrik: optionalString,
@@ -95,3 +95,12 @@ export const masjidSchema = z.object({
   imageUrl: mediaUrl,
   videoUrl: mediaUrl,
 });
+
+export type PengajuanMasjid =
+    z.infer<typeof masjidSchema>;
+
+// export type KondisiMasjid = 
+//     z.infer<typeof kondisiSchema>;
+
+export type KategoriMasjid = 
+    z.infer<typeof kategoriSchema>;

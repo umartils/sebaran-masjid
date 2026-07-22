@@ -5,6 +5,8 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import ImageUploadField from "@/components/ImageUploadField/ImageUploadFieldInput";
 import VideoUploadField from "@/components/VideoUploadField/VideoUploadFieldInput";
 import { useSession } from "next-auth/react";
+import { useToast } from "@/hooks/useToast";
+import { useRouter } from "next/router";
 
 import { createId } from "@paralleldrive/cuid2";
 
@@ -22,7 +24,10 @@ import DataMasyarakatSection from "./sections/DataMasyarakatSection";
 import AksesLingunganSection from "./sections/AksesLingunganSection";
 import AktivitasIbadahSection from "./sections/AktivitasIbadahSection";
 import PicDokumenSection from "./sections/PicDokumenSection";
- 
+
+import { createPengajuan } from "@/lib/api/pengajuan";
+import { executeRequest } from "@/lib/api/request";
+  
 export function FormPengajuan() {
   const [masjidId] = useState(() => createId());
   const [videoUrls, setVideoUrls] = useState<string[]>([]);
@@ -31,6 +36,9 @@ export function FormPengajuan() {
   const [buildingImageUrls, setBuildingImageUrls] = useState<string[]>([]);
   const [status, setStatus] = useState("");
   const [coordinateInput, setCoordinateInput] = useState("");
+
+  const { toast, showToast } = useToast();
+  const router = useRouter();
 
   const { data: session } = useSession();
   const userId = session?.user?.id ?? "";
@@ -58,44 +66,46 @@ export function FormPengajuan() {
   async function submitForm(event: FormEvent<HTMLFormElement>) {
     console.log(userId);
     event.preventDefault();
-    setLoading(true);
-    setStatus("Menyimpan data...");
- 
-    const payload = {
-      id: masjidId,
-      ...form,
-      ...selectedNames,
-      documentImgUrl: documentUrls,
-      imageUrl: buildingImageUrls,
-      videoUrl: videoUrls,
-      // coerce numerics
-      kapasitas: form.kapasitas ? Number(form.kapasitas) : undefined,
-      tahunDibangun: form.tahunDibangun
-        ? Number(form.tahunDibangun)
-        : undefined,
-      budgetAwal: form.budgetAwal ? Number(form.budgetAwal) : undefined,
-      kkMuslim: form.kkMuslim ? Number(form.kkMuslim) : undefined,
-      latitude: Number(form.latitude),
-      longitude: Number(form.longitude),
-      namaRelawan: form.namaRelawan,
-      noTelpRelawan: form.noTelpRelawan,
-      userId: userId,
-    };
+    try {
+      setLoading(true);
+      setStatus("Menyimpan data...");
+  
+      const payload = {
+        id: masjidId,
+        ...form,
+        ...selectedNames,
+        documentImgUrl: documentUrls,
+        imageUrl: buildingImageUrls,
+        videoUrl: videoUrls,
+        // coerce numerics
+        kapasitas: form.kapasitas ? Number(form.kapasitas) : undefined,
+        tahunDibangun: form.tahunDibangun
+          ? Number(form.tahunDibangun)
+          : undefined,
+        budgetAwal: form.budgetAwal ? Number(form.budgetAwal) : undefined,
+        kkMuslim: form.kkMuslim ? Number(form.kkMuslim) : undefined,
+        latitude: Number(form.latitude),
+        longitude: Number(form.longitude),
+        namaRelawan: form.namaRelawan,
+        noTelpRelawan: form.noTelpRelawan,
+        userId: userId,
+      };
 
-    const response = await fetch("/api/pengajuan", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+      const result = await executeRequest(
+        createPengajuan(payload),
+        showToast
+      )
 
-    if (response.ok) {
+      if (!result) {
+        setStatus("Terjadi error")
+        return;
+      }
+
+    } catch (err) {
+      setStatus("Gagal menambah progres");
+    } finally {
       setLoading(false);
-      setStatus("Data berhasil disimpan.");
-      return;
-    } else {
-      setLoading(false);
-      setStatus("Gagal menyimpan data.");
-      return;
+
     }
   }
 
@@ -162,6 +172,17 @@ export function FormPengajuan() {
         </button>
       </div>
       {status && <p className="status-message">{status}</p>}
+      {toast.show && (
+        <div
+          className={`custom-toast ${
+            toast.type === "success"
+              ? "custom-toast--success"
+              : "custom-toast--error"
+          }`}
+        >
+          {toast.message}
+        </div>
+      )}
     </form>
   );
 }

@@ -1,3 +1,5 @@
+import { KategoriMasjid } from "@/lib/validation";
+
 export const initialForm = {
   // Info Umum
   nama: "",
@@ -20,8 +22,8 @@ export const initialForm = {
   // Legalitas & Kondisi
   statusTanah: "",
   statusListrik: "",
-  kondisi: "RUSAK_SEDANG",
-  kategori: "Pelosok_Pedalaman",
+  // kondisi: "RUSAK_SEDANG",
+  kategori: "Pelosok_Pedalaman" as KategoriMasjid,
   waktuKerusakan: "",
   alasan: "",
   dampakKerusakan: "",

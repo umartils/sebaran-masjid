@@ -86,7 +86,6 @@ model Masjid {
   namaDesa                    String?
   latitude                    Float
   longitude                   Float
-  kondisi                     Condition @default(RUSAK_SEDANG)
   kategori                    Category @default(Pelosok_Pedalaman)
   kapasitas                   Int?
   tahunDibangun               Int?
@@ -169,7 +168,6 @@ model MasjidMNBaru {
   tahunDibangun       Int?
   statusTanah         String?
   catatan             String?
-  kondisi             Condition? @default(RUSAK_SEDANG)
   kategori            Category @default(Pelosok_Pedalaman)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt

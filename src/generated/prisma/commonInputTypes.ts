@@ -173,13 +173,6 @@ export type FloatFilter<$PrismaModel = never> = {
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
 }
 
-export type EnumConditionFilter<$PrismaModel = never> = {
-  equals?: $Enums.Condition | Prisma.EnumConditionFieldRefInput<$PrismaModel>
-  in?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumConditionFilter<$PrismaModel> | $Enums.Condition
-}
-
 export type EnumCategoryFilter<$PrismaModel = never> = {
   equals?: $Enums.Category | Prisma.EnumCategoryFieldRefInput<$PrismaModel>
   in?: $Enums.Category[] | Prisma.ListEnumCategoryFieldRefInput<$PrismaModel>
@@ -221,16 +214,6 @@ export type FloatWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
 }
 
-export type EnumConditionWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.Condition | Prisma.EnumConditionFieldRefInput<$PrismaModel>
-  in?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumConditionWithAggregatesFilter<$PrismaModel> | $Enums.Condition
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumConditionFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumConditionFilter<$PrismaModel>
-}
-
 export type EnumCategoryWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.Category | Prisma.EnumCategoryFieldRefInput<$PrismaModel>
   in?: $Enums.Category[] | Prisma.ListEnumCategoryFieldRefInput<$PrismaModel>
@@ -265,23 +248,6 @@ export type EnumBuildingStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumBuildingStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumBuildingStatusFilter<$PrismaModel>
-}
-
-export type EnumConditionNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.Condition | Prisma.EnumConditionFieldRefInput<$PrismaModel> | null
-  in?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumConditionNullableFilter<$PrismaModel> | $Enums.Condition | null
-}
-
-export type EnumConditionNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.Condition | Prisma.EnumConditionFieldRefInput<$PrismaModel> | null
-  in?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumConditionNullableWithAggregatesFilter<$PrismaModel> | $Enums.Condition | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumConditionNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumConditionNullableFilter<$PrismaModel>
 }
 
 export type EnumProgresStatusFilter<$PrismaModel = never> = {
@@ -473,13 +439,6 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
 }
 
-export type NestedEnumConditionFilter<$PrismaModel = never> = {
-  equals?: $Enums.Condition | Prisma.EnumConditionFieldRefInput<$PrismaModel>
-  in?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumConditionFilter<$PrismaModel> | $Enums.Condition
-}
-
 export type NestedEnumCategoryFilter<$PrismaModel = never> = {
   equals?: $Enums.Category | Prisma.EnumCategoryFieldRefInput<$PrismaModel>
   in?: $Enums.Category[] | Prisma.ListEnumCategoryFieldRefInput<$PrismaModel>
@@ -508,16 +467,6 @@ export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatFilter<$PrismaModel>
   _min?: Prisma.NestedFloatFilter<$PrismaModel>
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
-}
-
-export type NestedEnumConditionWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.Condition | Prisma.EnumConditionFieldRefInput<$PrismaModel>
-  in?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumConditionWithAggregatesFilter<$PrismaModel> | $Enums.Condition
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumConditionFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumConditionFilter<$PrismaModel>
 }
 
 export type NestedEnumCategoryWithAggregatesFilter<$PrismaModel = never> = {
@@ -554,23 +503,6 @@ export type NestedEnumBuildingStatusWithAggregatesFilter<$PrismaModel = never> =
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumBuildingStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumBuildingStatusFilter<$PrismaModel>
-}
-
-export type NestedEnumConditionNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.Condition | Prisma.EnumConditionFieldRefInput<$PrismaModel> | null
-  in?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumConditionNullableFilter<$PrismaModel> | $Enums.Condition | null
-}
-
-export type NestedEnumConditionNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.Condition | Prisma.EnumConditionFieldRefInput<$PrismaModel> | null
-  in?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.Condition[] | Prisma.ListEnumConditionFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumConditionNullableWithAggregatesFilter<$PrismaModel> | $Enums.Condition | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumConditionNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumConditionNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumProgresStatusFilter<$PrismaModel = never> = {

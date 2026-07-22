@@ -69,7 +69,7 @@ export type MasjidMNBaru = {
   longitude: number;
 
   // Kondisi masjid
-  kondisi: KondisiMasjid;
+  // kondisi: KondisiMasjid;
   kategori: KategoriMasjid;
 
   // Informasi bangunan

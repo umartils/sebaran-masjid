@@ -94,7 +94,13 @@ export default function VideoUploadField({
         <div className={styles.previewGrid}>
           {existingUrls.map((url, index) => (
             <div key={`existing-${index}`} className={styles.previewItem}>
-              <video src={url} className={styles.previewImg} muted />
+              <video 
+                src={url} 
+                className={styles.previewImg} 
+                muted
+                preload="metadata"
+                playsInline  
+              />
               <button
                 type="button"
                 className={styles.removeBtn}
@@ -115,6 +121,8 @@ export default function VideoUploadField({
                 className={styles.previewImg}
                 style={{ opacity: v.status === "uploading" ? 0.5 : 1 }}
                 muted
+                preload="metadata"
+                playsInline
               />
               <div className={styles.previewOverlay} />
               <div className={styles.statusBadge}>

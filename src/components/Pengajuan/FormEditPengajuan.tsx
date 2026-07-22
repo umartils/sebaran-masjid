@@ -32,6 +32,9 @@ import AksesLingunganSection from "./sections/AksesLingunganSection";
 import AktivitasIbadahSection from "./sections/AktivitasIbadahSection";
 import PicDokumenSection from "./sections/PicDokumenSection";
 
+import { updatePengajuan } from "@/lib/api/pengajuan";
+import { executeRequest } from "@/lib/api/request";
+
 interface Props {
   masjid: Masjid;
   from: string;
@@ -92,60 +95,60 @@ export function FormEditPengajuan({ masjid, from }: Props) {
 
   async function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setLoading(true);
-    setStatus("Menyimpan data...");
 
-    const payload = {
-      id: masjidId,
-      ...form,
-      ...selectedNames,
-      namaProvinsi: selectedNames.namaProvinsi?.trim() || masjid.namaProvinsi,
+    try {
+      setLoading(true);
+      setStatus("Menyimpan data...");
 
-      namaKota: selectedNames.namaKota?.trim() || masjid.namaKota,
+      const payload = {
+        id: masjidId,
+        ...form,
+        ...selectedNames,
+        namaProvinsi: selectedNames.namaProvinsi?.trim() || masjid.namaProvinsi,
 
-      namaKecamatan:
-        selectedNames.namaKecamatan?.trim() || masjid.namaKecamatan,
+        namaKota: selectedNames.namaKota?.trim() || masjid.namaKota,
 
-      namaDesa: selectedNames.namaDesa?.trim() || masjid.namaDesa,
-      documentImgUrl: documentUrls,
-      imageUrl: buildingImageUrls,
-      videoUrl: videoUrls,
-      // coerce numerics
-      kapasitas: form.kapasitas ? Number(form.kapasitas) : undefined,
-      tahunDibangun: form.tahunDibangun
-        ? Number(form.tahunDibangun)
-        : undefined,
-      budgetAwal: form.budgetAwal ? Number(form.budgetAwal) : undefined,
-      kkMuslim: form.kkMuslim ? Number(form.kkMuslim) : undefined,
-      latitude: Number(form.latitude),
-      longitude: Number(form.longitude),
-      namaRelawan: form.namaRelawan,
-      noTelpRelawan: form.noTelpRelawan,
-      userId: userId
-    };
-    console.log(payload);
-    const response = await fetch("/api/pengajuan", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+        namaKecamatan:
+          selectedNames.namaKecamatan?.trim() || masjid.namaKecamatan || undefined,
 
-    if (response.ok) {
-      setLoading(false);
-      setStatus("Data berhasil diupdate.");
-      showToast("Data Pengajuan berhasil disimpan", "success");
+        namaDesa: selectedNames.namaDesa?.trim() || masjid.namaDesa || undefined,
+        documentImgUrl: documentUrls,
+        imageUrl: buildingImageUrls,
+        videoUrl: videoUrls,
+        // coerce numerics
+        kapasitas: form.kapasitas ? Number(form.kapasitas) : undefined,
+        tahunDibangun: form.tahunDibangun
+          ? Number(form.tahunDibangun)
+          : undefined,
+        budgetAwal: form.budgetAwal ? Number(form.budgetAwal) : undefined,
+        kkMuslim: form.kkMuslim ? Number(form.kkMuslim) : undefined,
+        latitude: Number(form.latitude),
+        longitude: Number(form.longitude),
+        namaRelawan: form.namaRelawan,
+        noTelpRelawan: form.noTelpRelawan,
+        userId: userId
+      };
+      console.log(payload);
+      const result = await executeRequest(
+        updatePengajuan(payload),
+        showToast
+      )
+
+      if (!result) {
+        setStatus("Terjadi error")
+        return;
+      }
+
       setTimeout(() => {
-        router.push(from);
+        router.push(`/admin/dashboard/masjid`);
         router.refresh();
       }, 1500);
-    } else {
+    } catch (err) {
+      setStatus("Gagal menambah progres");
+    } finally {
       setLoading(false);
-      console.log(payload);
-      setStatus("Gagal menyimpan data.");
-      showToast("Gagal menyimpan data", "error");
     }
-    // const data = await response.json().catch(() => ({}));
-    // setStatus(data.message ?? "Data belum bisa disimpan.");
+  
   }
 
   return (

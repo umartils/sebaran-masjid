@@ -1113,7 +1113,6 @@ export const MasjidScalarFieldEnum = {
   namaDesa: 'namaDesa',
   latitude: 'latitude',
   longitude: 'longitude',
-  kondisi: 'kondisi',
   kategori: 'kategori',
   kapasitas: 'kapasitas',
   tahunDibangun: 'tahunDibangun',
@@ -1191,7 +1190,6 @@ export const MasjidMNBaruScalarFieldEnum = {
   tahunDibangun: 'tahunDibangun',
   statusTanah: 'statusTanah',
   catatan: 'catatan',
-  kondisi: 'kondisi',
   kategori: 'kategori',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1314,20 +1312,6 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-/**
- * Reference to a field of type 'Condition'
- */
-export type EnumConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Condition'>
-    
-
-
-/**
- * Reference to a field of type 'Condition[]'
- */
-export type ListEnumConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Condition[]'>
     
 
 
