@@ -1,7 +1,7 @@
 import { SideBar } from "@/components/SideBar";
 import { notFound } from "next/navigation";
 import { getMasjidById } from "@/lib/masjid";
-import { FormEditPengajuan } from "@/components/form/FormPengajuan/FormEditPengajuan";
+import { FormEditPengajuan } from "@/components/Pengajuan/FormEditPengajuan";
 import { ProtectedPage } from "@/components/ProtectedPage";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";

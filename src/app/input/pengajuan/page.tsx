@@ -1,5 +1,5 @@
 import { SideBar } from "@/components/SideBar";
-import { FormPengajuan } from "@/components/form/FormPengajuan/FormPengajuan";
+import { FormPengajuan } from "@/components/Pengajuan/FormPengajuan";
 import { ProtectedPage } from "@/components/ProtectedPage";
 
 export default function InputPage() {

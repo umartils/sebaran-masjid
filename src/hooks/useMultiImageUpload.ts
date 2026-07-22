@@ -9,11 +9,13 @@ export interface UploadedImage {
   status: 'uploading' | 'done' | 'error';
 }
 
-export function useMultiImageUpload(maxFiles = 5, folder = "masjid") {
+export function useMultiImageUpload(
+  maxFiles = 5,
+  folder = "masjid",
+  existingCount = 0 // ✅ jumlah foto yang SUDAH final (dari existingUrls di parent)
+) {
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [error, setError] = useState("");
-
-  // ✅ Ref selalu menyimpan nilai images terkini, tidak stale
   const imagesRef = useRef<UploadedImage[]>([]);
 
   const updateImages = (
@@ -27,11 +29,12 @@ export function useMultiImageUpload(maxFiles = 5, folder = "masjid") {
   };
 
   const uploadFiles = async (files: File[]): Promise<string[]> => {
-    const current = imagesRef.current; // ✅ baca dari ref, bukan dari images
+    const current = imagesRef.current;
 
-    if (current.length + files.length > maxFiles) {
+    // ✅ batas dihitung dari total: existing + pending sesi ini + file baru
+    if (existingCount + current.length + files.length > maxFiles) {
       setError(`Maksimal ${maxFiles} gambar`);
-      return current.filter((i) => i.status === "done").map((i) => i.url);
+      return [];
     }
 
     setError("");
@@ -55,9 +58,7 @@ export function useMultiImageUpload(maxFiles = 5, folder = "masjid") {
 
         if (!allowedTypes.includes(file.type) || file.size > 5 * 1024 * 1024) {
           updateImages((prev) =>
-            prev.map((img, i) =>
-              i === stateIndex ? { ...img, status: "error" } : img
-            )
+            prev.map((img, i) => (i === stateIndex ? { ...img, status: "error" } : img))
           );
           return null;
         }
@@ -67,22 +68,14 @@ export function useMultiImageUpload(maxFiles = 5, folder = "masjid") {
           formData.append("image", file);
           formData.append("folder", folder);
 
-          const res = await fetch("/api/upload", {
-            method: "POST",
-            body: formData,
-          });
+          const res = await fetch("/api/upload", { method: "POST", body: formData });
           const data = await res.json();
           if (!res.ok) throw new Error(data.error);
 
           updateImages((prev) =>
             prev.map((img, i) =>
               i === stateIndex
-                ? {
-                    ...img,
-                    url: data.url,
-                    publicId: data.public_id,
-                    status: "done",
-                  }
+                ? { ...img, url: data.url, publicId: data.public_id, status: "done" }
                 : img
             )
           );
@@ -90,30 +83,29 @@ export function useMultiImageUpload(maxFiles = 5, folder = "masjid") {
           return data.url as string;
         } catch {
           updateImages((prev) =>
-            prev.map((img, i) =>
-              i === stateIndex ? { ...img, status: "error" } : img
-            )
+            prev.map((img, i) => (i === stateIndex ? { ...img, status: "error" } : img))
           );
           return null;
         }
       })
     );
 
-    const existingUrls = current
-      .filter((img) => img.status === "done")
-      .map((img) => img.url);
-
-    const newUrls = results.filter((url): url is string => url !== null);
-
-    return [...existingUrls, ...newUrls];
+    // ✅ hanya kembalikan URL baru dari batch ini — bukan digabung dengan yang lama
+    return results.filter((url): url is string => url !== null);
   };
 
   const removeImage = (index: number) => {
     updateImages((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const isUploading = images.some((img) => img.status === "uploading");
-  const isFull = images.length >= maxFiles;
+  // ✅ buang entry yang sudah "done" & sudah disinkronkan ke parent,
+  // supaya images tidak menumpuk jadi log permanen
+  const clearDone = () => {
+    updateImages((prev) => prev.filter((img) => img.status !== "done"));
+  };
 
-  return { images, error, uploadFiles, removeImage, isUploading, isFull };
+  const isUploading = images.some((img) => img.status === "uploading");
+  const isFull = existingCount + images.length >= maxFiles;
+
+  return { images, error, uploadFiles, removeImage, clearDone, isUploading, isFull };
 }
