@@ -14,7 +14,7 @@ export function mapMasjidToForm(masjid: Masjid) {
     latitude: masjid.latitude?.toString() ?? "",
     longitude: masjid.longitude?.toString() ?? "",
 
-    kondisi: masjid.kondisi ?? "",
+    // kondisi: masjid.kondisi ?? "",
     kategori: masjid.kategori ?? "",
 
     // Fisik bangunan

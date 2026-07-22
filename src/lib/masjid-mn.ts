@@ -9,7 +9,7 @@ export async function getMasjidMN(): Promise<MasjidMNBaru[]> {
 
   return records.map((record) => ({
     ...record,
-    kondisi: record.kondisi as MasjidMNBaru["kondisi"],
+    // kondisi: record.kondisi as MasjidMNBaru["kondisi"],
   }));
 }
 

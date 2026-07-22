@@ -26,15 +26,15 @@ import {
 
 import Link from "next/link";
 
-const KONDISI_LABEL: Record<
-  string,
-  { label: string; tone: "rusak" | "sedang" | "baik" }
-> = {
-  RUSAK_BERAT: { label: "Rusak Berat", tone: "rusak" },
-  RUSAK_SEDANG: { label: "Rusak Sedang", tone: "sedang" },
-  RUSAK_RINGAN: { label: "Rusak Ringan", tone: "sedang" },
-  LAYAK: { label: "Layak", tone: "baik" },
-};
+// const KONDISI_LABEL: Record<
+//   string,
+//   { label: string; tone: "rusak" | "sedang" | "baik" }
+// > = {
+//   RUSAK_BERAT: { label: "Rusak Berat", tone: "rusak" },
+//   RUSAK_SEDANG: { label: "Rusak Sedang", tone: "sedang" },
+//   RUSAK_RINGAN: { label: "Rusak Ringan", tone: "sedang" },
+//   LAYAK: { label: "Layak", tone: "baik" },
+// };
 
 const STATUS_LABEL: Record<string, { label: string; cls: string }> = {
   PENDING: { label: "⏳ Menunggu Verifikasi", cls: "pending" },
@@ -74,10 +74,10 @@ interface Props {
 }
 export default function MasjidDetail({ masjid, from }: Props) {
   const { status: authStatus } = useSession();
-  const kondisi = KONDISI_LABEL[masjid.kondisi] ?? {
-    label: masjid.kondisi,
-    tone: "sedang",
-  };
+  // const kondisi = KONDISI_LABEL[masjid.kondisi] ?? {
+  //   label: masjid.kondisi,
+  //   tone: "sedang",
+  // };
   const status = STATUS_LABEL[masjid.statusPengajuan] ?? {
     label: masjid.statusPengajuan,
     cls: "pending",
@@ -147,12 +147,12 @@ export default function MasjidDetail({ masjid, from }: Props) {
             </div>
             <div className={styles.cardBody}>
               <div className={styles.kondisiGrid}>
-                <div
+                {/* <div
                   className={`${styles.kondisiCard} ${styles[kondisi.tone]}`}
                 >
                   <label>Kondisi Bangunan</label>
                   <strong>{kondisi.label}</strong>
-                </div>
+                </div> */}
                 <div className={`${styles.kondisiCard} ${styles.baik}`}>
                   <label>Status Tanah</label>
                   <strong>{masjid.statusTanah || "-"}</strong>
