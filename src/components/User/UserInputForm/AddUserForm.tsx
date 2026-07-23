@@ -3,33 +3,45 @@
 import { Save, User, Mail, Phone, Shield, Lock } from "lucide-react";
 import { FormEvent, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import styles from "./AddUserForm.module.scss"; // Mengimpor file scss sebagai modul
+import styles from "./AddUserForm.module.scss"; 
+import { executeRequest } from "@/lib/api/request";
+import { addUserApi } from "@/lib/api/user";
+import { UserRole } from "@/lib/types";
+
+import { useToast } from "@/hooks/useToast";
+import { useRouter } from "next/navigation";
 
 export function AddUserForm() {
   const [form, setForm] = useState({
     name: "",
     email: "",
     nomorTelepon: "",
-    role: "Relawan",
+    role: "Relawan" as UserRole,
     password: "",
     confirmPassword: "",
-    userInput: "",
+    // userInput: "",
   });
 
+  const router = useRouter()
+  
+  const { toast, showToast } = useToast();
   const [status, setStatus] = useState("");
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { data: session } = useSession();
 
-  useEffect(() => {
-    if (session?.user?.id) {
-      setForm((current) => ({
-        ...current,
-        userInput: session.user.id ?? "",
-      }));
-    }
-  }, [session]);
+  const userInputId = session?.user.id ?? "";
+  const userInputName = session?.user.name ?? "";
+
+  // useEffect(() => {
+  //   if (session?.user?.id) {
+  //     setForm((current) => ({
+  //       ...current,
+  //       userInput: session.user?.name ?? "",
+  //     }));
+  //   }
+  // }, [session]);
 
   function updateField(name: keyof typeof form, value: string) {
     setForm((current) => ({
@@ -53,37 +65,37 @@ export function AddUserForm() {
       setLoading(true);
       setStatus("Menyimpan data...");
 
-      const response = await fetch("/api/user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          nomorTelepon: form.nomorTelepon,
-          role: form.role,
-          password: form.password,
-          userInput: form.userInput,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        setIsError(true);
-        setStatus(result.message ?? "Registrasi gagal dilakukan.");
-        return;
+      const payload = {
+        name: form.name,
+        email: form.email,
+        nomorTelepon: form.nomorTelepon,
+        role: form.role,
+        password: form.password,
+        userInput: userInputName,
+        editedBy: userInputId,
       }
 
-      setStatus("User berhasil didaftarkan.");
+      const result = await executeRequest(
+        addUserApi(payload),
+        showToast
+      )
+
+      if (!result) return;
+
+      setTimeout(() => {
+          router.push("/admin/user/list");
+          router.refresh();
+        }, 1500);
+
+
       setForm({
         name: "",
         email: "",
         nomorTelepon: "",
-        role: "RELAWAN",
+        role: "Relawan" as UserRole,
         password: "",
         confirmPassword: "",
-        userInput: session?.user?.id ?? "",
-      });
+      }); 
     } catch (error) {
       console.error(error);
       setIsError(true);
@@ -227,6 +239,18 @@ export function AddUserForm() {
           {loading ? "Menyimpan..." : "Simpan User"}
         </button>
       </div>
+
+      {toast.show && (
+        <div
+          className={`custom-toast ${
+            toast.type === "success"
+              ? "custom-toast--success"
+              : "custom-toast--error"
+          }`}
+        >
+          {toast.message}
+        </div>
+      )}
     </form>
   );
 }

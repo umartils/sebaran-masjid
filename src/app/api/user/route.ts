@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 
     const validatedData = userInputSchema.parse(body);
 
-    const { name, email, nomorTelepon, role, password, userInput } =
+    const { name, email, nomorTelepon, role, password, userInput, editedBy } =
       validatedData;
 
     // cek email
@@ -51,6 +51,24 @@ export async function POST(req: Request) {
           status: 409,
         }
       );
+    }
+
+    const existingUserInput = await prisma.user.findUnique({
+      where: {
+        id: editedBy,
+      },
+    });
+
+    if (!existingUserInput || existingUserInput.role !== "Admin") {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "User Input tidak valid",
+        },
+        {
+          status: 409,
+        }
+      )
     }
 
     const hashedPassword = await bcrypt.hash(password ?? "", 10);
@@ -113,7 +131,7 @@ export async function PUT(req: Request) {
 
     const validatedData = userUpdateSchema.parse(body);
 
-    const { id, name, email, nomorTelepon, role, userInput } = validatedData;
+    const { id, name, email, nomorTelepon, role, editedBy } = validatedData;
 
     const existingUser = await prisma.user.findUnique({
       where: {
@@ -135,7 +153,7 @@ export async function PUT(req: Request) {
 
     const existingUserInput = await prisma.user.findUnique({
       where: {
-        id: userInput,
+        id: editedBy,
       },
     });
 
@@ -166,7 +184,7 @@ export async function PUT(req: Request) {
     return NextResponse.json(
       {
       success: true,
-      message: "User updated successfully",
+      message: "Data user berhasil diperbarui",
       data: {
         name: updatedUser.name,
         email: updatedUser.email,

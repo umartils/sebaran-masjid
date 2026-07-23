@@ -25,6 +25,8 @@ model User {
   accounts Account[]
   sessions Session[]
 
+  editedBy      String?
+
   createdAt     DateTime? @default(now())
 }
 

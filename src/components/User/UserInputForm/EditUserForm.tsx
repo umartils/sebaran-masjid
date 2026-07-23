@@ -27,7 +27,7 @@ export function EditUserForm({ user, from }: Props) {
     email: user.email || "",
     nomorTelepon: user.nomorTelepon || "",
     role: (user.role as UserRole) || "Relawan",
-    userInput: user.userInput || "",
+    // userInput: user.userInput || "",
   });
 
   const [status, setStatus] = useState("");
@@ -37,12 +37,14 @@ export function EditUserForm({ user, from }: Props) {
   const [selectedField, setSelectedField] = useState(false);
 
   const { data: session } = useSession();
+  const userInputId = session?.user?.id ?? "";
+  
 
   useEffect(() => {
     if (session?.user?.id) {
       setForm((current) => ({
         ...current,
-        userInput: session.user.id ?? "",
+        userInput: userInputId ?? "",
       }));
     }
   }, [session]);
@@ -72,13 +74,17 @@ export function EditUserForm({ user, from }: Props) {
         email: form.email,
         nomorTelepon: form.nomorTelepon,
         role: form.role,
-        userInput: form.userInput,
+        userInput: user.userInput || "",
+        editedBy: userInputId,
       }
 
       const result = await executeRequest(
         updateUserApi(payload),
         showToast
       );
+      console.log(payload);
+
+      if (!result) return;
 
       setTimeout(() => {
           router.push(from);

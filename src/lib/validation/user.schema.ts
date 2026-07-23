@@ -8,13 +8,14 @@ import {
 import { roleSchema } from "./enums";
 
 export const userInputSchema = z.object({ 
-    name: z.string().min(3, "Nama Minimal 5 karakter"),
+    name: z.string().min(3, "Nama Minimal 3 karakter"),
     email: z.string().email("Format email tidak valid"),
     emailVerified : z.date().nullable().optional(),
     nomorTelepon : optionalString,
     role: roleSchema.default('Relawan'),
     password : z.string().min(8, "Masukkan password minimal 8 karakter").max(50),
-    userInput : idCuid,
+    userInput : z.string().min(3, "Nama user input minimal 3 karakter"),
+    editedBy: idCuid,
 })
 
 export const userUpdateSchema = z.object({
@@ -24,7 +25,7 @@ export const userUpdateSchema = z.object({
     emailVerified : z.date().nullable().optional(),
     nomorTelepon : optionalString,
     role: roleSchema.default('Relawan'),
-    userInput : idCuid,
+    editedBy: idCuid,
 })
 
 export type AddUserInput = z.infer<typeof userInputSchema>;

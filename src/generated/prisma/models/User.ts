@@ -34,6 +34,7 @@ export type UserMinAggregateOutputType = {
   image: string | null
   password: string | null
   userInput: string | null
+  editedBy: string | null
   createdAt: Date | null
 }
 
@@ -47,6 +48,7 @@ export type UserMaxAggregateOutputType = {
   image: string | null
   password: string | null
   userInput: string | null
+  editedBy: string | null
   createdAt: Date | null
 }
 
@@ -60,6 +62,7 @@ export type UserCountAggregateOutputType = {
   image: number
   password: number
   userInput: number
+  editedBy: number
   createdAt: number
   _all: number
 }
@@ -75,6 +78,7 @@ export type UserMinAggregateInputType = {
   image?: true
   password?: true
   userInput?: true
+  editedBy?: true
   createdAt?: true
 }
 
@@ -88,6 +92,7 @@ export type UserMaxAggregateInputType = {
   image?: true
   password?: true
   userInput?: true
+  editedBy?: true
   createdAt?: true
 }
 
@@ -101,6 +106,7 @@ export type UserCountAggregateInputType = {
   image?: true
   password?: true
   userInput?: true
+  editedBy?: true
   createdAt?: true
   _all?: true
 }
@@ -187,6 +193,7 @@ export type UserGroupByOutputType = {
   image: string | null
   password: string | null
   userInput: string | null
+  editedBy: string | null
   createdAt: Date | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
@@ -221,6 +228,7 @@ export type UserWhereInput = {
   image?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringNullableFilter<"User"> | string | null
   userInput?: Prisma.StringNullableFilter<"User"> | string | null
+  editedBy?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   masjid?: Prisma.MasjidListRelationFilter
   tracking?: Prisma.TrackingMasjidListRelationFilter
@@ -238,6 +246,7 @@ export type UserOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   userInput?: Prisma.SortOrderInput | Prisma.SortOrder
+  editedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   masjid?: Prisma.MasjidOrderByRelationAggregateInput
   tracking?: Prisma.TrackingMasjidOrderByRelationAggregateInput
@@ -258,6 +267,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringNullableFilter<"User"> | string | null
   userInput?: Prisma.StringNullableFilter<"User"> | string | null
+  editedBy?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   masjid?: Prisma.MasjidListRelationFilter
   tracking?: Prisma.TrackingMasjidListRelationFilter
@@ -275,6 +285,7 @@ export type UserOrderByWithAggregationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   userInput?: Prisma.SortOrderInput | Prisma.SortOrder
+  editedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -294,6 +305,7 @@ export type UserScalarWhereWithAggregatesInput = {
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   userInput?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  editedBy?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
@@ -307,6 +319,7 @@ export type UserCreateInput = {
   image?: string | null
   password?: string | null
   userInput?: string | null
+  editedBy?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidCreateNestedManyWithoutUserInput
   tracking?: Prisma.TrackingMasjidCreateNestedManyWithoutUserInput
@@ -324,6 +337,7 @@ export type UserUncheckedCreateInput = {
   image?: string | null
   password?: string | null
   userInput?: string | null
+  editedBy?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidUncheckedCreateNestedManyWithoutUserInput
   tracking?: Prisma.TrackingMasjidUncheckedCreateNestedManyWithoutUserInput
@@ -341,6 +355,7 @@ export type UserUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUpdateManyWithoutUserNestedInput
   tracking?: Prisma.TrackingMasjidUpdateManyWithoutUserNestedInput
@@ -358,6 +373,7 @@ export type UserUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUncheckedUpdateManyWithoutUserNestedInput
   tracking?: Prisma.TrackingMasjidUncheckedUpdateManyWithoutUserNestedInput
@@ -375,6 +391,7 @@ export type UserCreateManyInput = {
   image?: string | null
   password?: string | null
   userInput?: string | null
+  editedBy?: string | null
   createdAt?: Date | string | null
 }
 
@@ -388,6 +405,7 @@ export type UserUpdateManyMutationInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -401,6 +419,7 @@ export type UserUncheckedUpdateManyInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -414,6 +433,7 @@ export type UserCountOrderByAggregateInput = {
   image?: Prisma.SortOrder
   password?: Prisma.SortOrder
   userInput?: Prisma.SortOrder
+  editedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -427,6 +447,7 @@ export type UserMaxOrderByAggregateInput = {
   image?: Prisma.SortOrder
   password?: Prisma.SortOrder
   userInput?: Prisma.SortOrder
+  editedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -440,6 +461,7 @@ export type UserMinOrderByAggregateInput = {
   image?: Prisma.SortOrder
   password?: Prisma.SortOrder
   userInput?: Prisma.SortOrder
+  editedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -535,6 +557,7 @@ export type UserCreateWithoutAccountsInput = {
   image?: string | null
   password?: string | null
   userInput?: string | null
+  editedBy?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidCreateNestedManyWithoutUserInput
   tracking?: Prisma.TrackingMasjidCreateNestedManyWithoutUserInput
@@ -551,6 +574,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   image?: string | null
   password?: string | null
   userInput?: string | null
+  editedBy?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidUncheckedCreateNestedManyWithoutUserInput
   tracking?: Prisma.TrackingMasjidUncheckedCreateNestedManyWithoutUserInput
@@ -583,6 +607,7 @@ export type UserUpdateWithoutAccountsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUpdateManyWithoutUserNestedInput
   tracking?: Prisma.TrackingMasjidUpdateManyWithoutUserNestedInput
@@ -599,6 +624,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUncheckedUpdateManyWithoutUserNestedInput
   tracking?: Prisma.TrackingMasjidUncheckedUpdateManyWithoutUserNestedInput
@@ -615,6 +641,7 @@ export type UserCreateWithoutSessionsInput = {
   image?: string | null
   password?: string | null
   userInput?: string | null
+  editedBy?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidCreateNestedManyWithoutUserInput
   tracking?: Prisma.TrackingMasjidCreateNestedManyWithoutUserInput
@@ -631,6 +658,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   image?: string | null
   password?: string | null
   userInput?: string | null
+  editedBy?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidUncheckedCreateNestedManyWithoutUserInput
   tracking?: Prisma.TrackingMasjidUncheckedCreateNestedManyWithoutUserInput
@@ -663,6 +691,7 @@ export type UserUpdateWithoutSessionsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUpdateManyWithoutUserNestedInput
   tracking?: Prisma.TrackingMasjidUpdateManyWithoutUserNestedInput
@@ -679,6 +708,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUncheckedUpdateManyWithoutUserNestedInput
   tracking?: Prisma.TrackingMasjidUncheckedUpdateManyWithoutUserNestedInput
@@ -695,6 +725,7 @@ export type UserCreateWithoutMasjidInput = {
   image?: string | null
   password?: string | null
   userInput?: string | null
+  editedBy?: string | null
   createdAt?: Date | string | null
   tracking?: Prisma.TrackingMasjidCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -711,6 +742,7 @@ export type UserUncheckedCreateWithoutMasjidInput = {
   image?: string | null
   password?: string | null
   userInput?: string | null
+  editedBy?: string | null
   createdAt?: Date | string | null
   tracking?: Prisma.TrackingMasjidUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -743,6 +775,7 @@ export type UserUpdateWithoutMasjidInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tracking?: Prisma.TrackingMasjidUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -759,6 +792,7 @@ export type UserUncheckedUpdateWithoutMasjidInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tracking?: Prisma.TrackingMasjidUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -775,6 +809,7 @@ export type UserCreateWithoutTrackingInput = {
   image?: string | null
   password?: string | null
   userInput?: string | null
+  editedBy?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -791,6 +826,7 @@ export type UserUncheckedCreateWithoutTrackingInput = {
   image?: string | null
   password?: string | null
   userInput?: string | null
+  editedBy?: string | null
   createdAt?: Date | string | null
   masjid?: Prisma.MasjidUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -823,6 +859,7 @@ export type UserUpdateWithoutTrackingInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -839,6 +876,7 @@ export type UserUncheckedUpdateWithoutTrackingInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userInput?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   masjid?: Prisma.MasjidUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -913,6 +951,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   image?: boolean
   password?: boolean
   userInput?: boolean
+  editedBy?: boolean
   createdAt?: boolean
   masjid?: boolean | Prisma.User$masjidArgs<ExtArgs>
   tracking?: boolean | Prisma.User$trackingArgs<ExtArgs>
@@ -931,6 +970,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   image?: boolean
   password?: boolean
   userInput?: boolean
+  editedBy?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -944,6 +984,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   image?: boolean
   password?: boolean
   userInput?: boolean
+  editedBy?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -957,10 +998,11 @@ export type UserSelectScalar = {
   image?: boolean
   password?: boolean
   userInput?: boolean
+  editedBy?: boolean
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "nomorTelepon" | "role" | "image" | "password" | "userInput" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "nomorTelepon" | "role" | "image" | "password" | "userInput" | "editedBy" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   masjid?: boolean | Prisma.User$masjidArgs<ExtArgs>
   tracking?: boolean | Prisma.User$trackingArgs<ExtArgs>
@@ -989,6 +1031,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     image: string | null
     password: string | null
     userInput: string | null
+    editedBy: string | null
     createdAt: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -1426,6 +1469,7 @@ export interface UserFieldRefs {
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly userInput: Prisma.FieldRef<"User", 'String'>
+  readonly editedBy: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
