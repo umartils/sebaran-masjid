@@ -10,6 +10,10 @@ import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+import { executeRequest } from "@/lib/api/request";
+import { updateUserApi } from "@/lib/api/user"
+import { UserRole } from "@/lib/validation";
+
 interface Props {
   user: DataUser;
   from: string;
@@ -22,7 +26,7 @@ export function EditUserForm({ user, from }: Props) {
     name: user.name || "",
     email: user.email || "",
     nomorTelepon: user.nomorTelepon || "",
-    role: user.role || "Relawan",
+    role: (user.role as UserRole) || "Relawan",
     userInput: user.userInput || "",
   });
 
@@ -35,15 +39,18 @@ export function EditUserForm({ user, from }: Props) {
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (session?.user?.name) {
+    if (session?.user?.id) {
       setForm((current) => ({
         ...current,
-        userInput: session.user.name ?? "",
+        userInput: session.user.id ?? "",
       }));
     }
   }, [session]);
 
-  function updateField(name: keyof typeof form, value: string) {
+  function updateField<K extends keyof typeof form>(
+    name: K,
+    value: (typeof form)[K]
+  ) {
     setForm((current) => ({
       ...current,
       [name]: value,
@@ -59,47 +66,25 @@ export function EditUserForm({ user, from }: Props) {
       setLoading(true);
       setStatus("Menyimpan data...");
 
-      const response = await fetch("/api/user", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: userId,
-          name: form.name,
-          email: form.email,
-          nomorTelepon: form.nomorTelepon,
-          role: form.role,
-          userInput: form.userInput,
-        }),
-      });
+      const payload = {
+        id: userId,
+        name: form.name,
+        email: form.email,
+        nomorTelepon: form.nomorTelepon,
+        role: form.role,
+        userInput: form.userInput,
+      }
 
-      const result = await response.json();
+      const result = await executeRequest(
+        updateUserApi(payload),
+        showToast
+      );
 
-      //   if (!response.ok) {
-      //     setIsError(true);
-      //     setStatus(result.message ?? "Registrasi gagal dilakukan.");
-      //     return;
-      //   }
-
-      //   setStatus("User berhasil diupdate.");
-      //   setForm({
-      //     name: "",
-      //     email: "",
-      //     nomorTelepon: "",
-      //     role: "Relawan",
-      //     userInput: session?.user?.name ?? "",
-      //   });
-
-      if (response.ok) {
-        showToast("User berhasil diupdate", "success");
-        setTimeout(() => {
+      setTimeout(() => {
           router.push(from);
           router.refresh();
         }, 1500);
-      } else {
-        setIsError(true);
-        setStatus(result.message ?? "Registrasi gagal dilakukan.");
-        showToast("Registrasi gagal dilakukan", "error");
-      }
+    
     } catch (error) {
       console.error(error);
       setIsError(true);
@@ -179,7 +164,7 @@ export function EditUserForm({ user, from }: Props) {
               className={`${styles.formField__input} ${styles["formField__input--select"]}`}
               required
               value={form.role ?? " "}
-              onChange={(e) => updateField("role", e.target.value)}
+              onChange={(e) => updateField("role", e.target.value as UserRole)}
             >
               <option value="Admin">Admin</option>
               <option value="Relawan">Relawan</option>
@@ -202,7 +187,7 @@ export function EditUserForm({ user, from }: Props) {
           </div>
         </label>
       </div>
-      {status && <div className="status-message">{status}</div>}
+      {/* {status && <div className="status-message">{status}</div>} */}
       <div className={styles.formActions}>
         <button
           className={styles.formActions__submitBtn}

@@ -59,6 +59,8 @@ export function TableUser({ user }: Props) {
   const { page, pageSize, totalPages, paginatedData, setPage, setPageSize } =
     usePagination(filtered);
 
+  const startNumber = (page - 1 )* pageSize;
+
   return (
     <>
       <FilterBar
@@ -88,7 +90,9 @@ export function TableUser({ user }: Props) {
                 setPage(1);
               }}
             >
+              <option value={5}>5</option>
               <option value={10}>10</option>
+              <option value={20}>20</option>
               <option value={50}>50</option>
               <option value={100}>100</option>
             </select>
@@ -98,6 +102,7 @@ export function TableUser({ user }: Props) {
         <table className={styles.adminTable}>
           <thead>
             <tr>
+              <th>No</th>
               <th>Nama User</th>
               <th>Email</th>
               <th>Nomor Telepon</th>
@@ -114,9 +119,10 @@ export function TableUser({ user }: Props) {
                 </td>
               </tr>
             ) : (
-              paginatedData.map((user) => (
+              paginatedData.map((user, index) => (
                 <UserRow
                   key={user.id}
+                  no={startNumber + index + 1}
                   user={user}
                   // onAction={openConfirmation}
                 />

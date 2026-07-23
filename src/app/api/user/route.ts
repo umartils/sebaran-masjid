@@ -3,29 +3,35 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { NextResponse } from "next/server";
 
-const userSchema = z.object({
-  id: z.string().optional(),
+import { 
+  userInputSchema, 
+  userUpdateSchema 
+} from "@/lib/validation";
+import { success } from "zod/v4";
 
-  name: z.string().min(3, "Nama minimal 3 karakter"),
+// const userSchema = z.object({
+//   id: z.string().optional(),
 
-  email: z.string().email("Format email tidak valid"),
+//   name: z.string().min(3, "Nama minimal 3 karakter"),
 
-  nomorTelepon: z.string().optional(),
+//   email: z.string().email("Format email tidak valid"),
 
-  role: z.string().optional(),
+//   nomorTelepon: z.string().optional(),
 
-  password: z.string().min(8, "Password minimal 8 karakter").optional(),
+//   role: z.string().optional(),
 
-  userInput: z.string().min(1, "User input wajib diisi"),
-});
+//   password: z.string().min(8, "Password minimal 8 karakter").optional(),
+
+//   userInput: z.string().min(1, "User input wajib diisi"),
+// });
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const validatedData = userSchema.parse(body);
+    const validatedData = userInputSchema.parse(body);
 
-    const { id, name, email, nomorTelepon, role, password, userInput } =
+    const { name, email, nomorTelepon, role, password, userInput } =
       validatedData;
 
     // cek email
@@ -105,7 +111,7 @@ export async function PUT(req: Request) {
   try {
     const body = await req.json();
 
-    const validatedData = userSchema.parse(body);
+    const validatedData = userUpdateSchema.parse(body);
 
     const { id, name, email, nomorTelepon, role, userInput } = validatedData;
 
@@ -127,7 +133,23 @@ export async function PUT(req: Request) {
       );
     }
 
-    // const hashedPassword = await bcrypt.hash(password, 10);
+    const existingUserInput = await prisma.user.findUnique({
+      where: {
+        id: userInput,
+      },
+    });
+
+    if (!existingUserInput || existingUserInput.role !== "Admin") {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "User Input tidak valid",
+        },
+        {
+          status: 409,
+        }
+      )
+    }
 
     const updatedUser = await prisma.user.update({
       data: {
@@ -141,11 +163,20 @@ export async function PUT(req: Request) {
       },
     });
 
-    return NextResponse.json({
+    return NextResponse.json(
+      {
       success: true,
       message: "User updated successfully",
-      user: updatedUser,
-    });
+      data: {
+        name: updatedUser.name,
+        email: updatedUser.email,
+        userInput: updatedUser.userInput
+      }
+      },
+      {
+        status: 200,
+      }
+    );
   } catch (error) {
     console.log(error);
     return NextResponse.json(

@@ -19,4 +19,9 @@ export const pengajuanSchema = z.enum([
   "REJECTED",
   "DELETED",
   "ON_AIR",
-])
+]);
+
+export const roleSchema = z.enum([
+  "Admin",
+  "Relawan"
+]);

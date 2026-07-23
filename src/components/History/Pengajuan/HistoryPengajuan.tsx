@@ -60,7 +60,7 @@ export function HistoryPengajuan({ masjid }: Props) {
   const { page, pageSize, totalPages, paginatedData, setPage, setPageSize } =
     usePagination(filtered);
 
-  const startNumber = (page - 1) * pageSize
+  const startNumber = (page - 1) * pageSize;
   return (
     <>
       <FilterBar
@@ -101,7 +101,7 @@ export function HistoryPengajuan({ masjid }: Props) {
         </div>
         <table className={styles.adminTable}>
           <thead>
-            <tr>
+            <tr> 
               <th>No.</th>
               <th>Nama Masjid</th>
               <th>Wilayah</th>

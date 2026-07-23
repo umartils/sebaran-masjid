@@ -2,26 +2,30 @@ import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { NextResponse } from "next/server";
+import { 
+  userInputSchema, 
+  userUpdateSchema 
+} from "@/lib/validation";
 
-const userSchema = z.object({
-  name: z.string().min(3, "Nama minimal 3 karakter"),
+// const userSchema = z.object({
+//   name: z.string().min(3, "Nama minimal 3 karakter"),
 
-  email: z.string().email("Format email tidak valid"),
+//   email: z.string().email("Format email tidak valid"),
 
-  nomorTelepon: z.string().optional(),
+//   nomorTelepon: z.string().optional(),
+ 
+//   role: z.string().optional(),
 
-  role: z.string().optional(),
+//   password: z.string().min(8, "Password minimal 8 karakter"),
 
-  password: z.string().min(8, "Password minimal 8 karakter"),
-
-  userInput: z.string().min(1, "User input wajib diisi"),
-});
+//   userInput: z.string().min(1, "User input wajib diisi"),
+// });
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const validatedData = userSchema.parse(body);
+    const validatedData = userInputSchema.parse(body);
 
     const { name, email, nomorTelepon, role, password, userInput } =
       validatedData;

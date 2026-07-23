@@ -23,10 +23,10 @@ export function AddUserForm() {
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (session?.user?.name) {
+    if (session?.user?.id) {
       setForm((current) => ({
         ...current,
-        userInput: session.user.name ?? "",
+        userInput: session.user.id ?? "",
       }));
     }
   }, [session]);
@@ -82,7 +82,7 @@ export function AddUserForm() {
         role: "RELAWAN",
         password: "",
         confirmPassword: "",
-        userInput: session?.user?.name ?? "",
+        userInput: session?.user?.id ?? "",
       });
     } catch (error) {
       console.error(error);
@@ -97,10 +97,6 @@ export function AddUserForm() {
     <form className="form-card" onSubmit={submitForm}>
       <header className="form-header">
         <h1 className={styles.formHeader__title}>Registrasi User Baru</h1>
-        <p className={styles.formHeader__subtitle}>
-          Tambahkan akun administrator atau relawan yang akan menggunakan
-          sistem.
-        </p>
       </header>
       <div className={styles.formGrid}>
         {/* Nama Lengkap */}
@@ -195,7 +191,7 @@ export function AddUserForm() {
           </div>
         </label>
         {/* User Input (Read Only) */}
-        <label className={`${styles.formField} ${styles["formField--span2"]}`}>
+        {/* <label className={`${styles.formField} ${styles["formField--span2"]}`}>
           <span className={styles.formField__label}>User Input</span>
           <div
             className={`${styles.formField__inputContainer} ${styles["formField__inputContainer--readonly"]}`}
@@ -208,9 +204,9 @@ export function AddUserForm() {
               readOnly
             />
           </div>
-        </label>
+        </label> */}
       </div>
-      {status && (
+      {/* {status && (
         <div
           className={`${styles.formStatus} ${
             isError
@@ -220,7 +216,7 @@ export function AddUserForm() {
         >
           {status}
         </div>
-      )}
+      )} */}
       <div className={styles.formActions}>
         <button
           className={styles.formActions__submitBtn}

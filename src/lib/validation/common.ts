@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const optionalString = z.string().optional();
 
-export const idCuid = z.string().cuid()
+export const idCuid = z.string().cuid("ID Wajib diisi");
 
 export const optionalNumber = z.coerce
   .number()

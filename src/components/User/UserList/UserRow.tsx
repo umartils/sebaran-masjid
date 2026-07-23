@@ -6,16 +6,23 @@ import type { BuildingAction } from "./hooks/useApprovalPengajuan";
 
 interface UserRowProps {
   user: DataUser;
+  no: number;
 
   // onAction: (user: DataUser, action: BuildingAction) => void;
 }
 
 export default function UserRow({
   user,
+  no,
 }: // onAction,
 UserRowProps) {
   return (
     <tr>
+      <td>
+        <center>
+          <strong>{no}</strong>
+        </center>
+      </td>
       <td>
         <strong>{user?.name}</strong>
       </td>

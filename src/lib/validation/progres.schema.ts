@@ -25,9 +25,7 @@ export const updateProgressSchema = z.object ({
     waktuProgres : optionalString
 })
 
-export type UpdateProgresInput =
-    z.infer<typeof updateProgressSchema>;
+export type UpdateProgresInput = z.infer<typeof updateProgressSchema>;
 
-export type CreateProgresInput =
-    z.infer<typeof createProgressSchema>;
+export type CreateProgresInput = z.infer<typeof createProgressSchema>;
 
