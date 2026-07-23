@@ -172,7 +172,7 @@ export function EditUserForm({ user, from }: Props) {
           </div>
         </label>
         {/* User Input (Read Only) */}
-        <label className={`${styles.formField} ${styles["formField--span2"]}`}>
+        {/* <label className={`${styles.formField} ${styles["formField--span2"]}`}>
           <span className={styles.formField__label}>User Input</span>
           <div
             className={`${styles.formField__inputContainer} ${styles["formField__inputContainer--readonly"]}`}
@@ -185,7 +185,7 @@ export function EditUserForm({ user, from }: Props) {
               readOnly
             />
           </div>
-        </label>
+        </label> */}
       </div>
       {/* {status && <div className="status-message">{status}</div>} */}
       <div className={styles.formActions}>
