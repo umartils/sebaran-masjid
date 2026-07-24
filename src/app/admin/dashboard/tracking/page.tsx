@@ -1,15 +1,15 @@
 export const dynamic = "force-dynamic";
 import { SideBar } from "@/components/SideBar";
-import { getTrackingMasjidList } from "@/lib/tracking";
 import { ProtectedPage } from "@/components/ProtectedPage";
-import { TablePengajuan } from "@/components/Progres/ListProgres/TableProgres";
 import { SessionGuard } from "@/components/SessionGuard";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import TrackingListSection from "@/components/Tracking/ListTracking/TrackingListSection";
+import TableTrackingSkeleton from "@/components/Tracking/ListTracking/TableTrackingSkeleton";
 
 export default async function AdminPage() {
-  const masjid = await getTrackingMasjidList();
   const session = await getServerSession(authOptions);
   if (session?.user.role !== "Admin") return notFound();
   return (
@@ -20,10 +20,10 @@ export default async function AdminPage() {
             <h1>Dashboard Admin - Tracking Pembangunan</h1>
 
             <p className="subtitle">
-              Ringkasan data progres pembangunan masjid yang masuk ke sistem.
             </p>
-
-            <TablePengajuan progres={masjid} />
+            <Suspense fallback={<TableTrackingSkeleton />}>
+              <TrackingListSection  />
+            </Suspense>
           </section>
         </ProtectedPage>
       </SessionGuard>

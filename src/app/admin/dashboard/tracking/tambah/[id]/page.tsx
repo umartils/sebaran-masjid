@@ -1,7 +1,7 @@
 import { SideBar } from "@/components/SideBar";
 import { ProtectedPage } from "@/components/ProtectedPage";
 import { getTrackingMasjidById } from "@/lib/tracking";
-import { FormTambahLog } from "@/components/Progres/TambahLog/FormTambahLog";
+import { FormTambahLog } from "@/components/Tracking/TambahLog/FormTambahLog";
 import { notFound } from "next/navigation";
 import { SessionGuard } from "@/components/SessionGuard";
 

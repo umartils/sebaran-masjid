@@ -4,7 +4,7 @@ import {
   getTrackingMasjidLogById,
   getMasjidIdByTrackingId,
 } from "@/lib/tracking";
-import { EditProgresLog } from "@/components/Progres/EditProgres/EditProgres";
+import { EditProgresLog } from "@/components/Tracking/EditProgres/EditProgres";
 import { ProtectedPage } from "@/components/ProtectedPage";
 
 export default async function MasjidEditPage({

@@ -6,7 +6,7 @@ import ImageUploadField from "@/components/ImageUploadField/ImageUploadFieldInpu
 import VideoUploadField from "@/components/VideoUploadField/VideoUploadFieldInput";
 import { useSession } from "next-auth/react";
 import { useToast } from "@/hooks/useToast";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 import { createId } from "@paralleldrive/cuid2";
 
@@ -112,11 +112,7 @@ export function FormPengajuan() {
   return (
     <form className="form-card" onSubmit={submitForm}>
       <header className="form-header">        
-        <h1>Formulir Pendataan Masjid</h1>        
-        <p>          
-          Masukkan data masjid yang membutuhkan bantuan renovasi atau          
-          pembangunan.        
-        </p>      
+        <h1>Formulir Pengajuan Masjid</h1>
       </header>       
       {/* ── 1. Informasi Umum ── */}      
       <InfoUmumSection        

@@ -19,10 +19,10 @@ import { CATEGORY_OPTIONS } from "./constants/categories";
 import { ProgresStatus } from "@/lib/types";
 
 type Props = {
-  progres: TrackingMasjidList[];
+  tracking: TrackingMasjidList[];
 };
 
-export function TablePengajuan({ progres }: Props) {
+export function TableTracking({ tracking }: Props) {
   const { data: session } = useSession();
   const {
     query,
@@ -36,7 +36,7 @@ export function TablePengajuan({ progres }: Props) {
   } = useTableFilters<"ALL" | ProgresStatus>({ defaultCategory: "ALL" });
 
   const filtered = useFilteredData({
-    data: progres,
+    data: tracking,
     query,
     categoryFilter,
     startDate,
@@ -63,7 +63,7 @@ export function TablePengajuan({ progres }: Props) {
         selectValue={categoryFilter}
         onSelectChange={(v) => setCategoryFilter(v as ProgresStatus)}
         filteredCount={filtered.length}
-        totalCount={progres.length}
+        totalCount={tracking.length}
         entityLabel="masjid"
       />
 
