@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { masjidSchema } from "@/lib/validation"
 import { prisma } from "@/lib/prisma";
-import { getMasjid } from "@/lib/masjid";
+import { getMapMasjid } from "@/lib/masjid";
 
 
 export async function GET() {
-  const masjid = await getMasjid();
+  const masjid = await getMapMasjid();
   return NextResponse.json(masjid);
 }
 

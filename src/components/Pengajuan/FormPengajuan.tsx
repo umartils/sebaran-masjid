@@ -112,7 +112,7 @@ export function FormPengajuan() {
   return (
     <form className="form-card" onSubmit={submitForm}>
       <header className="form-header">        
-        <h1>Formulir Pengajuan Masjid</h1>
+        <h1>Formulir Pengajuan  Masjid</h1>
       </header>       
       {/* ── 1. Informasi Umum ── */}      
       <InfoUmumSection        
