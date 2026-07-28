@@ -13,40 +13,24 @@ export function ToolResultRenderer({ result }: { result: any }) {
   // (imageUrl ada di root object, bukan nested di `masjid`).
   if ("imageUrl" in result && !result.masjid) {
     if (!result.found) {
-      return (
-        <p className={styles.notFoundText}>
-          Masjid tidak ditemukan.
-        </p>
-      );
+      return ;
     }
 
     if (!result.imageUrl || result.imageUrl.length === 0) {
-      return (
-        <p className={styles.notFoundText}>
-          Masjid "{result.nama}" belum memiliki foto.
-        </p>
-      );
+      return ;
     }
 
     return <PhotoGallery nama={result.nama} imageUrl={result.imageUrl} />;
   }
 
   if ("videoUrl" in result && !result.masjid) {
-    // if (!result.found) {
-    //   return (
-    //     <p className={styles.notFoundText}> 
-    //       Masjid tidak ditemukan.
-    //     </p>
-    //   );
-    // }
+    if (!result.found) {
+      return ;
+    }
 
-    // if (!result.videoUrl || result.videoUrl.length === 0) {
-    //   return (
-    //     <p className={styles.notFoundText}>
-    //       Masjid "{result.nama}" belum memiliki video.
-    //     </p>
-    //   );
-    // }
+    if (!result.videoUrl || result.videoUrl.length === 0) {
+      return ;
+    }
 
     return <VideoGallery videoUrl={result.videoUrl} />
   }
