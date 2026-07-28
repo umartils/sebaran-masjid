@@ -7,23 +7,6 @@ import {
   userInputSchema, 
   userUpdateSchema 
 } from "@/lib/validation";
-import { success } from "zod/v4";
-
-// const userSchema = z.object({
-//   id: z.string().optional(),
-
-//   name: z.string().min(3, "Nama minimal 3 karakter"),
-
-//   email: z.string().email("Format email tidak valid"),
-
-//   nomorTelepon: z.string().optional(),
-
-//   role: z.string().optional(),
-
-//   password: z.string().min(8, "Password minimal 8 karakter").optional(),
-
-//   userInput: z.string().min(1, "User input wajib diisi"),
-// });
 
 export async function POST(req: Request) {
   try {

@@ -1,4 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { 
+  NextRequest, 
+  NextResponse 
+} from "next/server";
 import { getServerSession } from "next-auth";
 import cloudinary from "@/lib/cloudinary";
 import { authOptions } from "@/lib/auth";
@@ -26,7 +29,14 @@ export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { 
+          error: "Unauthorized" 
+        }, 
+        { 
+          status: 401 
+        }
+      );
     }
 
     const formData = await req.formData();
@@ -34,17 +44,35 @@ export async function POST(req: NextRequest) {
     const folder = formData.get("folder") as string | null;
 
     if (!file) {
-      return NextResponse.json({ error: "No file provided" }, { status: 400 });
+      return NextResponse.json(
+        { 
+          error: "No file provided" 
+        }, 
+        { 
+          status: 400 
+        }
+      );
     }
 
     if (!allowedTypes.includes(file.type)) {
-      return NextResponse.json({ error: "Invalid file type" }, { status: 400 });
+      return NextResponse.json(
+        { 
+          error: "Invalid file type" 
+        }, 
+        { 
+          status: 400 
+        }
+      );
     }
 
     if (file.size > maxFileSize) {
       return NextResponse.json(
-        { error: "File too large (max 5MB)" },
-        { status: 400 }
+        { 
+          error: "File too large (max 5MB)" 
+        },
+        { 
+          status: 400 
+        }
       );
     }
 
@@ -67,6 +95,13 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     console.error("Upload error:", error);
-    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
+    return NextResponse.json(
+      { 
+        error: "Upload failed" 
+      }, 
+      { 
+        status: 500 
+      }
+    );
   }
 }

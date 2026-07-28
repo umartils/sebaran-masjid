@@ -1,4 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { 
+  NextRequest, 
+  NextResponse 
+} from "next/server";
+
 import { prisma } from "@/lib/prisma";
 import { 
   createProgressSchema,
@@ -14,12 +18,20 @@ export async function POST(req: NextRequest) {
     if (!parsed.success) {
       console.error(parsed.error);
       return NextResponse.json(
-        { message: "Data tidak valid", errors: parsed.error.flatten() },
-        { status: 422 }
+        { 
+          message: "Data tidak valid", 
+          errors: parsed.error.flatten() 
+        },
+        { 
+          status: 422,
+        }
       );
     } 
 
-    const { trackingId, persentase } = parsed.data;
+    const { 
+      trackingId, 
+      persentase 
+    } = parsed.data;
 
     const tracking = await prisma.trackingMasjid.findUnique({
       where: {
@@ -88,7 +100,9 @@ export async function POST(req: NextRequest) {
 
       if (persentase == 100) {
         await tx.trackingMasjid.update({
-          where: { id: trackingId },
+          where: { 
+            id: trackingId 
+          },
           data: {
             status: "SELESAI",
           },
@@ -96,7 +110,9 @@ export async function POST(req: NextRequest) {
       }
 
       await tx.trackingMasjid.update({
-        where: { id: trackingId },
+        where: { 
+          id: trackingId 
+        },
         data: {
           persentase,
         },
@@ -127,8 +143,12 @@ export async function POST(req: NextRequest) {
     );
   } catch (err) {
     return NextResponse.json(
-      { message: "Failed" },
-      { status: 500 }
+      { 
+        message: "Failed" 
+      },
+      { 
+        status: 500 
+      }
     );
   }
 } 
@@ -225,19 +245,6 @@ export async function PUT(req: NextRequest) {
       )
     }
 
-    // if (currPercent != trackPercent){
-    //   if (currPercent == trackPercent || currPercent > trackPercent) {
-    //     return NextResponse.json(
-    //       {
-    //         message: `Persentase tidak boleh melebihi ${trackPercent}%`,
-    //       },
-    //       {
-    //         status: 400,
-    //       }
-    //     );
-    //   }
-    // }
-
     if (currPercent == prevPercent || currPercent < prevPercent) {
       return NextResponse.json(
         {
@@ -262,18 +269,23 @@ export async function PUT(req: NextRequest) {
 
     
     const log = await prisma.trackingMasjidLog.update({
-      where: { id: parsed.data?.id },
+      where: { 
+        id: parsed.data?.id 
+      },
       data: {
         ...parsed.data
       },
     });
 
     await prisma.trackingMasjid.update({
-      where: { id: parsed.data?.trackingId },
+      where: { 
+        id: parsed.data?.trackingId 
+      },
       data: {
         persentase: parsed.data?.persentase,
       },
     });
+    
     return NextResponse.json(
       {
         message: "Berhasil memperbarui data",

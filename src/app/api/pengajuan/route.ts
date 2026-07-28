@@ -92,15 +92,24 @@ export async function PUT(request: Request) {
   if (!parsed.success) {
     console.error(parsed.error);
     return NextResponse.json(
-      { message: "Data tidak valid", errors: parsed.error.flatten() },
-      { status: 422 }
+      { 
+        message: "Data tidak valid", 
+        errors: parsed.error.flatten() 
+      },
+      { 
+        status: 422 
+      }
     );
   }
 
   if (!parsed.data.userId) {
     return NextResponse.json(
-      { message: "Session not detected" },
-      { status: 422 }
+      { 
+        message: "Session not detected" 
+      },
+      { 
+        status: 422 
+      }
     );
   }
 
