@@ -2,6 +2,9 @@ import { useState } from "react";
 import styles from "./ChatWidget.module.scss";
 import { useMobileOverlay } from "@/context/MobileOverlayContext";
 
+import { VideoGallery } from "./VideoGallery";
+import { PhotoGallery } from "./PhotoGallery";
+
 export function ToolResultRenderer({ result }: { result: any }) {
   if (!result) return null;
 
@@ -10,7 +13,11 @@ export function ToolResultRenderer({ result }: { result: any }) {
   // (imageUrl ada di root object, bukan nested di `masjid`).
   if ("imageUrl" in result && !result.masjid) {
     if (!result.found) {
-      return <p className={styles.notFoundText}>Masjid tidak ditemukan.</p>;
+      return (
+        <p className={styles.notFoundText}>
+          Masjid tidak ditemukan.
+        </p>
+      );
     }
 
     if (!result.imageUrl || result.imageUrl.length === 0) {
@@ -22,6 +29,26 @@ export function ToolResultRenderer({ result }: { result: any }) {
     }
 
     return <PhotoGallery nama={result.nama} imageUrl={result.imageUrl} />;
+  }
+
+  if ("videoUrl" in result && !result.masjid) {
+    if (!result.found) {
+      return (
+        <p className={styles.notFoundText}> 
+          Masjid tidak ditemukan.
+        </p>
+      );
+    }
+
+    if (!result.videoUrl || result.videoUrl.length === 0) {
+      return (
+        <p className={styles.notFoundText}>
+          Masjid "{result.nama}" belum memiliki video.
+        </p>
+      );
+    }
+
+    return <VideoGallery videoUrl={result.videoUrl} />
   }
 
   // Detail satu masjid
@@ -71,71 +98,4 @@ export function ToolResultRenderer({ result }: { result: any }) {
   return null;
 }
 
-/* ---------- Photo Gallery untuk hasil getFotoMasjid ---------- */
 
-function PhotoGallery({
-  nama,
-  imageUrl,
-}: {
-  nama: string;
-  imageUrl: string[];
-}) {
-  const { isMobile, setIsMobile } = useMobileOverlay();
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-
-  return (
-    <div className={styles.photoGallery}>
-      {/* <p className={styles.photoGalleryCaption}>Foto {nama}</p> */}
-
-      {/* Gambar utama */}
-      <img
-        src={imageUrl[activeIdx]}
-        alt={`${nama} - foto ${activeIdx + 1}`}
-        className={styles.photoGalleryMain}
-        onClick={() => [setLightboxOpen(true), setIsMobile(true)]}
-        loading="lazy"
-      />
-
-      {/* Thumbnail strip — hanya tampil kalau lebih dari 1 foto */}
-      {imageUrl.length > 1 && (
-        <div className={styles.photoGalleryThumbs}>
-          {imageUrl.map((url, idx) => (
-            <img
-              key={idx}
-              src={url}
-              alt={`thumbnail ${idx + 1}`}
-              className={
-                idx === activeIdx ? styles.photoThumbActive : styles.photoThumb
-              }
-              onClick={() => setActiveIdx(idx)}
-              loading="lazy"
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Lightbox sederhana untuk lihat full size */}
-      {lightboxOpen && (
-        <div
-          className={styles.lightboxOverlay}
-          onClick={() => [setLightboxOpen(false), setIsMobile(false)]}
-        >
-          <img
-            src={imageUrl[activeIdx]}
-            alt={nama}
-            className={styles.lightboxImage}
-            onClick={(e) => e.stopPropagation()}
-          />
-          <button
-            className={styles.lightboxClose}
-            onClick={() => [setLightboxOpen(false), setIsMobile(false)]}
-            aria-label="Tutup"
-          >
-            ✕
-          </button>
-        </div>
-      )}
-    </div>
-  );
-}

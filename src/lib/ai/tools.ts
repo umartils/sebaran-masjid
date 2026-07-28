@@ -312,6 +312,7 @@ export const masjidTools = {
       "Ambil url foto masjid untuk ditampilkan kepada user" +
       "Gunakan saat user meminta foto atau gambar masjid atau bertanya mengenai kondisi masjid" +
       "Selalu gunakan tool getFotoMasjid jika user meminta foto atau gambar masjid" +
+      "Jika URL FOTO KOSONG sampaikan kepada user bahwa masjid yang ditanyakan tidak memiliki foto" + 
       "JANGAN KIRIM URL FOTO KEPADA USER dan selalu gunakan tool ini untuk mengambil foto masjid yang sesuai dengan nama masjid yang diminta oleh users",
 
     inputSchema: z.object({
@@ -360,10 +361,46 @@ export const masjidTools = {
       "Ambil url video masjid untuk ditampilkan kepada user" +
       "Gunakan ketika user meminta video masjid atau bertanya mengenai kondisi masjid" +
       "Selalu gunakan tool getVideoMasjid jika user meminta video masjid" +
+      "Jika URL VIDEO KOSONG sampaikan kepada user bahwa masjid yang ditanyakan tidak memiliki video" + 
       "JANGAN KIRIM URL VIDEO KEPADA USER dan selalu gunakan tool ini untuk mengambil video masjid yang sesuai dengan nama masjid yang diminta oleh users",
 
     inputSchema: z.object({
       nama: z.string(),
     }),
+
+    execute: async ({ nama }) => {
+      const masjid = await prisma.masjid.findFirst({
+        where: {
+          statusPengajuan: {
+            in: [
+              "APPROVED",
+              "ON_AIR"
+            ]
+          },
+          nama: {
+            contains: nama,
+            mode: "insensitive",
+          },
+        },
+        select: {
+          id: true,
+          nama: true,
+          videoUrl: true,
+        },
+      });
+
+      if (!masjid) {
+        return {
+          found: false,
+        };
+      }
+
+      return {
+        found: true,
+        id: masjid.id,
+        nama: masjid.nama,
+        videoUrl: masjid.videoUrl,
+      };
+    },
   }),
 };
