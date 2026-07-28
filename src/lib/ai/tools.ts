@@ -18,7 +18,7 @@ const SAFE_MASJID_SELECT = {
   namaKota: true,
   namaKecamatan: true,
   namaDesa: true,
-  kondisi: true,
+  // kondisi: true,
   kategori: true,
   kapasitas: true,
   tahunDibangun: true,
@@ -52,10 +52,6 @@ export const masjidTools = {
         ])
         .optional()
         .describe("Kategori masjid"),
-      kondisi: z
-        .enum(["RUSAK_BERAT", "RUSAK_SEDANG", "RUSAK_RINGAN", "LAYAK"])
-        .optional()
-        .describe("Kondisi bangunan masjid saat ini"),
       limit: z
         .number()
         .min(1)
@@ -63,7 +59,7 @@ export const masjidTools = {
         .default(10)
         .describe("Jumlah maksimum hasil"),
     }),
-    execute: async ({ namaProvinsi, namaKota, kategori, kondisi, limit }) => {
+    execute: async ({ namaProvinsi, namaKota, kategori, limit }) => {
       const masjidList = await prisma.masjid.findMany({
         where: {
           statusPengajuan: {
@@ -79,7 +75,6 @@ export const masjidTools = {
             namaKota: { contains: namaKota, mode: "insensitive" },
           }),
           ...(kategori && { kategori }),
-          ...(kondisi && { kondisi }),
         },
         select: SAFE_MASJID_SELECT,
         take: limit,
@@ -357,5 +352,18 @@ export const masjidTools = {
         imageUrl: masjid.imageUrl,
       };
     },
+  }),
+
+  getVideoMasjid: tool({
+    description:
+      "Mengambil video masjid berdasarkan nama masjid." +
+      "Ambil url video masjid untuk ditampilkan kepada user" +
+      "Gunakan ketika user meminta video masjid atau bertanya mengenai kondisi masjid" +
+      "Selalu gunakan tool getVideoMasjid jika user meminta video masjid" +
+      "JANGAN KIRIM URL VIDEO KEPADA USER dan selalu gunakan tool ini untuk mengambil video masjid yang sesuai dengan nama masjid yang diminta oleh users",
+
+    inputSchema: z.object({
+      nama: z.string(),
+    }),
   }),
 };
