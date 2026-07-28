@@ -312,8 +312,7 @@ export const masjidTools = {
       "Ambil url foto masjid untuk ditampilkan kepada user" +
       "Gunakan saat user meminta foto atau gambar masjid atau bertanya mengenai kondisi masjid" +
       "Selalu gunakan tool getFotoMasjid jika user meminta foto atau gambar masjid" +
-      "Jika URL FOTO KOSONG sampaikan kepada user bahwa masjid yang ditanyakan tidak memiliki foto" + 
-      "JANGAN KIRIM URL FOTO KEPADA USER dan selalu gunakan tool ini untuk mengambil foto masjid yang sesuai dengan nama masjid yang diminta oleh users",
+      "Jika URL FOTO KOSONG sampaikan kepada user bahwa masjid yang ditanyakan tidak memiliki foto",
 
     inputSchema: z.object({
       nama: z.string(),
@@ -357,12 +356,8 @@ export const masjidTools = {
 
   getVideoMasjid: tool({
     description:
-      "Mengambil video masjid berdasarkan nama masjid." +
-      "Ambil url video masjid untuk ditampilkan kepada user" +
-      "Gunakan ketika user meminta video masjid atau bertanya mengenai kondisi masjid" +
-      "Selalu gunakan tool getVideoMasjid jika user meminta video masjid" +
-      "Jika URL VIDEO KOSONG sampaikan kepada user bahwa masjid yang ditanyakan tidak memiliki video" + 
-      "JANGAN KIRIM URL VIDEO KEPADA USER dan selalu gunakan tool ini untuk mengambil video masjid yang sesuai dengan nama masjid yang diminta oleh users",
+    "Ambil video masjid berdasarkan nama. Gunakan saat user minta video atau tanya kondisi masjid via video. " +
+    "Jika found:false atau videoUrl kosong, sampaikan masjid tidak punya video terdaftar.",
 
     inputSchema: z.object({
       nama: z.string(),
