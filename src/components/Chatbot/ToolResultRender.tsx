@@ -32,21 +32,21 @@ export function ToolResultRenderer({ result }: { result: any }) {
   }
 
   if ("videoUrl" in result && !result.masjid) {
-    if (!result.found) {
-      return (
-        <p className={styles.notFoundText}> 
-          Masjid tidak ditemukan.
-        </p>
-      );
-    }
+    // if (!result.found) {
+    //   return (
+    //     <p className={styles.notFoundText}> 
+    //       Masjid tidak ditemukan.
+    //     </p>
+    //   );
+    // }
 
-    if (!result.videoUrl || result.videoUrl.length === 0) {
-      return (
-        <p className={styles.notFoundText}>
-          Masjid "{result.nama}" belum memiliki video.
-        </p>
-      );
-    }
+    // if (!result.videoUrl || result.videoUrl.length === 0) {
+    //   return (
+    //     <p className={styles.notFoundText}>
+    //       Masjid "{result.nama}" belum memiliki video.
+    //     </p>
+    //   );
+    // }
 
     return <VideoGallery videoUrl={result.videoUrl} />
   }
