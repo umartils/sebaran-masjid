@@ -4,6 +4,7 @@ import { useMobileOverlay } from "@/context/MobileOverlayContext";
 
 import { VideoGallery } from "./VideoGallery";
 import { PhotoGallery } from "./PhotoGallery";
+import Link from "next/link";
 
 export function ToolResultRenderer({ result }: { result: any }) {
   if (!result) return null;
@@ -60,20 +61,26 @@ export function ToolResultRenderer({ result }: { result: any }) {
     return (
       <div className={styles.masjidList}>
         {result.masjid.map((item: any) => (
-          <div key={item.id} className={styles.masjidCard}>
-            {item.imageUrl?.[0] && (
-              <img
-                src={item.imageUrl[0]}
-                alt={item.nama}
-                className={styles.masjidImage}
-              />
-            )}
+          <Link 
+            key={item.id}
+            href={`/masjid/detail/${item.id}`}
+            prefetch={true}
+          > 
+            <div key={item.id} className={styles.masjidCardList}>
+              {item.imageUrl?.[0] && (
+                <img
+                  src={item.imageUrl[0]}
+                  alt={item.nama}
+                  className={styles.masjidImage}
+                />
+              )}
 
-            <div className={styles.masjidInfo}>
-              <h4>{item.nama}</h4>
-              <p>{item.namaKota}</p>
+              <div className={styles.masjidInfo}>
+                <h4>{item.nama}</h4>
+                <p>{item.namaKota}</p>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     );

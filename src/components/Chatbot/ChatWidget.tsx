@@ -175,7 +175,7 @@ function MessageBubble({ message }: { message: any }) {
               </ReactMarkdown>
             </div>
           );
-        }
+        } 
 
         // Bagian tool call — di v5 bertipe `tool-${toolName}`, hasil tersedia saat state 'output-available'
         if (
