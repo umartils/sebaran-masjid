@@ -2,14 +2,6 @@ import { tool } from 'ai';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 
-/**
- * PENTING — Privasi & Keamanan Data:
- * - Hanya masjid dengan statusPengajuan = APPROVED yang boleh ditampilkan ke publik.
- *   Masjid PENDING/REJECTED/DELETED tidak relevan/tidak pantas dipublikasikan via chatbot.
- * - Field sensitif (kontak PIC, no telp relawan, data ekonomi jamaah, dll) TIDAK pernah
- *   di-select di tools ini. Hanya field yang aman untuk dipublikasikan.
- */
-
 const SAFE_MASJID_SELECT = {
   id: true,
   nama: true,
@@ -27,7 +19,7 @@ const SAFE_MASJID_SELECT = {
 } as const;
 
 export const masjidTools = {
-  // 1. Cari / list masjid terdaftar (approved saja)
+  
   getDaftarMasjid: tool({
     description:
       "Cari daftar masjid yang sudah terdaftar dan disetujui (approved) di SEIMAN. " +
@@ -96,7 +88,6 @@ export const masjidTools = {
     },
   }),
 
-  // 2. Detail satu masjid spesifik (by nama atau id)
   getDetailMasjid: tool({
     description:
       "Ambil detail lengkap satu masjid berdasarkan nama atau ID. " +
@@ -149,7 +140,6 @@ export const masjidTools = {
     },
   }),
 
-  // 3. Progress pembangunan masjid (dari TrackingMasjid + logs)
   getProgresMasjid: tool({
     description:
       "Ambil progress/tracking pembangunan sebuah masjid, termasuk persentase " +
@@ -232,14 +222,13 @@ export const masjidTools = {
         masjidId: masjid.id,
         nama: masjid.nama,
         hasTracking: true,
-        statusProgres: masjid.tracking.status, // ON_PROGRESS | SELESAI
+        statusProgres: masjid.tracking.status,
         persentase: masjid.tracking.persentase,
         logs: masjid.tracking.logs,
       };
     },
   }),
 
-  // 4. Link download laporan PDF (single & all reports)
   getLaporanProgresPdf: tool({
     description:
       "Ambil link/URL untuk mendownload laporan progres pembangunan masjid dalam format PDF. " +
@@ -289,7 +278,6 @@ export const masjidTools = {
         };
       }
 
-      // Sesuaikan path ini dengan route handler PDF yang sudah ada di SEIMAN
       const downloadUrl = semuaLaporan
         ? `/admin/dashboard/tracking/pdf/${masjid.tracking.id}/all`
         : `/admin/dashboard/tracking/pdf/${masjid.tracking.id}`;

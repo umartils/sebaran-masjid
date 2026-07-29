@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 
@@ -12,8 +11,11 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 import styles from "./ChatWidget.module.scss";
-import { ToolResultRenderer } from "./ToolResultRender";
 import { useMobileOverlay } from "@/context/MobileOverlayContext";
+
+import { ToolResultRenderer } from "./ToolResultRender";
+import { PhotoGallery } from './PhotoGallery';
+import { stripMediaUrls } from '@/utils/stripMediaUrls';
 
 const HIDDEN_PATHS = ["/login", "/register", "/signup"];
 
@@ -21,20 +23,37 @@ export default function ChatWidget() {
   const { isChatOpen, setIsChatOpen } = useMobileOverlay();
  
   const pathname = usePathname();
-  const { status: authStatus } = useSession(); // 'loading' | 'authenticated' | 'unauthenticated'
 
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const { messages, sendMessage, status, error } = useChat({
+  const [showError, setShowError] = useState(false);
+
+  const { messages, sendMessage, status, error, setMessages } = useChat({
     transport: new DefaultChatTransport({ api: "/api/chat" }),
   });
 
   const isLoading = status === "submitted" || status === "streaming";
 
+  useEffect(() => {
+    if (error) setShowError(true);
+  }, [error]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
+
+    if (error) {
+      setMessages((msgs) => {
+        const lasIdx = msgs.length - 1;
+        if (lasIdx >= 0 && msgs[lasIdx].role === "user") {
+          return msgs.slice(0, lasIdx);
+        }
+        return msgs;
+      });
+    }
+
+    setShowError(false);
     sendMessage({ text: input });
     setInput("");
   };
@@ -44,7 +63,6 @@ export default function ChatWidget() {
   }, [messages]);
 
   const isHiddenPath = HIDDEN_PATHS.some((path) => pathname?.startsWith(path));
-  // const isLoggedIn = authStatus === "authenticated";
 
   if (isHiddenPath) return null;
 
@@ -100,7 +118,7 @@ export default function ChatWidget() {
               </div>
             )}
 
-            {error && (
+            {showError && error && (
               <div className={styles.bubbleAssistant}>
                 <div className={styles.errorText}>
                   {"Terjadi kesalahan pada sistem AI."}
@@ -148,10 +166,12 @@ function MessageBubble({ message }: { message: any }) {
       {parts?.map((part: any, idx: number) => {
         // Bagian teks biasa
         if (part.type === "text") {
+          const cleanText = stripMediaUrls(part.text);
+          if(!cleanText) return null;
           return (
             <div key={idx} className={styles.markdown}>
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {part.text}
+                {cleanText}
               </ReactMarkdown>
             </div>
           );
@@ -191,6 +211,11 @@ function MessageBubble({ message }: { message: any }) {
               </div>
             );
           }
+
+          if (result?.imageUrl) {
+            return <PhotoGallery nama={result.nama} imageUrl={result.imageUrl} />;
+          }
+
           return <ToolResultRenderer key={idx} result={result} />;
         }
 
@@ -243,13 +268,10 @@ function dedupeToolParts(parts: any[]): any[] {
       continue;
     }
 
-    // Buat fingerprint dari nama tool + input-nya.
-    // toolCallId TIDAK dipakai sebagai fingerprint karena setiap tool call —
-    // walau dengan input identik — selalu punya toolCallId unik.
     const fingerprint = `${part.type}:${JSON.stringify(part.input)}`;
 
     if (seen.has(fingerprint)) {
-      continue; // skip — ini duplikat dari tool call sebelumnya dengan input sama
+      continue;
     }
 
     seen.add(fingerprint);
