@@ -391,7 +391,8 @@ export const ModelName = {
   Masjid: 'Masjid',
   MasjidMNBaru: 'MasjidMNBaru',
   TrackingMasjid: 'TrackingMasjid',
-  TrackingMasjidLog: 'TrackingMasjidLog'
+  TrackingMasjidLog: 'TrackingMasjidLog',
+  TokenUsage: 'TokenUsage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "masjid" | "masjidMNBaru" | "trackingMasjid" | "trackingMasjidLog"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "masjid" | "masjidMNBaru" | "trackingMasjid" | "trackingMasjidLog" | "tokenUsage"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1003,6 +1004,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TokenUsage: {
+      payload: Prisma.$TokenUsagePayload<ExtArgs>
+      fields: Prisma.TokenUsageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TokenUsageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TokenUsagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TokenUsageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TokenUsagePayload>
+        }
+        findFirst: {
+          args: Prisma.TokenUsageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TokenUsagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TokenUsageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TokenUsagePayload>
+        }
+        findMany: {
+          args: Prisma.TokenUsageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TokenUsagePayload>[]
+        }
+        create: {
+          args: Prisma.TokenUsageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TokenUsagePayload>
+        }
+        createMany: {
+          args: Prisma.TokenUsageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TokenUsageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TokenUsagePayload>[]
+        }
+        delete: {
+          args: Prisma.TokenUsageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TokenUsagePayload>
+        }
+        update: {
+          args: Prisma.TokenUsageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TokenUsagePayload>
+        }
+        deleteMany: {
+          args: Prisma.TokenUsageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TokenUsageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TokenUsageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TokenUsagePayload>[]
+        }
+        upsert: {
+          args: Prisma.TokenUsageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TokenUsagePayload>
+        }
+        aggregate: {
+          args: Prisma.TokenUsageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTokenUsage>
+        }
+        groupBy: {
+          args: Prisma.TokenUsageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TokenUsageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TokenUsageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TokenUsageCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1228,6 +1303,21 @@ export const TrackingMasjidLogScalarFieldEnum = {
 } as const
 
 export type TrackingMasjidLogScalarFieldEnum = (typeof TrackingMasjidLogScalarFieldEnum)[keyof typeof TrackingMasjidLogScalarFieldEnum]
+
+
+export const TokenUsageScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  userId: 'userId',
+  anonId: 'anonId',
+  ipAddress: 'ipAddress',
+  inputTokens: 'inputTokens',
+  outputTokens: 'outputTokens',
+  totalTokens: 'totalTokens',
+  createdAt: 'createdAt'
+} as const
+
+export type TokenUsageScalarFieldEnum = (typeof TokenUsageScalarFieldEnum)[keyof typeof TokenUsageScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1475,6 +1565,7 @@ export type GlobalOmitConfig = {
   masjidMNBaru?: Prisma.MasjidMNBaruOmit
   trackingMasjid?: Prisma.TrackingMasjidOmit
   trackingMasjidLog?: Prisma.TrackingMasjidLogOmit
+  tokenUsage?: Prisma.TokenUsageOmit
 }
 
 /* Types for Logging */

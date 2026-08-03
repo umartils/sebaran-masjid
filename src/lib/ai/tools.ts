@@ -136,7 +136,10 @@ export const masjidTools = {
         };
       }
 
-      return { found: true, masjid };
+      return { 
+        found: true, 
+        masjid 
+      };
     },
   }),
 

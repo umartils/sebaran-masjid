@@ -81,3 +81,8 @@ export type TrackingMasjid = Prisma.TrackingMasjidModel
  * 
  */
 export type TrackingMasjidLog = Prisma.TrackingMasjidLogModel
+/**
+ * Model TokenUsage
+ * 
+ */
+export type TokenUsage = Prisma.TokenUsageModel

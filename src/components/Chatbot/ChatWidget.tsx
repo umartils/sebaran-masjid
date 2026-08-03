@@ -19,6 +19,24 @@ import { stripMediaUrls } from '@/utils/stripMediaUrls';
 
 const HIDDEN_PATHS = ["/login", "/register", "/signup"];
 
+const chatFetch: typeof fetch = async (input, init) => {
+  const response = await fetch(input, init);
+
+  if (response.status === 403) {
+    // clone() supaya body masih bisa dibaca tanpa "menghabiskan" stream asli
+    const body = await response.clone().json().catch(() => null);
+
+    if (body?.reason === "quota_exceeded_anon") {
+      throw new Error("QUOTA_EXCEEDED_ANON");
+    }
+    if (body?.reason === "quota_exceeded_user") {
+      throw new Error("QUOTA_EXCEEDED_USER");
+    }
+  }
+
+  return response;
+};
+
 export default function ChatWidget() {
   const { isChatOpen, setIsChatOpen } = useMobileOverlay();
  
@@ -30,8 +48,14 @@ export default function ChatWidget() {
   const [showError, setShowError] = useState(false);
 
   const { messages, sendMessage, status, error, setMessages } = useChat({
-    transport: new DefaultChatTransport({ api: "/api/chat" }),
+    transport: new DefaultChatTransport({ 
+      api: "/api/chat", 
+      fetch: chatFetch
+    }),
   });
+
+  const isQuotaExceededAnon = error?.message === "QUOTA_EXCEEDED_ANON";
+  const isQuotaExceededUser = error?.message === "QUOTA_EXCEEDED_USER";
 
   const isLoading = status === "submitted" || status === "streaming";
 
@@ -120,9 +144,25 @@ export default function ChatWidget() {
 
             {showError && error && (
               <div className={styles.bubbleAssistant}>
-                <div className={styles.errorText}>
-                  {"Terjadi kesalahan pada sistem AI."}
-                </div>
+                {isQuotaExceededAnon ? (
+                  <>
+                    <div className={styles.quotaText}>
+                      Kamu sudah mencapai batas penggunaan chatbot hari ini. Silakan
+                      login untuk melanjutkan chat.
+                    </div>
+                    <a href="/login" className={styles.loginBtn}>
+                      Login
+                    </a>
+                  </>
+                ) : isQuotaExceededUser ? (
+                  <div className={styles.quotaText}>
+                    Kuota harian akun kamu sudah habis. Silakan coba lagi besok.
+                  </div>
+                ) : (
+                  <div className={styles.errorText}>
+                    Terjadi kesalahan pada sistem AI.
+                  </div>
+                )}
               </div>
             )}
 

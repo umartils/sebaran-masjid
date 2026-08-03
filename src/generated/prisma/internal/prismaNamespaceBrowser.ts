@@ -58,7 +58,8 @@ export const ModelName = {
   Masjid: 'Masjid',
   MasjidMNBaru: 'MasjidMNBaru',
   TrackingMasjid: 'TrackingMasjid',
-  TrackingMasjidLog: 'TrackingMasjidLog'
+  TrackingMasjidLog: 'TrackingMasjidLog',
+  TokenUsage: 'TokenUsage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -263,6 +264,21 @@ export const TrackingMasjidLogScalarFieldEnum = {
 } as const
 
 export type TrackingMasjidLogScalarFieldEnum = (typeof TrackingMasjidLogScalarFieldEnum)[keyof typeof TrackingMasjidLogScalarFieldEnum]
+
+
+export const TokenUsageScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  userId: 'userId',
+  anonId: 'anonId',
+  ipAddress: 'ipAddress',
+  inputTokens: 'inputTokens',
+  outputTokens: 'outputTokens',
+  totalTokens: 'totalTokens',
+  createdAt: 'createdAt'
+} as const
+
+export type TokenUsageScalarFieldEnum = (typeof TokenUsageScalarFieldEnum)[keyof typeof TokenUsageScalarFieldEnum]
 
 
 export const SortOrder = {

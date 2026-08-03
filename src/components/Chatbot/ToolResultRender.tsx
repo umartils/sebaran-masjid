@@ -39,20 +39,26 @@ export function ToolResultRenderer({ result }: { result: any }) {
   // Detail satu masjid
   if (result.masjid && !Array.isArray(result.masjid)) {
     return (
-      <div className={styles.masjidCard}>
-        {result.masjid.imageUrl?.[0] && (
-          <img
-            src={result.masjid.imageUrl[0]}
-            alt={result.masjid.nama}
-            className={styles.masjidImage}
-          />
-        )}
+      <Link 
+        key={result.masjid.id}
+        href={`/masjid/detail/${result.masjid.id}`}
+        prefetch={true}
+      > 
+        <div className={styles.masjidCard}>
+          {result.masjid.imageUrl?.[0] && (
+            <img
+              src={result.masjid.imageUrl[0]}
+              alt={result.masjid.nama}
+              className={styles.masjidImage}
+            />
+          )}
 
-        <div className={styles.masjidInfo}>
-          <h4>{result.masjid.nama}</h4>
-          <p>{result.masjid.alamat}</p>
+          <div className={styles.masjidInfo}>
+            <h4>{result.masjid.nama}</h4>
+            <p>{result.masjid.alamat}</p>
+          </div>
         </div>
-      </div>
+      </Link>
     );
   }
 
@@ -65,8 +71,8 @@ export function ToolResultRenderer({ result }: { result: any }) {
             key={item.id}
             href={`/masjid/detail/${item.id}`}
             prefetch={true}
-          > 
-            <div key={item.id} className={styles.masjidCardList}>
+          >
+            <div key={item.id} className={styles.masjidCard}>
               {item.imageUrl?.[0] && (
                 <img
                   src={item.imageUrl[0]}

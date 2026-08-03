@@ -318,24 +318,13 @@ $brand-dark: #d88906;
   margin-top: 8px;
   margin-bottom: 10px;
   align-items: flex-start;
-}
-
-.masjidCardList {
-  display: flex;
-  gap: 7px;
-  padding: 10px;
-  border: 1px solid #eee;
-  border-radius: 10px;
-  margin-top: 8px;
-  margin-bottom: 10px;
-  align-items: flex-start;
   // :hover {
     
   // }
   cursor: pointer;
 }
 
-.masjidCardList:hover {
+.masjidCard:hover {
   box-shadow: 0 6px 16px rgba(250, 182, 63, 0.2);
   transform: translateY(-4px);
   border-color: #d6c3a5;
@@ -365,3 +354,26 @@ $brand-dark: #d88906;
     color: #666;
   }
 } 
+
+.quotaText {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.loginBtn {
+  display: inline-block;
+  padding: 6px 16px;
+  background: $brand; // sesuaikan dengan variabel brand color kamu
+  color: white;
+  border-radius: 6px;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.loginBtn:hover {
+    background: $brand-dark;
+    box-shadow: 0 8px 20px rgba(246, 163, 19, 0.4);
+    transform: translateY(-1px);
+  }
