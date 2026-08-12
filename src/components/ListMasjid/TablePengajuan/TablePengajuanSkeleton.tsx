@@ -1,9 +1,11 @@
 // components/User/UserList/TableUserSkeleton.tsx
 export default function TablePengajuanSkeleton() {
   return (
-    <div className="admin-table-skeleton">
-      <p>Memuat data user...</p>
-      {/* atau bikin shimmer/placeholder row sesuai style tabel kamu */}
+    <div className="protected-loading">
+      <div className="protected-spinner" />
+      <p>
+        Memuat data...
+      </p>
     </div>
   );
 }

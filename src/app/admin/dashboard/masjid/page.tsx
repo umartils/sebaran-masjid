@@ -8,7 +8,6 @@ import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import PengajuanListSection from "@/components/ListMasjid/TablePengajuan/PengajuanListSection";
 import TablePengajuanSkeleton from "@/components/ListMasjid/TablePengajuan/TablePengajuanSkeleton";
-import { useSession } from "next-auth/react";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
