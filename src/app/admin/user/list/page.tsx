@@ -7,7 +7,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import UserListSection from "@/components/User/UserList/UserListSection";
-import TableUserSkeleton from "@/components/User/UserList/TableUserSkeleton";
+import TableSkeleton from "@/components/TableSkeleton";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
@@ -19,8 +19,10 @@ export default async function AdminPage() {
         <ProtectedPage redirectTo="/admin/user/list">
           <section className="admin-page">
             <h1>Dashboard Admin - Daftar User Se-IMaN</h1>
+            <p className="subtitle">
+            </p>
 
-            <Suspense fallback={<TableUserSkeleton />}>
+            <Suspense fallback={<TableSkeleton />}>
               <UserListSection />
             </Suspense>
           </section>

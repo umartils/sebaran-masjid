@@ -13,7 +13,7 @@ import {
 import type { DataUser } from "@/lib/types";
 import type { BuildingAction } from "./hooks/useApprovalPengajuan";
 
-import styles from "./ListMasjid.module.scss";
+import styles from "./ListUser.module.scss";
 
 interface UserActionsProps {
   user: DataUser;

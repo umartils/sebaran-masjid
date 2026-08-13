@@ -208,9 +208,6 @@ export function FormMasjidMN() {
     >
       <header className="form-header">
         <h1>Formulir Pendataan Masjid</h1>
-        <p>
-          Masukkan data masjid yang telah dibangun oleh Masjid Nusantara.
-        </p>
       </header>
       <div className="form-grid">
         <label className="field span-2">

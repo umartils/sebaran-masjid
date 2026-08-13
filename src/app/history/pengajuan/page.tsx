@@ -5,7 +5,7 @@ import { SideBar } from "@/components/SideBar";
 import { ProtectedPage } from "@/components/ProtectedPage";
 import { SessionGuard } from "@/components/SessionGuard";
 import { Suspense } from "react";
-import TableHistorySkeleton from "@/components/History/Pengajuan/TableHistorySkeleton";
+import TableSkeleton from "@/components/TableSkeleton";
 import HistoryListSection from "@/components/History/Pengajuan/HistoryListSection";
 
 export default async function HistoryPengajuanPage() {
@@ -17,7 +17,7 @@ export default async function HistoryPengajuanPage() {
       <SessionGuard>
         <ProtectedPage redirectTo="/history/pengajuan">
           <section className="admin-page">
-            <Suspense fallback={<TableHistorySkeleton />}>
+            <Suspense fallback={<TableSkeleton />}>
               <HistoryListSection userId = {userId} />
             </Suspense>
           </section>

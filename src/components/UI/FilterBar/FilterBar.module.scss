@@ -1,3 +1,6 @@
+$brand: #f6a313;
+$brand-dark: #d88906;
+
 .filterBar {
   display: flex;
   align-items: center;
@@ -5,7 +8,7 @@
   flex-wrap: wrap;
   margin-bottom: 1.25rem;
 }
-
+ 
 // ── Search ────────────────────────────────────────────────
 
 .searchField {
@@ -201,13 +204,13 @@
   padding: 5px 14px;
   border-radius: 8px;
   border: none;
-  background: #1d4ed8;
+  background: $brand;
   color: #fff;
   cursor: pointer;
   transition: background 0.15s;
 
   &:hover {
-    background: #1e40af;
+    background: $brand-dark;
   }
 }
 
@@ -321,7 +324,7 @@
 
 .selectOptionActive {
   background: #eff6ff;
-  color: #1d4ed8;
+  color: $brand;
   font-weight: 600;
 
   &:hover {

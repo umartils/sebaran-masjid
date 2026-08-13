@@ -1,18 +1,13 @@
-import { MapExperience } from "@/components/SebaranMasjid/MapExperience";
-import { getMapMasjid } from "@/lib/masjid";
-import { getMapMasjidMN } from "@/lib/masjid-mn";
+import { Suspense } from "react";
+import TableSkeleton from "@/components/TableSkeleton";
+import SebaranListSection from "@/components/SebaranMasjid/SebaranListSection";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [buildingsRenovasi, buildingsDibangun] = await Promise.all([
-    getMapMasjid(),
-    getMapMasjidMN(),
-  ]);
 
   return (
-    <MapExperience
-      buildingsRenovasi={buildingsRenovasi}
-      buildingsDibangun={buildingsDibangun}
-    />
+    <Suspense fallback={<TableSkeleton />}>
+      <SebaranListSection />
+    </Suspense>
   );
 }

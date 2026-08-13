@@ -9,7 +9,7 @@ import { usePagination } from "@/hooks/usePagination";
 import UserRow from "./UserRow";
 import ConfirmationModal from "./ConfirmationModal";
 
-import styles from "./ListMasjid.module.scss";
+import styles from "./ListUser.module.scss";
 import { CATEGORY_OPTIONS } from "./constants/categories";
 import type { UserRole } from "@/lib/types";
 
