@@ -7,7 +7,7 @@ import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import TrackingListSection from "@/components/Tracking/ListTracking/TrackingListSection";
-import TableTrackingSkeleton from "@/components/Tracking/ListTracking/TableTrackingSkeleton";
+import TableSkeleton from "@/components/TableSkeleton";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
@@ -21,7 +21,7 @@ export default async function AdminPage() {
 
             <p className="subtitle">
             </p>
-            <Suspense fallback={<TableTrackingSkeleton />}>
+            <Suspense fallback={<TableSkeleton />}>
               <TrackingListSection  />
             </Suspense>
           </section>

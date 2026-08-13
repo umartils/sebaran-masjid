@@ -1,7 +1,7 @@
-import { getMasjidById } from '@/lib/masjid';
-import { notFound } from 'next/navigation';
-import MasjidDetail from '@/components/MasjidDetail/MasjidDetail';
 import { SideBar } from "@/components/SideBar";
+import { Suspense } from "react";
+import TableSkeleton from "@/components/TableSkeleton";
+import MasjidDetailListSection from '@/components/MasjidDetail/MasjidDetailListSection';
  
 export default async function BuildingDetailPage({
   params,
@@ -10,14 +10,16 @@ export default async function BuildingDetailPage({
   params: { id: string };
   searchParams: { from?: string };
 }) {
-  const masjid = await getMasjidById(params.id);
-  const callBackUrl = `/masjid/detail/${params.id}`;
-  if (!masjid) notFound();
+  const id = params.id;
+  const callBackUrl = `/masjid/detail/${id}`;
   const from = searchParams.from || "/";
+  console.log("id", id);
   return (
     <SideBar callBackUrl={callBackUrl}>
       <section className="form-page">
-        <MasjidDetail masjid={masjid} from={from} />
+        <Suspense fallback={<TableSkeleton />}>
+          <MasjidDetailListSection id={id} from={from} />
+        </Suspense>
       </section>
     </SideBar>
   );

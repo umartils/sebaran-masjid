@@ -7,7 +7,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import PengajuanListSection from "@/components/ListMasjid/TablePengajuan/PengajuanListSection";
-import TablePengajuanSkeleton from "@/components/ListMasjid/TablePengajuan/TablePengajuanSkeleton";
+import TableSkeleton from "@/components/TableSkeleton";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
@@ -27,7 +27,7 @@ export default async function AdminPage() {
             <p className="subtitle">
             </p>
 
-            <Suspense fallback={<TablePengajuanSkeleton />}>
+            <Suspense fallback={<TableSkeleton />}>
               <PengajuanListSection role={role} userId={userId}/>
             </Suspense>
 

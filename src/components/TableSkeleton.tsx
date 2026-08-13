@@ -1,5 +1,5 @@
 // components/User/UserList/TableUserSkeleton.tsx
-export default function TableUserSkeleton() {
+export default function TableSkeleton() {
   return (
     <div className="protected-loading">
       <div className="protected-spinner" />
@@ -7,5 +7,5 @@ export default function TableUserSkeleton() {
         Memuat data...
       </p>
     </div>
-  );
-}
+  ); 
+} 
