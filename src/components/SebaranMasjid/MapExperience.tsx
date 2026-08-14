@@ -46,8 +46,6 @@ export function MapExperience({ buildingsRenovasi, buildingsDibangun }: Props) {
   const isOverlayActive = isMobile && (isSidebarOpen || isChatOpen);
 
   // const isOverlayActive = isSidebarOpen || isChatOpen;
-
-  // Pilih dataset aktif berdasarkan mode
   const activeBuildings: (MapMasjid | MapMasjidMNBaru)[] =
     mapMode === "renovasi" ? buildingsRenovasi : buildingsDibangun;
 

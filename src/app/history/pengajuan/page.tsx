@@ -7,9 +7,13 @@ import { SessionGuard } from "@/components/SessionGuard";
 import { Suspense } from "react";
 import TableSkeleton from "@/components/TableSkeleton";
 import HistoryListSection from "@/components/History/Pengajuan/HistoryListSection";
+import { redirect } from "next/navigation";
 
 export default async function HistoryPengajuanPage() {
   const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/login");
+  }
   const userId = session?.user.id ?? "";
 
   return (
