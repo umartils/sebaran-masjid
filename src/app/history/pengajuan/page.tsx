@@ -22,6 +22,8 @@ export default async function HistoryPengajuanPage() {
         <ProtectedPage redirectTo="/history/pengajuan">
           <section className="admin-page">
             <Suspense fallback={<TableSkeleton />}>
+              <h1>Riwayat Pengajuan Pembangunan</h1>
+              <p className="subtitle"></p>
               <HistoryListSection userId = {userId} />
             </Suspense>
           </section>

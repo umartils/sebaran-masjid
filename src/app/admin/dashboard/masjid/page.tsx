@@ -27,15 +27,11 @@ export default async function AdminPage() {
       <SessionGuard>
         <ProtectedPage redirectTo="/admin/dashboard/masjid">
           <section className="admin-page">
-            <h1>Dashboard Admin - Daftar Pengajuan Pembangunan</h1>
-
-            <p className="subtitle">
-            </p>
-
             <Suspense fallback={<TableSkeleton />}>
+              <h1>Dashboard Admin - Daftar Pengajuan Pembangunan</h1>
+              <p className="subtitle"></p>
               <PengajuanListSection role={role} userId={userId}/>
             </Suspense>
-
           </section>
         </ProtectedPage>
       </SessionGuard>

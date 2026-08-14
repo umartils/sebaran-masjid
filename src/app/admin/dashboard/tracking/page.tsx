@@ -23,11 +23,9 @@ export default async function AdminPage() {
       <SessionGuard>
         <ProtectedPage redirectTo="/admin/dashboard/tracking">
           <section className="admin-page">
-            <h1>Dashboard Admin - Tracking Pembangunan</h1>
-
-            <p className="subtitle">
-            </p>
             <Suspense fallback={<TableSkeleton />}>
+            <h1>Dashboard Admin - Tracking Pembangunan</h1>
+            <p className="subtitle"></p>
               <TrackingListSection  />
             </Suspense>
           </section>
