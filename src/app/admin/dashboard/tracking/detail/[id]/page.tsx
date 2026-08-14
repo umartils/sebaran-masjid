@@ -3,8 +3,13 @@ import { SideBar } from "@/components/SideBar";
 import { notFound } from "next/navigation";
 import { getTrackingMasjidById } from "@/lib/tracking";
 import { ProtectedPage } from "@/components/ProtectedPage";
-import { DetailProgres } from "@/components/Tracking/ProgresDetail/DetailProgres";
+import DetailListSection from "@/components/Tracking/ProgresDetail/DetailListSection";
 import { SessionGuard } from "@/components/SessionGuard";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import TableSkeleton from "@/components/TableSkeleton";
 
 export default async function DetilTrackingPage({
   params,
@@ -13,22 +18,29 @@ export default async function DetilTrackingPage({
   params: { id: string };
   searchParams: { from?: string };
 }) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/login");
+  }
+  if (session?.user.role !== "Admin") return notFound();
+
+  const id = params.id;
+  if (!id) {
+    notFound();
+  }
+  const from = searchParams.from || "/";
+
   const tracking = await getTrackingMasjidById(params.id);
   if (!tracking) notFound();
-  const from = searchParams.from || "/";
 
   return (
     <SideBar>
       <SessionGuard>
         <ProtectedPage redirectTo="/admin/dashboard/tracking">
           <section className="admin-page">
-            {/* <h1>Detail Tracking Pembangunan Masjid </h1> */}
-
-            {/* <p className="subtitle">
-              Ringkasan data progres pembangunan progres yang masuk ke sistem.
-            </p> */}
-
-            <DetailProgres tracking={tracking} from={from} />
+            <Suspense fallback={<TableSkeleton />}>
+              <DetailListSection id={id} from={from} />
+            </Suspense>
           </section>
         </ProtectedPage>
       </SessionGuard>

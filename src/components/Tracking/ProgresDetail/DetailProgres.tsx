@@ -22,6 +22,7 @@ interface Props {
 export function DetailProgres({ tracking, from }: Props) {
   const router = useRouter();
   const finished = tracking.status === "SELESAI";
+  const isEmpty = tracking.logs.length === 0;
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [activateUrl, setActivateUrl] = useState("");
@@ -75,7 +76,11 @@ export function DetailProgres({ tracking, from }: Props) {
           Tambah Progres
         </button>
 
-        <button className={styles.pdfBtn} onClick={handleDownloadAllPDF}>
+        <button 
+          className={styles.pdfBtn} 
+          onClick={handleDownloadAllPDF}
+          disabled={isEmpty}
+          >
           <FileDown size={15} />
           Download PDF
         </button>
